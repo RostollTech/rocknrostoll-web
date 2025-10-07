@@ -2,6 +2,13 @@ import { useEffect, useMemo, useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import InstagramEmbed from "../components/InstagramEmbed";
+import aboutActualitatImage from "../assets/img/about-actualitat.jpg";
+import aboutOrigensImage from "../assets/img/about-origens.jpg";
+import aboutSafareigImage from "../assets/img/about-safareig.jpg";
+import contactHeroImage from "../assets/img/contact1.jpg";
+import homeHeroImage from "../assets/img/home-hero.jpg";
+import rostollImage from "../assets/img/rostoll1.jpg";
+import aboutVoluntariatImage from "../assets/img/about-voluntariat.jpg";
 
 const EVENT_DATE = new Date("2026-08-29T19:00:00");
 
@@ -49,12 +56,12 @@ export default function Home() {
 
   const gallery = useMemo(
     () => [
-      { src: "/img/home-hero.jpg", alt: "Concert Rock’n’Rostoll 2019" },
-      { src: "/img/rostoll1.jpg", alt: "Safareig Dance de matinada" },
-      { src: "/img/about-safareig.jpg", alt: "Públic ballant al Safareig Dance" },
-      { src: "/img/about-actualitat.jpg", alt: "Voluntariat muntant l’escenari" },
-      { src: "/img/about-origens.jpg", alt: "Concert a Son Perot amb llums vermelles" },
-      { src: "/img/about-voluntariat.jpg", alt: "Equip de voluntariat de Rock’n’Rostoll" },
+      { src: homeHeroImage, alt: "Concert Rock’n’Rostoll 2019" },
+      { src: rostollImage, alt: "Safareig Dance de matinada" },
+      { src: aboutSafareigImage, alt: "Públic ballant al Safareig Dance" },
+      { src: aboutActualitatImage, alt: "Voluntariat muntant l’escenari" },
+      { src: aboutOrigensImage, alt: "Concert a Son Perot amb llums vermelles" },
+      { src: aboutVoluntariatImage, alt: "Equip de voluntariat de Rock’n’Rostoll" },
     ],
     []
   );
@@ -160,7 +167,7 @@ export default function Home() {
               </ul>
             </div>
             <div className="media-card">
-              <img src="/img/contact1.jpg" alt="Ambient nocturn del Rock’n’Rostoll" />
+              <img src={contactHeroImage} alt="Ambient nocturn del Rock’n’Rostoll" />
             </div>
           </div>
         </section>

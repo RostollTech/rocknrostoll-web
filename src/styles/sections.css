@@ -14,7 +14,7 @@
   position: absolute;
   inset: 0;
   background: linear-gradient(140deg, rgba(12, 13, 18, 0.3) 0%, rgba(12, 13, 18, 0.85) 65%),
-    url("/img/home-hero.jpg") center/cover no-repeat;
+    url("../assets/img/home-hero.jpg") center/cover no-repeat;
   transform: scale(1.08);
   filter: saturate(120%);
   z-index: -2;

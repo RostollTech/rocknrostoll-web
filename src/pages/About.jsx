@@ -1,6 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import aboutActualitatImage from "../assets/img/about-actualitat.jpg";
+import aboutOrigensImage from "../assets/img/about-origens.jpg";
+import aboutSafareigImage from "../assets/img/about-safareig.jpg";
+import aboutVoluntariatImage from "../assets/img/about-voluntariat.jpg";
 
 function usePrefersReducedMotion() {
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
@@ -165,7 +169,7 @@ export default function About() {
               </p>
             </div>
             <img
-              src="/img/about-origens.jpg"
+              src={aboutOrigensImage}
               alt="Fotografia històrica dels primers organitzadors preparant el camp de rostoll"
             />
           </div>
@@ -174,7 +178,7 @@ export default function About() {
         <section className="page-section">
           <div className="page-content split-layout">
             <img
-              src="/img/about-safareig.jpg"
+              src={aboutSafareigImage}
               alt="Ambient al Safareig Dance amb la gent ballant dins el safareig il·luminat"
             />
             <div>
@@ -220,7 +224,7 @@ export default function About() {
               </p>
             </div>
             <img
-              src="/img/about-voluntariat.jpg"
+              src={aboutVoluntariatImage}
               alt="Joves voluntaris muntant infraestructures del festival"
             />
           </div>
@@ -229,7 +233,7 @@ export default function About() {
         <section className="page-section">
           <div className="page-content split-layout">
             <img
-              src="/img/about-actualitat.jpg"
+              src={aboutActualitatImage}
               alt="Vista recent del festival amb el públic omplint el camp de rostoll"
             />
             <div>
