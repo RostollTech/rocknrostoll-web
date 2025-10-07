@@ -1,0 +1,280 @@
+.page-hero {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  padding: clamp(6rem, 12vw, 9rem) 0;
+  min-height: 32rem;
+}
+
+.page-hero .page-title {
+  margin-bottom: 1.5rem;
+}
+
+.page-hero__image {
+  position: absolute;
+  inset: -15%;
+  z-index: 0;
+  pointer-events: none;
+  background-image: linear-gradient(180deg, rgba(8, 11, 18, 0.3), rgba(8, 11, 18, 1)), url("/img/about-hero.jpg");
+  background-size: cover;
+  background-position: center;
+  filter: saturate(1.05);
+}
+
+.page-hero__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(120% 120% at 50% 0%, rgba(255, 255, 255, 0.08) 0%, rgba(12, 14, 22, 0.78) 55%,
+      rgba(8, 10, 18, 0.95) 100%);
+  mix-blend-mode: screen;
+  opacity: 0.4;
+}
+
+.page-hero__inner {
+  position: relative;
+  z-index: 2;
+  will-change: transform;
+}
+
+.contact-hero .page-hero__image {
+  background-image: linear-gradient(180deg, rgba(8, 11, 18, 0.35), rgba(8, 11, 18, 0.9)), url("/img/contact-hero.jpg");
+  background-position: center;
+}
+
+.contact-hero .page-description {
+  max-width: 680px;
+}
+
+.contact-social-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.qr-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.qr-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.75rem;
+  padding: 1.5rem;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: var(--shadow-card);
+}
+
+.qr-card p {
+  margin: 0;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.qr-image {
+  width: 8rem;
+  height: 8rem;
+  padding: 0.75rem;
+  border-radius: 1rem;
+  background: rgb(255, 255, 255);
+  box-shadow: 0 24px 45px rgba(0, 0, 0, 0.45);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.qr-image:hover,
+.qr-image:focus-visible {
+  transform: translateY(-4px);
+  box-shadow: 0 30px 55px rgba(0, 0, 0, 0.5);
+}
+
+.contact-grid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.contact-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-md);
+  padding: 2rem;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.contact-card h3 {
+  margin: 0;
+  font-size: 1.4rem;
+  font-family: "Space Grotesk", sans-serif;
+}
+
+.contact-card p {
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+.map-frame {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: var(--shadow-elevated);
+}
+
+.contact-visual {
+  max-width: 540px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.contact-visual img {
+  height: 100%;
+  object-fit: cover;
+}
+
+.map-frame img
+.map-frame iframe {
+  width: 100%;
+  display: block;
+}
+
+.map-frame iframe {
+  min-height: 24rem;
+  border: 0;
+}
+
+.shop-intro {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.merch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+}
+
+.merch-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.merch-card:hover,
+.merch-card:focus-within {
+  transform: translateY(-6px);
+  box-shadow: 0 30px 55px rgba(0, 0, 0, 0.35);
+}
+
+.merch-card img {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  border-radius: 0;
+}
+
+.merch-content {
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  flex: 1;
+}
+
+.merch-content h3 {
+  margin: 0;
+  font-size: 1.3rem;
+  font-family: "Space Grotesk", sans-serif;
+}
+
+.legal-hero__inner {
+  max-width: 720px;
+  text-align: center;
+}
+
+.legal-hero .page-description {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.legal-content {
+  max-width: 56rem;
+}
+
+.legal-content h2 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  margin: 3rem 0 1rem;
+}
+
+.legal-content h2:first-of-type {
+  margin-top: 0;
+}
+
+.legal-content p {
+  color: var(--text-secondary);
+  margin: 0 0 1.5rem;
+}
+
+.legal-content ul {
+  margin: 0 0 2rem 0;
+  padding-left: 1.5rem;
+  list-style: disc;
+  color: var(--text-secondary);
+}
+
+.legal-content li {
+  margin-bottom: 0.75rem;
+}
+
+.legal-content a {
+  color: var(--accent);
+}
+
+.legal-content a:hover,
+.legal-content a:focus-visible {
+  color: var(--accent-alt);
+}
+
+.merch-price {
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--accent-alt);
+}
+
+.merch-actions {
+  margin-top: auto;
+}
+
+.merch-actions .btn-outline {
+  width: 100%;
+  justify-content: center;
+}
+
+@media (min-width: 1024px) {
+  .contact-social-wrapper {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 3rem;
+  }
+
+  .qr-grid {
+    max-width: 420px;
+  }
+}
+

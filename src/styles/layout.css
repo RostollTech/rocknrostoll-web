@@ -1,0 +1,134 @@
+.container {
+  width: min(100%, var(--max-width));
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.section {
+  padding: clamp(4rem, 8vw, 7rem) 0;
+}
+
+.section-alt {
+  background: rgba(20, 22, 32, 0.6);
+  backdrop-filter: blur(6px);
+}
+
+.section-header {
+  max-width: 720px;
+  margin: 0 auto 3rem auto;
+  text-align: center;
+}
+
+.section-header--left {
+  text-align: left;
+  margin: 0 0 3rem 0;
+}
+
+.section-header--left .section-description {
+  margin-left: 0;
+}
+
+.section-eyebrow {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.45em;
+  color: var(--accent-alt);
+  margin-bottom: 1rem;
+}
+
+.section-title {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700;
+  margin: 0 0 1rem 0;
+}
+
+.section-description {
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.button-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.page-header {
+  padding: clamp(4rem, 8vw, 6rem) 0;
+  text-align: center;
+}
+
+.page-title {
+  font-family: "Archivo Black", sans-serif;
+  font-size: clamp(2.6rem, 5vw, 3.5rem);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin: 0 0 1.25rem 0;
+}
+
+.page-description {
+  color: var(--text-secondary);
+  margin: 0 auto;
+  max-width: 640px;
+}
+
+.page-section {
+  padding: clamp(3rem, 7vw, 6rem) 0;
+}
+
+.page-content {
+  width: min(100%, var(--max-width));
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.page-grid {
+  display: grid;
+  gap: 2.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.page-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-md);
+  padding: 2rem;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.page-card span {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.35em;
+  color: var(--accent-alt);
+}
+
+.page-card h3 {
+  font-size: 1.4rem;
+  margin: 0;
+  font-family: "Space Grotesk", sans-serif;
+}
+
+.page-card p {
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.split-layout {
+  display: grid;
+  gap: 3rem;
+  align-items: center;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+
+.split-layout img {
+  width: 100%;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: var(--shadow-elevated);
+}
+

@@ -1,0 +1,391 @@
+/* Hero */
+.hero {
+  position: relative;
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(140deg, rgba(12, 13, 18, 0.3) 0%, rgba(12, 13, 18, 0.85) 65%),
+    url("/img/home-hero.jpg") center/cover no-repeat;
+  transform: scale(1.08);
+  filter: saturate(120%);
+  z-index: -2;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 20% 20%, rgba(255, 91, 115, 0.15), transparent 55%),
+    radial-gradient(circle at 80% 15%, rgba(90, 200, 255, 0.2), transparent 65%);
+  z-index: -1;
+}
+
+.hero-content {
+  width: min(100%, 760px);
+  padding: clamp(2rem, 8vw, 4rem);
+  border-radius: var(--radius-lg);
+  background: rgba(12, 13, 18, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 35px 70px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(12px);
+}
+
+.hero-eyebrow {
+  font-size: 0.8rem;
+  letter-spacing: 0.55em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--accent-alt);
+  margin-bottom: 1.5rem;
+}
+
+.hero-title {
+  font-family: "Archivo Black", sans-serif;
+  font-size: clamp(2.3rem, 5.5vw, 4rem);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.hero-meta {
+  margin: 1.5rem 0 2rem 0;
+  color: var(--text-secondary);
+  font-size: 1rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.countdown-grid {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 2.5rem 0 2rem 0;
+}
+
+.countdown-card {
+  min-width: 110px;
+  padding: 1.25rem 1.5rem;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+.countdown-number {
+  font-size: 2.5rem;
+  font-weight: 700;
+  font-family: "Space Grotesk", sans-serif;
+  color: var(--accent);
+  margin: 0 0 0.35rem 0;
+}
+
+.countdown-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.hero-description {
+  color: var(--text-secondary);
+  margin: 0 auto 2.5rem auto;
+  max-width: 520px;
+}
+
+/* Info grid */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+
+.info-card {
+  background: linear-gradient(180deg, rgba(20, 22, 32, 0.95), rgba(15, 16, 24, 0.85));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  box-shadow: var(--shadow-soft);
+}
+
+.info-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.35em;
+  color: var(--accent-alt);
+}
+
+.info-title {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.3rem;
+  margin: 0;
+}
+
+.info-text {
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* Feature sections */
+.two-column {
+  display: grid;
+  gap: 3rem;
+  align-items: center;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.two-column .media-card {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--bg-contrast);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: var(--shadow-elevated);
+}
+
+.two-column .media-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.two-column-content h3 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.9rem;
+  margin: 0 0 1rem 0;
+}
+
+.two-column-content p {
+  color: var(--text-secondary);
+  margin: 0 0 1.5rem 0;
+}
+
+.two-column-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.two-column-list li {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-sm);
+  padding: 1rem 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  color: var(--text-secondary);
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+}
+
+.feature-card {
+  padding: 2rem;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.feature-card span {
+  font-size: 0.8rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--accent-alt);
+}
+
+.feature-card h4 {
+  font-size: 1.4rem;
+  font-family: "Space Grotesk", sans-serif;
+  margin: 0;
+}
+
+.feature-card p {
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* Lineup */
+.lineup-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.25rem;
+}
+
+.lineup-card {
+  padding: 1.75rem;
+  border-radius: var(--radius-md);
+  background: rgba(12, 13, 18, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: var(--shadow-card);
+}
+
+.lineup-time {
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--accent-alt);
+}
+
+.lineup-name {
+  font-family: "Archivo Black", sans-serif;
+  font-size: 1.4rem;
+  margin: 0.75rem 0 0.25rem 0;
+}
+
+.lineup-note {
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* Timeline */
+.timeline {
+  display: grid;
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+.timeline-item {
+  position: relative;
+  padding-left: 2.5rem;
+}
+
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: 0.9rem;
+  top: 0.3rem;
+  bottom: -1.5rem;
+  width: 2px;
+  background: linear-gradient(180deg, rgba(255, 91, 115, 0.2), rgba(90, 200, 255, 0.45));
+}
+
+.timeline-item:last-child::before {
+  bottom: 0.3rem;
+}
+
+.timeline-marker {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.2);
+  background: linear-gradient(135deg, var(--accent), var(--accent-alt));
+  box-shadow: 0 0 0 6px rgba(255, 91, 115, 0.15);
+}
+
+.timeline-time {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: var(--accent-alt);
+  margin-bottom: 0.35rem;
+}
+
+.timeline-title {
+  font-size: 1.2rem;
+  font-family: "Space Grotesk", sans-serif;
+  margin: 0 0 0.35rem 0;
+}
+
+.timeline-text {
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* Gallery */
+.gallery-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.gallery-grid img {
+  height: 220px;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.gallery-grid img:hover,
+.gallery-grid img:focus-visible {
+  transform: translateY(-6px);
+  box-shadow: 0 30px 45px rgba(0, 0, 0, 0.35);
+}
+
+.instagram-frame {
+  position: relative;
+  width: 100%;
+  max-width: 540px;
+  margin: 0 auto;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: var(--shadow-elevated);
+  background: #000; /* opcional, per evitar parpelleigs mentre carrega */
+}
+
+.instagram-frame blockquote {
+  margin: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.instagram-frame iframe {
+  border: 0;
+  width: 100% !important;
+}
+
+.instagram-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center; /* centra la galeria */
+}
+
+.instagram-frame {
+  flex: 1 1 300px;   /* creix, redueix i té un mínim de 300px */
+  max-width: 350px;  /* amplada màxima de cada vídeo */
+}
+
+/* CTA */
+.cta-banner {
+  margin: clamp(3rem, 6vw, 6rem) auto clamp(4rem, 8vw, 7rem);
+  width: min(100%, 980px);
+  padding: clamp(2rem, 6vw, 3.5rem);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(120deg, rgba(255, 91, 115, 0.18), rgba(90, 200, 255, 0.18));
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+}
+
+.cta-banner h3 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(2rem, 4.5vw, 2.8rem);
+  margin: 0 0 1rem 0;
+}
+
+.cta-banner p {
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+}
+
