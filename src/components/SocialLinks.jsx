@@ -1,22 +1,26 @@
+import iconInstagram from "../assets/icons/facebook.png";
+import iconFacebook from "../assets/icons/instagram.png";
+import iconMail from "../assets/icons/mail.png";
+
 const links = [
   {
     label: "Instagram",
     href: "https://www.instagram.com/rocknrostoll/",
-    icon: "/icons/instagram.png",
+    icon: iconInstagram,
     ariaLabel: "Instagram @rocknrostoll",
     detail: "@rocknrostoll",
   },
   {
     label: "Facebook",
     href: "https://www.facebook.com/RadioRostoll/",
-    icon: "/icons/facebook.png",
+    icon: iconFacebook,
     ariaLabel: "Facebook RadioRostoll",
     detail: "RadioRostoll",
-  },
+  }, 
   {
     label: "Email",
     href: "mailto:rocknrostoll@gmail.com",
-    icon: "/icons/mail.png",
+    icon: iconMail,
     ariaLabel: "Email rocknrostoll@gmail.com",
     detail: "@gmail.com",
   },
