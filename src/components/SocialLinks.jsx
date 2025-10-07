@@ -1,5 +1,5 @@
-import iconInstagram from "../assets/icons/facebook.png";
-import iconFacebook from "../assets/icons/instagram.png";
+import iconFacebook from "../assets/icons/facebook.png";
+import  iconInstagram from "../assets/icons/instagram.png";
 import iconMail from "../assets/icons/mail.png";
 
 const links = [
