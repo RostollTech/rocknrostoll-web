@@ -15,7 +15,8 @@
   inset: -15%;
   z-index: 0;
   pointer-events: none;
-  background-image: linear-gradient(180deg, rgba(8, 11, 18, 0.3), rgba(8, 11, 18, 1)), url("/img/about-hero.jpg");
+  background-image: linear-gradient(180deg, rgba(8, 11, 18, 0.3), rgba(8, 11, 18, 1)),
+    url("../assets/img/about-hero.jpg");
   background-size: cover;
   background-position: center;
   filter: saturate(1.05);
@@ -39,7 +40,8 @@
 }
 
 .contact-hero .page-hero__image {
-  background-image: linear-gradient(180deg, rgba(8, 11, 18, 0.35), rgba(8, 11, 18, 0.9)), url("/img/contact-hero.jpg");
+  background-image: linear-gradient(180deg, rgba(8, 11, 18, 0.35), rgba(8, 11, 18, 0.9)),
+    url("../assets/img/contact-hero.jpg");
   background-position: center;
 }
 

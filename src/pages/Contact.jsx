@@ -1,6 +1,9 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import SocialLinks from "../components/SocialLinks";
+import contactMapImage from "../assets/img/contact-map.jpg";
+import qrFacebookImage from "../assets/qr/qr_facebook.png";
+import qrInstagramImage from "../assets/qr/qr_instagram.png";
 
 export default function Contact() {
   return (
@@ -57,7 +60,7 @@ export default function Contact() {
                 <div className="qr-grid">
                   <div className="qr-card">
                     <img
-                      src="/qr/qr_instagram.png"
+                      src={qrInstagramImage}
                       alt="Codi QR d'Instagram de Rock’n’Rostoll"
                       className="qr-image"
                     />
@@ -65,7 +68,7 @@ export default function Contact() {
                   </div>
                   <div className="qr-card">
                     <img
-                      src="/qr/qr_facebook.png"
+                      src={qrFacebookImage}
                       alt="Codi QR de Facebook de Rock’n’Rostoll"
                       className="qr-image"
                     />
@@ -74,8 +77,8 @@ export default function Contact() {
                   
                 </div>
                 <div className="map-frame">
-                    <img src="/img/contact-map.jpg" alt="Vista del camp de rostoll on se celebra el festival" />
-                  </div>
+                  <img src={contactMapImage} alt="Vista del camp de rostoll on se celebra el festival" />
+                </div>
               </div>
             </div>
           </div>
