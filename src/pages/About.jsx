@@ -82,13 +82,13 @@ export default function About() {
                 ballar damunt el rostoll esdevingueren segell del festival.
               </p>
             </div>
-            <img src={aboutActualitatImage} alt="Voluntaris preparant l'escenari del festival" />
+            <img src={aboutVoluntariatImage} alt="Voluntaris preparant l'escenari del festival" />
           </div>
         </section>
 
         <section className="page-section">
           <div className="page-content split-layout">
-            <img src={aboutVoluntariatImage} alt="Equip de voluntaris del festival Rock’n’Rostoll" />
+            <img src={aboutActualitatImage} alt="Equip de voluntaris del festival Rock’n’Rostoll" />
             <div>
               <h2 className="section-title">Actualitat: 30 Anys de Germanor i Cultura (2011-Avui)</h2>
               <p className="section-description">
@@ -105,29 +105,6 @@ export default function About() {
           </div>
         </section>
 
-        <section className="page-section section-alt">
-          <div className="page-content split-layout">
-            <div>
-              <h2 className="section-title">Valors que Ens Defineixen</h2>
-              <ul className="two-column-list">
-                <li>Autogestió i voluntariat des dels inicis.</li>
-                <li>Entrada lliure per garantir l’accés a la cultura.</li>
-                <li>Compromís amb la seguretat i el respecte mutu.</li>
-                <li>Arrelament al territori i orgull rural.</li>
-                <li>Innovació musical i suport a l’escena local.</li>
-              </ul>
-            </div>
-            <ul className="two-column-list">
-              <li>Connexió intergeneracional entre els habitants de Maria de la Salut.</li>
-              <li>Un espai segur on expressar-se i celebrar la llibertat.</li>
-              <li>Un festival sense ànim de lucre que reinverteix en la comunitat.</li>
-              <li>
-                Punt de trobada anual per a músics, DJ, artistes visuals i col·lectius socials de tot Mallorca.
-              </li>
-            </ul>
-          </div>
-        </section>
-
         <section className="page-section">
           <div className="page-content split-layout">
             <div>
@@ -135,7 +112,7 @@ export default function About() {
               <p className="section-description">
                 Rock'n'Rostoll és possible gràcies a les persones voluntàries que any rere any dediquen temps, esforç i il·lusió
                 a muntar escenaris, coordinar activitats, cuidar la logística i garantir que tot funcioni. A la vegada, el
-                festival és una escola de gestió cultural i treball col·lectiu per a centenars de joves del municipi.
+                festival és una escola de gestió i treball col·lectiu pels joves del municipi.
               </p>
               <p className="section-description">
                 De cara als pròxims anys, Rock'n'Rostoll seguirà evolucionant sense perdre les seves arrels: un festival rural,
