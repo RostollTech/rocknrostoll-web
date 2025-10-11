@@ -36,7 +36,7 @@
 }
 
 .hero-content {
-  width: min(100%, 760px);
+  width: min(75%, 760px);
   padding: clamp(2.5rem, 7vw, 4.5rem);
   color: rgba(244, 230, 209, 0.95);
 }
@@ -52,7 +52,7 @@
 
 .hero-title {
   font-family: "Archivo Black", sans-serif;
-  font-size: clamp(3.2rem, 8vw, 5rem);
+  font-size: clamp(2.2rem, 8vw, 5rem);
   letter-spacing: 0.12em;
   text-transform: uppercase;
   margin: 0;
@@ -63,7 +63,7 @@
 .hero-meta {
   margin: 1.5rem 0 2.3rem 0;
   color: rgba(244, 230, 209, 0.75);
-  font-size: 0.95rem;
+  font-size: 0.75rem;
   letter-spacing: 0.25em;
   text-transform: uppercase;
 }
@@ -77,7 +77,7 @@
   border-radius: 999px;
   background: linear-gradient(135deg, rgba(255, 61, 50, 0.9), rgba(241, 107, 166, 0.82));
   color: var(--poster-paper);
-  font-size: 0.82rem;
+  font-size: 0.62rem;
   letter-spacing: 0.28em;
   text-transform: uppercase;
   border: 1px solid rgba(255, 228, 214, 0.45);
