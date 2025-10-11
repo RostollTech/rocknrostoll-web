@@ -3,8 +3,8 @@ import Footer from "../components/Footer";
 import PageHero from "../components/PageHero";
 import SocialLinks from "../components/SocialLinks";
 import contactMapImage from "../assets/img/contact-map.jpg";
-import qrFacebookImage from "../assets/qr/qr_facebook.png";
-import qrInstagramImage from "../assets/qr/qr_instagram.png";
+import qrFacebookImage from "../assets/qr/qr_facebook_blanc.png";
+import qrInstagramImage from "../assets/qr/qr_instagram_blanc.png";
 
 export default function Contact() {
   return (
@@ -44,6 +44,7 @@ export default function Contact() {
 
         <section className="page-section">
           <div className="page-content split-layout">
+                          
             <div>
               <div className="section-header section-header--left">
                 <p className="section-eyebrow">Segueix-nos</p>
@@ -53,8 +54,8 @@ export default function Contact() {
                 </p>
               </div>
               <div className="contact-social-wrapper">
-                <SocialLinks />
-                <div className="qr-grid">
+                
+                <SocialLinks />             
                   <div className="qr-card">
                     <img
                       src={qrInstagramImage}
@@ -71,8 +72,7 @@ export default function Contact() {
                     />
                     <p>Escaneja per seguir-nos a Facebook</p>
                   </div>
-                </div>
-                <div className="map-frame">
+                  <div className="map-frame">
                   <img src={contactMapImage} alt="Vista del camp de rostoll on se celebra el festival" />
                 </div>
               </div>

@@ -38,7 +38,7 @@
 .hero-content {
   width: min(75%, 760px);
   padding: clamp(2.5rem, 7vw, 4.5rem);
-  color: rgba(244, 230, 209, 0.95);
+  color: rgba(244, 230, 209, 0.6);
 }
 
 .hero-eyebrow {
@@ -52,7 +52,7 @@
 
 .hero-title {
   font-family: "Archivo Black", sans-serif;
-  font-size: clamp(2.2rem, 8vw, 5rem);
+  font-size: clamp(2rem, 6vw, 3.5rem);
   letter-spacing: 0.12em;
   text-transform: uppercase;
   margin: 0;
@@ -130,7 +130,7 @@
 }
 
 .home-hero::before {
-  background: linear-gradient(140deg, rgba(8, 3, 4, 0.82), rgba(60, 12, 22, 0.86)),
+  background: linear-gradient(140deg, rgba(8, 3, 4, 0.65), rgba(60, 12, 22, 0.55)),
     url("../assets/img/home-hero.jpg");
   background-size: cover;
   background-position: center;
