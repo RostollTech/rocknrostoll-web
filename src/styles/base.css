@@ -1,21 +1,28 @@
-@import url("https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700;800&display=swap");
 
 :root {
-  --bg-base: #0c0d12;
-  --bg-elevated: #141620;
-  --bg-contrast: #1f2230;
-  --accent: #ff5b73;
-  --accent-alt: #5ac8ff;
-  --text-primary: #f5f6f7;
-  --text-secondary: #c8cbd2;
-  --border-subtle: rgba(255, 255, 255, 0.08);
-  --radius-lg: 1.75rem;
-  --radius-md: 1.2rem;
-  --radius-sm: 0.75rem;
+  --poster-red: #d74332;
+  --poster-deep-red: #b23022;
+  --poster-dark: #23100c;
+  --poster-ink: #000000;
+  --poster-paper: #f6ecdd;
+  --poster-paper-deep: #efe0cb;
+  --poster-gold: #f3b548;
+  --bg-base: var(--poster-paper);
+  --bg-elevated: #fff7e7;
+  --bg-contrast: #f1dcc6;
+  --accent: var(--poster-red);
+  --accent-alt: var(--poster-gold);
+  --text-primary: var(--poster-dark);
+  --text-secondary: #6e4135;
+  --border-subtle: rgba(35, 16, 12, 0.12);
+  --radius-lg: 2.25rem;
+  --radius-md: 1.4rem;
+  --radius-sm: 0.9rem;
   --max-width: 1200px;
-  --shadow-elevated: 0 30px 60px rgba(0, 0, 0, 0.4);
-  --shadow-soft: 0 20px 35px rgba(4, 6, 12, 0.35);
-  --shadow-card: 0 20px 35px rgba(0, 0, 0, 0.35);
+  --shadow-elevated: 20px 20px 0 rgba(35, 16, 12, 0.18);
+  --shadow-soft: 14px 14px 0 rgba(35, 16, 12, 0.14);
+  --shadow-card: 10px 10px 0 rgba(35, 16, 12, 0.16);
   --transition-base: 0.3s ease;
 }
 
@@ -28,10 +35,16 @@
 body {
   margin: 0;
   font-family: "Inter", sans-serif;
-  background: radial-gradient(circle at top, #1d2236, var(--bg-base) 55%);
+  background-color: var(--bg-base);
+  background-image: radial-gradient(circle at top left, rgba(215, 67, 50, 0.12), transparent 55%),
+    radial-gradient(circle at bottom right, rgba(243, 181, 72, 0.18), transparent 60%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.35), transparent 40%),
+    linear-gradient(0deg, rgba(255, 255, 255, 0.18), transparent 45%),
+    linear-gradient(90deg, rgba(215, 67, 50, 0.04), transparent 30%, rgba(35, 16, 12, 0.05));
   color: var(--text-primary);
-  line-height: 1.6;
+  line-height: 1.65;
   min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
 }
 
 img,
@@ -39,10 +52,11 @@ video {
   max-width: 100%;
   display: block;
   border-radius: var(--radius-sm);
+  box-shadow: 6px 6px 0 rgba(35, 16, 12, 0.1);
 }
 
 a {
-  color: inherit;
+  color: var(--text-primary);
   text-decoration: none;
   transition: color var(--transition-base);
 }
@@ -68,4 +82,3 @@ textarea {
   font: inherit;
   color: inherit;
 }
-

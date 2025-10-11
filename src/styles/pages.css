@@ -1,48 +1,55 @@
 .page-hero {
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   isolation: isolate;
-  padding: clamp(6rem, 12vw, 9rem) 0;
-  min-height: 32rem;
+  padding: clamp(5rem, 10vw, 7.5rem) 0;
+  min-height: 30rem;
+}
+
+.page-hero::before {
+  content: "";
+  position: absolute;
+  inset: clamp(1.5rem, 6vw, 4rem);
+  background: linear-gradient(130deg, var(--accent) 0%, var(--poster-deep-red) 70%);
+  border-radius: var(--radius-lg);
+  border: 4px solid var(--poster-dark);
+  box-shadow: 32px 32px 0 rgba(35, 16, 12, 0.25);
+  z-index: -2;
+}
+
+.page-hero::after {
+  content: "";
+  position: absolute;
+  inset: clamp(1.5rem, 6vw, 4rem);
+  border-radius: var(--radius-lg);
+  background-image: repeating-linear-gradient(45deg, rgba(255, 238, 220, 0.18) 0 14px, transparent 14px 28px);
+  opacity: 0.3;
+  mix-blend-mode: screen;
+  z-index: -1;
 }
 
 .page-hero .page-title {
   margin-bottom: 1.5rem;
+  color: rgba(255, 238, 220, 0.95);
 }
 
-.page-hero__image {
-  position: absolute;
-  inset: -15%;
-  z-index: 0;
-  pointer-events: none;
-  background-image: linear-gradient(180deg, rgba(8, 11, 18, 0.3), rgba(8, 11, 18, 1)),
-    url("../assets/img/about-hero.jpg");
-  background-size: cover;
-  background-position: center;
-  filter: saturate(1.05);
-}
-
+.page-hero__image,
 .page-hero__overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  background: radial-gradient(120% 120% at 50% 0%, rgba(255, 255, 255, 0.08) 0%, rgba(12, 14, 22, 0.78) 55%,
-      rgba(8, 10, 18, 0.95) 100%);
-  mix-blend-mode: screen;
-  opacity: 0.4;
+  display: none;
 }
 
 .page-hero__inner {
   position: relative;
-  z-index: 2;
-  will-change: transform;
+  z-index: 1;
+  color: rgba(255, 238, 220, 0.9);
+  text-align: center;
+  max-width: 720px;
 }
 
-.contact-hero .page-hero__image {
-  background-image: linear-gradient(180deg, rgba(8, 11, 18, 0.35), rgba(8, 11, 18, 0.9)),
-    url("../assets/img/contact-hero.jpg");
-  background-position: center;
+.page-hero .page-description {
+  color: rgba(255, 238, 220, 0.8);
+  max-width: 640px;
+  margin: 0 auto;
 }
 
 .contact-hero .page-description {
@@ -52,13 +59,13 @@
 .contact-social-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 2.5rem;
 }
 
 .qr-grid {
   display: grid;
-  gap: 1.5rem;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
 
 .qr-card {
@@ -66,18 +73,18 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 0.75rem;
-  padding: 1.5rem;
+  gap: 1rem;
+  padding: 2rem 1.5rem;
   border-radius: var(--radius-md);
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: var(--bg-elevated);
+  border: 3px solid var(--poster-dark);
   box-shadow: var(--shadow-card);
 }
 
 .qr-card p {
   margin: 0;
-  font-size: 0.85rem;
-  letter-spacing: 0.08em;
+  font-size: 0.9rem;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--text-secondary);
 }
@@ -86,18 +93,19 @@
   width: min(100%, 8rem);
   aspect-ratio: 1 / 1;
   height: auto;
-  padding: 0.75rem;
-  border-radius: 1rem;
-  background: rgb(255, 255, 255);
-  box-shadow: 0 24px 45px rgba(0, 0, 0, 0.45);
-  transition: transform var(--transition-base), box-shadow var(--transition-base);
+  padding: 0.85rem;
+  border-radius: 1.2rem;
+  background: #fff6e9;
+  border: 3px solid var(--poster-dark);
+  box-shadow: 10px 10px 0 rgba(35, 16, 12, 0.18);
   object-fit: contain;
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
 }
 
 .qr-image:hover,
 .qr-image:focus-visible {
-  transform: translateY(-4px);
-  box-shadow: 0 30px 55px rgba(0, 0, 0, 0.5);
+  transform: translate(-4px, -4px);
+  box-shadow: 18px 18px 0 rgba(35, 16, 12, 0.24);
 }
 
 .contact-grid {
@@ -107,18 +115,20 @@
 }
 
 .contact-card {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: var(--bg-elevated);
+  border: 3px solid var(--poster-dark);
   border-radius: var(--radius-md);
-  padding: 2rem;
+  padding: 2.2rem;
   display: grid;
-  gap: 0.75rem;
+  gap: 1rem;
+  box-shadow: var(--shadow-card);
 }
 
 .contact-card h3 {
   margin: 0;
-  font-size: 1.4rem;
-  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.5rem;
+  font-family: "Archivo Black", sans-serif;
+  letter-spacing: 0.05em;
 }
 
 .contact-card p {
@@ -129,8 +139,19 @@
 .map-frame {
   border-radius: var(--radius-lg);
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 3px solid var(--poster-dark);
   box-shadow: var(--shadow-elevated);
+}
+
+.map-frame img,
+.map-frame iframe {
+  width: 100%;
+  display: block;
+}
+
+.map-frame iframe {
+  min-height: 24rem;
+  border: 0;
 }
 
 .contact-visual {
@@ -144,17 +165,6 @@
   object-fit: cover;
 }
 
-.map-frame img
-.map-frame iframe {
-  width: 100%;
-  display: block;
-}
-
-.map-frame iframe {
-  min-height: 24rem;
-  border: 0;
-}
-
 .shop-intro {
   text-align: center;
   margin-bottom: 3rem;
@@ -163,24 +173,25 @@
 .merch-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1.5rem;
+  gap: 1.75rem;
 }
 
 .merch-card {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: var(--bg-elevated);
+  border: 3px solid var(--poster-dark);
   border-radius: var(--radius-md);
   overflow: hidden;
   display: flex;
   flex-direction: column;
   min-height: 100%;
   transition: transform var(--transition-base), box-shadow var(--transition-base);
+  box-shadow: var(--shadow-card);
 }
 
 .merch-card:hover,
 .merch-card:focus-within {
-  transform: translateY(-6px);
-  box-shadow: 0 30px 55px rgba(0, 0, 0, 0.35);
+  transform: translate(-6px, -6px);
+  box-shadow: 18px 18px 0 rgba(35, 16, 12, 0.22);
 }
 
 .merch-card img {
@@ -188,77 +199,30 @@
   height: 240px;
   object-fit: cover;
   border-radius: 0;
+  box-shadow: none;
 }
 
 .merch-content {
-  padding: 1.75rem;
+  padding: 1.9rem;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.9rem;
   flex: 1;
 }
 
 .merch-content h3 {
   margin: 0;
-  font-size: 1.3rem;
-  font-family: "Space Grotesk", sans-serif;
-}
-
-.legal-hero__inner {
-  max-width: 720px;
-  text-align: center;
-}
-
-.legal-hero .page-description {
-  max-width: 640px;
-  margin: 0 auto;
-}
-
-.legal-content {
-  max-width: 56rem;
-}
-
-.legal-content h2 {
-  font-family: "Space Grotesk", sans-serif;
-  font-size: clamp(1.5rem, 3vw, 2rem);
-  margin: 3rem 0 1rem;
-}
-
-.legal-content h2:first-of-type {
-  margin-top: 0;
-}
-
-.legal-content p {
-  color: var(--text-secondary);
-  margin: 0 0 1.5rem;
-}
-
-.legal-content ul {
-  margin: 0 0 2rem 0;
-  padding-left: 1.5rem;
-  list-style: disc;
-  color: var(--text-secondary);
-}
-
-.legal-content li {
-  margin-bottom: 0.75rem;
-}
-
-.legal-content a {
-  color: var(--accent);
-}
-
-.legal-content a:hover,
-.legal-content a:focus-visible {
-  color: var(--accent-alt);
+  font-size: 1.4rem;
+  font-family: "Archivo Black", sans-serif;
+  letter-spacing: 0.05em;
 }
 
 .merch-price {
   font-weight: 700;
-  font-size: 1rem;
-  letter-spacing: 0.25em;
+  font-size: 0.95rem;
+  letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: var(--accent-alt);
+  color: var(--accent);
 }
 
 .merch-actions {
@@ -268,6 +232,52 @@
 .merch-actions .btn-outline {
   width: 100%;
   justify-content: center;
+}
+
+.legal-hero__inner {
+  max-width: 720px;
+  text-align: center;
+}
+
+.legal-content {
+  max-width: 56rem;
+}
+
+.legal-content h2 {
+  font-family: "Archivo Black", sans-serif;
+  font-size: clamp(1.7rem, 3vw, 2.2rem);
+  margin: 3rem 0 1.1rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.legal-content h2:first-of-type {
+  margin-top: 0;
+}
+
+.legal-content p {
+  color: var(--text-secondary);
+  margin: 0 0 1.6rem;
+}
+
+.legal-content ul {
+  margin: 0 0 2.2rem 0;
+  padding-left: 1.5rem;
+  list-style: square;
+  color: var(--text-secondary);
+}
+
+.legal-content li {
+  margin-bottom: 0.85rem;
+}
+
+.legal-content a {
+  color: var(--accent);
+}
+
+.legal-content a:hover,
+.legal-content a:focus-visible {
+  color: var(--accent-alt);
 }
 
 @media (min-width: 1024px) {
@@ -281,4 +291,3 @@
     max-width: 420px;
   }
 }
-
