@@ -7,29 +7,6 @@
   color: var(--poster-paper);
 }
 
-.page-hero::before {
-  content: "";
-  position: absolute;
-  inset: clamp(1.5rem, 6vw, 4rem);
-  border-radius: var(--radius-lg);
-  background-image: radial-gradient(circle at 18% 18%, rgba(241, 107, 166, 0.28), transparent 55%),
-    radial-gradient(circle at 82% 30%, rgba(255, 61, 50, 0.22), transparent 60%),
-    repeating-linear-gradient(45deg, rgba(244, 230, 209, 0.08) 0 14px, transparent 14px 28px);
-  mix-blend-mode: screen;
-  opacity: 0.38;
-  z-index: -2;
-}
-
-.page-hero::after {
-  content: "";
-  position: absolute;
-  inset: clamp(1.5rem, 6vw, 4rem);
-  border-radius: var(--radius-lg);
-  border: 1px solid rgba(255, 224, 212, 0.2);
-  box-shadow: var(--shadow-elevated);
-  z-index: -1;
-}
-
 .page-hero__image {
   position: absolute;
   inset: clamp(1.5rem, 6vw, 4rem);
@@ -43,7 +20,7 @@
 
 .page-hero__overlay {
   position: absolute;
-  inset: clamp(1.5rem, 6vw, 4rem);
+  inset: clamp(1.5rem, 12vw, 4rem);
   border-radius: var(--radius-lg);
   background: linear-gradient(135deg, rgba(10, 4, 6, 0.85), rgba(60, 12, 22, 0.78));
   z-index: -3;
