@@ -3,13 +3,13 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import InstagramEmbed from "../components/InstagramEmbed";
 import FacebookEmbed from "../components/FacebookEmbed";
-import aboutActualitatImage from "../assets/img/about-actualitat.jpg";
-import aboutOrigensImage from "../assets/img/about-origens.jpg";
-import aboutSafareigImage from "../assets/img/about-safareig.jpg";
-import contactHeroImage from "../assets/img/contact1.jpg";
-import homeHeroImage from "../assets/img/home-hero.jpg";
-import rostollImage from "../assets/img/rostoll1.jpg";
-import aboutVoluntariatImage from "../assets/img/about-voluntariat.jpg";
+import aboutActualitatImage from "/img/about-actualitat.jpg";
+import aboutOrigensImage from "/img/about-origens.jpg";
+import aboutSafareigImage from "/img/about-safareig.jpg";
+import contactHeroImage from "/img/contact1.jpg";
+import homeHeroImage from "/img/home-hero.jpg";
+import rostollImage from "/img/rostoll1.jpg";
+import aboutVoluntariatImage from "/img/about-voluntariat.jpg";
 
 const EVENT_DATE = new Date("2026-08-29T19:00:00");
 

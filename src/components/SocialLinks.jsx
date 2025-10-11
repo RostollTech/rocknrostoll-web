@@ -1,6 +1,6 @@
-import iconFacebook from "../assets/icons/facebook.png";
-import  iconInstagram from "../assets/icons/instagram.png";
-import iconMail from "../assets/icons/mail.png";
+import iconFacebook from "/icons/facebook.png";
+import  iconInstagram from "/icons/instagram.png";
+import iconMail from "/icons/mail.png";
 
 const links = [
   {

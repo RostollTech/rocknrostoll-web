@@ -74,19 +74,19 @@
 }
 
 .about-hero .page-hero__image {
-  background-image: url("../assets/img/about-hero.jpg");
+  background-image: url("/img/about-hero.jpg");
 }
 
 .contact-hero .page-hero__image {
-  background-image: url("../assets/img/contact-hero.jpg");
+  background-image: url("/img/contact-hero.jpg");
 }
 
 .shop-hero .page-hero__image {
-  background-image: url("../assets/img/camisetaA.jpg");
+  background-image: url("/img/camisetaA.jpg");
 }
 
 .legal-hero .page-hero__image {
-  background-image: url("../assets/img/rostoll1.jpg");
+  background-image: url("/img/rostoll1.jpg");
 }
 
 .contact-hero .page-hero__overlay {

@@ -131,7 +131,7 @@
 
 .home-hero::before {
   background: linear-gradient(140deg, rgba(8, 3, 4, 0.65), rgba(60, 12, 22, 0.55)),
-    url("../assets/img/home-hero.jpg");
+    url("/img/home-hero.jpg");
   background-size: cover;
   background-position: center;
   filter: saturate(0.75) brightness(0.55);
