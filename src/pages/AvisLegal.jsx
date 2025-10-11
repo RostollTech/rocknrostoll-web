@@ -1,22 +1,19 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import PageHero from "../components/PageHero";
 
 export default function AvisLegal() {
   return (
     <>
       <Navbar />
       <main>
-        <section className="page-header legal-hero">
-          <div className="container legal-hero__inner">
-            <p className="section-eyebrow">Avís legal</p>
-            <h1 className="page-title">Avís legal i Termes d’ús</h1>
-            <p className="page-description">
-              El present lloc web (<b>www.rocknrostoll.cat</b>) és propietat de l’<b>Associació Juvenil Rock’n’Rostoll</b>, amb
-              domicili a Maria de la Salut (Illes Balears) i correu de contacte {" "}
-              <a href="mailto:rocknrostoll@gmail.com">rocknrostoll@gmail.com</a>.
-            </p>
-          </div>
-        </section>
+        <PageHero className="legal-hero" eyebrow="Avís legal" title="Avís legal i Termes d’ús">
+          <p className="page-description">
+            El present lloc web (<b>www.rocknrostoll.cat</b>) és propietat de l’<b>Associació Juvenil Rock’n’Rostoll</b>, amb
+            domicili a Maria de la Salut (Illes Balears) i correu de contacte {" "}
+            <a href="mailto:rocknrostoll@gmail.com">rocknrostoll@gmail.com</a>.
+          </p>
+        </PageHero>
 
         <section className="page-section section-alt">
           <div className="page-content legal-content">

@@ -1,5 +1,6 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import PageHero from "../components/PageHero";
 import SocialLinks from "../components/SocialLinks";
 import contactMapImage from "../assets/img/contact-map.jpg";
 import qrFacebookImage from "../assets/qr/qr_facebook.png";
@@ -10,17 +11,12 @@ export default function Contact() {
     <>
       <Navbar />
       <main>
-        <section className="page-header page-hero contact-hero">
-          <div aria-hidden="true" className="page-hero__image" />
-          <div aria-hidden="true" className="page-hero__overlay" />
-          <div className="container page-hero__inner">
-            <p className="section-eyebrow">Contacte</p>
-            <h1 className="page-title">Contacta amb Rock’n’Rostoll</h1>
-            <p className="page-description">
-              Som un festival autogestionat per joves de Maria de la Salut. Si vols col·laborar, participar o simplement saludar, ens trobaràs a baix. Sempre és benvinguda una mà més!
-            </p>
-          </div>
-        </section>
+        <PageHero
+          className="contact-hero"
+          eyebrow="Contacte"
+          title="Contacta amb Rock’n’Rostoll"
+          description="Som un festival autogestionat per joves de Maria de la Salut. Si vols col·laborar, participar o simplement saludar, ens trobaràs a baix. Sempre és benvinguda una mà més!"
+        />
 
         <section className="page-section section-alt">
           <div className="page-content contact-grid">
@@ -39,7 +35,8 @@ export default function Contact() {
             <article className="contact-card">
               <h3>Grups i DJ interessats a tocar</h3>
               <p>
-                Si tens un grup o ets DJ i t’agradaria actuar al Rock’n’Rostoll, envia’ns informació sobre el teu projecte musical.
+                Si tens un grup o ets DJ i t’agradaria actuar al Rock’n’Rostoll, envia’ns informació sobre el teu projecte
+                musical.
               </p>
             </article>
           </div>
@@ -74,7 +71,6 @@ export default function Contact() {
                     />
                     <p>Escaneja per seguir-nos a Facebook</p>
                   </div>
-                  
                 </div>
                 <div className="map-frame">
                   <img src={contactMapImage} alt="Vista del camp de rostoll on se celebra el festival" />
@@ -87,7 +83,8 @@ export default function Contact() {
         <section className="page-section section-alt">
           <div className="page-content">
             <div className="map-frame">
-              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1459.9425136729283!2d3.0653078102838998!3d39.68329810760899!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1297cb42046d8b09%3A0x194899cbb6f7f09d!2sRock&#39;n&#39;Rostoll!5e1!3m2!1sca!2ses!4v1759844635351!5m2!1sca!2ses"  
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1459.9425136729283!2d3.0653078102838998!3d39.68329810760899!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1297cb42046d8b09%3A0x194899cbb6f7f09d!2sRock'n'Rostoll!5e1!3m2!1sca!2ses!4v1759844635351!5m2!1sca!2ses"
                 width="100%"
                 height="400"
                 style={{ border: 0 }}
