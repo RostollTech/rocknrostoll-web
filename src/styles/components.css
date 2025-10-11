@@ -150,6 +150,13 @@
   margin-bottom: 1.1rem;
 }
 
+.footer-note {
+  margin-top: 2rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #b5b5b5;
+}
+
 .footer-links {
   display: grid;
   gap: 0.65rem;
