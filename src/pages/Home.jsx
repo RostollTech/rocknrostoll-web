@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import InstagramEmbed from "../components/InstagramEmbed";
+import FacebookEmbed from "../components/FacebookEmbed";
 import aboutActualitatImage from "../assets/img/about-actualitat.jpg";
 import aboutOrigensImage from "../assets/img/about-origens.jpg";
 import aboutSafareigImage from "../assets/img/about-safareig.jpg";
