@@ -4,25 +4,25 @@ import iconMail from "../assets/icons/mail.png";
 
 const links = [
   {
-    label: "Instagram",
+    label: "Instagram: ",
     href: "https://www.instagram.com/rocknrostoll/",
     icon: iconInstagram,
     ariaLabel: "Instagram @rocknrostoll",
     detail: "@rocknrostoll",
   },
   {
-    label: "Facebook",
+    label: "Facebook: ",
     href: "https://www.facebook.com/RadioRostoll/",
     icon: iconFacebook,
     ariaLabel: "Facebook RadioRostoll",
     detail: "RadioRostoll",
   }, 
   {
-    label: "Email",
+    label: "Email: ",
     href: "mailto:rocknrostoll@gmail.com",
     icon: iconMail,
     ariaLabel: "Email rocknrostoll@gmail.com",
-    detail: "@gmail.com",
+    detail: "rocknrostoll@gmail.com",
   },
 ];
 
