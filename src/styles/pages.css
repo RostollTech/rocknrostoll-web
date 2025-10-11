@@ -1,19 +1,22 @@
 .page-hero {
   position: relative;
-  overflow: visible;
+  overflow: hidden;
   isolation: isolate;
   padding: clamp(5rem, 10vw, 7.5rem) 0;
   min-height: 30rem;
+  color: var(--poster-paper);
 }
 
 .page-hero::before {
   content: "";
   position: absolute;
   inset: clamp(1.5rem, 6vw, 4rem);
-  background: linear-gradient(130deg, var(--accent) 0%, var(--poster-deep-red) 70%);
   border-radius: var(--radius-lg);
-  border: 4px solid var(--poster-dark);
-  box-shadow: 32px 32px 0 rgba(35, 16, 12, 0.25);
+  background-image: radial-gradient(circle at 18% 18%, rgba(241, 107, 166, 0.28), transparent 55%),
+    radial-gradient(circle at 82% 30%, rgba(255, 61, 50, 0.22), transparent 60%),
+    repeating-linear-gradient(45deg, rgba(244, 230, 209, 0.08) 0 14px, transparent 14px 28px);
+  mix-blend-mode: screen;
+  opacity: 0.38;
   z-index: -2;
 }
 
@@ -22,38 +25,72 @@
   position: absolute;
   inset: clamp(1.5rem, 6vw, 4rem);
   border-radius: var(--radius-lg);
-  background-image: repeating-linear-gradient(45deg, rgba(255, 238, 220, 0.18) 0 14px, transparent 14px 28px);
-  opacity: 0.3;
-  mix-blend-mode: screen;
+  border: 1px solid rgba(255, 224, 212, 0.2);
+  box-shadow: var(--shadow-elevated);
   z-index: -1;
 }
 
-.page-hero .page-title {
-  margin-bottom: 1.5rem;
-  color: rgba(255, 238, 220, 0.95);
+.page-hero__image {
+  position: absolute;
+  inset: clamp(1.5rem, 6vw, 4rem);
+  border-radius: var(--radius-lg);
+  background-size: cover;
+  background-position: center;
+  filter: saturate(0.65) brightness(0.55);
+  transform: scale(1.08);
+  z-index: -4;
 }
 
-.page-hero__image,
 .page-hero__overlay {
-  display: none;
+  position: absolute;
+  inset: clamp(1.5rem, 6vw, 4rem);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, rgba(10, 4, 6, 0.85), rgba(60, 12, 22, 0.78));
+  z-index: -3;
 }
 
 .page-hero__inner {
   position: relative;
   z-index: 1;
-  color: rgba(255, 238, 220, 0.9);
   text-align: center;
   max-width: 720px;
+  margin: 0 auto;
+  color: rgba(244, 230, 209, 0.88);
+}
+
+.page-hero .section-eyebrow {
+  color: var(--accent-alt);
+}
+
+.page-hero .page-title {
+  margin-bottom: 1.5rem;
+  color: var(--poster-paper);
 }
 
 .page-hero .page-description {
-  color: rgba(255, 238, 220, 0.8);
-  max-width: 640px;
+  color: rgba(244, 230, 209, 0.78);
+  max-width: 680px;
   margin: 0 auto;
 }
 
-.contact-hero .page-description {
-  max-width: 680px;
+.about-hero .page-hero__image {
+  background-image: url("../assets/img/about-hero.jpg");
+}
+
+.contact-hero .page-hero__image {
+  background-image: url("../assets/img/contact-hero.jpg");
+}
+
+.shop-hero .page-hero__image {
+  background-image: url("../assets/img/camisetaA.jpg");
+}
+
+.legal-hero .page-hero__image {
+  background-image: url("../assets/img/rostoll1.jpg");
+}
+
+.contact-hero .page-hero__overlay {
+  background: linear-gradient(135deg, rgba(9, 4, 6, 0.82), rgba(48, 12, 22, 0.78));
 }
 
 .contact-social-wrapper {
@@ -76,8 +113,8 @@
   gap: 1rem;
   padding: 2rem 1.5rem;
   border-radius: var(--radius-md);
-  background: var(--bg-elevated);
-  border: 3px solid var(--poster-dark);
+  background: linear-gradient(135deg, rgba(34, 10, 16, 0.94), rgba(12, 3, 5, 0.9));
+  border: 1px solid rgba(255, 224, 212, 0.22);
   box-shadow: var(--shadow-card);
 }
 
@@ -86,7 +123,7 @@
   font-size: 0.9rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--text-secondary);
+  color: rgba(244, 230, 209, 0.75);
 }
 
 .qr-image {
@@ -95,9 +132,9 @@
   height: auto;
   padding: 0.85rem;
   border-radius: 1.2rem;
-  background: #fff6e9;
-  border: 3px solid var(--poster-dark);
-  box-shadow: 10px 10px 0 rgba(35, 16, 12, 0.18);
+  background: rgba(15, 5, 6, 0.75);
+  border: 1px solid rgba(255, 224, 212, 0.3);
+  box-shadow: var(--shadow-card);
   object-fit: contain;
   transition: transform var(--transition-base), box-shadow var(--transition-base);
 }
@@ -105,7 +142,7 @@
 .qr-image:hover,
 .qr-image:focus-visible {
   transform: translate(-4px, -4px);
-  box-shadow: 18px 18px 0 rgba(35, 16, 12, 0.24);
+  box-shadow: 0 22px 40px rgba(9, 2, 4, 0.5);
 }
 
 .contact-grid {
@@ -115,8 +152,8 @@
 }
 
 .contact-card {
-  background: var(--bg-elevated);
-  border: 3px solid var(--poster-dark);
+  background: linear-gradient(135deg, rgba(34, 10, 16, 0.94), rgba(12, 3, 5, 0.9));
+  border: 1px solid rgba(255, 224, 212, 0.24);
   border-radius: var(--radius-md);
   padding: 2.2rem;
   display: grid;
@@ -128,18 +165,19 @@
   margin: 0;
   font-size: 1.5rem;
   font-family: "Archivo Black", sans-serif;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
+  color: var(--poster-paper);
 }
 
 .contact-card p {
   margin: 0;
-  color: var(--text-secondary);
+  color: rgba(244, 230, 209, 0.78);
 }
 
 .map-frame {
   border-radius: var(--radius-lg);
   overflow: hidden;
-  border: 3px solid var(--poster-dark);
+  border: 1px solid rgba(255, 224, 212, 0.24);
   box-shadow: var(--shadow-elevated);
 }
 
@@ -168,6 +206,7 @@
 .shop-intro {
   text-align: center;
   margin-bottom: 3rem;
+  color: rgba(244, 230, 209, 0.78);
 }
 
 .merch-grid {
@@ -177,8 +216,8 @@
 }
 
 .merch-card {
-  background: var(--bg-elevated);
-  border: 3px solid var(--poster-dark);
+  background: linear-gradient(135deg, rgba(34, 10, 16, 0.94), rgba(12, 3, 5, 0.9));
+  border: 1px solid rgba(255, 224, 212, 0.22);
   border-radius: var(--radius-md);
   overflow: hidden;
   display: flex;
@@ -191,7 +230,7 @@
 .merch-card:hover,
 .merch-card:focus-within {
   transform: translate(-6px, -6px);
-  box-shadow: 18px 18px 0 rgba(35, 16, 12, 0.22);
+  box-shadow: 0 28px 46px rgba(9, 2, 4, 0.55);
 }
 
 .merch-card img {
@@ -208,6 +247,7 @@
   flex-direction: column;
   gap: 0.9rem;
   flex: 1;
+  color: rgba(244, 230, 209, 0.82);
 }
 
 .merch-content h3 {
@@ -215,6 +255,7 @@
   font-size: 1.4rem;
   font-family: "Archivo Black", sans-serif;
   letter-spacing: 0.05em;
+  color: var(--poster-paper);
 }
 
 .merch-price {
@@ -234,13 +275,9 @@
   justify-content: center;
 }
 
-.legal-hero__inner {
-  max-width: 720px;
-  text-align: center;
-}
-
 .legal-content {
   max-width: 56rem;
+  color: rgba(244, 230, 209, 0.78);
 }
 
 .legal-content h2 {
@@ -249,6 +286,7 @@
   margin: 3rem 0 1.1rem;
   letter-spacing: 0.05em;
   text-transform: uppercase;
+  color: var(--poster-paper);
 }
 
 .legal-content h2:first-of-type {
@@ -256,7 +294,6 @@
 }
 
 .legal-content p {
-  color: var(--text-secondary);
   margin: 0 0 1.6rem;
 }
 
@@ -264,7 +301,6 @@
   margin: 0 0 2.2rem 0;
   padding-left: 1.5rem;
   list-style: square;
-  color: var(--text-secondary);
 }
 
 .legal-content li {

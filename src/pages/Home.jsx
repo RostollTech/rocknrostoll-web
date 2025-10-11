@@ -57,7 +57,7 @@ export default function Home() {
     <>
       <Navbar />
       <main>
-        <section className="hero">
+        <section className="hero home-hero">
           <div className="hero-content">
             <p className="hero-eyebrow">30a edició</p>
             <h1 className="hero-title">30 anys de música, amistat i rostoll</h1>
