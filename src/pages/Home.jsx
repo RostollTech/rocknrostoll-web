@@ -61,6 +61,10 @@ export default function Home() {
             <p className="hero-eyebrow">30a edició</p>
             <h1 className="hero-title">30 anys de música, amistat i rostoll</h1>
             <p className="hero-meta">29 d’agost de 2026 · Festival autogestionat a Son Perot (Maria de la Salut)</p>
+            <div className="hero-highlight">
+              <span>Entrada lliure</span>
+              <span>30 anys en directe</span>
+            </div>
             <p className="hero-description">
               Rock’n’Rostoll és el festival autogestionat de referència al Pla de Mallorca. Un punt de trobada entre
               generacions, música i llibertat, on el rock i l’electrònica omplen el rostoll de Maria de la Salut cada darrer
