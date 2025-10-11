@@ -40,20 +40,6 @@ export default function Home() {
     return () => clearInterval(interval);
   }, []);
 
-  const lineup = useMemo(
-    () => [
-      {
-        stage: "Escenari Rock",
-        description: "Aviat anunciarem els grups!",
-      },
-      {
-        stage: "Safareig Dance",
-        description: "Aviat anunciarem els DJ i sessions electròniques!",
-      },
-    ],
-    []
-  );
-
   const gallery = useMemo(
     () => [
       { src: homeHeroImage, alt: "Concert Rock’n’Rostoll 2019" },
@@ -101,11 +87,11 @@ export default function Home() {
             </div>
 
             <div className="button-group">
-              <a href="#programa" className="btn-primary">
-                Consulta el programa
+              <a href="/about" className="btn-primary">
+                Qui som?
               </a>
-              <a href="#newsletter" className="btn-outline">
-                Apunta’t al voluntariat
+              <a href="/contact" className="btn-outline">
+                Segueix-nos
               </a>
             </div>
           </div>
@@ -153,95 +139,6 @@ export default function Home() {
         </section>
 
         <section className="section">
-          <div className="container two-column">
-            <div className="two-column-content">
-              <h3>Experiències i ambient</h3>
-              <p>
-                Descobreix les activitats i l’esperit del festival (aviat disponible). Estam preparant tallers, accions
-                comunitàries i sorpreses per celebrar tres dècades d’autogestió i música lliure.
-              </p>
-              <ul className="two-column-list">
-                <li>Aviat compartirem els espais participatius i les rutes pel recinte.</li>
-                <li>Preparau-vos per noves instal·lacions artístiques i propostes de proximitat.</li>
-                <li>Reforçam el compromís amb la sostenibilitat i l’acollida a tothom.</li>
-              </ul>
-            </div>
-            <div className="media-card">
-              <img src={contactHeroImage} alt="Ambient nocturn del Rock’n’Rostoll" />
-            </div>
-          </div>
-        </section>
-
-        <section className="section section-alt" id="programa">
-          <div className="container">
-            <div className="section-header">
-              <p className="section-eyebrow">Line-up</p>
-              <h2 className="section-title">Cartell 2025</h2>
-              <p className="section-description">Ja anirem anunciant els grups i DJ de cada escenari.</p>
-            </div>
-
-            <div className="lineup-grid">
-              {lineup.map((item) => (
-                <article className="lineup-card" key={item.stage}>
-                  <h3 className="lineup-name">{item.stage}</h3>
-                  <p className="lineup-note">{item.description}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="section">
-          <div className="container">
-            <div className="section-header">
-              <p className="section-eyebrow">Horaris</p>
-              <h2 className="section-title">Horaris i activitats</h2>
-              <p className="section-description">Aviat disponible.</p>
-            </div>
-
-            <div className="timeline">
-              <div className="timeline-item">
-                <span className="timeline-marker" aria-hidden="true"></span>
-                <p className="timeline-time">Pròximament</p>
-                <h3 className="timeline-title">Programació detallada</h3>
-                <p className="timeline-text">
-                  Publicarem el cronograma complet amb activitats, concerts i accions comunitàries tan aviat com estigui
-                  confirmat.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="section section-alt">
-          <div className="container">
-            <div className="section-header">
-              <p className="section-eyebrow">Viu-ho</p>
-              <h2 className="section-title">Experiències i ambient</h2>
-              <p className="section-description">Descobreix les activitats i l’esperit del festival (aviat disponible).</p>
-            </div>
-
-            <div className="feature-grid">
-              <article className="feature-card">
-                <span>Espais</span>
-                <h4>Aviat</h4>
-                <p>Estam treballant en nous espais per experimentar i compartir moments únics.</p>
-              </article>
-              <article className="feature-card">
-                <span>Comunitat</span>
-                <h4>En construcció</h4>
-                <p>La comunitat voluntària hi posa l’ànima. Ben aviat compartirem les properes propostes.</p>
-              </article>
-              <article className="feature-card">
-                <span>Sabors</span>
-                <h4>A punt</h4>
-                <p>Foodtrucks, barra i producte local per recarregar energies mentre no atura la música.</p>
-              </article>
-            </div>
-          </div>
-        </section>
-
-        <section className="section">
           <div className="container">
             <div className="section-header">
               <p className="section-eyebrow">Galeria</p>
@@ -260,8 +157,8 @@ export default function Home() {
         <section className="section section-alt">
           <div className="container">
             <div className="section-header">
-              <p className="section-eyebrow">Vídeo</p>
-              <h2 className="section-title">Reviveix l’ambient</h2>
+              <p className="section-eyebrow">Xarxes</p>
+              <h2 className="section-title">Reviu l’ambient</h2>
               <p className="section-description">Clips i moments compartits a les xarxes.</p>
             </div>
 
