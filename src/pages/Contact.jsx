@@ -44,8 +44,7 @@ export default function Contact() {
 
         <section className="page-section">
           <div className="page-content split-layout">
-                          
-            <div>
+            <div className="contact-social">
               <div className="section-header section-header--left">
                 <p className="section-eyebrow">Segueix-nos</p>
                 <h2 className="section-title">Segueix Rock’n’Rostoll</h2>
@@ -54,8 +53,10 @@ export default function Contact() {
                 </p>
               </div>
               <div className="contact-social-wrapper">
-                
-                <SocialLinks />             
+                <div className="contact-social-links">
+                  <SocialLinks />
+                </div>
+                <div className="contact-qr-grid">
                   <div className="qr-card">
                     <img
                       src={qrInstagramImage}
@@ -72,10 +73,13 @@ export default function Contact() {
                     />
                     <p>Escaneja per seguir-nos a Facebook</p>
                   </div>
-              </div>
-              <div className="map-frame">
-                  <img src={contactMapImage} alt="Vista del camp de rostoll on se celebra el festival" />
                 </div>
+              </div>
+            </div>
+            <div className="contact-media">
+              <div className="map-frame">
+                <img src={contactMapImage} alt="Vista del camp de rostoll on se celebra el festival" />
+              </div>
             </div>
           </div>
         </section>
