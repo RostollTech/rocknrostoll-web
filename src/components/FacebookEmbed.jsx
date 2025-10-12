@@ -3,7 +3,7 @@ export default function FacebookEmbed({ url, title = "Publicació de Facebook", 
     <iframe
       src={url}
       title={title}
-      style={{ border: "none", overflow: "hidden", width: "100%", maxWidth: "500px" }}
+      className="facebook-embed"
       height={height}
       scrolling="no"
       frameBorder="0"
