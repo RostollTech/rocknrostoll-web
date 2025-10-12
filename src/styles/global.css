@@ -751,16 +751,19 @@ main {
   margin: 0 0 var(--space-3);
 }
 
-.contact-social {
+
+.contact-layout {
   display: grid;
   gap: var(--space-6);
 }
 
-.contact-social-wrapper {
-  display: grid;
-  gap: var(--space-5);
-  align-items: start;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+.contact-intro {
+  width: 100%;
+}
+
+.contact-social-links {
+  align-self: start;
+  justify-self: start;
 }
 
 .contact-social-links .footer-social {
@@ -769,19 +772,20 @@ main {
 
 .contact-qr-grid {
   display: grid;
-  gap: var(--space-4);
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--space-5);
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   justify-items: center;
 }
 
 .qr-card {
   display: grid;
-  width: min(100%, 16rem);
+  width: 100%;
+  max-width: 24rem;
   justify-items: center;
-  gap: var(--space-3);
+  gap: var(--space-4);
   background: rgba(19, 19, 19, 0.92);
   border-radius: var(--radius-md);
-  padding: var(--space-5);
+  padding: clamp(var(--space-5), 2vw + 1.5rem, var(--space-7));
   border: 1px solid rgba(255, 255, 255, 0.06);
   box-shadow: var(--shadow-sm);
 }
@@ -789,13 +793,14 @@ main {
 .qr-card p {
   text-transform: uppercase;
   letter-spacing: 0.18em;
-  font-size: 0.75rem;
+  font-size: clamp(0.8rem, 0.6rem + 0.3vw, 0.95rem);
   color: var(--color-text-soft);
   margin: 0;
+  text-align: center;
 }
 
 .qr-image {
-  width: min(100%, 8rem);
+  width: clamp(11rem, 22vw, 14rem);
   aspect-ratio: 1 / 1;
   border-radius: var(--radius-sm);
   border: 1px solid var(--color-border);
@@ -823,6 +828,27 @@ main {
   width: 100%;
   min-height: 20rem;
   border: 0;
+}
+
+@media (min-width: 900px) {
+  .contact-layout {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+  }
+
+  .contact-intro,
+  .contact-media {
+    grid-column: 1 / -1;
+  }
+
+  .contact-social-links {
+    grid-column: 1;
+  }
+
+  .contact-qr-grid {
+    grid-column: 2;
+    justify-items: end;
+  }
 }
 
 /* Shop */
@@ -1010,13 +1036,9 @@ main {
     grid-template-columns: 1fr;
   }
 
-  .contact-social-wrapper {
-    grid-template-columns: 1fr;
-  }
-
   .contact-qr-grid {
     grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    justify-items: stretch;
+    justify-items: center;
   }
 
   .nav-toggle {

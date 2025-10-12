@@ -43,37 +43,33 @@ export default function Contact() {
         </section>
 
         <section className="page-section">
-          <div className="page-content split-layout">
-            <div className="contact-social">
-              <div className="section-header section-header--left">
-                <p className="section-eyebrow">Segueix-nos</p>
-                <h2 className="section-title">Segueix Rock’n’Rostoll</h2>
-                <p className="section-description">
-                  Troba’ns a les nostres xarxes o escriu-nos directament per col·laborar o resoldre qualsevol dubte.
-                </p>
+          <div className="page-content contact-layout">
+            <div className="section-header section-header--left contact-intro">
+              <p className="section-eyebrow">Segueix-nos</p>
+              <h2 className="section-title">Segueix Rock’n’Rostoll</h2>
+              <p className="section-description">
+                Troba’ns a les nostres xarxes o escriu-nos directament per col·laborar o resoldre qualsevol dubte.
+              </p>
+            </div>
+            <div className="contact-social-links">
+              <SocialLinks />
+            </div>
+            <div className="contact-qr-grid">
+              <div className="qr-card">
+                <img
+                  src={qrInstagramImage}
+                  alt="Codi QR d'Instagram de Rock’n’Rostoll"
+                  className="qr-image"
+                />
+                <p>Escaneja per seguir-nos a Instagram</p>
               </div>
-              <div className="contact-social-wrapper">
-                <div className="contact-social-links">
-                  <SocialLinks />
-                </div>
-                <div className="contact-qr-grid">
-                  <div className="qr-card">
-                    <img
-                      src={qrInstagramImage}
-                      alt="Codi QR d'Instagram de Rock’n’Rostoll"
-                      className="qr-image"
-                    />
-                    <p>Escaneja per seguir-nos a Instagram</p>
-                  </div>
-                  <div className="qr-card">
-                    <img
-                      src={qrFacebookImage}
-                      alt="Codi QR de Facebook de Rock’n’Rostoll"
-                      className="qr-image"
-                    />
-                    <p>Escaneja per seguir-nos a Facebook</p>
-                  </div>
-                </div>
+              <div className="qr-card">
+                <img
+                  src={qrFacebookImage}
+                  alt="Codi QR de Facebook de Rock’n’Rostoll"
+                  className="qr-image"
+                />
+                <p>Escaneja per seguir-nos a Facebook</p>
               </div>
             </div>
             <div className="contact-media">
