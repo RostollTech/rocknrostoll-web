@@ -3,13 +3,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import InstagramEmbed from "../components/InstagramEmbed";
 import FacebookEmbed from "../components/FacebookEmbed";
-import aboutActualitatImage from "../assets/img/about-actualitat.jpg";
-import aboutOrigensImage from "../assets/img/about-origens.jpg";
-import aboutSafareigImage from "../assets/img/about-safareig.jpg";
-import contactHeroImage from "../assets/img/contact1.jpg";
-import homeHeroImage from "../assets/img/home-hero.jpg";
-import rostollImage from "../assets/img/rostoll1.jpg";
-import aboutVoluntariatImage from "../assets/img/about-voluntariat.jpg";
+import galleryImages from "../data/gallery";
 
 const EVENT_DATE = new Date("2026-08-29T19:00:00");
 
@@ -41,17 +35,7 @@ export default function Home() {
     return () => clearInterval(interval);
   }, []);
 
-  const gallery = useMemo(
-    () => [
-      { src: homeHeroImage, alt: "Concert Rock’n’Rostoll 2019" },
-      { src: rostollImage, alt: "Safareig Dance de matinada" },
-      { src: aboutSafareigImage, alt: "Públic ballant al Safareig Dance" },
-      { src: aboutActualitatImage, alt: "Voluntariat muntant l’escenari" },
-      { src: aboutOrigensImage, alt: "Concert a Son Perot amb llums vermelles" },
-      { src: aboutVoluntariatImage, alt: "Equip de voluntariat de Rock’n’Rostoll" },
-    ],
-    []
-  );
+  const gallery = useMemo(() => galleryImages, []);
 
   return (
     <>
