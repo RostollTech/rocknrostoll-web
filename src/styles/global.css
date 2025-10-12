@@ -779,13 +779,12 @@ main {
 
 .qr-card {
   display: grid;
-  width: 100%;
-  max-width: 24rem;
+  width: min(100%, 20rem);
   justify-items: center;
   gap: var(--space-4);
   background: rgba(19, 19, 19, 0.92);
   border-radius: var(--radius-md);
-  padding: clamp(var(--space-5), 2vw + 1.5rem, var(--space-7));
+  padding: var(--space-6);
   border: 1px solid rgba(255, 255, 255, 0.06);
   box-shadow: var(--shadow-sm);
 }
@@ -793,14 +792,14 @@ main {
 .qr-card p {
   text-transform: uppercase;
   letter-spacing: 0.18em;
-  font-size: clamp(0.8rem, 0.6rem + 0.3vw, 0.95rem);
+  font-size: 0.8rem;
   color: var(--color-text-soft);
   margin: 0;
   text-align: center;
 }
 
 .qr-image {
-  width: clamp(11rem, 22vw, 14rem);
+  width: min(100%, 12rem);
   aspect-ratio: 1 / 1;
   border-radius: var(--radius-sm);
   border: 1px solid var(--color-border);
