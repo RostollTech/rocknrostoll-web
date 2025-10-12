@@ -1,9 +1,9 @@
-import homeHeroImage from "../assets/img/home-hero.jpg";
-import rostollImage from "../assets/img/rostoll1.jpg";
-import aboutSafareigImage from "../assets/img/about-safareig.jpg";
-import aboutActualitatImage from "../assets/img/about-actualitat.jpg";
-import aboutOrigensImage from "../assets/img/about-origens.jpg";
-import aboutVoluntariatImage from "../assets/img/about-voluntariat.jpg";
+import homeHeroImage from "/img/home-hero.jpg";
+import rostollImage from "/img/rostoll1.jpg";
+import aboutSafareigImage from "/img/about-safareig.jpg";
+import aboutActualitatImage from "/img/about-actualitat.jpg";
+import aboutOrigensImage from "/img/about-origens.jpg";
+import aboutVoluntariatImage from "/img/about-voluntariat.jpg";
 
 const homeGallery = [
   { src: homeHeroImage, alt: "Concert Rock’n’Rostoll 2019" },
