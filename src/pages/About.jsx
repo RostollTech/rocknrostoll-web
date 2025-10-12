@@ -5,6 +5,7 @@ import aboutActualitatImage from "/img/about-actualitat.jpg";
 import aboutOrigensImage from "/img/about-origens.jpg";
 import aboutSafareigImage from "/img/about-safareig.jpg";
 import aboutVoluntariatImage from "/img/about-voluntariat.jpg";
+import aboutVoluntariat2Image from "/img/about-voluntariat2.jpg";
 
 export default function About() {
   return (
@@ -119,7 +120,7 @@ export default function About() {
                 gratuït i autogestionat que aposta per la cultura lliure i l’energia comunitària. T’hi esperam al camp de rostoll!
               </p>
             </div>
-            <img src={aboutSafareigImage} alt="Públic ballant en una zona il·luminada del festival" />
+            <img src={aboutVoluntariat2Image} alt="Públic ballant en una zona il·luminada del festival" />
           </div>
         </section>
       </main>
