@@ -44,12 +44,12 @@ export default function Home() {
         <section className="hero home-hero">
           <div className="hero-content">
             <p className="hero-eyebrow">30a edició</p>
-            <h1 className="hero-title">30 anys de música, amistat i rostoll</h1>
+            <h1 className="hero-title">30 edicions de música, amistat i rostoll</h1>
             <p className="hero-meta">29 d’agost de 2026 · Festival autogestionat a Son Perot (Maria de la Salut)</p>
             <p className="hero-description">
               Rock’n’Rostoll és el festival autogestionat de referència al Pla de Mallorca. Un punt de trobada entre
               generacions, música i llibertat, on el rock i l’electrònica omplen el rostoll de Maria de la Salut cada darrer
-              dissabte d’agost. Celebrem 30 anys d’història, germanor i molta festa!
+              dissabte d’agost. Celebrem 30 edicions d’història, germanor i molta festa!
             </p>
 
             <div className="countdown-grid" aria-label="Countdown to the event">
@@ -128,7 +128,7 @@ export default function Home() {
             <div className="section-header">
               <p className="section-eyebrow">Galeria</p>
               <h2 className="section-title">Moments Rock’n’Rostoll</h2>
-              <p className="section-description">Un recorregut visual per la història del festival.</p>
+              <p className="section-description">Un recorregut visual pel darrer festival.</p>
             </div>
 
             <div className="gallery-grid">

@@ -1,17 +1,25 @@
-import homeHeroImage from "/img/home-hero.jpg";
-import rostollImage from "/img/rostoll1.jpg";
-import aboutSafareigImage from "/img/about-safareig.jpg";
-import aboutActualitatImage from "/img/about-actualitat.jpg";
-import aboutOrigensImage from "/img/about-origens.jpg";
-import aboutVoluntariatImage from "/img/about-voluntariat.jpg";
+import galeria1 from "/img/galeria1.JPG";
+import galeria2 from "/img/galeria2.JPG";
+import galeria3 from "/img/galeria3.JPG";
+import galeria4 from "/img/galeria4.JPG";
+import galeria5 from "/img/galeria5.JPG";
+import galeria6 from "/img/galeria6.JPG";
+import galeria7 from "/img/galeria7.JPG";
+import galeria8 from "/img/galeria8.JPG";
+import galeria9 from "/img/galeria9.JPG";
+import galeria0 from "/img/galeria0.JPG";
 
 const homeGallery = [
-  { src: homeHeroImage, alt: "Concert Rock’n’Rostoll 2019" },
-  { src: rostollImage, alt: "Safareig Dance de matinada" },
-  { src: aboutSafareigImage, alt: "Públic ballant al Safareig Dance" },
-  { src: aboutActualitatImage, alt: "Voluntariat muntant l’escenari" },
-  { src: aboutOrigensImage, alt: "Concert a Son Perot amb llums vermelles" },
-  { src: aboutVoluntariatImage, alt: "Equip de voluntariat de Rock’n’Rostoll" },
+  { src: galeria1, alt: "Foto Galeria 1" },
+  { src: galeria2, alt: "Foto Galeria 2" },
+  { src: galeria3, alt: "Foto Galeria 3" },
+  { src: galeria4, alt: "Foto Galeria 4" },
+  { src: galeria5, alt: "Foto Galeria 5" },
+  { src: galeria6, alt: "Foto Galeria 6" },
+  { src: galeria7, alt: "Foto Galeria 7" },
+  { src: galeria8, alt: "Foto Galeria 8" },
+  { src: galeria9, alt: "Foto Galeria 9" },
+  { src: galeria0, alt: "Foto Galeria 10" },
 ];
 
 export default homeGallery;
