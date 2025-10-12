@@ -150,7 +150,6 @@ export default function Home() {
             <div className="video-frame">
               <div className="instagram-gallery">
                 <InstagramEmbed url="https://www.instagram.com/p/DPKAi8BjMNs/" />
-                <InstagramEmbed url="https://www.instagram.com/reel/CwdV3M8N9-H/" />
                 <InstagramEmbed url="https://www.instagram.com/p/DO36Nm4jL5O/?utm_source=ig_web_copy_link&igsh=MWJtdDRjaTFzb3Z3NQ== " />
                 <FacebookEmbed url="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2FRadioRostoll%2Fposts%2Fpfbid0PqP9HPuEtVquNxfLe3T2HMsxCCivqnjZmRmmyuVsprcgcb8w2uSFdDhjBcoBXJkTl&show_text=true&width=500" />
                 
