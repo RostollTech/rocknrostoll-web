@@ -37,19 +37,13 @@ export default function About() {
                 llibertat, el renou i la diversió sota les estrelles esdevenen protagonistes i arrelen en la identitat del poble.
               </p>
             </div>
-            <img
-              src={aboutOrigensImage}
-              alt="Fotografia històrica dels primers organitzadors preparant el camp de rostoll"
-            />
+            <img src={aboutOrigensImage} alt="Fotografia històrica dels primers organitzadors preparant el camp de rostoll"/>
           </div>
         </section>
 
         <section className="page-section">
           <div className="page-content split-layout">
-            <img
-              src={aboutSafareigImage}
-              alt="Ambient al Safareig Dance amb la gent ballant dins el safareig il·luminat"
-            />
+            <img src={aboutSafareigImage} alt="Ambient al Safareig Dance amb la gent ballant dins el safareig il·luminat"/>
             <div>
               <h2 className="section-title">Creixement i Revolució amb el Safareig Dance (1996-2000)</h2>
               <p className="section-description">

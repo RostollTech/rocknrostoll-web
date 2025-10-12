@@ -3,13 +3,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import InstagramEmbed from "../components/InstagramEmbed";
 import FacebookEmbed from "../components/FacebookEmbed";
-import aboutActualitatImage from "/img/about-actualitat.jpg";
-import aboutOrigensImage from "/img/about-origens.jpg";
-import aboutSafareigImage from "/img/about-safareig.jpg";
-import contactHeroImage from "/img/contact1.jpg";
-import homeHeroImage from "/img/home-hero.jpg";
-import rostollImage from "/img/rostoll1.jpg";
-import aboutVoluntariatImage from "/img/about-voluntariat.jpg";
+import galleryImages from "../data/gallery";
 
 const EVENT_DATE = new Date("2026-08-29T19:00:00");
 
@@ -41,17 +35,7 @@ export default function Home() {
     return () => clearInterval(interval);
   }, []);
 
-  const gallery = useMemo(
-    () => [
-      { src: homeHeroImage, alt: "Concert Rock’n’Rostoll 2019" },
-      { src: rostollImage, alt: "Safareig Dance de matinada" },
-      { src: aboutSafareigImage, alt: "Públic ballant al Safareig Dance" },
-      { src: aboutActualitatImage, alt: "Voluntariat muntant l’escenari" },
-      { src: aboutOrigensImage, alt: "Concert a Son Perot amb llums vermelles" },
-      { src: aboutVoluntariatImage, alt: "Equip de voluntariat de Rock’n’Rostoll" },
-    ],
-    []
-  );
+  const gallery = useMemo(() => galleryImages, []);
 
   return (
     <>
@@ -60,12 +44,12 @@ export default function Home() {
         <section className="hero home-hero">
           <div className="hero-content">
             <p className="hero-eyebrow">30a edició</p>
-            <h1 className="hero-title">30 anys de música, amistat i rostoll</h1>
+            <h1 className="hero-title">30 edicions de música, amistat i rostoll</h1>
             <p className="hero-meta">29 d’agost de 2026 · Festival autogestionat a Son Perot (Maria de la Salut)</p>
             <p className="hero-description">
               Rock’n’Rostoll és el festival autogestionat de referència al Pla de Mallorca. Un punt de trobada entre
               generacions, música i llibertat, on el rock i l’electrònica omplen el rostoll de Maria de la Salut cada darrer
-              dissabte d’agost. Celebrem 30 anys d’història, germanor i molta festa!
+              dissabte d’agost. Celebrem 30 edicions d’història, germanor i molta festa!
             </p>
 
             <div className="countdown-grid" aria-label="Countdown to the event">
@@ -144,7 +128,7 @@ export default function Home() {
             <div className="section-header">
               <p className="section-eyebrow">Galeria</p>
               <h2 className="section-title">Moments Rock’n’Rostoll</h2>
-              <p className="section-description">Un recorregut visual per la història del festival.</p>
+              <p className="section-description">Un recorregut visual pel darrer festival.</p>
             </div>
 
             <div className="gallery-grid">
@@ -166,7 +150,6 @@ export default function Home() {
             <div className="video-frame">
               <div className="instagram-gallery">
                 <InstagramEmbed url="https://www.instagram.com/p/DPKAi8BjMNs/" />
-                <InstagramEmbed url="https://www.instagram.com/reel/CwdV3M8N9-H/" />
                 <InstagramEmbed url="https://www.instagram.com/p/DO36Nm4jL5O/?utm_source=ig_web_copy_link&igsh=MWJtdDRjaTFzb3Z3NQ== " />
                 <FacebookEmbed url="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2FRadioRostoll%2Fposts%2Fpfbid0PqP9HPuEtVquNxfLe3T2HMsxCCivqnjZmRmmyuVsprcgcb8w2uSFdDhjBcoBXJkTl&show_text=true&width=500" />
                 

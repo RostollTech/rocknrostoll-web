@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import navigationItems from "../data/navigation";
 
 export default function Navbar() {
   const path = useLocation().pathname;
@@ -7,13 +8,6 @@ export default function Navbar() {
 
   const toggleMenu = () => setIsOpen((prev) => !prev);
   const closeMenu = () => setIsOpen(false);
-
-  const navItems = [
-    { to: "/", label: "Home" },
-    { to: "/about", label: "About" },
-    //{ /*to: "/shop", label: "Shop"*/ },
-    { to: "/contact", label: "Contact" },
-  ];
 
   return (
     <header className="navbar">
@@ -28,7 +22,7 @@ export default function Navbar() {
         </button>
 
         <ul className={`nav-links${isOpen ? " open" : ""}`}>
-          {navItems.map((item) => (
+          {navigationItems.map((item) => (
             <li key={item.to} className={path === item.to ? "active" : ""}>
               <Link to={item.to} onClick={closeMenu}>
                 {item.label}

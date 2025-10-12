@@ -43,38 +43,38 @@ export default function Contact() {
         </section>
 
         <section className="page-section">
-          <div className="page-content split-layout">
-                          
-            <div>
-              <div className="section-header section-header--left">
-                <p className="section-eyebrow">Segueix-nos</p>
-                <h2 className="section-title">Segueix Rock’n’Rostoll</h2>
-                <p className="section-description">
-                  Troba’ns a les nostres xarxes o escriu-nos directament per col·laborar o resoldre qualsevol dubte.
-                </p>
+          <div className="page-content contact-layout">
+            <div className="section-header section-header--left contact-intro">
+              <p className="section-eyebrow">Segueix-nos</p>
+              <h2 className="section-title">Segueix Rock’n’Rostoll</h2>
+              <p className="section-description">
+                Troba’ns a les nostres xarxes o escriu-nos directament per col·laborar o resoldre qualsevol dubte.
+              </p>
+            </div>
+            <div className="contact-social-links">
+              <SocialLinks />
+            </div>
+            <div className="contact-qr-grid">
+              <div className="qr-card">
+                <img
+                  src={qrInstagramImage}
+                  alt="Codi QR d'Instagram de Rock’n’Rostoll"
+                  className="qr-image"
+                />
+                <p>Escaneja per seguir-nos a Instagram</p>
               </div>
-              <div className="contact-social-wrapper">
-                
-                <SocialLinks />             
-                  <div className="qr-card">
-                    <img
-                      src={qrInstagramImage}
-                      alt="Codi QR d'Instagram de Rock’n’Rostoll"
-                      className="qr-image"
-                    />
-                    <p>Escaneja per seguir-nos a Instagram</p>
-                  </div>
-                  <div className="qr-card">
-                    <img
-                      src={qrFacebookImage}
-                      alt="Codi QR de Facebook de Rock’n’Rostoll"
-                      className="qr-image"
-                    />
-                    <p>Escaneja per seguir-nos a Facebook</p>
-                  </div>
-                  <div className="map-frame">
-                  <img src={contactMapImage} alt="Vista del camp de rostoll on se celebra el festival" />
-                </div>
+              <div className="qr-card">
+                <img
+                  src={qrFacebookImage}
+                  alt="Codi QR de Facebook de Rock’n’Rostoll"
+                  className="qr-image"
+                />
+                <p>Escaneja per seguir-nos a Facebook</p>
+              </div>
+            </div>
+            <div className="contact-media">
+              <div className="map-frame">
+                <img src={contactMapImage} alt="Vista del camp de rostoll on se celebra el festival" />
               </div>
             </div>
           </div>
@@ -87,7 +87,6 @@ export default function Contact() {
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1459.9425136729283!2d3.0653078102838998!3d39.68329810760899!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1297cb42046d8b09%3A0x194899cbb6f7f09d!2sRock'n'Rostoll!5e1!3m2!1sca!2ses!4v1759844635351!5m2!1sca!2ses"
                 width="100%"
                 height="400"
-                style={{ border: 0 }}
                 allowFullScreen=""
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
