@@ -413,7 +413,7 @@ main {
 }
 
 .hero.home-hero {
-  background: linear-gradient(160deg, rgba(12, 12, 12, 0.7), rgba(12, 12, 12, 0.9)), url("/img/home-hero.jpg") center/cover;
+  background: linear-gradient(160deg, rgba(12, 12, 12, 0.4), rgba(12, 12, 12, 0.7)), url("/img/home-hero.jpg") center/cover;
 }
 
 .hero-content {
