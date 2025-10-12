@@ -646,14 +646,13 @@ main {
   inset: 0;
   background-size: cover;
   background-position: center;
-  filter: brightness(0.58) saturate(0.95);
   transform: scale(1.08);
 }
 
 .page-hero__overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(160deg, rgba(7, 7, 7, 0.72), rgba(7, 7, 7, 0.9));
+  background: linear-gradient(160deg, rgba(7, 7, 7, 0.5), rgba(7, 7, 7, 0.85));
 }
 
 .page-hero__inner {
