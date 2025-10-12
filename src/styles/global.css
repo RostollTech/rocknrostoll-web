@@ -757,11 +757,15 @@ main {
 
 .contact-social-wrapper {
   display: grid;
+  grid-auto-flow: column;
+  margin-bottom: 2rem;
   gap: var(--space-5);
 }
 
 .qr-card {
+  margin-left: 4rem;
   display: grid;
+  width: min(100%, 16rem);
   justify-items: center;
   gap: var(--space-3);
   background: rgba(19, 19, 19, 0.92);

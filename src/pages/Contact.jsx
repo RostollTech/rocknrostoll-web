@@ -72,10 +72,10 @@ export default function Contact() {
                     />
                     <p>Escaneja per seguir-nos a Facebook</p>
                   </div>
-                  <div className="map-frame">
+              </div>
+              <div className="map-frame">
                   <img src={contactMapImage} alt="Vista del camp de rostoll on se celebra el festival" />
                 </div>
-              </div>
             </div>
           </div>
         </section>
