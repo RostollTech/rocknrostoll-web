@@ -42,7 +42,7 @@ export default function Footer() {
               className="newsletter-input"
             />
             <button type="submit" className="btn-primary">
-              Uneix-me a la llista
+              Pròximament!
             </button>
           </form>
         </div>

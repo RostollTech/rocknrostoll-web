@@ -166,7 +166,7 @@ export default function Home() {
           </p>
           <div className="button-group">
             <a href="#newsletter" className="btn-primary">
-              Subscriu-me a la newsletter
+              Pròximament!
             </a>
             <a href="/contact#segueix" className="btn-outline">
               Segueix-nos a les xarxes
