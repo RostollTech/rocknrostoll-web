@@ -17,9 +17,8 @@ export default function Footer() {
         <div className="footer-column">
           <h4>Enllaços ràpids</h4>
           <div className="footer-links">
+            <Link to="/">Pròxim R'N'R </Link>
             <Link to="/about">Sobre el festival</Link>
-            <a href="#programa">Programa</a>
-            <a href="#info-practica">Info pràctica</a>
             <Link to="/contact">Contacte</Link>
           </div>
         </div>
