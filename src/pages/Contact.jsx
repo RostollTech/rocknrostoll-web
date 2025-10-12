@@ -53,6 +53,7 @@ export default function Contact() {
             </div>
             <div className="contact-social-links">
               <SocialLinks />
+              <img className="contact-social-img" src={contactMapImage} alt="Vista del camp de rostoll on se celebra el festival" />
             </div>
             <div className="contact-qr-grid">
               <div className="qr-card">
@@ -70,11 +71,6 @@ export default function Contact() {
                   className="qr-image"
                 />
                 <p>Escaneja per seguir-nos a Facebook</p>
-              </div>
-            </div>
-            <div className="contact-media">
-              <div className="map-frame">
-                <img src={contactMapImage} alt="Vista del camp de rostoll on se celebra el festival" />
               </div>
             </div>
           </div>
