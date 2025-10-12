@@ -87,7 +87,6 @@ export default function Contact() {
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1459.9425136729283!2d3.0653078102838998!3d39.68329810760899!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1297cb42046d8b09%3A0x194899cbb6f7f09d!2sRock'n'Rostoll!5e1!3m2!1sca!2ses!4v1759844635351!5m2!1sca!2ses"
                 width="100%"
                 height="400"
-                style={{ border: 0 }}
                 allowFullScreen=""
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"

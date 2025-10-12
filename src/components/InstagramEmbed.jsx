@@ -17,7 +17,6 @@ export default function InstagramEmbed({ url }) {
       className="instagram-media"
       data-instgrm-permalink={url}
       data-instgrm-version="14"
-      style={{ width: "100%", maxWidth: "540px", margin: "0 auto" }}
     ></blockquote>
   );
 }
