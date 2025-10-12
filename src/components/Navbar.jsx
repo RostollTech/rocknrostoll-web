@@ -14,8 +14,8 @@ export default function Navbar() {
       <div className="navbar-inner">
         <Link to="/" className="navbar-logo" onClick={closeMenu}>
         <picture>
-          <source srcset="icon/icon-page.avif" type="image/avif"/>
-          <source srcset="icon/icon-page.webp" type="image/webp"/>
+          <source srcSet="icon/icon-page.avif" type="image/avif"/>
+          <source srcSet="icon/icon-page.webp" type="image/webp"/>
           <img src="icon/icon-page.png" alt="Logotip"/>
         </picture>
           Rock'N'Rostoll
