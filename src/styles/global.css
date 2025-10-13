@@ -782,13 +782,6 @@ main {
   color: var(--color-text-muted);
 }
 
-.page-content h3 {
-  text-transform: uppercase;
-  letter-spacing: 0.32em;
-  font-size: 0.75rem;
-  color: var(--color-accent-red);
-}
-
 .legal-content {
   background: rgba(19, 19, 19, 0.92);
   border-radius: var(--radius-lg);
