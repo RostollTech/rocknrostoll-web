@@ -53,7 +53,13 @@ export default function Contact() {
             </div>
             <div className="contact-social-links">
               <SocialLinks />
-              <img className="contact-social-img" src={contactMapImage} alt="Vista del camp de rostoll on se celebra el festival" />
+              {/* SEO: Imatge amb alt descriptiu i càrrega mandrosa */}
+              <img
+                className="contact-social-img"
+                src={contactMapImage}
+                alt="Vista del camp de rostoll on se celebra el festival"
+                loading="lazy"
+              />
             </div>
             <div className="contact-qr-grid">
               <div className="qr-card">
@@ -61,6 +67,7 @@ export default function Contact() {
                   src={qrInstagramImage}
                   alt="Codi QR d'Instagram de Rock’n’Rostoll"
                   className="qr-image"
+                  loading="lazy"
                 />
                 <p>Escaneja per seguir-nos a Instagram</p>
               </div>
@@ -69,6 +76,7 @@ export default function Contact() {
                   src={qrFacebookImage}
                   alt="Codi QR de Facebook de Rock’n’Rostoll"
                   className="qr-image"
+                  loading="lazy"
                 />
                 <p>Escaneja per seguir-nos a Facebook</p>
               </div>

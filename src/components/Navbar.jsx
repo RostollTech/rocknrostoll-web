@@ -13,11 +13,12 @@ export default function Navbar() {
     <header className="navbar">
       <div className="navbar-inner">
         <Link to="/" className="navbar-logo" onClick={closeMenu}>
-        <picture>
-          <source srcSet="icon/icon-page.avif" type="image/avif"/>
-          <source srcSet="icon/icon-page.webp" type="image/webp"/>
-          <img src="icon/icon-page.png" alt="Logotip"/>
-        </picture>
+          <picture>
+            <source srcSet="icon/icon-page.avif" type="image/avif" />
+            <source srcSet="icon/icon-page.webp" type="image/webp" />
+            {/* SEO: Logotip amb càrrega mandrosa per optimitzar */}
+            <img src="icon/icon-page.png" alt="Logotip" loading="lazy" />
+          </picture>
           Rock'N'Rostoll
         </Link>
 

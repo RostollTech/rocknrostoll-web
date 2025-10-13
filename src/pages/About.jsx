@@ -37,13 +37,23 @@ export default function About() {
                 llibertat, el renou i la diversió sota les estrelles esdevenen protagonistes i arrelen en la identitat del poble.
               </p>
             </div>
-            <img src={aboutOrigensImage} alt="Fotografia històrica dels primers organitzadors preparant el camp de rostoll"/>
+            {/* SEO: Imatge amb càrrega mandrosa per millorar el rendiment */}
+            <img
+              src={aboutOrigensImage}
+              alt="Fotografia històrica dels primers organitzadors preparant el camp de rostoll"
+              loading="lazy"
+            />
           </div>
         </section>
 
         <section className="page-section">
           <div className="page-content split-layout">
-            <img src={aboutSafareigImage} alt="Ambient al Safareig Dance amb la gent ballant dins el safareig il·luminat"/>
+            {/* SEO: Imatge amb càrrega mandrosa per millorar el rendiment */}
+            <img
+              src={aboutSafareigImage}
+              alt="Ambient al Safareig Dance amb la gent ballant dins el safareig il·luminat"
+              loading="lazy"
+            />
             <div>
               <h2 className="section-title">Creixement i Revolució amb el Safareig Dance (1996-2000)</h2>
               <p className="section-description">
@@ -77,13 +87,23 @@ export default function About() {
                 ballar damunt el rostoll esdevingueren segell del festival.
               </p>
             </div>
-            <img src={aboutVoluntariatImage} alt="Voluntaris preparant l'escenari del festival" />
+            {/* SEO: Imatge amb càrrega mandrosa per millorar el rendiment */}
+            <img
+              src={aboutVoluntariatImage}
+              alt="Voluntaris preparant l'escenari del festival"
+              loading="lazy"
+            />
           </div>
         </section>
 
         <section className="page-section">
           <div className="page-content split-layout">
-            <img src={aboutActualitatImage} alt="Equip de voluntaris del festival Rock’n’Rostoll" />
+            {/* SEO: Imatge amb càrrega mandrosa per millorar el rendiment */}
+            <img
+              src={aboutActualitatImage}
+              alt="Equip de voluntaris del festival Rock’n’Rostoll"
+              loading="lazy"
+            />
             <div>
               <h2 className="section-title">Actualitat: 30 Anys de Germanor i Cultura (2011-Avui)</h2>
               <p className="section-description">
@@ -114,7 +134,12 @@ export default function About() {
                 gratuït i autogestionat que aposta per la cultura lliure i l’energia comunitària. T’hi esperam al camp de rostoll!
               </p>
             </div>
-            <img src={aboutVoluntariat2Image} alt="Públic ballant en una zona il·luminada del festival" />
+            {/* SEO: Imatge amb càrrega mandrosa per millorar el rendiment */}
+            <img
+              src={aboutVoluntariat2Image}
+              alt="Públic ballant en una zona il·luminada del festival"
+              loading="lazy"
+            />
           </div>
         </section>
       </main>
