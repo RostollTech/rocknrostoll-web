@@ -506,6 +506,8 @@ main {
   padding: var(--space-6) var(--space-5);
   display: grid;
   gap: var(--space-3);
+  align-content: start;
+  align-items: start;
   box-shadow: 0 26px 44px rgba(0, 0, 0, 0.38);
   position: relative;
   overflow: hidden;
