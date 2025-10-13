@@ -19,6 +19,8 @@ export default function Footer() {
           <div className="footer-links">
             <Link to="/">Pròxim R'N'R </Link>
             <Link to="/about">Sobre el festival</Link>
+            {/* SEO: Enllaç intern cap a la secció del programa */}
+            <a href="/#programa">Programa</a>
             <Link to="/contact">Contacte</Link>
           </div>
         </div>

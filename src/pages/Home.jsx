@@ -5,6 +5,8 @@ import InstagramEmbed from "../components/InstagramEmbed";
 import FacebookEmbed from "../components/FacebookEmbed";
 import galleryImages from "../data/gallery";
 
+// SEO: Recomanat exportar les imatges de la galeria a formats .webp o .avif per reduir el pes
+
 const EVENT_DATE = new Date("2026-08-29T19:00:00");
 
 function getTimeLeft(target) {
@@ -82,7 +84,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="section section-alt" id="tickets">
+        <section className="section section-alt" id="programa">
           <div className="container">
             <div className="section-header">
               <p className="section-eyebrow">Organitza la teva arribada</p>

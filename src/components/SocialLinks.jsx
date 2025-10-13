@@ -12,7 +12,8 @@ export default function SocialLinks() {
           aria-label={link.ariaLabel}
         >
           <span className="icon icon--social" aria-hidden="true">
-            <img src={link.icon} alt="" />
+            {/* SEO: Alt descriptiu i càrrega mandrosa per a icones socials */}
+            <img src={link.icon} alt={link.label} loading="lazy" />
           </span>
           <div>
             <span>{link.label}</span>
