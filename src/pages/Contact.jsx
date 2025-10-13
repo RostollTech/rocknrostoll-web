@@ -2,7 +2,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import PageHero from "../components/PageHero";
 import SocialLinks from "../components/SocialLinks";
-import contactMapImage from "/img/contact-map.jpg";
+import contactMapImage from "/img/contact-map.webp";
 import qrFacebookImage from "/qr/qr_facebook_blanc.png";
 import qrInstagramImage from "/qr/qr_instagram_blanc.png";
 

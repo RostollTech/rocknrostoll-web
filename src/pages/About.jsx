@@ -1,11 +1,11 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import PageHero from "../components/PageHero";
-import aboutActualitatImage from "/img/about-actualitat.jpg";
-import aboutOrigensImage from "/img/about-origens.jpg";
-import aboutSafareigImage from "/img/about-safareig.jpg";
-import aboutVoluntariatImage from "/img/about-voluntariat.jpg";
-import aboutVoluntariat2Image from "/img/about-voluntariat2.jpg";
+import aboutActualitatImage from "/img/about-actualitat.webp";
+import aboutOrigensImage from "/img/about-origens.webp";
+import aboutSafareigImage from "/img/about-safareig.webp";
+import aboutVoluntariatImage from "/img/about-voluntariat.webp";
+import aboutVoluntariat2Image from "/img/about-voluntariat2.webp";
 
 export default function About() {
   return (

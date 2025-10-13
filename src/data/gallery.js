@@ -1,13 +1,13 @@
-import galeria1 from "/img/galeria1.JPG";
-import galeria2 from "/img/galeria2.JPG";
-import galeria3 from "/img/galeria3.JPG";
-import galeria4 from "/img/galeria4.JPG";
-import galeria5 from "/img/galeria5.JPG";
-import galeria6 from "/img/galeria6.JPG";
-import galeria7 from "/img/galeria7.JPG";
-import galeria8 from "/img/galeria8.JPG";
-import galeria9 from "/img/galeria9.JPG";
-import galeria0 from "/img/galeria0.JPG";
+import galeria1 from "/img/galeria1.webp";
+import galeria2 from "/img/galeria2.webp";
+import galeria3 from "/img/galeria3.webp";
+import galeria4 from "/img/galeria4.webp";
+import galeria5 from "/img/galeria5.webp";
+import galeria6 from "/img/galeria6.webp";
+import galeria7 from "/img/galeria7.webp";
+import galeria8 from "/img/galeria8.webp";
+import galeria9 from "/img/galeria9.webp";
+import galeria0 from "/img/galeria0.webp";
 
 const homeGallery = [
   { src: galeria1, alt: "Foto Galeria 1" },

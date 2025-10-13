@@ -413,7 +413,7 @@ main {
 }
 
 .hero.home-hero {
-  background: linear-gradient(160deg, rgba(12, 12, 12, 0.4), rgba(12, 12, 12, 0.7)), url("/img/home-hero.jpg") center/cover;
+  background: linear-gradient(160deg, rgba(12, 12, 12, 0.4), rgba(12, 12, 12, 0.7)), url("/img/home-hero.webp") center/cover;
 }
 
 .hero-content {
@@ -676,19 +676,19 @@ main {
 }
 
 .about-hero .page-hero__image {
-  background-image: url("/img/about-hero.jpg");
+  background-image: url("/img/about-hero.webp");
 }
 
 .contact-hero .page-hero__image {
-  background-image: url("/img/contact-hero.jpg");
+  background-image: url("/img/contact-hero.webp");
 }
 
 .shop-hero .page-hero__image {
-  background-image: url("/img/camisetaA.jpg");
+  background-image: url("/img/camisetaA.webp");
 }
 
 .legal-hero .page-hero__image {
-  background-image: url("/img/rostoll1.jpg");
+  background-image: url("/img/rostoll1.webp");
 }
 
 /* Page layout */
