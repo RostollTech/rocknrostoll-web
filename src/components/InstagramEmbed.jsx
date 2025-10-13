@@ -1,5 +1,7 @@
 import { useMemo } from "react";
 
+import LazyIframe from "./LazyIframe";
+
 function buildEmbedUrl(permalink) {
   if (!permalink) {
     return null;
@@ -44,16 +46,24 @@ export default function InstagramEmbed({ url, title = "Publicació d'Instagram" 
   }
 
   return (
-    <div className="instagram-embed">
-      <iframe
-        src={embedUrl}
-        title={title}
-        className="instagram-embed__frame"
-        loading="lazy"
-        allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-        allowFullScreen
-        referrerPolicy="strict-origin-when-cross-origin"
-      ></iframe>
-    </div>
+    <LazyIframe
+      containerClassName="instagram-embed"
+      containerStyle={{ minHeight: "420px" }}
+      className="instagram-embed__frame"
+      src={embedUrl}
+      title={title}
+      loading="lazy"
+      allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+      allowFullScreen
+      referrerPolicy="strict-origin-when-cross-origin"
+      placeholder={
+        <div
+          className="instagram-embed__placeholder instagram-embed--fallback"
+          aria-hidden="true"
+        >
+          Carregant contingut d'Instagram…
+        </div>
+      }
+    />
   );
 }
