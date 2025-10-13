@@ -53,7 +53,6 @@ export default function Contact() {
             </div>
             <div className="contact-social-links">
               <SocialLinks />
-              {/* SEO: Imatge amb alt descriptiu i càrrega mandrosa */}
               <img
                 className="contact-social-img"
                 src={contactMapImage}

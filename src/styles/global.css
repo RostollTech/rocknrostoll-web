@@ -738,16 +738,15 @@ main {
   box-shadow: var(--shadow-md);
 }
 
-.page-content h2 {
-  font-family: var(--font-heading);
-  font-size: clamp(1.6rem, 3vw, 2.1rem);
-  margin: 0;
-  letter-spacing: 0.14em;
-  text-align: center; 
-}
-
 .page-content p {
   color: var(--color-text-muted);
+}
+
+.page-content h3 {
+  text-transform: uppercase;
+  letter-spacing: 0.32em;
+  font-size: 0.75rem;
+  color: var(--color-accent-red);
 }
 
 .legal-content {
@@ -781,11 +780,6 @@ main {
   padding: var(--space-6) var(--space-5);
   border: 1px solid rgba(255, 255, 255, 0.05);
   box-shadow: var(--shadow-sm);
-}
-
-.contact-card h3 {
-  font-family: var(--font-heading);
-  margin: 0 0 var(--space-3);
 }
 
 
