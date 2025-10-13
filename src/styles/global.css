@@ -506,6 +506,8 @@ main {
   padding: var(--space-6) var(--space-5);
   display: grid;
   gap: var(--space-3);
+  align-content: start;
+  align-items: start;
   box-shadow: 0 26px 44px rgba(0, 0, 0, 0.38);
   position: relative;
   overflow: hidden;
@@ -582,6 +584,10 @@ main {
   border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
+.lazy-iframe {
+  width: 100%;
+}
+
 .instagram-gallery {
   display: grid;
   gap: var(--space-5);
@@ -608,6 +614,14 @@ main {
   border: 0;
 }
 
+.instagram-embed__placeholder {
+  width: 100%;
+  text-align: center;
+  padding: var(--space-4);
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.72);
+}
+
 .instagram-embed--fallback {
   display: flex;
   align-items: center;
@@ -624,11 +638,29 @@ main {
 .facebook-embed {
   width: 100%;
   max-width: 360px;
-  border: 0;
   border-radius: var(--radius-sm);
   background: rgba(18, 18, 18, 0.9);
   box-shadow: var(--shadow-sm);
   border: 1px solid rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+}
+
+.facebook-embed__frame {
+  display: block;
+  width: 100%;
+  border: 0;
+}
+
+.facebook-embed__placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  min-height: inherit;
+  padding: var(--space-4);
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.72);
 }
 
 /* CTA */
@@ -738,6 +770,14 @@ main {
   box-shadow: var(--shadow-md);
 }
 
+.page-content h2:not(.section-title) {
+  font-family: var(--font-heading);
+  font-size: clamp(1.6rem, 3vw, 2.1rem);
+  margin: 0;
+  letter-spacing: 0.14em;
+  text-align: center; 
+}
+
 .page-content p {
   color: var(--color-text-muted);
 }
@@ -769,17 +809,30 @@ main {
 
 /* Contact */
 .contact-grid {
-  display: grid;
   gap: var(--space-5);
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
 }
 
 .contact-card {
-  background: linear-gradient(170deg, rgba(19, 19, 19, 0.95), rgba(13, 13, 13, 0.9));
-  border-radius: var(--radius-md);
-  padding: var(--space-6) var(--space-5);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: var(--shadow-sm);
+  display: grid;
+  gap: var(--space-3);
+  align-content: start;
+  position: relative;
+  z-index: 1;
+}
+
+.contact-card .info-title {
+  margin: 0;
+}
+
+.contact-card .info-text {
+  margin: 0;
+}
+
+.contact-card__email {
+  font-family: var(--font-heading);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-accent-yellow);
 }
 
 

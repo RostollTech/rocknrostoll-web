@@ -39,6 +39,8 @@ export default function Footer() {
           <form className="newsletter-form" onSubmit={(event) => event.preventDefault()}>
             <input
               type="email"
+              id="newsletter-email"
+              name="newsletter-email"
               placeholder="Pròximament!"
               aria-label="Correu electrònic"
               className="newsletter-input"

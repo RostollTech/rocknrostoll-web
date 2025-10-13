@@ -19,24 +19,32 @@ export default function Contact() {
         />
 
         <section className="page-section section-alt">
-          <div className="page-content contact-grid">
-            <article className="contact-card">
-              <h3>Consultes generals</h3>
-              <p>Si tens dubtes o vols informació sobre el festival, escriu-nos.</p>
-              <p>rocknrostoll@gmail.com</p>
+          <div className="page-content info-grid contact-grid">
+            <article className="info-card contact-card">
+              <span className="info-label">Contacte general</span>
+              <h3 className="info-title">Consultes i dubtes</h3>
+              <p className="info-text">
+                Si tens dubtes o vols informació sobre el festival, escriu-nos i t&rsquo;respondrem ben aviat.
+              </p>
+              <p className="info-text contact-card__email">rocknrostoll@gmail.com</p>
             </article>
-            <article className="contact-card">
-              <h3>Col·laboracions i premsa</h3>
-              <p>
+            <article className="info-card contact-card">
+              <span className="info-label">Col·laboracions i premsa</span>
+              <h3 className="info-title">Fem equip amb tu</h3>
+              <p className="info-text">
                 Som oberts a col·laboracions amb artistes, entitats i mitjans que comparteixin la nostra filosofia: música,
                 joventut i cultura local.
               </p>
+              <p className="info-text">
+                Escriu-nos i parlarem de com sumar esforços per fer créixer la comunitat del Rock&rsquo;n&rsquo;Rostoll.
+              </p>
             </article>
-            <article className="contact-card">
-              <h3>Grups i DJ interessats a tocar</h3>
-              <p>
-                Si tens un grup o ets DJ i t’agradaria actuar al Rock’n’Rostoll, envia’ns informació sobre el teu projecte
-                musical.
+            <article className="info-card contact-card">
+              <span className="info-label">Grups i DJ</span>
+              <h3 className="info-title">Volem escoltar-te</h3>
+              <p className="info-text">
+                Si tens un grup o ets DJ i t&rsquo;agradaria actuar al Rock&rsquo;n&rsquo;Rostoll, envia&rsquo;ns informació sobre el teu projecte
+                musical i les teves necessitats tècniques.
               </p>
             </article>
           </div>
@@ -44,7 +52,7 @@ export default function Contact() {
 
         <section className="page-section">
           <div className="page-content contact-layout">
-            <div className="section-header section-header--left contact-intro">
+            <div className="section-header contact-intro">
               <p className="section-eyebrow">Segueix-nos</p>
               <h2 className="section-title">Segueix Rock’n’Rostoll</h2>
               <p className="section-description">
