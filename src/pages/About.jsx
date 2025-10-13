@@ -37,7 +37,6 @@ export default function About() {
                 llibertat, el renou i la diversió sota les estrelles esdevenen protagonistes i arrelen en la identitat del poble.
               </p>
             </div>
-            {/* SEO: Imatge amb càrrega mandrosa per millorar el rendiment */}
             <img
               src={aboutOrigensImage}
               alt="Fotografia històrica dels primers organitzadors preparant el camp de rostoll"
@@ -48,7 +47,6 @@ export default function About() {
 
         <section className="page-section">
           <div className="page-content split-layout">
-            {/* SEO: Imatge amb càrrega mandrosa per millorar el rendiment */}
             <img
               src={aboutSafareigImage}
               alt="Ambient al Safareig Dance amb la gent ballant dins el safareig il·luminat"
@@ -87,7 +85,6 @@ export default function About() {
                 ballar damunt el rostoll esdevingueren segell del festival.
               </p>
             </div>
-            {/* SEO: Imatge amb càrrega mandrosa per millorar el rendiment */}
             <img
               src={aboutVoluntariatImage}
               alt="Voluntaris preparant l'escenari del festival"
@@ -98,7 +95,6 @@ export default function About() {
 
         <section className="page-section">
           <div className="page-content split-layout">
-            {/* SEO: Imatge amb càrrega mandrosa per millorar el rendiment */}
             <img
               src={aboutActualitatImage}
               alt="Equip de voluntaris del festival Rock’n’Rostoll"

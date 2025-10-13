@@ -1,6 +1,6 @@
-import iconFacebook from "/icons/facebook.png";
-import iconInstagram from "/icons/instagram.png";
-import iconMail from "/icons/mail.png";
+import iconFacebook from "/icons/facebook.webp";
+import iconInstagram from "/icons/instagram.webp";
+import iconMail from "/icons/mail.webp";
 
 const socialLinks = [
   {
