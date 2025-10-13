@@ -3,13 +3,95 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Rock'N'Rostoll</title>
+    <!-- SEO: Titular i meta descripció -->
+    <title>Rock’n’Rostoll · Festival autogestionat de rock i electrònica a Mallorca</title>
+    <meta
+      name="description"
+      content="Rock’n’Rostoll és el festival autogestionat de referència a Maria de la Salut. Descobreix el programa, la història i com participar-hi."
+    />
+    <meta
+      name="keywords"
+      content="Rock’n’Rostoll, festival Mallorca, música rock, electrònica, Maria de la Salut, cultura autogestionada"
+    />
+    <meta name="author" content="Rock’n’Rostoll" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://rocknrostoll.cat" />
+
+    <!-- SEO: Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Rock’n’Rostoll 2025 · Festival a Maria de la Salut" />
+    <meta
+      property="og:description"
+      content="Festival autogestionat de rock i electrònica a Son Perot. Consulta el programa, participa com a voluntari i viu l’experiència."
+    />
+    <meta property="og:url" content="https://rocknrostoll.cat" />
+    <meta property="og:image" content="https://rocknrostoll.cat/img/about-actualitat.jpg" />
+    <meta property="og:locale" content="ca_ES" />
+
+    <!-- SEO: Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Rock’n’Rostoll 2025 · Festival a Maria de la Salut" />
+    <meta
+      name="twitter:description"
+      content="Viu Rock’n’Rostoll: tres dècades de música, llibertat i germanor al Pla de Mallorca."
+    />
+    <meta name="twitter:image" content="https://rocknrostoll.cat/img/about-actualitat.jpg" />
+    <meta name="twitter:site" content="@rocknrostoll" />
+
+    <!-- SEO: Declaració del favicon en formats compatibles -->
     <link rel="icon" type="image/png" href="icon/icon-page.png" />
     <link rel="shortcut icon" href="icon/icon-page.ico" />
+
+    <!-- SEO: Dades estructurades MusicEvent -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "MusicEvent",
+        "name": "Rock’n’Rostoll 2025",
+        "description": "Festival autogestionat de rock i electrònica que se celebra a Son Perot (Maria de la Salut).",
+        "startDate": "2025-08-30T19:00:00+02:00",
+        "endDate": "2025-08-31T06:00:00+02:00",
+        "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+        "eventStatus": "https://schema.org/EventScheduled",
+        "image": [
+          "https://rocknrostoll.cat/img/about-actualitat.jpg",
+          "https://rocknrostoll.cat/img/about-voluntariat.jpg"
+        ],
+        "location": {
+          "@type": "Place",
+          "name": "Son Perot",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Camí de Maria de la Salut a Muro",
+            "addressLocality": "Maria de la Salut",
+            "addressRegion": "Illes Balears",
+            "postalCode": "07518",
+            "addressCountry": "ES"
+          }
+        },
+        "organizer": {
+          "@type": "Organization",
+          "name": "Associació Cultural Rock’n’Rostoll",
+          "url": "https://rocknrostoll.cat"
+        },
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "EUR",
+          "availability": "https://schema.org/InStock",
+          "url": "https://rocknrostoll.cat/programa"
+        },
+        "performer": {
+          "@type": "MusicGroup",
+          "name": "Line-up Rock’n’Rostoll"
+        }
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="src/main.jsx"></script>
+    <!-- SEO: Carrega diferida del bundle principal -->
+    <script type="module" src="src/main.jsx" defer></script>
   </body>
 </html>
 
