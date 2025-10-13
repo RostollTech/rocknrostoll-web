@@ -44,7 +44,7 @@ export default function Contact() {
 
         <section className="page-section">
           <div className="page-content contact-layout">
-            <div className="section-header section-header--left contact-intro">
+            <div className="section-header contact-intro">
               <p className="section-eyebrow">Segueix-nos</p>
               <h2 className="section-title">Segueix Rock’n’Rostoll</h2>
               <p className="section-description">

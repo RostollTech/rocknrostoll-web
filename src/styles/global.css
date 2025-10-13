@@ -768,7 +768,7 @@ main {
   box-shadow: var(--shadow-md);
 }
 
-.page-content h2 {
+.page-content h2:not(.section-title) {
   font-family: var(--font-heading);
   font-size: clamp(1.6rem, 3vw, 2.1rem);
   margin: 0;
