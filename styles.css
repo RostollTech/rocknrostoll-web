@@ -361,24 +361,6 @@ main {
   color: #0c0c0c;
 }
 
-@supports selector(body:has(.hero)) {
-  body:has(.hero:in-view) .navbar {
-    background: transparent;
-    box-shadow: none;
-    border-bottom-color: transparent;
-  }
-
-  body:has(.hero:in-view) .navbar .navbar-logo,
-  body:has(.hero:in-view) .navbar .nav-links a {
-    text-shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
-  }
-
-  body:has(.hero:not(:in-view)) .navbar {
-    background: rgba(10, 10, 10, 0.95);
-    box-shadow: 0 16px 28px rgba(0, 0, 0, 0.55);
-    transform: translateY(0);
-  }
-}
 
 /* Hero */
 .hero {
@@ -413,7 +395,7 @@ main {
 }
 
 .hero.home-hero {
-  background: linear-gradient(160deg, rgba(12, 12, 12, 0.4), rgba(12, 12, 12, 0.7)), url("/img/home-hero.webp") center/cover;
+  background: linear-gradient(160deg, rgba(12, 12, 12, 0.4), rgba(12, 12, 12, 0.7)), url("img/home-hero.webp") center/cover;
 }
 
 .hero-content {
@@ -731,19 +713,19 @@ main {
 }
 
 .about-hero .page-hero__image {
-  background-image: url("/img/about-hero.webp");
+  background-image: url("img/about-hero.webp");
 }
 
 .contact-hero .page-hero__image {
-  background-image: url("/img/contact-hero.webp");
+  background-image: url("img/contact-hero.webp");
 }
 
 .shop-hero .page-hero__image {
-  background-image: url("/img/camisetaA.webp");
+  background-image: url("img/contact1.webp");
 }
 
 .legal-hero .page-hero__image {
-  background-image: url("/img/rostoll1.webp");
+  background-image: url("img/rostoll1.webp");
 }
 
 /* Page layout */
@@ -1225,4 +1207,24 @@ main {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+.nav-toggle__icon {
+  display: inline-block;
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.instagram-embed iframe {
+  display: block;
+  width: 100%;
+  min-height: 420px;
+  border: 0;
+}
+
+.facebook-embed iframe {
+  display: block;
+  width: 100%;
+  min-height: 654px;
+  border: 0;
 }
