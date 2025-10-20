@@ -1,4 +1,0 @@
-# SEO: Directives bàsiques per als cercadors
-User-agent: *
-Allow: /
-Sitemap: https://rocknrostoll.cat/sitemap.xml
