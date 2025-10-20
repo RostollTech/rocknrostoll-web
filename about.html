@@ -9,211 +9,133 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body data-page="about">
-    <header class="navbar">
-      <div class="navbar-inner">
-        <a class="navbar-logo" href="index.html" data-nav="home">
-          <picture>
-            <source srcset="icon/icon-page.avif" type="image/avif" />
-            <source srcset="icon/icon-page.webp" type="image/webp" />
-            <img src="icon/icon-page.png" alt="Logotip Rock’n’Rostoll" loading="lazy" />
-          </picture>
-          Rock'N'Rostoll
-        </a>
-        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation">
-          <span class="sr-only">Obre o tanca el menú</span>
-          <span class="nav-toggle__icon" aria-hidden="true">☰</span>
-        </button>
+    <header class="site-header">
+      <a class="brand" href="index.html" data-nav="home">
+        <picture>
+          <source srcset="icon/icon-page.avif" type="image/avif" />
+          <source srcset="icon/icon-page.webp" type="image/webp" />
+          <img src="icon/icon-page.png" alt="Logotip Rock’n’Rostoll" loading="lazy" />
+        </picture>
+        <span>Rock'n'Rostoll</span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation">
+        <span class="sr-only">Obre o tanca el menú</span>
+        <span class="nav-toggle__icon" aria-hidden="true">☰</span>
+      </button>
+      <nav class="site-nav" aria-label="Navegació principal">
         <ul id="primary-navigation" class="nav-links">
           <li data-nav="home"><a href="index.html">Home</a></li>
           <li data-nav="about"><a href="about.html">About</a></li>
           <li data-nav="contact"><a href="contact.html">Contact</a></li>
         </ul>
-      </div>
+      </nav>
     </header>
 
     <main>
-      <section class="page-hero about-hero">
-        <div aria-hidden="true" class="page-hero__image"></div>
-        <div aria-hidden="true" class="page-hero__overlay"></div>
-        <div class="container page-hero__inner">
-          <p class="section-eyebrow">Sobre el festival</p>
-          <h1 class="page-title">Rock'n'Rostoll: Història d’un Festival Rural i el Seu Present</h1>
-          <p class="page-description">
-            Rock’n’Rostoll és molt més que un festival de música: és una expressió de rebel·lia juvenil i cohesió comunitària nascuda al cor rural de Mallorca. Des de 1995, cada darrer dissabte d’agost, un camp de rostoll es transforma en un escenari vibrant on rock i electrònica s’uneixen sota la lluna d’estiu. Autogestionat pels joves del poble i amb entrada gratuïta, el festival és un símbol de llibertat, tradició i passió col·lectiva.
+      <section class="page-hero">
+        <p class="eyebrow">Sobre el festival</p>
+        <h1>Rock'n'Rostoll</h1>
+        <p>
+          Des de 1995, un camp de rostoll a Maria de la Salut es transforma en una nit de música, llibertat i germanor. Rock’n’Rostoll és
+          un festival autogestionat i gratuït que combina rock, electrònica i esperit comunitari.
+        </p>
+      </section>
+
+      <section class="content two-column">
+        <div>
+          <h2>Orígens i primera edició</h2>
+          <p>
+            L'estiu de 1994, un grup de joves del poble va organitzar una Nit de Rock improvisada al mig del camp. Aquell primer experiment
+            va obrir la porta a un projecte col·lectiu que l'any següent es convertí en la primera edició oficial del Rock'n'Rostoll.
+          </p>
+          <p>
+            El nom barreja l'escenari rural amb l'energia del rock i resumeix l'essència del festival: cultura lliure, amistat i estiu al Pla
+            de Mallorca.
+          </p>
+        </div>
+        <img src="img/about-origens.webp" alt="Els primers organitzadors preparant el camp de rostoll" loading="lazy" />
+      </section>
+
+      <section class="content two-column">
+        <img src="img/about-voluntariat1.webp" alt="Voluntaris preparant l'escenari" loading="lazy" />
+        <div>
+          <h2>Un festival autogestionat</h2>
+          <p>
+            Cada any desenes de voluntaris munten escenaris, coordinen activitats i cuiden la logística. Rock'n'Rostoll és una escola de gestió
+            col·lectiva i una manera de mantenir viu l'esperit de poble.
+          </p>
+          <p>
+            L'accés és gratuït i el festival aposta per la sostenibilitat i la cura del territori. La nit es complementa amb punts lila, servei
+            d'Energy Control i una programació musical diversa.
           </p>
         </div>
       </section>
 
-      <section class="page-section section-alt">
-        <div class="page-content split-layout">
-          <div>
-            <h2 class="section-title">Orígens: De la Nit de Rock a un Somni Col·lectiu (1994-1995)</h2>
-            <p class="section-description">
-              El germen de Rock'n'Rostoll neix l’estiu de 1994, quan un grup de joves de Maria de la Salut —entre ells membres de bandes locals com Sklata Sang— decidí plantar cara a l’avorriment organitzant la seva pròpia Nit de Rock. Aquella trobada improvisada al mig d’un camp segat fou un acte de creativitat i rebel·lia que establí les bases d’una nova tradició.
-            </p>
-            <p class="section-description">
-              L’any següent, 1995, se celebrà la 1a edició oficial de Rock'n'Rostoll, consolidant l’esperit valent i autogestionat d’aquells pioners. El nom, una fusió perfecta de rock i ambient rural, reflecteix una nit on la llibertat, el renou i la diversió sota les estrelles esdevenen protagonistes i arrelen en la identitat del poble.
-            </p>
-          </div>
-          <img
-            src="img/about-origens.webp"
-            alt="Fotografia històrica dels primers organitzadors preparant el camp de rostoll"
-            loading="lazy"
-          />
-        </div>
+      <section class="content">
+        <h2>Moments clau</h2>
+        <ul class="timeline">
+          <li><strong>1994</strong> · Primera Nit de Rock improvisada a Son Perot.</li>
+          <li><strong>1995</strong> · Neix oficialment Rock'n'Rostoll amb entrada lliure.</li>
+          <li><strong>2005</strong> · S'incorporen escenaris dobles i voluntariat organitzat.</li>
+          <li><strong>2016</strong> · Es reforcen els protocols de seguretat i punts d'atenció.</li>
+          <li><strong>2024</strong> · El festival celebra 30 edicions amb assistència rècord.</li>
+        </ul>
       </section>
 
-      <section class="page-section">
-        <div class="page-content split-layout">
-          <img
-            src="img/about-safareig.webp"
-            alt="Ambient al Safareig Dance amb la gent ballant dins el safareig il·luminat"
-            loading="lazy"
-          />
-          <div>
-            <h2 class="section-title">Creixement i Revolució amb el Safareig Dance (1996-2000)</h2>
-            <p class="section-description">
-              Durant la segona meitat dels noranta, el festival va créixer en ambició i logística. Cada edició sumava més bandes underground i un públic que no parava d’augmentar. L’any 1999 marcà un punt d’inflexió amb la creació del Safareig Dance, un antic dipòsit d’aigua reconvertit en pista d’electrònica que complementava l’escenari principal de rock.
-            </p>
-            <p class="section-description">
-              La combinació de rock damunt el rostoll i sessions de techno i house dins el safareig va revolucionar el festival, atreient jovent de tota l’illa i fixant el model de dos escenaris que perdura fins avui. Rock'n'Rostoll es convertia així en una cita imprescindible per a la cultura alternativa mallorquina.
-            </p>
-          </div>
+      <section class="content two-column">
+        <div>
+          <h2>Mirant cap al futur</h2>
+          <p>
+            L'objectiu és mantenir l'esperit rural i lliure alhora que es millora l'experiència del públic. El festival continuarà apostant per
+            artistes locals i per la col·laboració amb col·lectius culturals del territori.
+          </p>
+          <p>
+            Si vols formar part de la propera edició, posa't en contacte amb nosaltres o segueix-nos a les xarxes. Rock'n'Rostoll és un projecte
+            obert a tothom que vulgui sumar-hi energia.
+          </p>
         </div>
-      </section>
-
-      <section class="page-section section-alt">
-        <div class="page-content split-layout">
-          <div>
-            <h2 class="section-title">Consolidació i Experiències Úniques (2001-2010)</h2>
-            <p class="section-description">
-              L’entrada al nou mil·lenni va consolidar Rock'n'Rostoll com un referent cultural i musical. El festival va establir una estructura més professional, sense perdre l’essència autogestionada i comunitària. Els voluntaris del poble foren peça clau per mantenir l’ordre, la seguretat i l’ambient festiu, fent que cada edició fos una experiència única.
-            </p>
-            <p class="section-description">
-              Cada any, noves bandes locals i estatals aportaven varietat i qualitat musical, mentre que els DJ omplien el Safareig Dance fins a la matinada. L’ambient rural, la proximitat del públic amb els artistes i la llibertat per ballar damunt el rostoll esdevingueren segell del festival.
-            </p>
-          </div>
-          <img
-            src="img/about-voluntariat.webp"
-            alt="Voluntaris preparant l'escenari del festival"
-            loading="lazy"
-          />
-        </div>
-      </section>
-
-      <section class="page-section">
-        <div class="page-content split-layout">
-          <img
-            src="img/about-actualitat.webp"
-            alt="Equip de voluntaris del festival Rock’n’Rostoll"
-            loading="lazy"
-          />
-          <div>
-            <h2 class="section-title">Actualitat: 30 Anys de Germanor i Cultura (2011-Avui)</h2>
-            <p class="section-description">
-              Avui dia, Rock'n'Rostoll continua sent una cita imprescindible l’últim dissabte d’agost. Amb l’entrada lliure com a pilar fonamental, el festival aposta per una programació diversa que combina rock, punk, metal i electrònica amb propostes visuals i culturals que amplien l’experiència.
-            </p>
-            <p class="section-description">
-              El compromís amb la comunitat s’ha reforçat amb campanyes de sensibilització, col·laboracions amb entitats locals, punts lila i un enfocament sostenible. Les noves generacions han agafat el relleu organitzatiu mantenint viu l’esperit rebel i comunitari que el va fer néixer.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section class="page-section">
-        <div class="page-content split-layout">
-          <div>
-            <h2 class="section-title">Voluntariat i Futur</h2>
-            <p class="section-description">
-              Rock'n'Rostoll és possible gràcies a les persones voluntàries que any rere any dediquen temps, esforç i il·lusió a muntar escenaris, coordinar activitats, cuidar la logística i garantir que tot funcioni. A la vegada, el festival és una escola de gestió i treball col·lectiu pels joves del municipi.
-            </p>
-            <p class="section-description">
-              De cara als pròxims anys, Rock'n'Rostoll seguirà evolucionant sense perdre les seves arrels: un festival rural, gratuït i autogestionat que aposta per la cultura lliure i l’energia comunitària. T’hi esperam al camp de rostoll!
-            </p>
-          </div>
-          <img
-            src="img/about-voluntariat2.webp"
-            alt="Públic ballant en una zona il·luminada del festival"
-            loading="lazy"
-          />
-        </div>
+        <img src="img/about-voluntariat2.webp" alt="Públic ballant al festival" loading="lazy" />
       </section>
     </main>
 
-    <footer class="footer">
-      <div class="footer-inner">
-        <div class="footer-brand">
+    <footer class="site-footer">
+      <div class="footer-grid">
+        <section>
           <h3>Rock’n’Rostoll</h3>
           <p>
-            Festival autogestionat de rock i electrònica nascut a Maria de la Salut el 1995, on el darrer dissabte d’agost un camp de rostoll i un safareig es converteixen
-            en una nit de música, llibertat i germanor.
+            Festival autogestionat de rock i electrònica nascut a Maria de la Salut el 1995. Cada darrer dissabte d’agost, un camp de rostoll
+            es converteix en una nit de música i germanor.
           </p>
-        </div>
-
-        <div class="footer-column">
+        </section>
+        <section>
           <h4>Enllaços ràpids</h4>
-          <div class="footer-links">
-            <a href="index.html">Pròxim R'N'R</a>
-            <a href="about.html">Sobre el festival</a>
-            <a href="index.html#programa">Programa</a>
-            <a href="contact.html">Contacte</a>
-          </div>
-        </div>
-
-        <div class="footer-column">
+          <ul>
+            <li><a href="index.html">Pròxim R'N'R</a></li>
+            <li><a href="about.html">Sobre el festival</a></li>
+            <li><a href="index.html#programa">Programa</a></li>
+            <li><a href="contact.html">Contacte</a></li>
+          </ul>
+        </section>
+        <section>
           <h4>Xarxes socials</h4>
-          <div class="footer-social">
-            <a href="https://www.instagram.com/rocknrostoll" target="_blank" rel="noopener noreferrer" aria-label="Instagram Rock’n’Rostoll">
-              <span class="icon icon--social" aria-hidden="true">
-                <img src="icons/instagram.webp" alt="Instagram" loading="lazy" />
-              </span>
-              <div>
-                <span>Instagram</span>
-                <strong>@rocknrostoll</strong>
-              </div>
-            </a>
-            <a href="https://www.facebook.com/RadioRostoll" target="_blank" rel="noopener noreferrer" aria-label="Facebook Rock’n’Rostoll">
-              <span class="icon icon--social" aria-hidden="true">
-                <img src="icons/facebook.webp" alt="Facebook" loading="lazy" />
-              </span>
-              <div>
-                <span>Facebook</span>
-                <strong>RadioRostoll</strong>
-              </div>
-            </a>
-            <a href="mailto:rocknrostoll@gmail.com" aria-label="Correu electrònic Rock’n’Rostoll">
-              <span class="icon icon--social" aria-hidden="true">
-                <img src="icons/mail.webp" alt="Email" loading="lazy" />
-              </span>
-              <div>
-                <span>Contacte</span>
-                <strong>rocknrostoll@gmail.com</strong>
-              </div>
-            </a>
-          </div>
-        </div>
-
-        <div class="footer-column">
+          <ul class="social-links">
+            <li><a href="https://www.instagram.com/rocknrostoll" target="_blank" rel="noopener noreferrer">@rocknrostoll</a></li>
+            <li><a href="https://www.facebook.com/RadioRostoll" target="_blank" rel="noopener noreferrer">Radio Rostoll</a></li>
+            <li><a href="mailto:rocknrostoll@gmail.com">rocknrostoll@gmail.com</a></li>
+          </ul>
+        </section>
+        <section>
           <h4>Butlletí</h4>
-          <p class="section-description">
-            Subscriu-te per seguir les novetats i històries que mantenen viva el Rostoll des de fa ja tres dècades.
-          </p>
-          <form class="newsletter-form" id="newsletter-form">
+          <p>Subscriu-te per seguir les novetats i històries del Rostoll.</p>
+          <form id="newsletter-form" class="newsletter-form">
             <label class="sr-only" for="newsletter-email">Correu electrònic</label>
-            <input
-              type="email"
-              id="newsletter-email"
-              name="newsletter-email"
-              placeholder="Pròximament!"
-              class="newsletter-input"
-            />
+            <input type="email" id="newsletter-email" name="newsletter-email" placeholder="Pròximament!" />
             <button type="submit" class="btn-primary">Pròximament!</button>
           </form>
-        </div>
+        </section>
       </div>
-
       <p class="footer-note">
-        © <span data-current-year>2026</span> Rock’n’Rostoll. Tots els drets reservats ·
+        © <span data-current-year>2026</span> Rock’n’Rostoll ·
         <a href="avis-legal.html">Avís legal</a> ·
         <a href="#politica-privacitat">Política de privacitat</a>
       </p>

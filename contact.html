@@ -9,231 +9,110 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body data-page="contact">
-    <header class="navbar">
-      <div class="navbar-inner">
-        <a class="navbar-logo" href="index.html" data-nav="home">
-          <picture>
-            <source srcset="icon/icon-page.avif" type="image/avif" />
-            <source srcset="icon/icon-page.webp" type="image/webp" />
-            <img src="icon/icon-page.png" alt="Logotip Rock’n’Rostoll" loading="lazy" />
-          </picture>
-          Rock'N'Rostoll
-        </a>
-        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation">
-          <span class="sr-only">Obre o tanca el menú</span>
-          <span class="nav-toggle__icon" aria-hidden="true">☰</span>
-        </button>
+    <header class="site-header">
+      <a class="brand" href="index.html" data-nav="home">
+        <picture>
+          <source srcset="icon/icon-page.avif" type="image/avif" />
+          <source srcset="icon/icon-page.webp" type="image/webp" />
+          <img src="icon/icon-page.png" alt="Logotip Rock’n’Rostoll" loading="lazy" />
+        </picture>
+        <span>Rock'n'Rostoll</span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation">
+        <span class="sr-only">Obre o tanca el menú</span>
+        <span class="nav-toggle__icon" aria-hidden="true">☰</span>
+      </button>
+      <nav class="site-nav" aria-label="Navegació principal">
         <ul id="primary-navigation" class="nav-links">
           <li data-nav="home"><a href="index.html">Home</a></li>
           <li data-nav="about"><a href="about.html">About</a></li>
           <li data-nav="contact"><a href="contact.html">Contact</a></li>
         </ul>
-      </div>
+      </nav>
     </header>
 
     <main>
-      <section class="page-hero contact-hero">
-        <div aria-hidden="true" class="page-hero__image"></div>
-        <div aria-hidden="true" class="page-hero__overlay"></div>
-        <div class="container page-hero__inner">
-          <p class="section-eyebrow">Contacte</p>
-          <h1 class="page-title">Contacta amb Rock’n’Rostoll</h1>
-          <p class="page-description">
-            Som un festival autogestionat per joves de Maria de la Salut. Si vols col·laborar, participar o simplement saludar, ens trobaràs a baix. Sempre és benvinguda una mà més!
+      <section class="page-hero">
+        <p class="eyebrow">Contacte</p>
+        <h1>Parlam?</h1>
+        <p>
+          Som un festival autogestionat per joves de Maria de la Salut. Si vols col·laborar, participar o simplement saludar, ens trobaràs a
+          continuació.
+        </p>
+      </section>
+
+      <section class="content card-list">
+        <article>
+          <h2>Contacte general</h2>
+          <p>Per dubtes i informació sobre el festival, escriu-nos i et respondrem ben aviat.</p>
+          <p class="highlight">rocknrostoll@gmail.com</p>
+        </article>
+        <article>
+          <h2>Col·laboracions i premsa</h2>
+          <p>
+            Estam oberts a col·laboracions amb artistes, entitats i mitjans que comparteixen la nostra filosofia: música, joventut i cultura
+            local.
           </p>
-        </div>
+          <p>Explica'ns la teva proposta i mirarem de sumar esforços.</p>
+        </article>
+        <article>
+          <h2>Grups i DJ</h2>
+          <p>Si tens un projecte musical i vols actuar al Rock’n’Rostoll, envia'ns la teva informació i necessitats tècniques.</p>
+        </article>
       </section>
 
-      <section class="page-section section-alt">
-        <div class="page-content info-grid contact-grid">
-          <article class="info-card contact-card">
-            <span class="info-label">Contacte general</span>
-            <h3 class="info-title">Consultes i dubtes</h3>
-            <p class="info-text">
-              Si tens dubtes o vols informació sobre el festival, escriu-nos i t&rsquo;respondrem ben aviat.
-            </p>
-            <p class="info-text contact-card__email">rocknrostoll@gmail.com</p>
-          </article>
-          <article class="info-card contact-card">
-            <span class="info-label">Col·laboracions i premsa</span>
-            <h3 class="info-title">Fem equip amb tu</h3>
-            <p class="info-text">
-              Som oberts a col·laboracions amb artistes, entitats i mitjans que comparteixin la nostra filosofia: música, joventut i cultura local.
-            </p>
-            <p class="info-text">
-              Escriu-nos i parlarem de com sumar esforços per fer créixer la comunitat del Rock&rsquo;n&rsquo;Rostoll.
-            </p>
-          </article>
-          <article class="info-card contact-card">
-            <span class="info-label">Grups i DJ</span>
-            <h3 class="info-title">Volem escoltar-te</h3>
-            <p class="info-text">
-              Si tens un grup o ets DJ i t&rsquo;agradaria actuar al Rock&rsquo;n&rsquo;Rostoll, envia&rsquo;ns informació sobre el teu projecte musical i les teves necessitats tècniques.
-            </p>
-          </article>
+      <section class="content two-column">
+        <div>
+          <h2>Segueix Rock’n’Rostoll</h2>
+          <p>Troba'ns a les xarxes o escriu-nos directament per col·laborar o resoldre qualsevol dubte.</p>
+          <ul class="social-links">
+            <li><a href="https://www.instagram.com/rocknrostoll/" target="_blank" rel="noopener noreferrer">Instagram · @rocknrostoll</a></li>
+            <li><a href="https://www.facebook.com/RadioRostoll/" target="_blank" rel="noopener noreferrer">Facebook · RadioRostoll</a></li>
+            <li><a href="mailto:rocknrostoll@gmail.com">Email · rocknrostoll@gmail.com</a></li>
+          </ul>
         </div>
-      </section>
-
-      <section class="page-section">
-        <div class="page-content contact-layout">
-          <div class="section-header contact-intro">
-            <p class="section-eyebrow">Segueix-nos</p>
-            <h2 class="section-title">Segueix Rock’n’Rostoll</h2>
-            <p class="section-description">
-              Troba’ns a les nostres xarxes o escriu-nos directament per col·laborar o resoldre qualsevol dubte.
-            </p>
-          </div>
-          <div class="contact-social-links">
-            <div class="footer-social">
-              <a href="https://www.instagram.com/rocknrostoll/" target="_blank" rel="noopener noreferrer" aria-label="Instagram @rocknrostoll">
-                <span class="icon icon--social" aria-hidden="true">
-                  <img src="icons/instagram.webp" alt="Instagram" loading="lazy" />
-                </span>
-                <div>
-                  <span>Instagram: </span>
-                  <strong>@rocknrostoll</strong>
-                </div>
-              </a>
-              <a href="https://www.facebook.com/RadioRostoll/" target="_blank" rel="noopener noreferrer" aria-label="Facebook RadioRostoll">
-                <span class="icon icon--social" aria-hidden="true">
-                  <img src="icons/facebook.webp" alt="Facebook" loading="lazy" />
-                </span>
-                <div>
-                  <span>Facebook: </span>
-                  <strong>RadioRostoll</strong>
-                </div>
-              </a>
-              <a href="mailto:rocknrostoll@gmail.com" aria-label="Email rocknrostoll@gmail.com">
-                <span class="icon icon--social" aria-hidden="true">
-                  <img src="icons/mail.webp" alt="Email" loading="lazy" />
-                </span>
-                <div>
-                  <span>Email: </span>
-                  <strong>rocknrostoll@gmail.com</strong>
-                </div>
-              </a>
-            </div>
-            <img
-              class="contact-social-img"
-              src="img/contact-map.webp"
-              alt="Vista del camp de rostoll on se celebra el festival"
-              loading="lazy"
-            />
-          </div>
-          <div class="contact-qr-grid">
-            <div class="qr-card">
-              <img
-                src="qr/qr_instagram_blanc.png"
-                alt="Codi QR d'Instagram de Rock’n’Rostoll"
-                class="qr-image"
-                loading="lazy"
-              />
-              <p>Escaneja per seguir-nos a Instagram</p>
-            </div>
-            <div class="qr-card">
-              <img
-                src="qr/qr_facebook_blanc.png"
-                alt="Codi QR de Facebook de Rock’n’Rostoll"
-                class="qr-image"
-                loading="lazy"
-              />
-              <p>Escaneja per seguir-nos a Facebook</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="page-section section-alt">
-        <div class="page-content">
-          <div class="map-frame">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1459.9425136729283!2d3.0653078102838998!3d39.68329810760899!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1297cb42046d8b09%3A0x194899cbb6f7f09d!2sRock'n'Rostoll!5e1!3m2!1sca!2ses!4v1759844635351!5m2!1sca!2ses"
-              width="100%"
-              height="400"
-              allowfullscreen=""
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
-              title="Mapa del Rock’n’Rostoll a Maria de la Salut"
-            ></iframe>
-          </div>
-        </div>
+        <img src="img/contact-map.webp" alt="Vista del camp de rostoll on se celebra el festival" loading="lazy" />
       </section>
     </main>
 
-    <footer class="footer">
-      <div class="footer-inner">
-        <div class="footer-brand">
+    <footer class="site-footer">
+      <div class="footer-grid">
+        <section>
           <h3>Rock’n’Rostoll</h3>
           <p>
-            Festival autogestionat de rock i electrònica nascut a Maria de la Salut el 1995, on el darrer dissabte d’agost un camp de rostoll i un safareig es converteixen
-            en una nit de música, llibertat i germanor.
+            Festival autogestionat de rock i electrònica nascut a Maria de la Salut el 1995. Cada darrer dissabte d’agost, un camp de rostoll
+            es converteix en una nit de música i germanor.
           </p>
-        </div>
-
-        <div class="footer-column">
+        </section>
+        <section>
           <h4>Enllaços ràpids</h4>
-          <div class="footer-links">
-            <a href="index.html">Pròxim R'N'R</a>
-            <a href="about.html">Sobre el festival</a>
-            <a href="index.html#programa">Programa</a>
-            <a href="contact.html">Contacte</a>
-          </div>
-        </div>
-
-        <div class="footer-column">
+          <ul>
+            <li><a href="index.html">Pròxim R'N'R</a></li>
+            <li><a href="about.html">Sobre el festival</a></li>
+            <li><a href="index.html#programa">Programa</a></li>
+            <li><a href="contact.html">Contacte</a></li>
+          </ul>
+        </section>
+        <section>
           <h4>Xarxes socials</h4>
-          <div class="footer-social">
-            <a href="https://www.instagram.com/rocknrostoll" target="_blank" rel="noopener noreferrer" aria-label="Instagram Rock’n’Rostoll">
-              <span class="icon icon--social" aria-hidden="true">
-                <img src="icons/instagram.webp" alt="Instagram" loading="lazy" />
-              </span>
-              <div>
-                <span>Instagram</span>
-                <strong>@rocknrostoll</strong>
-              </div>
-            </a>
-            <a href="https://www.facebook.com/RadioRostoll" target="_blank" rel="noopener noreferrer" aria-label="Facebook Rock’n’Rostoll">
-              <span class="icon icon--social" aria-hidden="true">
-                <img src="icons/facebook.webp" alt="Facebook" loading="lazy" />
-              </span>
-              <div>
-                <span>Facebook</span>
-                <strong>RadioRostoll</strong>
-              </div>
-            </a>
-            <a href="mailto:rocknrostoll@gmail.com" aria-label="Correu electrònic Rock’n’Rostoll">
-              <span class="icon icon--social" aria-hidden="true">
-                <img src="icons/mail.webp" alt="Email" loading="lazy" />
-              </span>
-              <div>
-                <span>Contacte</span>
-                <strong>rocknrostoll@gmail.com</strong>
-              </div>
-            </a>
-          </div>
-        </div>
-
-        <div class="footer-column">
+          <ul class="social-links">
+            <li><a href="https://www.instagram.com/rocknrostoll" target="_blank" rel="noopener noreferrer">@rocknrostoll</a></li>
+            <li><a href="https://www.facebook.com/RadioRostoll" target="_blank" rel="noopener noreferrer">Radio Rostoll</a></li>
+            <li><a href="mailto:rocknrostoll@gmail.com">rocknrostoll@gmail.com</a></li>
+          </ul>
+        </section>
+        <section>
           <h4>Butlletí</h4>
-          <p class="section-description">
-            Subscriu-te per seguir les novetats i històries que mantenen viva el Rostoll des de fa ja tres dècades.
-          </p>
-          <form class="newsletter-form" id="newsletter-form">
+          <p>Subscriu-te per seguir les novetats i històries del Rostoll.</p>
+          <form id="newsletter-form" class="newsletter-form">
             <label class="sr-only" for="newsletter-email">Correu electrònic</label>
-            <input
-              type="email"
-              id="newsletter-email"
-              name="newsletter-email"
-              placeholder="Pròximament!"
-              class="newsletter-input"
-            />
+            <input type="email" id="newsletter-email" name="newsletter-email" placeholder="Pròximament!" />
             <button type="submit" class="btn-primary">Pròximament!</button>
           </form>
-        </div>
+        </section>
       </div>
-
       <p class="footer-note">
-        © <span data-current-year>2026</span> Rock’n’Rostoll. Tots els drets reservats ·
+        © <span data-current-year>2026</span> Rock’n’Rostoll ·
         <a href="avis-legal.html">Avís legal</a> ·
         <a href="#politica-privacitat">Política de privacitat</a>
       </p>

@@ -4,263 +4,197 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rock’n’Rostoll · Festival autogestionat de rock i electrònica a Mallorca</title>
-
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body data-page="home">
-    <header class="navbar">
-      <div class="navbar-inner">
-        <a class="navbar-logo" href="index.html" data-nav="home">
-          <picture>
-            <source srcset="icon/icon-page.avif" type="image/avif" />
-            <source srcset="icon/icon-page.webp" type="image/webp" />
-            <img src="icon/icon-page.png" alt="Logotip Rock’n’Rostoll" loading="lazy" />
-          </picture>
-          Rock'N'Rostoll
-        </a>
-        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation">
-          <span class="sr-only">Obre o tanca el menú</span>
-          <span class="nav-toggle__icon" aria-hidden="true">☰</span>
-        </button>
+    <header class="site-header">
+      <a class="brand" href="index.html" data-nav="home">
+        <picture>
+          <source srcset="icon/icon-page.avif" type="image/avif" />
+          <source srcset="icon/icon-page.webp" type="image/webp" />
+          <img src="icon/icon-page.png" alt="Logotip Rock’n’Rostoll" loading="lazy" />
+        </picture>
+        <span>Rock'n'Rostoll</span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation">
+        <span class="sr-only">Obre o tanca el menú</span>
+        <span class="nav-toggle__icon" aria-hidden="true">☰</span>
+      </button>
+      <nav class="site-nav" aria-label="Navegació principal">
         <ul id="primary-navigation" class="nav-links">
           <li data-nav="home"><a href="index.html">Home</a></li>
           <li data-nav="about"><a href="about.html">About</a></li>
           <li data-nav="contact"><a href="contact.html">Contact</a></li>
         </ul>
-      </div>
+      </nav>
     </header>
 
     <main>
-      <section class="hero home-hero" id="hero">
-        <div class="hero-content">
-          <p class="hero-eyebrow">30a edició</p>
-          <h1 class="hero-title">30 edicions de música, amistat i rostoll</h1>
-          <p class="hero-meta">29 d’agost de 2026 · Festival autogestionat a Son Perot (Maria de la Salut)</p>
-          <p class="hero-description">
-            Rock’n’Rostoll és el festival autogestionat de referència al Pla de Mallorca. Un punt de trobada entre generacions,
-            música i llibertat, on el rock i l’electrònica omplen el rostoll de Maria de la Salut cada darrer dissabte d’agost.
-            Celebrem 30 edicions d’història, germanor i molta festa!
+      <section class="hero" id="hero">
+        <p class="eyebrow">30a edició</p>
+        <h1>30 edicions de música, amistat i rostoll</h1>
+        <p class="meta">29 d’agost de 2026 · Festival autogestionat a Son Perot (Maria de la Salut)</p>
+        <p>
+          Rock’n’Rostoll és el festival autogestionat de referència al Pla de Mallorca. Un punt de trobada entre generacions, música i
+          llibertat, on el rock i l’electrònica omplen el rostoll de Maria de la Salut cada darrer dissabte d’agost. Celebrem 30 edicions
+          d’història, germanor i molta festa!
+        </p>
+
+        <div class="countdown" aria-label="Compte enrere fins al festival">
+          <p><span class="countdown-number" data-countdown="days">00</span><span class="countdown-label">Dies</span></p>
+          <p><span class="countdown-number" data-countdown="hours">00</span><span class="countdown-label">Hores</span></p>
+          <p><span class="countdown-number" data-countdown="minutes">00</span><span class="countdown-label">Minuts</span></p>
+          <p><span class="countdown-number" data-countdown="seconds">00</span><span class="countdown-label">Segons</span></p>
+        </div>
+
+        <div class="button-row">
+          <a class="btn-primary" href="about.html">Qui som?</a>
+          <a class="btn-outline" href="contact.html">Segueix-nos</a>
+        </div>
+      </section>
+
+      <section class="info" id="programa">
+        <header>
+          <p class="eyebrow">Organitza la teva arribada</p>
+          <h2>Informació essencial</h2>
+          <p>
+            Tot el que has de saber per gaudir del Rock’n’Rostoll amb comoditat i seguretat. Consulta horaris, accessos i normes bàsiques
+            abans d’arribar a Son Perot.
           </p>
+        </header>
 
-          <div class="countdown-grid" aria-label="Compte enrere fins al festival">
-            <div class="countdown-card">
-              <p class="countdown-number" data-countdown="days">00</p>
-              <p class="countdown-label">Dies</p>
-            </div>
-            <div class="countdown-card">
-              <p class="countdown-number" data-countdown="hours">00</p>
-              <p class="countdown-label">Hores</p>
-            </div>
-            <div class="countdown-card">
-              <p class="countdown-number" data-countdown="minutes">00</p>
-              <p class="countdown-label">Minuts</p>
-            </div>
-            <div class="countdown-card">
-              <p class="countdown-number" data-countdown="seconds">00</p>
-              <p class="countdown-label">Segons</p>
-            </div>
-          </div>
-
-          <div class="button-group">
-            <a class="btn-primary" href="about.html">Qui som?</a>
-            <a class="btn-outline" href="contact.html">Segueix-nos</a>
-          </div>
-        </div>
-      </section>
-
-      <section class="section section-alt" id="programa">
-        <div class="container">
-          <div class="section-header">
-            <p class="section-eyebrow">Organitza la teva arribada</p>
-            <h2 class="section-title">Informació essencial</h2>
-            <p class="section-description">
-              Tot el que has de saber per gaudir del Rock’n’Rostoll amb comoditat i seguretat. Consulta horaris, accessos i
-              normes bàsiques abans d’arribar a Son Perot.
+        <div class="info-cards">
+          <article>
+            <h3>Quan i on</h3>
+            <p>Dissabte 29 d’agost de 2026 · Son Perot, carretera Maria de la Salut &gt; Muro.</p>
+          </article>
+          <article>
+            <h3>Entrada i aparcament</h3>
+            <p>
+              Entrada i aparcament gratuït al recinte. Aparcament alternatiu al poble (a 2 km). Venir en cotxades o busos ajuda a evitar
+              embossos i accidents. Prohibit l’acampament defora dels aparcaments habilitats.
             </p>
-          </div>
-
-          <div class="info-grid">
-            <article class="info-card">
-              <span class="info-label">Quan i on</span>
-              <h3 class="info-title">Com sempre, el darrer dissabte d'agost</h3>
-              <p class="info-text">Dissabte 29 d’agost de 2026 · Son Perot, carretera Maria de la Salut &gt; Muro.</p>
-            </article>
-            <article class="info-card">
-              <span class="info-label">Entrada i aparcament</span>
-              <h3 class="info-title">Accés gratuït</h3>
-              <p class="info-text">
-                Entrada i aparcament gratuït al recinte. Aparcament alternatiu al poble (a 2 km). Venir en cotxades o busos ajuda a
-                evitar embossos i accidents. Prohibit l’acampament defora dels aparcaments habilitats.
-              </p>
-            </article>
-            <article class="info-card">
-              <span class="info-label">Normes bàsiques</span>
-              <h3 class="info-title">Conviu i respecta</h3>
-              <ul class="info-list">
-                <li>Prohibit entrar alcohol.</li>
-                <li>Punts lila i d’Energy Control operatius tota la nit.</li>
-                <li>Servei de foodtrucks i barra amb pagament en efectiu.</li>
-                <li>Opció de comprar consumicions online.</li>
-                <li>Estima la terra · No l’embrutis.</li>
-                <li>Respecte, tolerància i civisme.</li>
-              </ul>
-            </article>
-          </div>
+          </article>
+          <article>
+            <h3>Normes bàsiques</h3>
+            <ul>
+              <li>Prohibit entrar alcohol.</li>
+              <li>Punts lila i d’Energy Control operatius tota la nit.</li>
+              <li>Servei de foodtrucks i barra amb pagament en efectiu.</li>
+              <li>Opció de comprar consumicions online.</li>
+              <li>Estima la terra · No l’embrutis.</li>
+              <li>Respecte, tolerància i civisme.</li>
+            </ul>
+          </article>
         </div>
       </section>
 
-      <section class="section" id="galeria">
-        <div class="container">
-          <div class="section-header">
-            <p class="section-eyebrow">Galeria</p>
-            <h2 class="section-title">Moments Rock’n’Rostoll</h2>
-            <p class="section-description">Un recorregut visual pel darrer festival.</p>
-          </div>
-
-          <div class="gallery-grid">
-            <img src="img/galeria1.webp" alt="Foto Galeria 1" loading="lazy" />
-            <img src="img/galeria2.webp" alt="Foto Galeria 2" loading="lazy" />
-            <img src="img/galeria3.webp" alt="Foto Galeria 3" loading="lazy" />
-            <img src="img/galeria4.webp" alt="Foto Galeria 4" loading="lazy" />
-            <img src="img/galeria5.webp" alt="Foto Galeria 5" loading="lazy" />
-            <img src="img/galeria6.webp" alt="Foto Galeria 6" loading="lazy" />
-            <img src="img/galeria7.webp" alt="Foto Galeria 7" loading="lazy" />
-            <img src="img/galeria8.webp" alt="Foto Galeria 8" loading="lazy" />
-            <img src="img/galeria9.webp" alt="Foto Galeria 9" loading="lazy" />
-            <img src="img/galeria0.webp" alt="Foto Galeria 10" loading="lazy" />
-          </div>
+      <section class="gallery" id="galeria">
+        <header>
+          <p class="eyebrow">Galeria</p>
+          <h2>Moments Rock’n’Rostoll</h2>
+          <p>Un recorregut visual pel darrer festival.</p>
+        </header>
+        <div class="gallery-grid">
+          <img src="img/galeria1.webp" alt="Foto Galeria 1" loading="lazy" />
+          <img src="img/galeria2.webp" alt="Foto Galeria 2" loading="lazy" />
+          <img src="img/galeria3.webp" alt="Foto Galeria 3" loading="lazy" />
+          <img src="img/galeria4.webp" alt="Foto Galeria 4" loading="lazy" />
+          <img src="img/galeria5.webp" alt="Foto Galeria 5" loading="lazy" />
+          <img src="img/galeria6.webp" alt="Foto Galeria 6" loading="lazy" />
+          <img src="img/galeria7.webp" alt="Foto Galeria 7" loading="lazy" />
+          <img src="img/galeria8.webp" alt="Foto Galeria 8" loading="lazy" />
+          <img src="img/galeria9.webp" alt="Foto Galeria 9" loading="lazy" />
+          <img src="img/galeria0.webp" alt="Foto Galeria 10" loading="lazy" />
         </div>
       </section>
 
-      <section class="section section-alt" id="segueix">
-        <div class="container">
-          <div class="section-header">
-            <p class="section-eyebrow">Xarxes</p>
-            <h2 class="section-title">Reviu l’ambient</h2>
-            <p class="section-description">Clips i moments compartits a les xarxes.</p>
-          </div>
-
-          <div class="video-frame">
-            <div class="instagram-gallery">
-              <div class="instagram-embed">
-                <iframe
-                  src="https://www.instagram.com/p/DPKAi8BjMNs/embed/?cr=1&amp;v=14&amp;wp=540"
-                  title="Publicació d'Instagram"
-                  loading="lazy"
-                  allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-                  allowfullscreen
-                ></iframe>
-              </div>
-              <div class="instagram-embed">
-                <iframe
-                  src="https://www.instagram.com/p/DO36Nm4jL5O/embed/?cr=1&amp;v=14&amp;wp=540"
-                  title="Publicació d'Instagram"
-                  loading="lazy"
-                  allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-                  allowfullscreen
-                ></iframe>
-              </div>
-              <div class="facebook-embed">
-                <iframe
-                  src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2FRadioRostoll%2Fposts%2Fpfbid0PqP9HPuEtVquNxfLe3T2HMsxCCivqnjZmRmmyuVsprcgcb8w2uSFdDhjBcoBXJkTl&amp;show_text=true&amp;width=500"
-                  title="Publicació de Facebook"
-                  loading="lazy"
-                  allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-                  allowfullscreen
-                ></iframe>
-              </div>
-            </div>
-          </div>
+      <section class="social" id="segueix">
+        <header>
+          <p class="eyebrow">Xarxes</p>
+          <h2>Reviu l’ambient</h2>
+          <p>Clips i moments compartits a les xarxes.</p>
+        </header>
+        <div class="embed-grid">
+          <iframe
+            src="https://www.instagram.com/p/DPKAi8BjMNs/embed/?cr=1&amp;v=14&amp;wp=540"
+            title="Publicació d'Instagram"
+            loading="lazy"
+            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
+          <iframe
+            src="https://www.instagram.com/p/DO36Nm4jL5O/embed/?cr=1&amp;v=14&amp;wp=540"
+            title="Publicació d'Instagram"
+            loading="lazy"
+            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
+          <iframe
+            src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2FRadioRostoll%2Fposts%2Fpfbid0PqP9HPuEtVquNxfLe3T2HMsxCCivqnjZmRmmyuVsprcgcb8w2uSFdDhjBcoBXJkTl&amp;show_text=true&amp;width=500"
+            title="Publicació de Facebook"
+            loading="lazy"
+            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
         </div>
       </section>
 
-      <section class="cta-banner" id="newsletter">
+      <section class="cta" id="newsletter">
         <h3>Forma part de Rock’n’Rostoll!</h3>
         <p>
           Cada edició és possible gràcies a la gent que hi participa. Si vols ajudar, col·laborar o simplement rebre les novetats del festival,
           apunta’t a la newsletter.
         </p>
-        <div class="button-group">
+        <div class="button-row">
           <a class="btn-primary" href="#newsletter">Pròximament!</a>
           <a class="btn-outline" href="#segueix">Segueix-nos a les xarxes</a>
         </div>
       </section>
     </main>
 
-    <footer class="footer" id="contacte">
-      <div class="footer-inner">
-        <div class="footer-brand">
+    <footer class="site-footer" id="contacte">
+      <div class="footer-grid">
+        <section>
           <h3>Rock’n’Rostoll</h3>
           <p>
-            Festival autogestionat de rock i electrònica nascut a Maria de la Salut el 1995, on el darrer dissabte d’agost un camp de rostoll i un safareig es converteixen
-            en una nit de música, llibertat i germanor.
+            Festival autogestionat de rock i electrònica nascut a Maria de la Salut el 1995, on el darrer dissabte d’agost un camp de
+            rostoll i un safareig es converteixen en una nit de música, llibertat i germanor.
           </p>
-        </div>
-
-        <div class="footer-column">
+        </section>
+        <section>
           <h4>Enllaços ràpids</h4>
-          <div class="footer-links">
-            <a href="index.html">Pròxim R'N'R</a>
-            <a href="about.html">Sobre el festival</a>
-            <a href="index.html#programa">Programa</a>
-            <a href="contact.html">Contacte</a>
-          </div>
-        </div>
-
-        <div class="footer-column">
+          <ul>
+            <li><a href="index.html">Pròxim R'N'R</a></li>
+            <li><a href="about.html">Sobre el festival</a></li>
+            <li><a href="index.html#programa">Programa</a></li>
+            <li><a href="contact.html">Contacte</a></li>
+          </ul>
+        </section>
+        <section>
           <h4>Xarxes socials</h4>
-          <div class="footer-social">
-            <a href="https://www.instagram.com/rocknrostoll" target="_blank" rel="noopener noreferrer" aria-label="Instagram Rock’n’Rostoll">
-              <span class="icon icon--social" aria-hidden="true">
-                <img src="icons/instagram.webp" alt="Instagram" loading="lazy" />
-              </span>
-              <div>
-                <span>Instagram</span>
-                <strong>@rocknrostoll</strong>
-              </div>
-            </a>
-            <a href="https://www.facebook.com/RadioRostoll" target="_blank" rel="noopener noreferrer" aria-label="Facebook Rock’n’Rostoll">
-              <span class="icon icon--social" aria-hidden="true">
-                <img src="icons/facebook.webp" alt="Facebook" loading="lazy" />
-              </span>
-              <div>
-                <span>Facebook</span>
-                <strong>Radio Rostoll</strong>
-              </div>
-            </a>
-            <a href="mailto:rocknrostoll@gmail.com" aria-label="Correu electrònic Rock’n’Rostoll">
-              <span class="icon icon--social" aria-hidden="true">
-                <img src="icons/mail.webp" alt="Email" loading="lazy" />
-              </span>
-              <div>
-                <span>Contacte</span>
-                <strong>rocknrostoll@gmail.com</strong>
-              </div>
-            </a>
-          </div>
-        </div>
-
-        <div class="footer-column">
+          <ul class="social-links">
+            <li>
+              <a href="https://www.instagram.com/rocknrostoll" target="_blank" rel="noopener noreferrer">@rocknrostoll</a>
+            </li>
+            <li>
+              <a href="https://www.facebook.com/RadioRostoll" target="_blank" rel="noopener noreferrer">Radio Rostoll</a>
+            </li>
+            <li><a href="mailto:rocknrostoll@gmail.com">rocknrostoll@gmail.com</a></li>
+          </ul>
+        </section>
+        <section>
           <h4>Butlletí</h4>
-          <p class="section-description">
-            Subscriu-te per seguir les novetats i històries que mantenen viva el Rostoll des de fa ja tres dècades.
-          </p>
-          <form class="newsletter-form" id="newsletter-form">
+          <p>Subscriu-te per seguir les novetats i històries del Rostoll.</p>
+          <form id="newsletter-form" class="newsletter-form">
             <label class="sr-only" for="newsletter-email">Correu electrònic</label>
-            <input
-              type="email"
-              id="newsletter-email"
-              name="newsletter-email"
-              placeholder="Pròximament!"
-              class="newsletter-input"
-            />
+            <input type="email" id="newsletter-email" name="newsletter-email" placeholder="Pròximament!" />
             <button type="submit" class="btn-primary">Pròximament!</button>
           </form>
-        </div>
+        </section>
       </div>
-
       <p class="footer-note">
-        © <span data-current-year>2026</span> Rock’n’Rostoll. Tots els drets reservats ·
+        © <span data-current-year>2026</span> Rock’n’Rostoll ·
         <a href="avis-legal.html">Avís legal</a> ·
         <a href="#politica-privacitat">Política de privacitat</a>
       </p>
