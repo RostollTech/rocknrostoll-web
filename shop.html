@@ -10,7 +10,7 @@
   </head>
   <body data-page="shop">
     <header class="navbar">
-      <div class="navbar-inner">
+      <div class="container navbar__content">
         <a class="navbar-logo" href="index.html" data-nav="home">
           <picture>
             <source srcset="icon/icon-page.avif" type="image/avif" />
@@ -33,10 +33,8 @@
 
     <main>
       <section class="page-hero shop-hero">
-        <div aria-hidden="true" class="page-hero__image"></div>
-        <div aria-hidden="true" class="page-hero__overlay"></div>
-        <div class="container page-hero__inner">
-          <p class="section-eyebrow">Merch</p>
+        <div class="container">
+          <p class="eyebrow">Merch</p>
           <h1 class="page-title">Placeholder Collection</h1>
           <p class="page-description">
             Preview the generic merchandise line that will be replaced with official artwork closer to launch.
@@ -45,10 +43,8 @@
       </section>
 
       <section class="page-section section-alt">
-        <div class="page-content">
-          <div class="shop-intro">
-            <p class="section-description">All designs, prices, and links are placeholders. Use them as a structure for the upcoming store.</p>
-          </div>
+        <div class="container">
+          <p class="section-description">All designs, prices, and links are placeholders. Use them as a structure for the upcoming store.</p>
           <div class="merch-grid">
             <article class="merch-card">
               <img src="https://placehold.co/600x600" alt="Placeholder Tee" loading="lazy" />
@@ -56,9 +52,7 @@
                 <h3>Placeholder Tee</h3>
                 <p class="merch-price">€00</p>
                 <div class="merch-actions">
-                  <a href="#" class="btn-outline" target="_blank" rel="noopener noreferrer">
-                    Placeholder Link
-                  </a>
+                  <a href="#" class="btn-outline" target="_blank" rel="noopener noreferrer">Placeholder Link</a>
                 </div>
               </div>
             </article>
@@ -68,9 +62,7 @@
                 <h3>Generic Hoodie</h3>
                 <p class="merch-price">€00</p>
                 <div class="merch-actions">
-                  <a href="#" class="btn-outline" target="_blank" rel="noopener noreferrer">
-                    Placeholder Link
-                  </a>
+                  <a href="#" class="btn-outline" target="_blank" rel="noopener noreferrer">Placeholder Link</a>
                 </div>
               </div>
             </article>
@@ -80,9 +72,7 @@
                 <h3>Event Poster</h3>
                 <p class="merch-price">€00</p>
                 <div class="merch-actions">
-                  <a href="#" class="btn-outline" target="_blank" rel="noopener noreferrer">
-                    Placeholder Link
-                  </a>
+                  <a href="#" class="btn-outline" target="_blank" rel="noopener noreferrer">Placeholder Link</a>
                 </div>
               </div>
             </article>
@@ -92,16 +82,15 @@
     </main>
 
     <footer class="footer">
-      <div class="footer-inner">
-        <div class="footer-brand">
-          <h3>Rock’n’Rostoll</h3>
+      <div class="container footer-grid">
+        <div>
+          <h3 class="section-title">Rock’n’Rostoll</h3>
           <p>
-            Festival autogestionat de rock i electrònica nascut a Maria de la Salut el 1995, on el darrer dissabte d’agost un camp de rostoll i un safareig es converteixen
-            en una nit de música, llibertat i germanor.
+            Festival autogestionat de rock i electrònica nascut a Maria de la Salut el 1995, on el darrer dissabte d’agost un camp de rostoll i un safareig es
+            converteixen en una nit de música, llibertat i germanor.
           </p>
         </div>
-
-        <div class="footer-column">
+        <div>
           <h4>Enllaços ràpids</h4>
           <div class="footer-links">
             <a href="index.html">Pròxim R'N'R</a>
@@ -110,8 +99,7 @@
             <a href="contact.html">Contacte</a>
           </div>
         </div>
-
-        <div class="footer-column">
+        <div>
           <h4>Xarxes socials</h4>
           <div class="footer-social">
             <a href="https://www.instagram.com/rocknrostoll" target="_blank" rel="noopener noreferrer" aria-label="Instagram Rock’n’Rostoll">
@@ -129,7 +117,7 @@
               </span>
               <div>
                 <span>Facebook</span>
-                <strong>RadioRostoll</strong>
+                <strong>Radio Rostoll</strong>
               </div>
             </a>
             <a href="mailto:rocknrostoll@gmail.com" aria-label="Correu electrònic Rock’n’Rostoll">
@@ -143,26 +131,18 @@
             </a>
           </div>
         </div>
-
-        <div class="footer-column">
+        <div>
           <h4>Butlletí</h4>
           <p class="section-description">
             Subscriu-te per seguir les novetats i històries que mantenen viva el Rostoll des de fa ja tres dècades.
           </p>
           <form class="newsletter-form" id="newsletter-form">
             <label class="sr-only" for="newsletter-email">Correu electrònic</label>
-            <input
-              type="email"
-              id="newsletter-email"
-              name="newsletter-email"
-              placeholder="Pròximament!"
-              class="newsletter-input"
-            />
+            <input type="email" id="newsletter-email" name="newsletter-email" placeholder="Pròximament!" class="newsletter-input" />
             <button type="submit" class="btn-primary">Pròximament!</button>
           </form>
         </div>
       </div>
-
       <p class="footer-note">
         © <span data-current-year>2026</span> Rock’n’Rostoll. Tots els drets reservats ·
         <a href="avis-legal.html">Avís legal</a> ·
