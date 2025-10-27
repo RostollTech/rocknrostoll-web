@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import InstagramEmbed from "../components/InstagramEmbed";
 import FacebookEmbed from "../components/FacebookEmbed";
+import SEO from "../components/SEO";
 import galleryImages from "../data/gallery";
 
 // SEO: Recomanat exportar les imatges de la galeria a formats .webp o .avif per reduir el pes
@@ -38,9 +39,73 @@ export default function Home() {
   }, []);
 
   const gallery = useMemo(() => galleryImages, []);
+  const structuredData = useMemo(
+    () => ({
+      "@context": "https://schema.org",
+      "@type": "MusicEvent",
+      name: "Rock’n’Rostoll 2026",
+      alternateName: "Rock and Rostoll 2026",
+      description:
+        "Festival autogestionat de rock i electrònica que se celebra a Son Perot (Maria de la Salut).",
+      keywords: [
+        "Rock’n’Rostoll",
+        "Rock and Rostoll",
+        "Rostoll",
+        "festival Mallorca",
+        "festival malllorca",
+        "rock",
+        "Maria de la Salut",
+      ],
+      startDate: "2026-08-29T19:00:00+02:00",
+      endDate: "2026-08-30T06:00:00+02:00",
+      eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+      eventStatus: "https://schema.org/EventScheduled",
+      image: [
+        "https://rocknrostoll.cat/img/about-actualitat.jpg",
+        "https://rocknrostoll.cat/img/about-voluntariat.jpg",
+      ],
+      location: {
+        "@type": "Place",
+        name: "Son Perot",
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: "Camí de Maria de la Salut a Muro",
+          addressLocality: "Maria de la Salut",
+          addressRegion: "Illes Balears",
+          postalCode: "07518",
+          addressCountry: "ES",
+        },
+      },
+      organizer: {
+        "@type": "Organization",
+        name: "Associació Cultural Rock’n’Rostoll",
+        url: "https://rocknrostoll.cat",
+      },
+      performer: {
+        "@type": "MusicGroup",
+        name: "Line-up Rock’n’Rostoll",
+      },
+    }),
+    [],
+  );
 
   return (
     <>
+      <SEO
+        title="Rock’n’Rostoll · Festival autogestionat de rock i electrònica a Mallorca"
+        description="Rock’n’Rostoll és el festival autogestionat de referència a Maria de la Salut. Consulta informació pràctica, descobreix la història del festival i prepara la teva visita a Son Perot."
+        keywords={[
+          "Rock’n’Rostoll",
+          "Rock and Rostoll",
+          "festival Mallorca",
+          "festival rock Mallorca",
+          "Maria de la Salut",
+          "música electrònica Mallorca",
+        ]}
+        canonicalPath="/"
+        image="https://rocknrostoll.cat/img/about-actualitat.jpg"
+        structuredData={structuredData}
+      />
       <Navbar />
       <main>
         <section className="hero home-hero">
