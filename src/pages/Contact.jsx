@@ -2,6 +2,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import PageHero from "../components/PageHero";
 import SocialLinks from "../components/SocialLinks";
+import SEO from "../components/SEO";
 import contactMapImage from "/img/contact-map.webp";
 import qrFacebookImage from "/qr/qr_facebook_blanc.png";
 import qrInstagramImage from "/qr/qr_instagram_blanc.png";
@@ -9,6 +10,18 @@ import qrInstagramImage from "/qr/qr_instagram_blanc.png";
 export default function Contact() {
   return (
     <>
+      <SEO
+        title="Contacte Rock’n’Rostoll · Participa, col·labora o resol dubtes"
+        description="Troba totes les vies de contacte del festival Rock’n’Rostoll: correu electrònic, xarxes socials i localització a Son Perot, Maria de la Salut."
+        keywords={[
+          "contacte Rock’n’Rostoll",
+          "col·laborar Rock and Rostoll",
+          "festival Maria de la Salut",
+          "voluntariat Rock’n’Rostoll",
+        ]}
+        canonicalPath="/contact"
+        image="https://rocknrostoll.cat/img/contact-map.webp"
+      />
       <Navbar />
       <main>
         <PageHero
