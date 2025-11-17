@@ -1,10 +1,23 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import PageHero from "../components/PageHero";
+import SEO from "../components/SEO";
 
 export default function AvisLegal() {
   return (
     <>
+      <SEO
+        title="Avís legal Rock’n’Rostoll · Termes d’ús del lloc web"
+        description="Consulta l’avís legal, les condicions d’ús i la informació de contacte oficial de l’Associació Juvenil Rock’n’Rostoll, organitzadora del festival."
+        keywords={[
+          "avís legal Rock’n’Rostoll",
+          "termes d'ús Rock and Rostoll",
+          "legal festival Mallorca",
+          "política Rock’n’Rostoll",
+        ]}
+        canonicalPath="/avis-legal"
+        image="https://rocknrostoll.cat/img/about-actualitat.jpg"
+      />
       <Navbar />
       <main>
         <PageHero className="legal-hero" eyebrow="Avís legal" title="Avís legal i Termes d’ús">

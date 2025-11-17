@@ -1,6 +1,7 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import PageHero from "../components/PageHero";
+import SEO from "../components/SEO";
 import aboutActualitatImage from "/img/about-actualitat.webp";
 import aboutOrigensImage from "/img/about-origens.webp";
 import aboutSafareigImage from "/img/about-safareig.webp";
@@ -10,6 +11,19 @@ import aboutVoluntariat2Image from "/img/about-voluntariat2.webp";
 export default function About() {
   return (
     <>
+      <SEO
+        title="Història del Rock’n’Rostoll · Festival autogestionat a Mallorca"
+        description="Descobreix els orígens, l’evolució i l’actualitat del festival Rock’n’Rostoll, un referent cultural autogestionat al Pla de Mallorca des de 1995."
+        keywords={[
+          "història Rock’n’Rostoll",
+          "Rock and Rostoll",
+          "festival autogestionat Mallorca",
+          "Safareig Dance",
+          "música rock Illes Balears",
+        ]}
+        canonicalPath="/about"
+        image="https://rocknrostoll.cat/img/about-actualitat.jpg"
+      />
       <Navbar />
       <main>
         <PageHero
