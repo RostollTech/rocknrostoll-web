@@ -829,7 +829,6 @@ main {
   color: var(--color-accent-yellow);
 }
 
-
 .contact-layout {
   display: grid;
   gap: var(--space-6);
@@ -839,8 +838,13 @@ main {
   width: 100%;
 }
 
+.contact-social-links {
+  display: flex;
+  flex-direction: column;
+}
+
 .contact-social-links .footer-social {
-  height: 100%;
+  height: auto;
 }
 
 .contact-qr-grid {
@@ -901,7 +905,7 @@ main {
   border: 0;
 }
 
-@media (min-width: 900px) {
+@media (min-width: 1025px) {
   .contact-layout {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     align-items: start;
