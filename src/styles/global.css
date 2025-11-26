@@ -740,6 +740,7 @@ main {
 
 .shop-hero .page-hero__image {
   background-image: url("/img/galeria2.webp");
+  background-position: center bottom;
 }
 
 .legal-hero .page-hero__image {

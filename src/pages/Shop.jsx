@@ -13,8 +13,8 @@ export default function Shop() {
           className="shop-hero"
           eyebrow="Botiga"
           title="Merchandising Oficial"
-          description="Aconsegueix tota la gamma de productes oficials de la 30a edició del Rock’N’Rostoll.
-Samarretes, dessuadores, edicions limitades i altres peces de marxandatge dissenyades exclusivament per commemorar tres dècades d’història. Equipa’t amb el material oficial i forma part del llegat del festival."
+          description="Aconsegueix tots productes oficials de la 30a edició del Rock’N’Rostoll.
+Edicions limitades dissenyades exclusivament per commemorar tres dècades d’història."
         />
 
         <section className="page-section section-alt">
