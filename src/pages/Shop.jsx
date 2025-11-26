@@ -11,15 +11,28 @@ export default function Shop() {
       <main>
         <PageHero
           className="shop-hero"
-          eyebrow="Merch"
-          title="Placeholder Collection"
-          description="Preview the generic merchandise line that will be replaced with official artwork closer to launch."
+          eyebrow="Botiga"
+          title="Merchandising Oficial"
+          description="Aconsegueix tota la gamma de productes oficials de la 30a edició del Rock’N’Rostoll.
+Samarretes, dessuadores, edicions limitades i altres peces de marxandatge dissenyades exclusivament per commemorar tres dècades d’història. Equipa’t amb el material oficial i forma part del llegat del festival."
         />
 
         <section className="page-section section-alt">
           <div className="page-content">
             <div className="shop-intro">
-              <p className="section-description">All designs, prices, and links are placeholders. Use them as a structure for the upcoming store.</p>
+              <p className="section-description">
+                Aquí tens els tres productes especials que oferim en aquest any per la 30è edició del Rock'N'Rostoll. Per fer una comanda, fes clic als enllaços de cada producte o utilitza el formulari general.
+              </p>
+              <div style={{ marginTop: "2rem", textAlign: "center" }}>
+                <a
+                  href="https://forms.google.com/placeholder"
+                  className="btn-primary"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Formulari de Comanda General
+                </a>
+              </div>
             </div>
             <div className="merch-grid">
               {products.map((product, index) => (

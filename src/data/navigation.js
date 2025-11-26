@@ -1,8 +1,8 @@
 const navigationItems = [
-  { to: "/", label: "Home" },
-  { to: "/about", label: "About" },
-  //{ /*to: "/shop", label: "Shop"*/ },
-  { to: "/contact", label: "Contact" },
+  { to: "/", label: "Inici" },
+  { to: "/about", label: "Història" },
+  { to: "/shop", label: "Botiga" },
+  { to: "/contact", label: "Contacte" },
 ];
 
 export default navigationItems;

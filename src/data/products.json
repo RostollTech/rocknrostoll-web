@@ -1,5 +1,20 @@
 [
-  { "name": "Placeholder Tee", "price": "€00", "image": "https://placehold.co/600x600", "url": "#" },
-  { "name": "Generic Hoodie", "price": "€00", "image": "https://placehold.co/600x601", "url": "#" },
-  { "name": "Event Poster", "price": "€00", "image": "https://placehold.co/600x602", "url": "#" }
+  {
+    "name": "Pròximament",
+    "price": "--€",
+    "image": "https://placehold.co/600x600/png?text=Pròximament",
+    "url": "https://forms.google.com/placeholder"
+  },
+  {
+    "name": "Pròximament",
+    "price": "--€",
+    "image": "https://placehold.co/600x601/png?text=Pròximament",
+    "url": "https://forms.google.com/placeholder"
+  },
+  {
+    "name": "Pròximament",
+    "price": "--€",
+    "image": "https://placehold.co/600x602/png?text=Pròximament",
+    "url": "https://forms.google.com/placeholder"
+  }
 ]

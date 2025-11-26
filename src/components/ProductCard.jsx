@@ -7,7 +7,7 @@ export default function ProductCard({ name, price, image, url }) {
         <p className="merch-price">{price}</p>
         <div className="merch-actions">
           <a href={url} className="btn-outline" target="_blank" rel="noopener noreferrer">
-            Placeholder Link
+            Encarregar ara!!!
           </a>
         </div>
       </div>

@@ -739,7 +739,7 @@ main {
 }
 
 .shop-hero .page-hero__image {
-  background-image: url("/img/camisetaA.webp");
+  background-image: url("/img/galeria2.webp");
 }
 
 .legal-hero .page-hero__image {
@@ -763,7 +763,7 @@ main {
 
 .split-layout img {
   width: 80%;
-  display: block;     
+  display: block;
   margin: 0 auto;
   border-radius: var(--radius-lg);
   border: 1px solid rgba(255, 255, 255, 0.06);
@@ -775,7 +775,7 @@ main {
   font-size: clamp(1.6rem, 3vw, 2.1rem);
   margin: 0;
   letter-spacing: 0.14em;
-  text-align: center; 
+  text-align: center;
 }
 
 .page-content p {
@@ -886,7 +886,7 @@ main {
   box-shadow: var(--shadow-md);
 }
 
-.contact-img img{
+.contact-img img {
   width: 50%;
 }
 
@@ -916,6 +916,7 @@ main {
     align-self: start;
     justify-self: start;
   }
+
   .contact-qr-grid {
     grid-column: 2;
     justify-items: end;
@@ -925,6 +926,7 @@ main {
 .contact-social-img {
   margin-top: 1rem;
 }
+
 .merch-grid {
   display: grid;
   gap: var(--space-5);
@@ -1217,6 +1219,7 @@ main {
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {
