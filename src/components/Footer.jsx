@@ -14,16 +14,15 @@ export default function Footer() {
           </p>
         </div>
 
-        <div className="footer-column">
+        {/* <div className="footer-column">
           <h4>Enllaços ràpids</h4>
           <div className="footer-links">
             <Link to="/">Pròxim R'N'R </Link>
             <Link to="/about">Sobre el festival</Link>
-            {/* SEO: Enllaç intern cap a la secció del programa */}
             <a href="/#programa">Programa</a>
             <Link to="/contact">Contacte</Link>
           </div>
-        </div>
+        </div> */}
 
         <div className="footer-column">
           <h4>Xarxes socials</h4>
