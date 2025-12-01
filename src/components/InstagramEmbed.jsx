@@ -53,7 +53,7 @@ export default function InstagramEmbed({ url, title = "Publicació d'Instagram" 
       src={embedUrl}
       title={title}
       loading="lazy"
-      allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+      allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share; unload"
       allowFullScreen
       referrerPolicy="strict-origin-when-cross-origin"
       placeholder={

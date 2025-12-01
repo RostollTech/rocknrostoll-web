@@ -1,15 +1,19 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, forwardRef } from "react";
 
 function joinClassNames(...classNames) {
   return classNames.filter(Boolean).join(" ");
 }
 
-export default function LazyIframe({
-  containerClassName = "",
-  containerStyle,
-  placeholder = null,
-  ...iframeProps
-}) {
+const LazyIframe = forwardRef(function LazyIframe(
+  {
+    containerClassName = "",
+    containerStyle,
+    placeholder = null,
+    title = "Contingut incrustat",
+    ...iframeProps
+  },
+  ref,
+) {
   const [isVisible, setIsVisible] = useState(false);
   const wrapperRef = useRef(null);
 
@@ -20,6 +24,7 @@ export default function LazyIframe({
       return undefined;
     }
 
+    // Si no hi ha IntersectionObserver (navegadors antics) o estem al servidor, mostram directament
     if (typeof window === "undefined" || !("IntersectionObserver" in window)) {
       setIsVisible(true);
       return undefined;
@@ -33,9 +38,9 @@ export default function LazyIframe({
         }
       },
       {
-        rootMargin: "160px",
-        threshold: 0.1,
-      }
+        rootMargin: "200px", // Carregam una mica abans d'arribar
+        threshold: 0.01,
+      },
     );
 
     observer.observe(element);
@@ -51,7 +56,17 @@ export default function LazyIframe({
       className={joinClassNames("lazy-iframe", containerClassName)}
       style={containerStyle}
     >
-      {isVisible ? <iframe {...iframeProps} /> : placeholder}
+      {isVisible ? (
+        <iframe
+          ref={ref}
+          title={title}
+          {...iframeProps}
+        />
+      ) : (
+        placeholder
+      )}
     </div>
   );
-}
+});
+
+export default LazyIframe;

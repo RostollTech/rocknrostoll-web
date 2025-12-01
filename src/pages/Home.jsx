@@ -1,43 +1,15 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import InstagramEmbed from "../components/InstagramEmbed";
 import FacebookEmbed from "../components/FacebookEmbed";
+import Countdown from "../components/Countdown";
 import SEO from "../components/SEO";
 import galleryImages from "../data/gallery";
 
 // SEO: Recomanat exportar les imatges de la galeria a formats .webp o .avif per reduir el pes
 
-const EVENT_DATE = new Date("2026-08-29T19:00:00");
-
-function getTimeLeft(target) {
-  const difference = target.getTime() - Date.now();
-
-  if (difference <= 0) {
-    return { days: "00", hours: "00", minutes: "00", seconds: "00" };
-  }
-
-  const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
-  const minutes = Math.floor((difference / (1000 * 60)) % 60);
-  const seconds = Math.floor((difference / 1000) % 60);
-
-  return {
-    days: String(days).padStart(2, "0"),
-    hours: String(hours).padStart(2, "0"),
-    minutes: String(minutes).padStart(2, "0"),
-    seconds: String(seconds).padStart(2, "0"),
-  };
-}
-
 export default function Home() {
-  const [timeLeft, setTimeLeft] = useState(() => getTimeLeft(EVENT_DATE));
-
-  useEffect(() => {
-    const interval = setInterval(() => setTimeLeft(getTimeLeft(EVENT_DATE)), 1000);
-    return () => clearInterval(interval);
-  }, []);
-
   const gallery = useMemo(() => galleryImages, []);
   const structuredData = useMemo(
     () => ({
@@ -119,24 +91,7 @@ export default function Home() {
               dissabte d’agost. Celebrem 30 edicions d’història, germanor i molta festa!
             </p>
 
-            <div className="countdown-grid" aria-label="Countdown to the event">
-              <div className="countdown-card">
-                <p className="countdown-number">{timeLeft.days}</p>
-                <p className="countdown-label">Dies</p>
-              </div>
-              <div className="countdown-card">
-                <p className="countdown-number">{timeLeft.hours}</p>
-                <p className="countdown-label">Hores</p>
-              </div>
-              <div className="countdown-card">
-                <p className="countdown-number">{timeLeft.minutes}</p>
-                <p className="countdown-label">Minuts</p>
-              </div>
-              <div className="countdown-card">
-                <p className="countdown-number">{timeLeft.seconds}</p>
-                <p className="countdown-label">Segons</p>
-              </div>
-            </div>
+            <Countdown />
 
             <div className="button-group">
               <a href="/about" className="btn-primary">
@@ -217,8 +172,8 @@ export default function Home() {
             <div className="video-frame">
               <div className="instagram-gallery">
                 <InstagramEmbed url="https://www.instagram.com/p/DPKAi8BjMNs/" />
-                <InstagramEmbed url="https://www.instagram.com/p/DO36Nm4jL5O/?utm_source=ig_web_copy_link&igsh=MWJtdDRjaTFzb3Z3NQ== " />
-                <FacebookEmbed url="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2FRadioRostoll%2Fposts%2Fpfbid0PqP9HPuEtVquNxfLe3T2HMsxCCivqnjZmRmmyuVsprcgcb8w2uSFdDhjBcoBXJkTl&show_text=true&width=500" />
+                <InstagramEmbed url="https://www.instagram.com/p/DO36Nm4jL5O/?utm_source=ig_web_copy_link&igsh=MWJtdDRjaTFzb3Z3NQ==" />
+                <FacebookEmbed url="https://www.facebook.com/RadioRostoll/posts/pfbid0PqP9HPuEtVquNxfLe3T2HMsxCCivqnjZmRmmyuVsprcgcb8w2uSFdDhjBcoBXJkTl" />
 
               </div>
             </div>
