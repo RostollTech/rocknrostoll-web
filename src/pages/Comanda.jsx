@@ -24,61 +24,58 @@ export default function Comanda() {
   // Cart initialized as empty. Keys will be "Name_Size" => Quantity.
   const SIZES = ["S", "M", "L", "XL", "XXL"];
 
-  // New State for Hoodies (Single product type logic)
-  // We track an array of selected sizes, e.g. ["M", "L", ""]
-  const [hoodieSelections, setHoodieSelections] = useState([]);
-  const [showHoodieSizes, setShowHoodieSizes] = useState(false);
+  // New State for Products with Sizes (Hoodies, Packs, etc.)
+  // Object: { "ProductName": ["M", "L", ""], ... }
+  const [productSelections, setProductSelections] = useState({});
 
-  // Sync hoodieSelections to global cart
+  // Sync productSelections to global cart
   useEffect(() => {
-    // Find the hoodie product name
-    const hoodieProduct = productsData.find(p => p.name.toLowerCase().includes('dessu'));
-    if (!hoodieProduct) return;
-    const name = hoodieProduct.name;
-
     setCart(prevCart => {
       const newCart = { ...prevCart };
 
-      // Clear existing hoodie entries
-      Object.keys(newCart).forEach(key => {
-        if (key.startsWith(name)) {
-          delete newCart[key];
-        }
-      });
+      // We need to manage cart entries for all complex products.
+      // We iterate over the keys in productSelections to update them.
+      Object.entries(productSelections).forEach(([name, selections]) => {
+        // Clear existing entries for this product
+        Object.keys(newCart).forEach(key => {
+          if (key.startsWith(name + '_')) {
+            delete newCart[key];
+          }
+        });
 
-      // Re-populate based on selections
-      hoodieSelections.forEach(size => {
-        // key for empty size could be just "Name_" or "Name_NO_SIZE"
-        // keeping consistency with existing logic: Name_Size
-        // If size is empty, we'll store it but it needs to be handled cleanly
-        const sizeKey = size || "PENDING";
-        const key = `${name}_${sizeKey}`;
-        newCart[key] = (newCart[key] || 0) + 1;
+        // Re-populate based on selections
+        selections.forEach(size => {
+          const sizeKey = size || "PENDING";
+          // If size is 'Única', we could just use that, but for consistency in complex products we use the selected size
+          const key = `${name}_${sizeKey}`;
+          newCart[key] = (newCart[key] || 0) + 1;
+        });
       });
 
       return newCart;
     });
-  }, [hoodieSelections]);
+  }, [productSelections]);
 
-  const updateHoodieQty = (delta) => {
-    setHoodieSelections(prev => {
-      const currentLen = prev.length;
+  const updateProductQty = (name, delta) => {
+    setProductSelections(prev => {
+      const currentList = prev[name] || [];
       if (delta > 0) {
-        return [...prev, ""]; // Add empty selection
+        return { ...prev, [name]: [...currentList, ""] }; // Add empty selection
       } else {
         // Remove last item (LIFO)
-        if (currentLen === 0) return prev;
-        return prev.slice(0, -1);
+        if (currentList.length === 0) return prev;
+        const newList = currentList.slice(0, -1);
+        // If empty, we can keep the empty array or remove the key. keeping array is fine.
+        return { ...prev, [name]: newList };
       }
     });
-    // showHoodieSizes state is no longer used, we always show if qty > 0
   };
 
-  const updateHoodieSize = (index, newSize) => {
-    setHoodieSelections(prev => {
-      const next = [...prev];
-      next[index] = newSize;
-      return next;
+  const updateProductSize = (name, index, newSize) => {
+    setProductSelections(prev => {
+      const currentList = [...(prev[name] || [])];
+      currentList[index] = newSize;
+      return { ...prev, [name]: currentList };
     });
   };
 
@@ -139,42 +136,37 @@ export default function Comanda() {
       return;
     }
 
-    // Check for unselected sizes in hoodies
-    if (hoodieSelections.some(s => !s)) {
-      alert("Si us plau, selecciona la talla per a totes les sudaderes.");
-      setShowHoodieSizes(true);
+    // Check for unselected sizes in any product
+    const unselectedParams = Object.values(productSelections).flat().some(s => !s);
+    if (unselectedParams) {
+      alert("Si us plau, selecciona la talla per a tots els productes.");
       return;
     }
 
     // Prepare data for backend
-    const groupedItems = {};
+    const items = [];
 
     Object.entries(cart).forEach(([key, qty]) => {
       if (qty > 0) {
-        // Extract name (remove _Size suffix)
         const lastUnderscoreIndex = key.lastIndexOf('_');
         let name = key;
+        let size = "";
 
         if (lastUnderscoreIndex !== -1) {
           name = key.substring(0, lastUnderscoreIndex);
+          size = key.substring(lastUnderscoreIndex + 1);
         }
 
-        if (!groupedItems[name]) {
-          groupedItems[name] = 0;
+        const product = productsData.find(p => p.name === name);
+        if (product) {
+          items.push({
+            name: name,
+            quantity: qty,
+            price: cleanPrice(product.price),
+            // Pass size only if it's a real variant (not 'Única')
+            size: size === "Única" ? null : size
+          });
         }
-        groupedItems[name] += qty;
-      }
-    });
-
-    const items = [];
-    Object.keys(groupedItems).forEach(name => {
-      const product = productsData.find(p => p.name === name);
-      if (product) {
-        items.push({
-          name: name,
-          quantity: groupedItems[name],
-          price: cleanPrice(product.price)
-        });
       }
     });
 
@@ -242,10 +234,10 @@ export default function Comanda() {
                     {productsData.map((product, index) => {
                       if (product.name === "Donatiu") return null;
 
-                      const isHoodie = product.name.toLowerCase().includes('dessu');
+                      const needsSize = product.name.toLowerCase().includes('dessu') || product.name.toLowerCase().includes('pack');
 
                       // Non-hoodie item (Simple)
-                      if (!isHoodie) {
+                      if (!needsSize) {
                         const key = `${product.name}_Única`;
                         const qty = cart[key] || 0;
                         return (
@@ -266,9 +258,10 @@ export default function Comanda() {
                         );
                       }
 
-                      // Hoodie item (Complex - Multiple Sizes)
+                      // Complex item (Multiple Sizes)
                       // Logic: Show Total Quantity -> "Triar Talles" button -> List of Selects
-                      const totalVariantQty = hoodieSelections.length;
+                      const currentSelections = productSelections[product.name] || [];
+                      const totalVariantQty = currentSelections.length;
 
                       return (
                         <div key={index} className="order-item">
@@ -283,9 +276,9 @@ export default function Comanda() {
                             <div className="qty-row">
                               <span style={{ marginRight: '1rem', fontWeight: '500' }}>Quantitat:</span>
                               <div className="qty-selector">
-                                <button type="button" onClick={() => updateHoodieQty(-1)} disabled={totalVariantQty <= 0}>-</button>
+                                <button type="button" onClick={() => updateProductQty(product.name, -1)} disabled={totalVariantQty <= 0}>-</button>
                                 <span>{totalVariantQty}</span>
-                                <button type="button" onClick={() => updateHoodieQty(1)}>+</button>
+                                <button type="button" onClick={() => updateProductQty(product.name, 1)}>+</button>
                               </div>
                             </div>
 
@@ -293,13 +286,13 @@ export default function Comanda() {
                             {totalVariantQty > 0 && (
                               <div className="hoodie-sizes-list">
                                 <p style={{ marginBottom: '0.5rem', fontWeight: '600', fontSize: '0.9rem' }}>Selecciona les talles:</p>
-                                {hoodieSelections.map((currentSize, i) => (
+                                {currentSelections.map((currentSize, i) => (
                                   <div key={i} className="size-select-row">
-                                    <span className="size-label">Dessuadora #{i + 1}</span>
+                                    <span className="size-label">#{i + 1}</span>
                                     <select
                                       className="form-input size-select"
                                       value={currentSize}
-                                      onChange={(e) => updateHoodieSize(i, e.target.value)}
+                                      onChange={(e) => updateProductSize(product.name, i, e.target.value)}
                                       required
                                     >
                                       <option value="" disabled>Triar Talla...</option>

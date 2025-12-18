@@ -1,5 +1,11 @@
 [
   {
+    "name": "Pack 30 edició - versió limitada",
+    "price": "35 €",
+    "image": "/products/disseny.png",
+    "url": "/comanda"
+  },
+  {
     "name": "Dessuadores 30 edició - versió limitada",
     "price": "25 €",
     "image": "/products/dessuadora.png",
