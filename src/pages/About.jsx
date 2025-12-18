@@ -37,7 +37,7 @@ export default function About() {
               <p className="section-description">
                 El germen de Rock'n'Rostoll neix l’estiu de 1994, quan un grup de joves de Maria de la Salut —entre ells
                 membres de bandes locals com Sklata Sang— decidí plantar cara a l’avorriment organitzant la seva pròpia Nit de
-                Rock. Aquella trobada improvisada al mig d’un camp segat fou un acte de creativitat i rebel·lia que establí les
+                Rock. Aquella trobada improvisada fou un acte de creativitat i rebel·lia que establí les
                 bases d’una nova tradició.
               </p>
               <p className="section-description">
