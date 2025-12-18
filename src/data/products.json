@@ -1,20 +1,26 @@
 [
   {
-    "name": "Pròximament",
-    "price": "--€",
-    "image": "https://placehold.co/600x600/png?text=Pròximament",
-    "url": "https://forms.google.com/placeholder"
+    "name": "Dessuadores 30 edició - versió limitada",
+    "price": "25 €",
+    "image": "/products/dessuadora.png",
+    "url": "https://buy.stripe.com/test_dRm28l8zM64W1StcjXgYU00"
   },
   {
-    "name": "Pròximament",
-    "price": "--€",
-    "image": "https://placehold.co/600x601/png?text=Pròximament",
-    "url": "https://forms.google.com/placeholder"
+    "name": "Gorra 30 edició - versió limitada",
+    "price": "8 €",
+    "image": "/products/gorra.png",
+    "url": "https://buy.stripe.com/test_dRm28l8zM64W1StcjXgYU00"
   },
   {
-    "name": "Pròximament",
-    "price": "--€",
-    "image": "https://placehold.co/600x602/png?text=Pròximament",
-    "url": "https://forms.google.com/placeholder"
+    "name": "Bossa de tela 30 edició - versió limitada",
+    "price": "7 €",
+    "image": "/products/bossa.png",
+    "url": "https://buy.stripe.com/test_dRm28l8zM64W1StcjXgYU00"
+  },
+  {
+    "name": "Donatiu",
+    "price": "1 - ∞ €",
+    "image": "/products/disseny.png",
+    "url": "https://buy.stripe.com/test_dRm28l8zM64W1StcjXgYU00"
   }
 ]

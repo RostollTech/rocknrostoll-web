@@ -1,25 +1,14 @@
-import galeria1 from "/img/galeria0.webp";
-import galeria2 from "/img/galeria7.webp";
-import galeria3 from "/img/galeria13.webp";
-import galeria4 from "/img/foto4.webp";
-import galeria5 from "/img/galeria11.webp";
-import galeria6 from "/img/galeria6.webp";
-import galeria7 from "/img/galeria17.webp";
-import galeria8 from "/img/galeria8.webp";
-import galeria9 from "/img/galeria12.webp";
-import galeria0 from "/img/galeria10.webp";
-
 const homeGallery = [
-  { src: galeria1, alt: "Foto Galeria 1" },
-  { src: galeria2, alt: "Foto Galeria 2" },
-  { src: galeria3, alt: "Foto Galeria 3" },
-  { src: galeria4, alt: "Foto Galeria 4" },
-  { src: galeria5, alt: "Foto Galeria 5" },
-  { src: galeria6, alt: "Foto Galeria 6" },
-  { src: galeria7, alt: "Foto Galeria 7" },
-  { src: galeria8, alt: "Foto Galeria 8" },
-  { src: galeria9, alt: "Foto Galeria 9" },
-  { src: galeria0, alt: "Foto Galeria 10" },
+  { src: "/img/galeria0.webp", alt: "Foto Galeria 1" },
+  { src: "/img/galeria7.webp", alt: "Foto Galeria 2" },
+  { src: "/img/galeria13.webp", alt: "Foto Galeria 3" },
+  { src: "/img/foto4.webp", alt: "Foto Galeria 4" },
+  { src: "/img/galeria11.webp", alt: "Foto Galeria 5" },
+  { src: "/img/galeria6.webp", alt: "Foto Galeria 6" },
+  { src: "/img/galeria17.webp", alt: "Foto Galeria 7" },
+  { src: "/img/galeria8.webp", alt: "Foto Galeria 8" },
+  { src: "/img/galeria12.webp", alt: "Foto Galeria 9" },
+  { src: "/img/galeria10.webp", alt: "Foto Galeria 10" },
 ];
 
 export default homeGallery;

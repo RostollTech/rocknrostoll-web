@@ -957,6 +957,9 @@ main {
 .merch-card img {
   height: 14rem;
   width: 100%;
+  background-color: white;
+  object-fit: contain;
+  padding: 1rem;
 }
 
 .merch-content {

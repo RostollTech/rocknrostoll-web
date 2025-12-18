@@ -25,7 +25,7 @@ Edicions limitades dissenyades exclusivament per commemorar tres dècades d’hi
               </p>
               <div style={{ marginTop: "2rem", textAlign: "center" }}>
                 <a
-                  href="https://forms.google.com/placeholder"
+                  href="https://buy.stripe.com/test_dRm28l8zM64W1StcjXgYU00"
                   className="btn-primary"
                   target="_blank"
                   rel="noopener noreferrer"

@@ -3,9 +3,6 @@ import Footer from "../components/Footer";
 import PageHero from "../components/PageHero";
 import SocialLinks from "../components/SocialLinks";
 import SEO from "../components/SEO";
-import contactMapImage from "/img/contact-map.webp";
-import qrFacebookImage from "/qr/qr_facebook_blanc.png";
-import qrInstagramImage from "/qr/qr_instagram_blanc.png";
 
 export default function Contact() {
   return (
@@ -76,7 +73,7 @@ export default function Contact() {
               <SocialLinks />
               <img
                 className="contact-social-img"
-                src={contactMapImage}
+                src="/img/contact-map.webp"
                 alt="Vista del camp de rostoll on se celebra el festival"
                 loading="lazy"
               />
@@ -84,7 +81,7 @@ export default function Contact() {
             <div className="contact-qr-grid">
               <div className="qr-card">
                 <img
-                  src={qrInstagramImage}
+                  src="/qr/qr_instagram_blanc.png"
                   alt="Codi QR d'Instagram de Rock’n’Rostoll"
                   className="qr-image"
                   loading="lazy"
@@ -93,7 +90,7 @@ export default function Contact() {
               </div>
               <div className="qr-card">
                 <img
-                  src={qrFacebookImage}
+                  src="/qr/qr_facebook_blanc.png"
                   alt="Codi QR de Facebook de Rock’n’Rostoll"
                   className="qr-image"
                   loading="lazy"

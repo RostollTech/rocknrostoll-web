@@ -2,11 +2,6 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import PageHero from "../components/PageHero";
 import SEO from "../components/SEO";
-import aboutActualitatImage from "/img/about-actualitat.webp";
-import aboutOrigensImage from "/img/about-origens.webp";
-import aboutSafareigImage from "/img/about-safareig.webp";
-import aboutVoluntariatImage from "/img/about-voluntariat.webp";
-import aboutVoluntariat2Image from "/img/about-voluntariat2.webp";
 
 export default function About() {
   return (
@@ -52,7 +47,7 @@ export default function About() {
               </p>
             </div>
             <img
-              src={aboutOrigensImage}
+              src="/img/about-origens.webp"
               alt="Fotografia històrica dels primers organitzadors preparant el camp de rostoll"
               loading="lazy"
             />
@@ -62,7 +57,7 @@ export default function About() {
         <section className="page-section">
           <div className="page-content split-layout">
             <img
-              src={aboutSafareigImage}
+              src="/img/about-safareig.webp"
               alt="Ambient al Safareig Dance amb la gent ballant dins el safareig il·luminat"
               loading="lazy"
             />
@@ -96,11 +91,11 @@ export default function About() {
               <p className="section-description">
                 Cada any, noves bandes locals i estatals aportaven varietat i qualitat musical, mentre que els DJ omplien el
                 Safareig Dance fins a la matinada. L’ambient rural, la proximitat del públic amb els artistes i la llibertat per
-                ballar damunt el rostoll esdevingueren segell del festival.
+                ballar damunt el rostoll esdevenen segell del festival.
               </p>
             </div>
             <img
-              src={aboutVoluntariatImage}
+              src="/img/about-voluntariat.webp"
               alt="Voluntaris preparant l'escenari del festival"
               loading="lazy"
             />
@@ -110,7 +105,7 @@ export default function About() {
         <section className="page-section">
           <div className="page-content split-layout">
             <img
-              src={aboutActualitatImage}
+              src="/img/about-actualitat.webp"
               alt="Equip de voluntaris del festival Rock’n’Rostoll"
               loading="lazy"
             />
@@ -146,7 +141,7 @@ export default function About() {
             </div>
             {/* SEO: Imatge amb càrrega mandrosa per millorar el rendiment */}
             <img
-              src={aboutVoluntariat2Image}
+              src="/img/about-voluntariat2.webp"
               alt="Públic ballant en una zona il·luminada del festival"
               loading="lazy"
             />
