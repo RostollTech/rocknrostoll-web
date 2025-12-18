@@ -71,8 +71,7 @@ export default function Comanda() {
         return prev.slice(0, -1);
       }
     });
-    // Auto-show sizes if we add items
-    if (delta > 0) setShowHoodieSizes(true);
+    // showHoodieSizes state is no longer used, we always show if qty > 0
   };
 
   const updateHoodieSize = (index, newSize) => {
@@ -148,19 +147,33 @@ export default function Comanda() {
     }
 
     // Prepare data for backend
+    // Prepare data for backend
     const items = [];
-    Object.entries(cart).forEach(([name, item]) => {
-      if (item.quantity > 0) {
+    Object.entries(cart).forEach(([key, qty]) => {
+      if (qty > 0) {
+        // Extract name and size
+        // Key format: "ProductName_Size"
+        const lastUnderscoreIndex = key.lastIndexOf('_');
+        let name = key;
+        let size = "Única";
+
+        if (lastUnderscoreIndex !== -1) {
+          name = key.substring(0, lastUnderscoreIndex);
+          size = key.substring(lastUnderscoreIndex + 1);
+        }
+
         // Find original price from productsData
         const product = productsData.find(p => p.name === name);
-        const priceNum = cleanPrice(product.price);
 
-        items.push({
-          name: name,
-          quantity: item.quantity,
-          price: priceNum,
-          size: item.size
-        });
+        if (product) {
+          const priceNum = cleanPrice(product.price);
+          items.push({
+            name: name,
+            quantity: qty,
+            price: priceNum,
+            size: size
+          });
+        }
       }
     });
 
