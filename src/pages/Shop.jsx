@@ -3,6 +3,7 @@ import Footer from "../components/Footer";
 import PageHero from "../components/PageHero";
 import ProductCard from "../components/ProductCard";
 import products from "../data/products.json";
+import { Link } from "react-router-dom";
 
 export default function Shop() {
   return (
@@ -24,14 +25,12 @@ Edicions limitades dissenyades exclusivament per commemorar tres dècades d’hi
                 Aquí tens els tres productes especials que oferim en aquest any per la 30è edició del Rock'N'Rostoll. Per fer una comanda, fes clic als enllaços de cada producte o utilitza el formulari general.
               </p>
               <div style={{ marginTop: "2rem", textAlign: "center" }}>
-                <a
-                  href="https://buy.stripe.com/test_dRm28l8zM64W1StcjXgYU00"
+                <Link
+                  to="/comanda"
                   className="btn-primary"
-                  target="_blank"
-                  rel="noopener noreferrer"
                 >
                   Formulari de Comanda General
-                </a>
+                </Link>
               </div>
             </div>
             <div className="merch-grid">
