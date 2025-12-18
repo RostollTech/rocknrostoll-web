@@ -10,9 +10,7 @@ export default function Comanda() {
   // State for form user fields
   const [formData, setFormData] = useState({
     name: "",
-    email: "",
-    phone: "",
-    comments: ""
+    email: ""
   });
 
   // State for cart/quantities. 
@@ -126,8 +124,8 @@ export default function Comanda() {
 
     // Validation
     // Validation
-    if (!formData.name || !formData.email || !formData.phone) {
-      alert("Si us plau, omple tots els camps obligatoris (Nom, Email i Telèfon) per continuar.");
+    if (!formData.name || !formData.email) {
+      alert("Si us plau, omple tots els camps obligatoris (Nom i Email) per continuar.");
       return;
     }
 
@@ -352,25 +350,7 @@ export default function Comanda() {
                         className="form-input"
                       />
                     </div>
-                    <div className="form-group">
-                      <label htmlFor="phone">Telèfon *</label>
-                      <input
-                        type="tel" id="phone" name="phone"
-                        required
-                        value={formData.phone} onChange={handleUserChange}
-                        className="form-input"
-                      />
-                    </div>
-                  </div>
-                  <div className="form-group" style={{ marginTop: '1rem' }}>
-                    <label htmlFor="comments">Comentaris o Observacions</label>
-                    <textarea
-                      id="comments" name="comments"
-                      rows="3"
-                      value={formData.comments} onChange={handleUserChange}
-                      className="form-input"
-                      placeholder="Alguna cosa que haguem de saber?"
-                    ></textarea>
+
                   </div>
                 </div>
 
