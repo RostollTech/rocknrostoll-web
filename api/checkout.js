@@ -35,19 +35,7 @@ export default async function handler(req, res) {
                 quantity: item.quantity,
             }));
         } else {
-            // FALLBACK (User Request): Producte de prova si no hi ha dades
-            line_items = [
-                {
-                    price_data: {
-                        currency: 'eur',
-                        product_data: {
-                            name: 'Producte de Prova (Codi d\'Exemple)',
-                        },
-                        unit_amount: 2000, // 20.00 €
-                    },
-                    quantity: 1,
-                },
-            ];
+            return res.status(400).json({ error: 'No items in cart' });
         }
 
         // Add donation if present
