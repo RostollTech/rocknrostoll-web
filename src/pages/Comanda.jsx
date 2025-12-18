@@ -147,33 +147,34 @@ export default function Comanda() {
     }
 
     // Prepare data for backend
-    // Prepare data for backend
-    const items = [];
+    const groupedItems = {};
+
     Object.entries(cart).forEach(([key, qty]) => {
       if (qty > 0) {
-        // Extract name and size
-        // Key format: "ProductName_Size"
+        // Extract name (remove _Size suffix)
         const lastUnderscoreIndex = key.lastIndexOf('_');
         let name = key;
-        let size = "Única";
 
         if (lastUnderscoreIndex !== -1) {
           name = key.substring(0, lastUnderscoreIndex);
-          size = key.substring(lastUnderscoreIndex + 1);
         }
 
-        // Find original price from productsData
-        const product = productsData.find(p => p.name === name);
-
-        if (product) {
-          const priceNum = cleanPrice(product.price);
-          items.push({
-            name: name,
-            quantity: qty,
-            price: priceNum,
-            size: size
-          });
+        if (!groupedItems[name]) {
+          groupedItems[name] = 0;
         }
+        groupedItems[name] += qty;
+      }
+    });
+
+    const items = [];
+    Object.keys(groupedItems).forEach(name => {
+      const product = productsData.find(p => p.name === name);
+      if (product) {
+        items.push({
+          name: name,
+          quantity: groupedItems[name],
+          price: cleanPrice(product.price)
+        });
       }
     });
 
