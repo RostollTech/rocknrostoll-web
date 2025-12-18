@@ -2,31 +2,31 @@
   {
     "name": "Pack 30 edició - versió limitada",
     "price": "40 €",
-    "image": "/products/disseny.png",
+    "image": "/products/disseny.webp",
     "url": "/comanda"
   },
   {
     "name": "Dessuadores 30 edició - versió limitada",
     "price": "28 €",
-    "image": "/products/dessuadora.png",
+    "image": "/products/dessuadora.webp",
     "url": "/comanda"
   },
   {
     "name": "Gorra 30 edició - versió limitada",
     "price": "10 €",
-    "image": "/products/gorra.png",
+    "image": "/products/gorra.webp",
     "url": "/comanda"
   },
   {
     "name": "Bossa de tela 30 edició - versió limitada",
     "price": "8 €",
-    "image": "/products/bossa.png",
+    "image": "/products/bossa.webp",
     "url": "/comanda"
   },
   {
     "name": "Donatiu",
     "price": "1 - ∞ €",
-    "image": "/products/disseny.png",
+    "image": "/products/disseny.webp",
     "url": "/comanda"
   }
 ]
