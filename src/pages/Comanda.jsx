@@ -125,8 +125,9 @@ export default function Comanda() {
     e.preventDefault();
 
     // Validation
-    if (!formData.name || !formData.email) {
-      alert("Si us plau, omple tots els camps obligatoris (Nom i Email) per continuar.");
+    // Validation
+    if (!formData.name || !formData.email || !formData.phone) {
+      alert("Si us plau, omple tots els camps obligatoris (Nom, Email i Telèfon) per continuar.");
       return;
     }
 
@@ -352,9 +353,10 @@ export default function Comanda() {
                       />
                     </div>
                     <div className="form-group">
-                      <label htmlFor="phone">Telèfon (opcional)</label>
+                      <label htmlFor="phone">Telèfon *</label>
                       <input
                         type="tel" id="phone" name="phone"
+                        required
                         value={formData.phone} onChange={handleUserChange}
                         className="form-input"
                       />

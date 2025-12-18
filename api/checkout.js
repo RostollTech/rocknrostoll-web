@@ -65,6 +65,9 @@ export default async function handler(req, res) {
         // 3. Create Session
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
+            phone_number_collection: {
+                enabled: true,
+            },
             line_items: line_items,
             mode: 'payment',
             success_url: `${origin}/success`,
