@@ -161,7 +161,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="section section-alt">
+        {/* <section className="section section-alt">
           <div className="container">
             <div className="section-header">
               <p className="section-eyebrow">Xarxes</p>
@@ -178,7 +178,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
 
         <section className="cta-banner" id="newsletter">
           <h3>Forma part de Rock’n’Rostoll!</h3>
