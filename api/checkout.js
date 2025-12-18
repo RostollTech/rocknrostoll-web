@@ -34,8 +34,6 @@ export default async function handler(req, res) {
                 },
                 quantity: item.quantity,
             }));
-        } else {
-            return res.status(400).json({ error: 'No items in cart' });
         }
 
         // Add donation if present
@@ -48,6 +46,10 @@ export default async function handler(req, res) {
                 },
                 quantity: 1
             });
+        }
+
+        if (line_items.length === 0) {
+            return res.status(400).json({ error: 'No items or donation in cart' });
         }
 
         // 3. Create Session

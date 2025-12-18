@@ -135,6 +135,12 @@ export default function Comanda() {
       return;
     }
 
+    // Enforce minimum donation of 1€ if a donation is present
+    if (donationAmount > 0 && parseFloat(donationAmount) < 1) {
+      alert("Si fas un donatiu, l'import mínim ha de ser d'1 €");
+      return;
+    }
+
     // Check for unselected sizes in any product
     const unselectedParams = Object.values(productSelections).flat().some(s => !s);
     if (unselectedParams) {
