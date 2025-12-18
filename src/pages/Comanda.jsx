@@ -288,28 +288,18 @@ export default function Comanda() {
                               </div>
                             </div>
 
-                            {/* Toggle Sizes Button */}
-                            {totalVariantQty > 0 && (
-                              <button
-                                type="button"
-                                className="btn-text-action"
-                                onClick={() => setShowHoodieSizes(!showHoodieSizes)}
-                                style={{ marginTop: '0.5rem', textDecoration: 'underline', color: 'var(--color-primary)', border: 'none', background: 'none', padding: 0, cursor: 'pointer', fontWeight: 600 }}
-                              >
-                                {showHoodieSizes ? "Amagar Talles ▲" : "Triar Talles del producte ▼"}
-                              </button>
-                            )}
-
                             {/* List of Select Boxes */}
-                            {(showHoodieSizes && totalVariantQty > 0) && (
+                            {totalVariantQty > 0 && (
                               <div className="hoodie-sizes-list">
+                                <p style={{ marginBottom: '0.5rem', fontWeight: '600', fontSize: '0.9rem' }}>Selecciona les talles:</p>
                                 {hoodieSelections.map((currentSize, i) => (
                                   <div key={i} className="size-select-row">
-                                    <span className="size-label">Sudadera #{i + 1}</span>
+                                    <span className="size-label">Dessuadora #{i + 1}</span>
                                     <select
                                       className="form-input size-select"
                                       value={currentSize}
                                       onChange={(e) => updateHoodieSize(i, e.target.value)}
+                                      required
                                     >
                                       <option value="" disabled>Triar Talla...</option>
                                       {SIZES.map(s => <option key={s} value={s}>{s}</option>)}
