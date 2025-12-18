@@ -7,352 +7,436 @@ import productsData from "../data/products.json";
 import { Link } from "react-router-dom";
 
 export default function Comanda() {
-    // State for form user fields
-    const [formData, setFormData] = useState({
-        name: "",
-        email: "",
-        phone: "",
-        comments: ""
+  // State for form user fields
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    comments: ""
+  });
+
+  // State for cart/quantities. 
+  // We initialize based on productsData, excluding "Donatiu" which is special case, 
+  // but let's handle "Donatiu" specially in the UI.
+  const [cart, setCart] = useState({});
+  const [donationAmount, setDonationAmount] = useState(0);
+
+  // Cart initialized as empty. Keys will be "Name_Size" => Quantity.
+  const SIZES = ["S", "M", "L", "XL", "XXL"];
+
+  // New State for Hoodies (Single product type logic)
+  // We track an array of selected sizes, e.g. ["M", "L", ""]
+  const [hoodieSelections, setHoodieSelections] = useState([]);
+  const [showHoodieSizes, setShowHoodieSizes] = useState(false);
+
+  // Sync hoodieSelections to global cart
+  useEffect(() => {
+    // Find the hoodie product name
+    const hoodieProduct = productsData.find(p => p.name.toLowerCase().includes('dessu'));
+    if (!hoodieProduct) return;
+    const name = hoodieProduct.name;
+
+    setCart(prevCart => {
+      const newCart = { ...prevCart };
+
+      // Clear existing hoodie entries
+      Object.keys(newCart).forEach(key => {
+        if (key.startsWith(name)) {
+          delete newCart[key];
+        }
+      });
+
+      // Re-populate based on selections
+      hoodieSelections.forEach(size => {
+        // key for empty size could be just "Name_" or "Name_NO_SIZE"
+        // keeping consistency with existing logic: Name_Size
+        // If size is empty, we'll store it but it needs to be handled cleanly
+        const sizeKey = size || "PENDING";
+        const key = `${name}_${sizeKey}`;
+        newCart[key] = (newCart[key] || 0) + 1;
+      });
+
+      return newCart;
+    });
+  }, [hoodieSelections]);
+
+  const updateHoodieQty = (delta) => {
+    setHoodieSelections(prev => {
+      const currentLen = prev.length;
+      if (delta > 0) {
+        return [...prev, ""]; // Add empty selection
+      } else {
+        // Remove last item (LIFO)
+        if (currentLen === 0) return prev;
+        return prev.slice(0, -1);
+      }
+    });
+    // Auto-show sizes if we add items
+    if (delta > 0) setShowHoodieSizes(true);
+  };
+
+  const updateHoodieSize = (index, newSize) => {
+    setHoodieSelections(prev => {
+      const next = [...prev];
+      next[index] = newSize;
+      return next;
+    });
+  };
+
+  const handleUserChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleQuantityChange = (productName, size, delta) => {
+    const key = `${productName}_${size}`;
+    setCart(prev => {
+      const currentQty = prev[key] || 0;
+      const newQty = Math.max(0, currentQty + delta);
+
+      const newCart = { ...prev, [key]: newQty };
+      if (newQty === 0) delete newCart[key]; // Clean up empty entries
+      return newCart;
+    });
+  };
+
+  const cleanPrice = (priceStr) => {
+    if (!priceStr) return 0;
+    // Remove ' €' and parse
+    const num = parseFloat(priceStr.replace(' €', '').replace(',', '.'));
+    return isNaN(num) ? 0 : num;
+  };
+
+  const calculateTotal = () => {
+    let total = 0;
+
+    Object.entries(cart).forEach(([key, qty]) => {
+      const [name] = key.split('_');
+      const product = productsData.find(p => p.name === name);
+      if (product) {
+        const price = cleanPrice(product.price);
+        total += qty * price;
+      }
     });
 
-    // State for cart/quantities. 
-    // We initialize based on productsData, excluding "Donatiu" which is special case, 
-    // but let's handle "Donatiu" specially in the UI.
-    const [cart, setCart] = useState({});
-    const [donationAmount, setDonationAmount] = useState(0);
+    // Add donation
+    total += parseFloat(donationAmount) || 0;
 
-    // Initialize cart state
-    useEffect(() => {
-        const initialCart = {};
-        productsData.forEach(p => {
-            if (p.name !== "Donatiu") {
-                initialCart[p.name] = { quantity: 0, size: "M" }; // Default size M for everything, mainly for Hoodies
-            }
+    return total.toFixed(2);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Validation
+    if (!formData.name || !formData.email) {
+      alert("Si us plau, omple tots els camps obligatoris (Nom i Email) per continuar.");
+      return;
+    }
+
+    const total = calculateTotal();
+    if (parseFloat(total) <= 0) {
+      alert("La cistella és buida. Afegeix algun producte o un donatiu per continuar.");
+      return;
+    }
+
+    // Check for unselected sizes in hoodies
+    if (hoodieSelections.some(s => !s)) {
+      alert("Si us plau, selecciona la talla per a totes les sudaderes.");
+      setShowHoodieSizes(true);
+      return;
+    }
+
+    // Prepare data for backend
+    const items = [];
+    Object.entries(cart).forEach(([name, item]) => {
+      if (item.quantity > 0) {
+        // Find original price from productsData
+        const product = productsData.find(p => p.name === name);
+        const priceNum = cleanPrice(product.price);
+
+        items.push({
+          name: name,
+          quantity: item.quantity,
+          price: priceNum,
+          size: item.size
         });
-        setCart(initialCart);
-    }, []);
+      }
+    });
 
-    const handleUserChange = (e) => {
-        const { name, value } = e.target;
-        setFormData(prev => ({ ...prev, [name]: value }));
-    };
+    try {
+      const btn = document.querySelector('button[type="submit"]');
+      if (btn) { btn.disabled = true; btn.innerText = "Processant..."; }
 
-    const handleQuantityChange = (productName, delta) => {
-        setCart(prev => {
-            const current = prev[productName]?.quantity || 0;
-            const newQuantity = Math.max(0, current + delta);
-            return {
-                ...prev,
-                [productName]: { ...prev[productName], quantity: newQuantity }
-            };
-        });
-    };
+      // Call Vercel Function
+      const response = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          items: items,
+          donation: donationAmount,
+          customerEmail: formData.email
+        })
+      });
 
-    const handleSizeChange = (productName, newSize) => {
-        setCart(prev => ({
-            ...prev,
-            [productName]: { ...prev[productName], size: newSize }
-        }));
-    };
+      const data = await response.json();
 
-    const cleanPrice = (priceStr) => {
-        if (!priceStr) return 0;
-        // Remove ' €' and parse
-        const num = parseFloat(priceStr.replace(' €', '').replace(',', '.'));
-        return isNaN(num) ? 0 : num;
-    };
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        console.error("Error backend:", data);
+        alert("Error al servidor: " + (data.error || "Desconegut"));
+        if (btn) { btn.disabled = false; btn.innerText = "Reintentar"; }
+      }
 
-    const calculateTotal = () => {
-        let total = 0;
+    } catch (error) {
+      console.error("Error fetch:", error);
+      alert("Error de connexió. Si estàs en local, assegura't que uses 'vercel dev'.");
+      const btn = document.querySelector('button[type="submit"]');
+      if (btn) { btn.disabled = false; btn.innerText = "Pagar amb Targeta"; }
+    }
+  };
 
-        // Sum products
-        productsData.forEach(p => {
-            if (p.name !== "Donatiu") {
-                const qty = cart[p.name]?.quantity || 0;
-                const price = cleanPrice(p.price);
-                total += qty * price;
-            }
-        });
+  return (
+    <>
+      <SEO
+        title="Fes la teva Comanda · Rock’n’Rostoll"
+        description="Compra les nostres dessuadores, gorres i bosses oficials o fes un donatiu."
+        keywords={["botiga", "comanda", "dessuadora", "gorra", "pagament"]}
+        canonicalPath="/comanda"
+      />
+      <Navbar />
+      <main>
+        <PageHero
+          className="shop-hero"
+          eyebrow="Botiga Oficial"
+          title="Finalitzar Comanda"
+          description="Afegeix els productes que desitgis i fes el pagament de forma segura."
+        />
 
-        // Add donation
-        total += parseFloat(donationAmount) || 0;
+        <section className="page-section section-alt">
+          <div className="page-content comanda-layout">
 
-        return total.toFixed(2);
-    };
+            {/* LEFT COLUMN: ORDER FORM */}
+            <div className="comanda-form-container">
+              <form id="comanda-form" onSubmit={handleSubmit} className="order-form">
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+                {/* 1. SELECCIÓ DE PRODUCTES */}
+                <div className="form-section">
+                  <h3 className="form-title">1. Selecciona els Productes</h3>
+                  <div className="products-list">
+                    {productsData.map((product, index) => {
+                      if (product.name === "Donatiu") return null;
 
-        // Validation
-        if (!formData.name || !formData.email) {
-            alert("Si us plau, omple tots els camps obligatoris (Nom i Email) per continuar.");
-            return;
-        }
+                      const isHoodie = product.name.toLowerCase().includes('dessu');
 
-        const total = calculateTotal();
-        if (parseFloat(total) <= 0) {
-            alert("La cistella és buida. Afegeix algun producte o un donatiu per continuar.");
-            return;
-        }
-
-        // Prepare data for backend
-        const items = [];
-        Object.entries(cart).forEach(([name, item]) => {
-            if (item.quantity > 0) {
-                // Find original price from productsData
-                const product = productsData.find(p => p.name === name);
-                const priceNum = cleanPrice(product.price);
-
-                items.push({
-                    name: name,
-                    quantity: item.quantity,
-                    price: priceNum,
-                    size: item.size
-                });
-            }
-        });
-
-        try {
-            const btn = document.querySelector('button[type="submit"]');
-            if (btn) { btn.disabled = true; btn.innerText = "Processant..."; }
-
-            // Call Vercel Function
-            const response = await fetch('/api/checkout', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    items: items,
-                    donation: donationAmount,
-                    customerEmail: formData.email
-                })
-            });
-
-            const data = await response.json();
-
-            if (data.url) {
-                window.location.href = data.url;
-            } else {
-                console.error("Error backend:", data);
-                alert("Error al servidor: " + (data.error || "Desconegut"));
-                if (btn) { btn.disabled = false; btn.innerText = "Reintentar"; }
-            }
-
-        } catch (error) {
-            console.error("Error fetch:", error);
-
-            // SIMULATION FALLBACK FOR LOCALHOST
-            if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
-                const wantsToSimulate = window.confirm(
-                    "El servidor backend no està accessible (normal amb 'npm run dev').\n\nVols SIMULAR un pagament correcte ara?"
-                );
-                if (wantsToSimulate) {
-                    window.location.href = "/success";
-                    return;
-                }
-            }
-
-            alert("Error de connexió. Si estàs en local, assegura't que uses 'vercel dev'.");
-            const btn = document.querySelector('button[type="submit"]');
-            if (btn) { btn.disabled = false; btn.innerText = "Pagar amb Targeta"; }
-        }
-    };
-
-    return (
-        <>
-            <SEO
-                title="Fes la teva Comanda · Rock’n’Rostoll"
-                description="Compra les nostres dessuadores, gorres i bosses oficials o fes un donatiu."
-                keywords={["botiga", "comanda", "dessuadora", "gorra", "pagament"]}
-                canonicalPath="/comanda"
-            />
-            <Navbar />
-            <main>
-                <PageHero
-                    className="shop-hero"
-                    eyebrow="Botiga Oficial"
-                    title="Finalitzar Comanda"
-                    description="Afegeix els productes que desitgis i fes el pagament de forma segura."
-                />
-
-                <section className="page-section section-alt">
-                    <div className="page-content comanda-layout">
-
-                        {/* LEFT COLUMN: ORDER FORM */}
-                        <div className="comanda-form-container">
-                            <form id="comanda-form" onSubmit={handleSubmit} className="order-form">
-
-                                {/* 1. SELECCIÓ DE PRODUCTES */}
-                                <div className="form-section">
-                                    <h3 className="form-title">1. Selecciona els Productes</h3>
-                                    <div className="products-list">
-                                        {productsData.map((product, index) => {
-                                            if (product.name === "Donatiu") return null;
-
-                                            const qty = cart[product.name]?.quantity || 0;
-                                            const isHoodie = product.name.toLowerCase().includes('dessuadora');
-
-                                            return (
-                                                <div key={index} className="order-item">
-                                                    <img src={product.image} alt={product.name} className="order-item-img" />
-                                                    <div className="order-item-details">
-                                                        <div className="order-item-header">
-                                                            <h4 className="order-item-title">{product.name}</h4>
-                                                            <span className="order-item-price">{product.price}</span>
-                                                        </div>
-
-                                                        <div className="order-controls">
-                                                            <div className="qty-selector">
-                                                                <button type="button" onClick={() => handleQuantityChange(product.name, -1)} disabled={qty <= 0}>-</button>
-                                                                <span>{qty}</span>
-                                                                <button type="button" onClick={() => handleQuantityChange(product.name, 1)}>+</button>
-                                                            </div>
-
-                                                            {isHoodie && qty > 0 && (
-                                                                <select
-                                                                    className="size-selector"
-                                                                    value={cart[product.name]?.size}
-                                                                    onChange={(e) => handleSizeChange(product.name, e.target.value)}
-                                                                >
-                                                                    <option value="S">Talla S</option>
-                                                                    <option value="M">Talla M</option>
-                                                                    <option value="L">Talla L</option>
-                                                                    <option value="XL">Talla XL</option>
-                                                                    <option value="XXL">Talla XXL</option>
-                                                                </select>
-                                                            )}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            );
-                                        })}
-
-                                        {/* Donatiu Section */}
-                                        <div className="order-item donation-item">
-                                            <div className="order-item-details" style={{ width: '100%' }}>
-                                                <h4 className="order-item-title">Vols fer un Donatiu extra?</h4>
-                                                <p className="description-text">Ajuda'ns a seguir fent renou.</p>
-                                                <div className="donation-input-group">
-                                                    <span className="currency-symbol">€</span>
-                                                    <input
-                                                        type="number"
-                                                        min="0"
-                                                        step="1"
-                                                        value={donationAmount}
-                                                        onChange={(e) => setDonationAmount(e.target.value)}
-                                                        className="form-input donation-input"
-                                                        placeholder="0"
-                                                    />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* 2. DADES DEL CLIENT */}
-                                <div className="form-section">
-                                    <h3 className="form-title">2. Les teves Dades</h3>
-                                    <div className="fields-grid">
-                                        <div className="form-group">
-                                            <label htmlFor="name">Nom i Cognoms *</label>
-                                            <input
-                                                type="text" id="name" name="name"
-                                                required
-                                                value={formData.name} onChange={handleUserChange}
-                                                className="form-input"
-                                            />
-                                        </div>
-                                        <div className="form-group">
-                                            <label htmlFor="email">Email *</label>
-                                            <input
-                                                type="email" id="email" name="email"
-                                                required
-                                                value={formData.email} onChange={handleUserChange}
-                                                className="form-input"
-                                            />
-                                        </div>
-                                        <div className="form-group">
-                                            <label htmlFor="phone">Telèfon (opcional)</label>
-                                            <input
-                                                type="tel" id="phone" name="phone"
-                                                value={formData.phone} onChange={handleUserChange}
-                                                className="form-input"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="form-group" style={{ marginTop: '1rem' }}>
-                                        <label htmlFor="comments">Comentaris o Observacions</label>
-                                        <textarea
-                                            id="comments" name="comments"
-                                            rows="3"
-                                            value={formData.comments} onChange={handleUserChange}
-                                            className="form-input"
-                                            placeholder="Alguna cosa que haguem de saber?"
-                                        ></textarea>
-                                    </div>
-                                </div>
-
-                                {/* SUBMIT BUTTON MOBILE */}
-                                <div className="mobile-submit-btn">
-                                    <button type="submit" className="btn-primary full-width">
-                                        Pagar {calculateTotal()}€ Ara
-                                    </button>
-                                </div>
-
-                            </form>
-                        </div>
-
-                        {/* RIGHT COLUMN: SUMMARY (Desktop Sticky) */}
-                        <div className="comanda-summary-sidebar">
-                            <div className="summary-card">
-                                <h3>Resum de la Comanda</h3>
-                                <ul className="summary-list">
-                                    {productsData.map((p) => {
-                                        if (p.name === "Donatiu") return null;
-                                        const qty = cart[p.name]?.quantity || 0;
-                                        if (qty === 0) return null;
-                                        const price = cleanPrice(p.price);
-                                        const totalItem = (qty * price).toFixed(2);
-                                        const isHoodie = p.name.toLowerCase().includes('dessuadora');
-                                        const size = cart[p.name]?.size;
-
-                                        return (
-                                            <li key={p.name} className="summary-item">
-                                                <div className="summary-item-top">
-                                                    <span>{qty} x {p.name}</span>
-                                                    <span>{totalItem}€</span>
-                                                </div>
-                                                {isHoodie && <div className="summary-item-meta">Talla: {size}</div>}
-                                            </li>
-                                        );
-                                    })}
-                                    {parseFloat(donationAmount) > 0 && (
-                                        <li className="summary-item">
-                                            <span>Donatiu</span>
-                                            <span>{parseFloat(donationAmount).toFixed(2)}€</span>
-                                        </li>
-                                    )}
-                                </ul>
-                                <div className="summary-total">
-                                    <span>Total</span>
-                                    <span>{calculateTotal()}€</span>
-                                </div>
-                                <div className="desktop-submit-btn">
-                                    <button type="submit" form="comanda-form" className="btn-primary full-width">
-                                        Pagar amb Targeta
-                                    </button>
-                                </div>
-                                <p className="secure-note">
-                                    <span className="lock-icon">🔒</span> Pagament 100% segur processat per Stripe.
-                                </p>
+                      // Non-hoodie item (Simple)
+                      if (!isHoodie) {
+                        const key = `${product.name}_Única`;
+                        const qty = cart[key] || 0;
+                        return (
+                          <div key={index} className="order-item">
+                            <img src={product.image} alt={product.name} className="order-item-img" />
+                            <div className="order-item-details">
+                              <div className="order-item-header">
+                                <h4 className="order-item-title">{product.name}</h4>
+                                <span className="order-item-price">{product.price}</span>
+                              </div>
+                              <div className="qty-selector">
+                                <button type="button" onClick={() => handleQuantityChange(product.name, 'Única', -1)} disabled={qty <= 0}>-</button>
+                                <span>{qty}</span>
+                                <button type="button" onClick={() => handleQuantityChange(product.name, 'Única', 1)}>+</button>
+                              </div>
                             </div>
+                          </div>
+                        );
+                      }
+
+                      // Hoodie item (Complex - Multiple Sizes)
+                      // Logic: Show Total Quantity -> "Triar Talles" button -> List of Selects
+                      const totalVariantQty = hoodieSelections.length;
+
+                      return (
+                        <div key={index} className="order-item">
+                          <img src={product.image} alt={product.name} className="order-item-img" />
+                          <div className="order-item-details">
+                            <div className="order-item-header">
+                              <h4 className="order-item-title">{product.name}</h4>
+                              <span className="order-item-price">{product.price}</span>
+                            </div>
+
+                            {/* Main Quantity Controller */}
+                            <div className="qty-row">
+                              <span style={{ marginRight: '1rem', fontWeight: '500' }}>Quantitat:</span>
+                              <div className="qty-selector">
+                                <button type="button" onClick={() => updateHoodieQty(-1)} disabled={totalVariantQty <= 0}>-</button>
+                                <span>{totalVariantQty}</span>
+                                <button type="button" onClick={() => updateHoodieQty(1)}>+</button>
+                              </div>
+                            </div>
+
+                            {/* Toggle Sizes Button */}
+                            {totalVariantQty > 0 && (
+                              <button
+                                type="button"
+                                className="btn-text-action"
+                                onClick={() => setShowHoodieSizes(!showHoodieSizes)}
+                                style={{ marginTop: '0.5rem', textDecoration: 'underline', color: 'var(--color-primary)', border: 'none', background: 'none', padding: 0, cursor: 'pointer', fontWeight: 600 }}
+                              >
+                                {showHoodieSizes ? "Amagar Talles ▲" : "Triar Talles del producte ▼"}
+                              </button>
+                            )}
+
+                            {/* List of Select Boxes */}
+                            {(showHoodieSizes && totalVariantQty > 0) && (
+                              <div className="hoodie-sizes-list">
+                                {hoodieSelections.map((currentSize, i) => (
+                                  <div key={i} className="size-select-row">
+                                    <span className="size-label">Sudadera #{i + 1}</span>
+                                    <select
+                                      className="form-input size-select"
+                                      value={currentSize}
+                                      onChange={(e) => updateHoodieSize(i, e.target.value)}
+                                    >
+                                      <option value="" disabled>Triar Talla...</option>
+                                      {SIZES.map(s => <option key={s} value={s}>{s}</option>)}
+                                    </select>
+                                  </div>
+                                ))}
+                              </div>
+                            )}
+                          </div>
                         </div>
+                      );
+                    })}
 
+                    {/* Donatiu Section */}
+                    <div className="order-item donation-item">
+                      <div className="order-item-details" style={{ width: '100%' }}>
+                        <h4 className="order-item-title">Vols fer un Donatiu extra?</h4>
+                        <p className="description-text">Ajuda'ns a seguir fent renou.</p>
+                        <div className="donation-input-group">
+                          <span className="currency-symbol">€</span>
+                          <input
+                            type="number"
+                            min="0"
+                            step="1"
+                            value={donationAmount}
+                            onChange={(e) => setDonationAmount(e.target.value)}
+                            className="form-input donation-input"
+                            placeholder="0"
+                          />
+                        </div>
+                      </div>
                     </div>
-                </section>
-            </main>
-            <Footer />
+                  </div>
+                </div>
 
-            <style>{`
+                {/* 2. DADES DEL CLIENT */}
+                <div className="form-section">
+                  <h3 className="form-title">2. Les teves Dades</h3>
+                  <div className="fields-grid">
+                    <div className="form-group">
+                      <label htmlFor="name">Nom i Cognoms *</label>
+                      <input
+                        type="text" id="name" name="name"
+                        required
+                        value={formData.name} onChange={handleUserChange}
+                        className="form-input"
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label htmlFor="email">Email *</label>
+                      <input
+                        type="email" id="email" name="email"
+                        required
+                        value={formData.email} onChange={handleUserChange}
+                        className="form-input"
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label htmlFor="phone">Telèfon (opcional)</label>
+                      <input
+                        type="tel" id="phone" name="phone"
+                        value={formData.phone} onChange={handleUserChange}
+                        className="form-input"
+                      />
+                    </div>
+                  </div>
+                  <div className="form-group" style={{ marginTop: '1rem' }}>
+                    <label htmlFor="comments">Comentaris o Observacions</label>
+                    <textarea
+                      id="comments" name="comments"
+                      rows="3"
+                      value={formData.comments} onChange={handleUserChange}
+                      className="form-input"
+                      placeholder="Alguna cosa que haguem de saber?"
+                    ></textarea>
+                  </div>
+                </div>
+
+                {/* SUBMIT BUTTON MOBILE */}
+                <div className="mobile-submit-btn">
+                  <button type="submit" className="btn-primary full-width">
+                    Pagar {calculateTotal()}€ Ara
+                  </button>
+                </div>
+
+              </form>
+            </div>
+
+            {/* RIGHT COLUMN: SUMMARY (Desktop Sticky) */}
+            <div className="comanda-summary-sidebar">
+              <div className="summary-card">
+                <h3>Resum de la Comanda</h3>
+                <ul className="summary-list">
+                  {Object.entries(cart).map(([key, qty]) => {
+                    if (qty === 0) return null;
+
+                    const [name, size] = key.split('_');
+                    const product = productsData.find(p => p.name === name);
+                    const price = cleanPrice(product.price);
+                    const totalItem = (qty * price).toFixed(2);
+                    const isUnique = size === "Única";
+
+                    return (
+                      <li key={key} className="summary-item">
+                        <div className="summary-item-top">
+                          <span>{qty} x {name}</span>
+                          <span>{totalItem}€</span>
+                        </div>
+                        {!isUnique && <div className="summary-item-meta">Talla: {size}</div>}
+                      </li>
+                    );
+                  })}
+                  {parseFloat(donationAmount) > 0 && (
+                    <li className="summary-item">
+                      <span>Donatiu</span>
+                      <span>{parseFloat(donationAmount).toFixed(2)}€</span>
+                    </li>
+                  )}
+                </ul>
+                <div className="summary-total">
+                  <span>Total</span>
+                  <span>{calculateTotal()}€</span>
+                </div>
+                <div className="desktop-submit-btn">
+                  <button type="submit" form="comanda-form" className="btn-primary full-width">
+                    Pagar amb Targeta
+                  </button>
+                </div>
+                <p className="secure-note">
+                  <span className="lock-icon">🔒</span> Pagament 100% segur processat per Stripe.
+                </p>
+              </div>
+            </div>
+
+          </div>
+        </section>
+      </main>
+      <Footer />
+
+      <style>{`
         .comanda-layout {
           display: grid;
           grid-template-columns: 1fr;
@@ -371,7 +455,7 @@ export default function Comanda() {
           border-radius: 12px;
           box-shadow: 0 4px 6px rgba(0,0,0,0.05);
           margin-bottom: 2rem;
-          color: #1a1a1a; /* Force dark text on white background */
+          color: #1a1a1a;
         }
 
         .form-title {
@@ -423,21 +507,67 @@ export default function Comanda() {
           color: var(--color-primary);
         }
         
-        .order-controls {
-          display: flex;
-          align-items: center;
-          gap: 1rem;
-          flex-wrap: wrap;
+        /* New Sizes Grid */
+        details.sizes-dropdown {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 1rem;
         }
+        summary.sizes-summary {
+            padding: 0.75rem 1rem;
+            background: #fdfdfd;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            list-style: none; /* Hide default marker */
+            user-select: none;
+        }
+        summary.sizes-summary::-webkit-details-marker {
+            display: none;
+        }
+        summary.sizes-summary:hover {
+            background: #f5f5f5;
+        }
+        .sizes-grid {
+            display: grid;
+            gap: 0.5rem;
+            padding: 0.75rem;
+            background: white;
+            border-top: 1px solid #eee;
+        }
+        .size-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f9f9f9;
+            padding: 0.5rem;
+            border-radius: 6px;
+        }
+        .size-label {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #555;
+        }
+
         .qty-selector {
           display: flex;
           align-items: center;
           border: 1px solid #ddd;
           border-radius: 6px;
           overflow: hidden;
+          background: white;
+          width: fit-content;
+        }
+        .qty-selector.mini {
+            transform: scale(0.9);
         }
         .qty-selector button {
-          background: #f9f9f9;
+          background: #f0f0f0;
           border: none;
           padding: 0.3rem 0.8rem;
           cursor: pointer;
@@ -445,23 +575,14 @@ export default function Comanda() {
           color: #1a1a1a;
         }
         .qty-selector button:disabled {
-          opacity: 0.5;
+          opacity: 0.3;
           cursor: not-allowed;
-          color: #999;
         }
         .qty-selector span {
           padding: 0 0.8rem;
           font-weight: 600;
           min-width: 30px;
           text-align: center;
-          color: #1a1a1a;
-        }
-        .size-selector {
-          padding: 0.3rem;
-          border-radius: 6px;
-          border: 1px solid #ddd;
-          background: white;
-          font-size: 0.9rem;
           color: #1a1a1a;
         }
 
@@ -600,7 +721,29 @@ export default function Comanda() {
             display: block;
           }
         }
+        
+        .hoodie-sizes-list {
+            margin-top: 1rem;
+            background: #fdfdfd;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid #eee;
+        }
+        .size-select-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+        .size-select {
+            width: 120px;
+            padding: 0.4rem;
+        }
+        .qty-row {
+            display: flex;
+            align-items: center;
+        }
       `}</style>
-        </>
-    );
+    </>
+  );
 }
