@@ -601,32 +601,7 @@ export default function Comanda() {
           background: white;
         }
 
-        /* DONATION */
-        .donation-item {
-          background: #fdfdfd; 
-          padding: 1rem; 
-          border-radius: 8px; 
-          border: 2px dashed #e0e0e0;
-          color: #1a1a1a;
-        }
-        .donation-input-group {
-          display: flex;
-          align-items: center;
-          max-width: 150px;
-          margin-top: 0.5rem;
-        }
-        .currency-symbol {
-          font-size: 1.2rem;
-          font-weight: bold;
-          margin-right: 0.5rem;
-          color: #666;
-        }
-        .donation-input {
-          font-weight: bold;
-          font-size: 1.1rem;
-          color: #1a1a1a;
-          background: white;
-        }
+
 
         /* FIELDS GRID */
         .fields-grid {
