@@ -88,25 +88,31 @@ export default async function handler(req, res) {
 
         // 3. Create Session
 
-        // Prepare PaymentIntent data for clear reporting in Stripe Dashboard/Exports
-        const paymentIntentData = {};
+        // Prepare PaymentIntent data for clear reporting
+        const paymentIntentData = {
+            metadata: {}
+        };
         const summaryParts = [];
-        const tallaParts = [];
 
         if (items && Array.isArray(items)) {
             items.forEach(item => {
                 const sizeSuffix = item.size ? ` (${item.size})` : '';
-                // Clean up the name for the description to make it shorter and readable
-                // Removes repetitive " 30 edició - versió limitada"
+                // Clean Name for description
                 const cleanName = item.name.replace(' 30 edició - versió limitada', '');
 
                 summaryParts.push(`${item.quantity} x ${cleanName}${sizeSuffix}`);
 
+                // METADATA STRATEGY FOR COLUMNS:
+                // We create keys like "Pack_M", "Dess_L", "Gorra" so Stripe Export creates columns for them.
+                let metaKey = cleanName.split(' ')[0]; // "Pack", "Dessuadores", "Gorra", "Bossa"
+                // Normalize key (remove accents, lowercase maybe? Keep simple: "Dessuadores_M")
                 if (item.size) {
-                    // For metadata: just the size and the very short name (e.g. "M (Dessuadores)")
-                    const shortName = cleanName.split(' ')[0];
-                    tallaParts.push(`${item.size} (${shortName})`);
+                    metaKey += `_${item.size}`;
                 }
+
+                // Add to metadata (sum if multiple lines of same type, though unlikely in this cart logic)
+                const currentQty = parseInt(paymentIntentData.metadata[metaKey] || '0');
+                paymentIntentData.metadata[metaKey] = currentQty + item.quantity;
             });
         }
 
@@ -114,16 +120,22 @@ export default async function handler(req, res) {
             const donationVal = parseFloat(donation);
             if (!isNaN(donationVal) && donationVal >= 1) {
                 summaryParts.push(`Donatiu (${donationVal}€)`);
+                paymentIntentData.metadata['Donatiu'] = donationVal;
             }
         }
 
         if (summaryParts.length > 0) {
             paymentIntentData.description = summaryParts.join(', ').substring(0, 1000);
         }
-        if (tallaParts.length > 0) {
-            paymentIntentData.metadata = {
-                talla: tallaParts.join(', ').substring(0, 500)
-            };
+
+        // Add a general "talla" summary for quick glance if needed, but the columns above are better for stats
+        const allSizes = items
+            .filter(i => i.size)
+            .map(i => `${i.size} (${i.name.split(' ')[0]})`)
+            .join(', ');
+
+        if (allSizes) {
+            paymentIntentData.metadata['resum_talles'] = allSizes.substring(0, 500);
         }
 
         const session = await stripe.checkout.sessions.create({
@@ -133,7 +145,7 @@ export default async function handler(req, res) {
             },
             line_items: line_items,
             mode: 'payment',
-            payment_intent_data: Object.keys(paymentIntentData).length > 0 ? paymentIntentData : undefined,
+            payment_intent_data: Object.keys(paymentIntentData.metadata).length > 0 || paymentIntentData.description ? paymentIntentData : undefined,
             success_url: `${origin}/success`,
             cancel_url: `${origin}/cancel`,
             customer_email: customerEmail, // Pre-fill email if user provided it
