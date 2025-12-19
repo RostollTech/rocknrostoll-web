@@ -24,20 +24,36 @@ export default async function handler(req, res) {
             // For this demo, we trust the passed structure or look up price IDs
 
             // OPTION A: Using ad-hoc prices (easiest for demo)
-            line_items = items.map(item => ({
-                price_data: {
-                    currency: 'eur',
-                    product_data: {
-                        name: item.name + (item.size ? ` (Talla: ${item.size})` : ''),
+            // Define server-side product catalog to secure prices
+            const PRODUCTS_CATALOG = {
+                "Pack 30 edició - versió limitada": 40,
+                "Dessuadores 30 edició - versió limitada": 28,
+                "Gorra 30 edició - versió limitada": 10,
+                "Bossa de tela 30 edició - versió limitada": 8
+            };
+
+            line_items = items.map(item => {
+                const catalogPrice = PRODUCTS_CATALOG[item.name];
+
+                if (catalogPrice === undefined) {
+                    throw new Error(`Producte no vàlid: ${item.name}`);
+                }
+
+                return {
+                    price_data: {
+                        currency: 'eur',
+                        product_data: {
+                            name: item.name + (item.size ? ` (Talla: ${item.size})` : ''),
+                        },
+                        unit_amount: Math.round(catalogPrice * 100), // Use server-side price
                     },
-                    unit_amount: Math.round(parseFloat(item.price) * 100), // Convert to cents
-                },
-                quantity: item.quantity,
-            }));
+                    quantity: item.quantity,
+                };
+            });
         }
 
-        // Add donation if present
-        if (donation && parseFloat(donation) > 0) {
+        // Add donation if present (Minimum 1€)
+        if (donation && parseFloat(donation) >= 1) {
             line_items.push({
                 price_data: {
                     currency: 'eur',
