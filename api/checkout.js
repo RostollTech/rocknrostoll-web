@@ -18,13 +18,8 @@ export default async function handler(req, res) {
         let line_items = [];
 
         // If dynamic items are provided, build stripe line items
-        if (items && items.length > 0) {
-            // Map your frontend cart items to Stripe line items
-            // Note: In a real app, you should validate prices on server-side to avoid tampering
-            // For this demo, we trust the passed structure or look up price IDs
+        if (items && Array.isArray(items) && items.length > 0) {
 
-            // OPTION A: Using ad-hoc prices (easiest for demo)
-            // Define server-side product catalog to secure prices
             const PRODUCTS_CATALOG = {
                 "Pack 30 edició - versió limitada": 40,
                 "Dessuadores 30 edició - versió limitada": 28,
@@ -33,35 +28,58 @@ export default async function handler(req, res) {
             };
 
             line_items = items.map(item => {
+                // Security Check: Quantity must be a positive integer
+                if (!Number.isInteger(item.quantity) || item.quantity < 1) {
+                    throw new Error(`Quantitat no vàlida per al producte: ${item.name}`);
+                }
+
+                // Security Check: Prevent prototype pollution or invalid names
+                if (!Object.prototype.hasOwnProperty.call(PRODUCTS_CATALOG, item.name)) {
+                    throw new Error(`Producte no vàlid o no existent: ${item.name}`);
+                }
+
                 const catalogPrice = PRODUCTS_CATALOG[item.name];
 
-                if (catalogPrice === undefined) {
-                    throw new Error(`Producte no vàlid: ${item.name}`);
+                // Extra safety: ensure it's a number
+                if (typeof catalogPrice !== 'number') {
+                    throw new Error(`Error intern de preu per: ${item.name}`);
+                }
+
+                // Prepare product data structure
+                const productData = {
+                    name: item.name,
+                    metadata: {}
+                };
+
+                if (item.size) {
+                    productData.description = `Talla: ${item.size}`;
+                    productData.metadata.talla = item.size;
                 }
 
                 return {
                     price_data: {
                         currency: 'eur',
-                        product_data: {
-                            name: item.name + (item.size ? ` (Talla: ${item.size})` : ''),
-                        },
-                        unit_amount: Math.round(catalogPrice * 100), // Use server-side price
+                        product_data: productData,
+                        unit_amount: Math.round(catalogPrice * 100),
                     },
                     quantity: item.quantity,
                 };
             });
         }
 
-        // Add donation if present (Minimum 1€)
-        if (donation && parseFloat(donation) >= 1) {
-            line_items.push({
-                price_data: {
-                    currency: 'eur',
-                    product_data: { name: 'Donatiu' },
-                    unit_amount: Math.round(parseFloat(donation) * 100)
-                },
-                quantity: 1
-            });
+        // Add donation if present (Minimum 1€) - Validated safe parsing
+        if (donation) {
+            const donationValue = parseFloat(donation);
+            if (!isNaN(donationValue) && donationValue >= 1) {
+                line_items.push({
+                    price_data: {
+                        currency: 'eur',
+                        product_data: { name: 'Donatiu' },
+                        unit_amount: Math.round(donationValue * 100)
+                    },
+                    quantity: 1
+                });
+            }
         }
 
         if (line_items.length === 0) {
