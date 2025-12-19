@@ -87,6 +87,45 @@ export default async function handler(req, res) {
         }
 
         // 3. Create Session
+
+        // Prepare PaymentIntent data for clear reporting in Stripe Dashboard/Exports
+        const paymentIntentData = {};
+        const summaryParts = [];
+        const tallaParts = [];
+
+        if (items && Array.isArray(items)) {
+            items.forEach(item => {
+                const sizeSuffix = item.size ? ` (${item.size})` : '';
+                // Clean up the name for the description to make it shorter and readable
+                // Removes repetitive " 30 edició - versió limitada"
+                const cleanName = item.name.replace(' 30 edició - versió limitada', '');
+
+                summaryParts.push(`${item.quantity} x ${cleanName}${sizeSuffix}`);
+
+                if (item.size) {
+                    // For metadata: just the size and the very short name (e.g. "M (Dessuadores)")
+                    const shortName = cleanName.split(' ')[0];
+                    tallaParts.push(`${item.size} (${shortName})`);
+                }
+            });
+        }
+
+        if (donation) {
+            const donationVal = parseFloat(donation);
+            if (!isNaN(donationVal) && donationVal >= 1) {
+                summaryParts.push(`Donatiu (${donationVal}€)`);
+            }
+        }
+
+        if (summaryParts.length > 0) {
+            paymentIntentData.description = summaryParts.join(', ').substring(0, 1000);
+        }
+        if (tallaParts.length > 0) {
+            paymentIntentData.metadata = {
+                talla: tallaParts.join(', ').substring(0, 500)
+            };
+        }
+
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
             phone_number_collection: {
@@ -94,6 +133,7 @@ export default async function handler(req, res) {
             },
             line_items: line_items,
             mode: 'payment',
+            payment_intent_data: Object.keys(paymentIntentData).length > 0 ? paymentIntentData : undefined,
             success_url: `${origin}/success`,
             cancel_url: `${origin}/cancel`,
             customer_email: customerEmail, // Pre-fill email if user provided it
