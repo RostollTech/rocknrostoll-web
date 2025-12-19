@@ -8,6 +8,8 @@ import Comanda from "./pages/Comanda";
 import Success from "./pages/Success";
 import Cancel from "./pages/Cancel";
 
+import NotFound from "./pages/NotFound";
+
 const router = createBrowserRouter(
   [
     { path: "/", element: <Home /> },
@@ -17,7 +19,8 @@ const router = createBrowserRouter(
     { path: "/shop", element: <Shop /> },
     { path: "/comanda", element: <Comanda /> },
     { path: "/success", element: <Success /> },
-    { path: "/cancel", element: <Cancel /> }
+    { path: "/cancel", element: <Cancel /> },
+    { path: "*", element: <NotFound /> }
   ],
   {
     basename: import.meta.env.BASE_URL,  // 👈 molt important per GitHub Pages
