@@ -123,7 +123,6 @@ export default function Comanda() {
     e.preventDefault();
 
     // Validation
-    // Validation
     if (!formData.name || !formData.email) {
       alert("Si us plau, omple tots els camps obligatoris (Nom i Email) per continuar.");
       return;
@@ -397,6 +396,7 @@ export default function Comanda() {
                       </li>
                     );
                   })}
+
                   {parseFloat(donationAmount) > 0 && (
                     <li className="summary-item">
                       <span>Donatiu</span>
@@ -572,6 +572,33 @@ export default function Comanda() {
           min-width: 30px;
           text-align: center;
           color: #1a1a1a;
+        }
+
+        /* DONATION */
+        .donation-item {
+          background: #fdfdfd; 
+          padding: 1rem; 
+          border-radius: 8px; 
+          border: 2px dashed #e0e0e0;
+          color: #1a1a1a;
+        }
+        .donation-input-group {
+          display: flex;
+          align-items: center;
+          max-width: 150px;
+          margin-top: 0.5rem;
+        }
+        .currency-symbol {
+          font-size: 1.2rem;
+          font-weight: bold;
+          margin-right: 0.5rem;
+          color: #666;
+        }
+        .donation-input {
+          font-weight: bold;
+          font-size: 1.1rem;
+          color: #1a1a1a;
+          background: white;
         }
 
         /* DONATION */

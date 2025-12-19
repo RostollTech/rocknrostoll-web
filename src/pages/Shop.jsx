@@ -34,9 +34,11 @@ Edicions limitades dissenyades exclusivament per commemorar tres dècades d’hi
               </div>
             </div>
             <div className="merch-grid">
-              {products.map((product, index) => (
-                <ProductCard key={`${product.name}-${index}`} {...product} />
-              ))}
+              {products
+                .filter(product => product.name !== "Donatiu")
+                .map((product, index) => (
+                  <ProductCard key={`${product.name}-${index}`} {...product} />
+                ))}
             </div>
           </div>
         </section>
