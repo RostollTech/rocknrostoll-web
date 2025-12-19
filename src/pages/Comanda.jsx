@@ -273,7 +273,10 @@ export default function Comanda() {
                           <img src={product.image} alt={product.name} className="order-item-img" />
                           <div className="order-item-details">
                             <div className="order-item-header">
-                              <h4 className="order-item-title">{product.name}</h4>
+                              <h4 className="order-item-title">
+                                {product.name}
+                                <a href="/shop#talles" target="_blank" rel="noreferrer" style={{ fontSize: '0.8rem', marginLeft: '0.8rem', color: 'var(--color-primary)', textDecoration: 'underline' }}>(Veure Talles)</a>
+                              </h4>
                               <span className="order-item-price">{product.price}</span>
                             </div>
 
