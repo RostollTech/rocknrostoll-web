@@ -95,12 +95,15 @@ export default function Home() {
             <Countdown />
 
             <div className="button-group">
-              <a href="/about" className="btn-primary">
+              <Link to="/about" className="btn-primary">
                 Qui som?
-              </a>
-              <a href="/contact" className="btn-outline">
+              </Link>
+              <Link to="/shop" className="btn-outline">
+                Merxandatge
+              </Link>
+              <Link to="/contact" className="btn-outline">
                 Segueix-nos
-              </a>
+              </Link>
             </div>
           </div>
         </section>
