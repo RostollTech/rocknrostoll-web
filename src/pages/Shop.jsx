@@ -4,10 +4,39 @@ import PageHero from "../components/PageHero";
 import ProductCard from "../components/ProductCard";
 import products from "../data/products.json";
 import { Link } from "react-router-dom";
+import SEO from "../components/SEO";
+import { useMemo } from "react";
 
 export default function Shop() {
+  const structuredData = useMemo(() => ({
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Botiga Rock'N'Rostoll",
+    description: "Merchandising oficial de la 30a edició del festival Rock'N'Rostoll.",
+    url: "https://rocknrostoll.cat/shop",
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: products
+        .filter(p => p.name !== "Donatiu")
+        .map((product, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          url: "https://rocknrostoll.cat/comanda", // Totes porten al formulari
+          name: product.name,
+          image: `https://rocknrostoll.cat${product.image}`
+        }))
+    }
+  }), []);
+
   return (
     <>
+      <SEO
+        title="Botiga Oficial Rock’n’Rostoll · Merchandising 30a Edició"
+        description="Aconsegueix els productes exclusius de la 30a edició del Rock’n’Rostoll: dessuadores, gorres, bosses i packs limitats. Fes la teva comanda online!"
+        keywords={["Mallorca", "Rock", "Rock'n'Rostoll", "Botiga Rock'n'Rostoll", "Merchandising", "Dessuadora", "Gorra", "Bossa", "Comprar", "Festival Mallorca"]}
+        canonicalPath="/shop"
+        structuredData={structuredData}
+      />
       <Navbar />
       <main>
         <PageHero
