@@ -6,13 +6,13 @@
     "url": "/comanda"
   },
   {
-    "name": "Pack 30 edició - versió limitada",
+    "name": "Pack - Dessuadora + Gorra + Bossa - versió limitada",
     "price": "40 €",
     "image": "/products/disseny.webp",
     "url": "/comanda"
   },
   {
-    "name": "Dessuadores 30 edició - versió limitada",
+    "name": "Dessuadora 30 edició - versió limitada",
     "price": "28 €",
     "image": "/products/dessuadora.webp",
     "url": "/comanda"
@@ -24,7 +24,7 @@
     "url": "/comanda"
   },
   {
-    "name": "Bossa de tela 30 edició - versió limitada",
+    "name": "Bossa 30 edició - versió limitada",
     "price": "8 €",
     "image": "/products/bossa.webp",
     "url": "/comanda"

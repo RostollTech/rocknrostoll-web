@@ -21,10 +21,10 @@ export default async function handler(req, res) {
         if (items && Array.isArray(items) && items.length > 0) {
 
             const PRODUCTS_CATALOG = {
-                "Pack 30 edició - versió limitada": 40,
-                "Dessuadores 30 edició - versió limitada": 28,
+                "Pack - Dessuadora + Gorra + Bossa - versió limitada": 40,
+                "Dessuadora 30 edició - versió limitada": 28,
                 "Gorra 30 edició - versió limitada": 10,
-                "Bossa de tela 30 edició - versió limitada": 8
+                "Bossa 30 edició - versió limitada": 8
             };
 
             line_items = items.map(item => {

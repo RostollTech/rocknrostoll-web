@@ -20,7 +20,8 @@ export default function Comanda() {
   const [donationAmount, setDonationAmount] = useState(0);
 
   // Cart initialized as empty. Keys will be "Name_Size" => Quantity.
-  const SIZES = ["S", "M", "L", "XL", "XXL"];
+  const SIZES_KIDS = ["5-6", "7-8", "9-11", "12-13", "14-15"];
+  const SIZES_ADULTS = ["S", "M", "L", "XL", "XXL"];
 
   // New State for Products with Sizes (Hoodies, Packs, etc.)
   // Object: { "ProductName": ["M", "L", ""], ... }
@@ -303,7 +304,12 @@ export default function Comanda() {
                                       required
                                     >
                                       <option value="" disabled>Triar Talla...</option>
-                                      {SIZES.map(s => <option key={s} value={s}>{s}</option>)}
+                                      <optgroup label="Infantil">
+                                        {SIZES_KIDS.map(s => <option key={s} value={s}>{s}</option>)}
+                                      </optgroup>
+                                      <optgroup label="Adult">
+                                        {SIZES_ADULTS.map(s => <option key={s} value={s}>{s}</option>)}
+                                      </optgroup>
                                     </select>
                                   </div>
                                 ))}
