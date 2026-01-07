@@ -116,11 +116,11 @@ export default function Home() {
                 <span className="section-eyebrow" style={{ color: 'var(--color-primary)', marginBottom: '0.5rem', display: 'block' }}>Novetat 30a Edició</span>
                 <h2 className="section-title" style={{ fontSize: '2.5rem', marginBottom: '1.5rem', color: 'white' }}>Porta el Rock’n’Rostoll amb tu</h2>
                 <p className="section-description" style={{ fontSize: '1.15rem', color: '#ccc', lineHeight: '1.7', marginBottom: '2.5rem' }}>
-                  Hem preparat una col·lecció exclusiva de marxandatge per celebrar aquestes tres dècades fent renou. Dessuadores, gorres i bosses amb dissenys únics, disponibles temporalment.
+                  Hem preparat una col·lecció exclusiva de marxandatge per celebrar aquestes tres dècades fent renou. Dessuadores, gorres i bosses amb dissenys únics. <strong>Avui és el darrer dia per aconseguir-los!</strong>
                 </p>
 
                 <Link to="/shop" className="btn-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', transform: 'scale(1.1)', transformOrigin: 'left' }}>
-                  Disponibles temporalment <span>→</span>
+                  Compra ara - Últim dia! <span>→</span>
                 </Link>
               </div>
 

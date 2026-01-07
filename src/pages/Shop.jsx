@@ -43,8 +43,7 @@ export default function Shop() {
           className="shop-hero"
           eyebrow="Botiga"
           title="Merchandising Oficial"
-          description="Aconsegueix tots productes oficials de la 30a edició del Rock’N’Rostoll.
-Edicions limitades dissenyades exclusivament per commemorar tres dècades d’història."
+          description="ÚLTIMA OPORTUNITAT! Avui és el darrer dia per aconseguir els productes oficials de la 30a edició. Edicions limitades dissenyades exclusivament per commemorar tres dècades d’història."
         />
 
         <section className="page-section">
