@@ -6,6 +6,7 @@ import SEO from "../components/SEO";
 import productsData from "../data/products.json";
 import { Link } from "react-router-dom";
 import "../styles/Comanda.css";
+import { IS_SHOP_OPEN, SHOP_CLOSED_MESSAGE } from "../utils/shopConfig";
 
 export default function Comanda() {
   // State for form user fields
@@ -229,202 +230,214 @@ export default function Comanda() {
         <section className="page-section section-alt">
           <div className="page-content comanda-layout">
 
-            {/* LEFT COLUMN: ORDER FORM */}
-            <div className="comanda-form-container">
-              <form id="comanda-form" onSubmit={handleSubmit} className="order-form">
+            {!IS_SHOP_OPEN ? (
+              <div style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '4rem 2rem', background: 'rgba(255,0,0,0.1)', borderRadius: '1rem', border: '1px solid var(--color-accent-red)' }}>
+                <h2 style={{ fontSize: '2rem', marginBottom: '1rem', color: 'var(--color-accent-red)' }}>Venda Tancada</h2>
+                <p style={{ fontSize: '1.2rem', color: 'var(--text-muted)' }}>{SHOP_CLOSED_MESSAGE}</p>
+                <Link to="/" className="btn-outline" style={{ marginTop: '2rem' }}>Tornar a l'inici</Link>
+              </div>
+            ) : (
+              <>
+                {/* LEFT COLUMN: ORDER FORM */}
+                <div className="comanda-form-container">
+                  <form id="comanda-form" onSubmit={handleSubmit} className="order-form">
 
-                {/* 1. SELECCIÓ DE PRODUCTES */}
-                <div className="form-section">
-                  <h3 className="form-title">1. Selecciona els Productes</h3>
-                  <div className="products-list">
-                    {productsData.map((product, index) => {
-                      if (product.name === "Donatiu") return null;
+                    {/* 1. SELECCIÓ DE PRODUCTES */}
+                    <div className="form-section">
+                      <h3 className="form-title">1. Selecciona els Productes</h3>
+                      <div className="products-list">
+                        {productsData.map((product, index) => {
+                          if (product.name === "Donatiu") return null;
 
-                      const needsSize = product.name.toLowerCase().includes('dessu') || product.name.toLowerCase().includes('pack');
+                          const needsSize = product.name.toLowerCase().includes('dessu') || product.name.toLowerCase().includes('pack');
 
-                      // Non-hoodie item (Simple)
-                      if (!needsSize) {
-                        const key = `${product.name}_Única`;
-                        const qty = cart[key] || 0;
-                        return (
-                          <div key={index} className="order-item">
-                            <img src={product.image} alt={product.name} className="order-item-img" />
-                            <div className="order-item-details">
-                              <div className="order-item-header">
-                                <h4 className="order-item-title">{product.name}</h4>
-                                <span className="order-item-price">{product.price}</span>
-                              </div>
-                              <div className="qty-selector">
-                                <button type="button" onClick={() => handleQuantityChange(product.name, 'Única', -1)} disabled={qty <= 0}>-</button>
-                                <span>{qty}</span>
-                                <button type="button" onClick={() => handleQuantityChange(product.name, 'Única', 1)}>+</button>
-                              </div>
-                            </div>
-                          </div>
-                        );
-                      }
-
-                      // Complex item (Multiple Sizes)
-                      // Logic: Show Total Quantity -> "Triar Talles" button -> List of Selects
-                      const currentSelections = productSelections[product.name] || [];
-                      const totalVariantQty = currentSelections.length;
-
-                      return (
-                        <div key={index} className="order-item">
-                          <img src={product.image} alt={product.name} className="order-item-img" />
-                          <div className="order-item-details">
-                            <div className="order-item-header">
-                              <h4 className="order-item-title">
-                                {product.name}
-                                <a href="/shop#talles" target="_blank" rel="noreferrer" style={{ fontSize: '0.8rem', marginLeft: '0.8rem', color: 'var(--color-primary)', textDecoration: 'underline' }}>(Veure Talles)</a>
-                              </h4>
-                              <span className="order-item-price">{product.price}</span>
-                            </div>
-
-                            {/* Main Quantity Controller */}
-                            <div className="qty-row">
-                              <span style={{ marginRight: '1rem', fontWeight: '500' }}>Quantitat:</span>
-                              <div className="qty-selector">
-                                <button type="button" onClick={() => updateProductQty(product.name, -1)} disabled={totalVariantQty <= 0}>-</button>
-                                <span>{totalVariantQty}</span>
-                                <button type="button" onClick={() => updateProductQty(product.name, 1)}>+</button>
-                              </div>
-                            </div>
-
-                            {/* List of Select Boxes */}
-                            {totalVariantQty > 0 && (
-                              <div className="hoodie-sizes-list">
-                                <p style={{ marginBottom: '0.5rem', fontWeight: '600', fontSize: '0.9rem' }}>Selecciona les talles:</p>
-                                {currentSelections.map((currentSize, i) => (
-                                  <div key={i} className="size-select-row">
-                                    <span className="size-label">#{i + 1}</span>
-                                    <select
-                                      className="form-input size-select"
-                                      value={currentSize}
-                                      onChange={(e) => updateProductSize(product.name, i, e.target.value)}
-                                      required
-                                    >
-                                      <option value="" disabled>Triar Talla...</option>
-                                      <optgroup label="Infantil">
-                                        {SIZES_KIDS.map(s => <option key={s} value={s}>{s}</option>)}
-                                      </optgroup>
-                                      <optgroup label="Adult">
-                                        {SIZES_ADULTS.map(s => <option key={s} value={s}>{s}</option>)}
-                                      </optgroup>
-                                    </select>
+                          // Non-hoodie item (Simple)
+                          if (!needsSize) {
+                            const key = `${product.name}_Única`;
+                            const qty = cart[key] || 0;
+                            return (
+                              <div key={index} className="order-item">
+                                <img src={product.image} alt={product.name} className="order-item-img" />
+                                <div className="order-item-details">
+                                  <div className="order-item-header">
+                                    <h4 className="order-item-title">{product.name}</h4>
+                                    <span className="order-item-price">{product.price}</span>
                                   </div>
-                                ))}
+                                  <div className="qty-selector">
+                                    <button type="button" onClick={() => handleQuantityChange(product.name, 'Única', -1)} disabled={qty <= 0}>-</button>
+                                    <span>{qty}</span>
+                                    <button type="button" onClick={() => handleQuantityChange(product.name, 'Única', 1)}>+</button>
+                                  </div>
+                                </div>
                               </div>
-                            )}
-                          </div>
-                        </div>
-                      );
-                    })}
+                            );
+                          }
 
-                    {/* Donatiu Section */}
-                    <div className="order-item donation-item">
-                      <div className="order-item-details" style={{ width: '100%' }}>
-                        <h4 className="order-item-title">Vols fer un Donatiu extra?</h4>
-                        <p className="description-text">Ajuda'ns a seguir fent renou.</p>
-                        <div className="donation-input-group">
-                          <span className="currency-symbol">€</span>
-                          <input
-                            type="number"
-                            min="0"
-                            step="1"
-                            value={donationAmount}
-                            onChange={(e) => setDonationAmount(e.target.value)}
-                            className="form-input donation-input"
-                            placeholder="0"
-                          />
+                          // Complex item (Multiple Sizes)
+                          // Logic: Show Total Quantity -> "Triar Talles" button -> List of Selects
+                          const currentSelections = productSelections[product.name] || [];
+                          const totalVariantQty = currentSelections.length;
+
+                          return (
+                            <div key={index} className="order-item">
+                              <img src={product.image} alt={product.name} className="order-item-img" />
+                              <div className="order-item-details">
+                                <div className="order-item-header">
+                                  <h4 className="order-item-title">
+                                    {product.name}
+                                    <a href="/shop#talles" target="_blank" rel="noreferrer" style={{ fontSize: '0.8rem', marginLeft: '0.8rem', color: 'var(--color-primary)', textDecoration: 'underline' }}>(Veure Talles)</a>
+                                  </h4>
+                                  <span className="order-item-price">{product.price}</span>
+                                </div>
+
+                                {/* Main Quantity Controller */}
+                                <div className="qty-row">
+                                  <span style={{ marginRight: '1rem', fontWeight: '500' }}>Quantitat:</span>
+                                  <div className="qty-selector">
+                                    <button type="button" onClick={() => updateProductQty(product.name, -1)} disabled={totalVariantQty <= 0}>-</button>
+                                    <span>{totalVariantQty}</span>
+                                    <button type="button" onClick={() => updateProductQty(product.name, 1)}>+</button>
+                                  </div>
+                                </div>
+
+                                {/* List of Select Boxes */}
+                                {totalVariantQty > 0 && (
+                                  <div className="hoodie-sizes-list">
+                                    <p style={{ marginBottom: '0.5rem', fontWeight: '600', fontSize: '0.9rem' }}>Selecciona les talles:</p>
+                                    {currentSelections.map((currentSize, i) => (
+                                      <div key={i} className="size-select-row">
+                                        <span className="size-label">#{i + 1}</span>
+                                        <select
+                                          className="form-input size-select"
+                                          value={currentSize}
+                                          onChange={(e) => updateProductSize(product.name, i, e.target.value)}
+                                          required
+                                        >
+                                          <option value="" disabled>Triar Talla...</option>
+                                          <optgroup label="Infantil">
+                                            {SIZES_KIDS.map(s => <option key={s} value={s}>{s}</option>)}
+                                          </optgroup>
+                                          <optgroup label="Adult">
+                                            {SIZES_ADULTS.map(s => <option key={s} value={s}>{s}</option>)}
+                                          </optgroup>
+                                        </select>
+                                      </div>
+                                    ))}
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          );
+                        })}
+
+                        {/* Donatiu Section */}
+                        <div className="order-item donation-item">
+                          <div className="order-item-details" style={{ width: '100%' }}>
+                            <h4 className="order-item-title">Vols fer un Donatiu extra?</h4>
+                            <p className="description-text">Ajuda'ns a seguir fent renou.</p>
+                            <div className="donation-input-group">
+                              <span className="currency-symbol">€</span>
+                              <input
+                                type="number"
+                                min="0"
+                                step="1"
+                                value={donationAmount}
+                                onChange={(e) => setDonationAmount(e.target.value)}
+                                className="form-input donation-input"
+                                placeholder="0"
+                              />
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </div>
 
-                {/* 2. DADES DEL CLIENT */}
-                <div className="form-section">
-                  <h3 className="form-title">2. Les teves Dades</h3>
-                  <div className="fields-grid">
-                    <div className="form-group">
-                      <label htmlFor="name">Nom i Cognoms *</label>
-                      <input
-                        type="text" id="name" name="name"
-                        required
-                        value={formData.name} onChange={handleUserChange}
-                        className="form-input"
-                      />
-                    </div>
-                    <div className="form-group">
-                      <label htmlFor="email">Email *</label>
-                      <input
-                        type="email" id="email" name="email"
-                        required
-                        value={formData.email} onChange={handleUserChange}
-                        className="form-input"
-                      />
-                    </div>
-
-                  </div>
-                </div>
-
-                {/* SUBMIT BUTTON MOBILE */}
-                <div className="mobile-submit-btn">
-                  <button type="submit" className="btn-primary full-width">
-                    Pagar {calculateTotal()}€ Ara
-                  </button>
-                </div>
-
-              </form>
-            </div>
-
-            {/* RIGHT COLUMN: SUMMARY (Desktop Sticky) */}
-            <div className="comanda-summary-sidebar">
-              <div className="summary-card">
-                <h3>Resum de la Comanda</h3>
-                <ul className="summary-list">
-                  {Object.entries(cart).map(([key, qty]) => {
-                    if (qty === 0) return null;
-
-                    const [name, size] = key.split('_');
-                    const product = productsData.find(p => p.name === name);
-                    const price = cleanPrice(product.price);
-                    const totalItem = (qty * price).toFixed(2);
-                    const isUnique = size === "Única";
-
-                    return (
-                      <li key={key} className="summary-item">
-                        <div className="summary-item-top">
-                          <span>{qty} x {name}</span>
-                          <span>{totalItem}€</span>
+                    {/* 2. DADES DEL CLIENT */}
+                    <div className="form-section">
+                      <h3 className="form-title">2. Les teves Dades</h3>
+                      <div className="fields-grid">
+                        <div className="form-group">
+                          <label htmlFor="name">Nom i Cognoms *</label>
+                          <input
+                            type="text" id="name" name="name"
+                            required
+                            value={formData.name} onChange={handleUserChange}
+                            className="form-input"
+                          />
                         </div>
-                        {!isUnique && <div className="summary-item-meta">Talla: {size}</div>}
-                      </li>
-                    );
-                  })}
+                        <div className="form-group">
+                          <label htmlFor="email">Email *</label>
+                          <input
+                            type="email" id="email" name="email"
+                            required
+                            value={formData.email} onChange={handleUserChange}
+                            className="form-input"
+                          />
+                        </div>
 
-                  {parseFloat(donationAmount) > 0 && (
-                    <li className="summary-item">
-                      <span>Donatiu</span>
-                      <span>{parseFloat(donationAmount).toFixed(2)}€</span>
-                    </li>
-                  )}
-                </ul>
-                <div className="summary-total">
-                  <span>Total</span>
-                  <span>{calculateTotal()}€</span>
+                      </div>
+                    </div>
+
+                    {/* SUBMIT BUTTON MOBILE */}
+                    <div className="mobile-submit-btn">
+                      <button type="submit" className="btn-primary full-width">
+                        Pagar {calculateTotal()}€ Ara
+                      </button>
+                    </div>
+
+                  </form>
                 </div>
-                <div className="desktop-submit-btn">
-                  <button type="submit" form="comanda-form" className="btn-primary full-width">
-                    Pagar amb Targeta
-                  </button>
+
+                {/* RIGHT COLUMN: SUMMARY (Desktop Sticky) */}
+                <div className="comanda-summary-sidebar">
+                  <div className="summary-card">
+                    <h3>Resum de la Comanda</h3>
+                    <ul className="summary-list">
+                      {Object.entries(cart).map(([key, qty]) => {
+                        if (qty === 0) return null;
+
+                        const [name, size] = key.split('_');
+                        const product = productsData.find(p => p.name === name);
+                        const price = cleanPrice(product.price);
+                        const totalItem = (qty * price).toFixed(2);
+                        const isUnique = size === "Única";
+
+                        return (
+                          <li key={key} className="summary-item">
+                            <div className="summary-item-top">
+                              <span>{qty} x {name}</span>
+                              <span>{totalItem}€</span>
+                            </div>
+                            {!isUnique && <div className="summary-item-meta">Talla: {size}</div>}
+                          </li>
+                        );
+                      })}
+
+                      {parseFloat(donationAmount) > 0 && (
+                        <li className="summary-item">
+                          <span>Donatiu</span>
+                          <span>{parseFloat(donationAmount).toFixed(2)}€</span>
+                        </li>
+                      )}
+                    </ul>
+                    <div className="summary-total">
+                      <span>Total</span>
+                      <span>{calculateTotal()}€</span>
+                    </div>
+                    <div className="desktop-submit-btn">
+                      <button type="submit" form="comanda-form" className="btn-primary full-width">
+                        Pagar amb Targeta
+                      </button>
+                    </div>
+                    <p className="secure-note">
+                      <span className="lock-icon">🔒</span> Pagament 100% segur processat per Stripe.
+                    </p>
+                  </div>
                 </div>
-                <p className="secure-note">
-                  <span className="lock-icon">🔒</span> Pagament 100% segur processat per Stripe.
-                </p>
-              </div>
-            </div>
+
+
+              </>
+            )}
 
           </div>
         </section>

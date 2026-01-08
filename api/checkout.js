@@ -2,7 +2,13 @@ import Stripe from 'stripe';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
+import { IS_SHOP_OPEN } from '../src/utils/shopConfig.js';
+
 export default async function handler(req, res) {
+    if (!IS_SHOP_OPEN) {
+        return res.status(403).json({ error: 'La venda online està tancada.' });
+    }
+
     if (req.method !== 'POST') {
         res.setHeader('Allow', 'POST');
         return res.status(405).json({ error: 'Method Not Allowed' });
