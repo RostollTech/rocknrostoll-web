@@ -4,14 +4,14 @@
     left: 50%;
     transform: translateX(-50%) translateY(100px);
     width: min(90%, 40rem);
-    background: var(--color-accent-yellow);
-    color: #000;
+    background: var(--color-accent-red);
+    color: #fff;
     padding: 1rem 1.5rem;
     border-radius: 999px;
-    box-shadow: 0 10px 40px rgba(244, 193, 14, 0.3), 0 4px 12px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3), 0 4px 12px rgba(0, 0, 0, 0.4);
     z-index: 9999;
     animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    border: 2px solid #fff;
+    border: 2px solid rgba(255, 255, 255, 0.15);
 }
 
 @keyframes slideUp {
@@ -40,8 +40,8 @@
 }
 
 .announcement-btn {
-    background: #000;
-    color: var(--color-accent-yellow);
+    background: #fff;
+    color: var(--color-accent-red);
     padding: 0.5rem 1.2rem;
     border-radius: 999px;
     font-weight: 700;
@@ -54,15 +54,15 @@
 }
 
 .announcement-btn:hover {
-    background: #222;
+    background: #f0f0f0;
     transform: scale(1.05);
-    color: var(--color-accent-yellow);
+    color: var(--color-accent-red);
 }
 
 .announcement-close {
     background: transparent;
     border: none;
-    color: #000;
+    color: #fff;
     font-size: 1.2rem;
     cursor: pointer;
     padding: 0.25rem;

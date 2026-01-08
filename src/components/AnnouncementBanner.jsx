@@ -18,12 +18,12 @@ export default function AnnouncementBanner() {
     return (
         <div className="announcement-banner">
             <div className="announcement-content">
-                <span className="announcement-icon">⚠️</span>
+                <span className="announcement-icon">🔒</span>
                 <span className="announcement-text">
-                    <strong>AVUI</strong> és el darrer dia per comprar marxandatge!
+                    La venda de marxandatge ha <strong>finalitzat</strong>. Moltes gràcies!
                 </span>
                 <Link to="/shop" className="announcement-btn">
-                    Comprar Ara
+                    Informació
                 </Link>
                 <button
                     className="announcement-close"
