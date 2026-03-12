@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import AvisLegal from "./pages/AvisLegal";
+import NitDeRock from "./pages/NitDeRock";
 import Shop from "./pages/Shop";
 import Comanda from "./pages/Comanda";
 import Success from "./pages/Success";
@@ -17,6 +18,7 @@ const router = createBrowserRouter(
       children: [
         { path: "/", element: <Home /> },
         { path: "/about", element: <About /> },
+        { path: "/nit-de-rock", element: <NitDeRock /> },
         { path: "/contact", element: <Contact /> },
         { path: "/avis-legal", element: <AvisLegal /> },
         { path: "/shop", element: <Shop /> },

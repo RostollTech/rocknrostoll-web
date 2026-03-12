@@ -8,7 +8,7 @@ export default function Layout() {
             <ScrollRestoration />
             <ScrollToAnchor />
             <Outlet />
-            {/* <AnnouncementBanner /> */}
+            {/*<AnnouncementBanner />*/}
         </>
     );
 }

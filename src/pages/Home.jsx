@@ -92,11 +92,14 @@ export default function Home() {
               dissabte d’agost. Celebrem 30 edicions d’història, germanor i molta festa!
             </p>
 
-            <Countdown />
+            <Countdown targetDate="2026-08-29T19:00:00" />
 
             <div className="button-group">
               <Link to="/about" className="btn-primary">
                 Qui som?
+              </Link>
+              <Link to="/nit-de-rock" className="btn-outline">
+                Nit de Rock
               </Link>
               <Link to="/contact" className="btn-outline">
                 Segueix-nos

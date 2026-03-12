@@ -125,7 +125,7 @@ export default function About() {
           </div>
         </section>
 
-        <section className="page-section">
+        <section className="page-section section-alt">
           <div className="page-content split-layout">
             <div>
               <h2 className="section-title">Voluntariat i Futur</h2>
@@ -147,7 +147,7 @@ export default function About() {
             />
           </div>
         </section>
-      </main>
+      </main >
       <Footer />
     </>
   );

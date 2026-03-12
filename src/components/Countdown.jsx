@@ -1,8 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 
-const EVENT_DATE = new Date("2026-08-29T19:00:00");
+// Data per defecte: El darrer dissabte d'agost de 2026
+const DEFAULT_DATE = "2026-08-29T19:00:00";
 
 function getTimeLeft(target) {
+    if (!target || isNaN(target.getTime())) {
+        return { days: "00", hours: "00", minutes: "00", seconds: "00" };
+    }
+
     const difference = target.getTime() - Date.now();
 
     if (difference <= 0) {
@@ -22,16 +27,17 @@ function getTimeLeft(target) {
     };
 }
 
-export default function Countdown() {
-    const [timeLeft, setTimeLeft] = useState(() => getTimeLeft(EVENT_DATE));
+export default function Countdown({ targetDate = DEFAULT_DATE }) {
+    const eventDate = useMemo(() => new Date(targetDate), [targetDate]);
+    const [timeLeft, setTimeLeft] = useState(() => getTimeLeft(eventDate));
 
     useEffect(() => {
         const interval = setInterval(() => {
-            setTimeLeft(getTimeLeft(EVENT_DATE));
+            setTimeLeft(getTimeLeft(eventDate));
         }, 1000);
 
         return () => clearInterval(interval);
-    }, []);
+    }, [eventDate]);
 
     return (
         <div className="countdown-grid" aria-label="Countdown to the event">

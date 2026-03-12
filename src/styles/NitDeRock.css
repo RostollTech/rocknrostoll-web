@@ -1,0 +1,257 @@
+/* NitDeRock.css - Festival Poster Style (Vibrant Edition) */
+
+.nit-de-rock-page {
+  background: #050505;
+  color: white;
+}
+
+.nit-hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: 
+    radial-gradient(circle at 50% 50%, rgba(244, 193, 14, 0.05), transparent 70%),
+    linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(5,5,5,1)), 
+    url("/img/home-hero.webp") center/cover;
+  position: relative;
+  overflow: hidden;
+}
+
+.nit-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.4) 100%);
+  pointer-events: none;
+}
+
+.nit-hero-inner {
+  text-align: center;
+  max-width: 1000px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 5;
+}
+
+.nit-hero-eyebrow {
+  color: var(--color-accent-yellow); /* Canviem a groc per donar més llum */
+  font-size: 1.4rem;
+  letter-spacing: 0.8em;
+  font-weight: 900;
+  margin-bottom: 2.5rem;
+  text-transform: uppercase;
+  text-shadow: 0 0 15px rgba(244, 193, 14, 0.4);
+}
+
+.nit-hero-title {
+  font-size: clamp(5rem, 18vw, 12rem);
+  line-height: 0.75;
+  color: #FFFFFF;
+  margin: 1.5rem 0;
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+  filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.2));
+  animation: titleFloat 4s ease-in-out infinite alternate;
+}
+
+@keyframes titleFloat {
+  from { transform: translateY(0); }
+  to { transform: translateY(-10px); }
+}
+
+.nit-hero-date-wrapper {
+  padding: 2.5rem 0;
+  border-top: 1px solid rgba(255,255,255,0.2);
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  margin: 4rem 0;
+  background: rgba(255,255,255,0.02);
+  backdrop-filter: blur(5px);
+}
+
+.nit-hero-date {
+  font-size: 2.5rem;
+  color: white;
+  font-weight: 900;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+.nit-hero-countdown {
+  margin-top: 5rem;
+  transform: scale(1.1);
+}
+
+/* Info Sections - Més contrast */
+.nit-info-section {
+  background: #0a0a0a;
+  color: white;
+  padding: 10rem 0;
+}
+
+.nit-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 3rem;
+}
+
+.nit-info-card {
+  padding: 3.5rem 2.5rem;
+  background: #111;
+  border: 1px solid rgba(255,255,255,0.05);
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.nit-info-card:hover {
+  border-color: var(--color-accent-yellow);
+  transform: translateY(-10px);
+  background: #161616;
+}
+
+.nit-info-title {
+  font-size: 2.8rem;
+  margin-bottom: 2rem;
+  font-family: var(--font-heading);
+  color: var(--color-accent-yellow);
+  letter-spacing: 0.05em;
+}
+
+.nit-info-text {
+  font-size: 1.3rem;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.8);
+}
+
+/* Steps Section */
+.nit-steps-section {
+  background: #000;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding: 12rem 0;
+}
+
+.nit-steps-title {
+  font-size: clamp(4rem, 10vw, 8rem);
+  text-align: center;
+  margin-bottom: 8rem;
+  color: white;
+  text-transform: uppercase;
+}
+
+.nit-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 6rem;
+}
+
+.nit-step-article {
+  border-top: 6px solid var(--color-accent-yellow);
+  padding-top: 3rem;
+  position: relative;
+}
+
+.nit-step-label {
+  font-size: 1rem;
+  font-weight: 900;
+  color: var(--color-accent-yellow);
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+}
+
+.nit-step-title {
+  font-size: 2.5rem;
+  margin: 1.5rem 0;
+  font-family: var(--font-heading);
+}
+
+.nit-step-text {
+  opacity: 0.7;
+  font-size: 1.2rem;
+  line-height: 1.6;
+}
+
+/* Prizes Section */
+.nit-prizes-section {
+  background: #0a0a0a;
+  padding: 10rem 0;
+}
+
+.nit-prizes-container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.nit-prizes-list {
+  display: grid;
+  gap: 2rem;
+}
+
+.nit-prize-item {
+  padding: 4rem;
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+  border-radius: 1rem;
+  background: #111;
+  border: 1px solid rgba(255,255,255,0.03);
+  transition: transform 0.3s ease;
+}
+
+.nit-prize-item:hover {
+  transform: scale(1.02);
+  background: #151515;
+}
+
+.nit-prize-rank {
+  font-size: 5rem;
+  font-weight: 900;
+  font-family: var(--font-heading);
+}
+
+.nit-prize-rank.gold { color: #FFD700; text-shadow: 0 0 20px rgba(255, 215, 0, 0.3); }
+.nit-prize-rank.silver { color: #E0E0E0; font-size: 4rem; }
+.nit-prize-rank.bronze { color: #CD7F32; font-size: 4rem; }
+
+.nit-prize-title {
+  font-size: 2.2rem;
+  margin: 0;
+  color: white;
+  font-family: var(--font-heading);
+}
+
+.nit-prize-desc {
+  margin: 1rem 0 0;
+  opacity: 0.8;
+  font-size: 1.3rem;
+}
+
+/* CTA */
+.nit-cta-section {
+  background: #000;
+  text-align: center;
+  padding: 12rem 0;
+  position: relative;
+}
+
+.nit-cta-title {
+  font-size: clamp(3rem, 7vw, 5rem);
+  font-family: var(--font-heading);
+  color: white;
+  margin-bottom: 4rem;
+  letter-spacing: 0.1em;
+}
+
+.nit-cta-btns {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  flex-wrap: wrap;
+}
+
+.nit-cta-btns .btn-primary {
+  padding: 2rem 5rem;
+  font-size: 1.4rem;
+  box-shadow: 0 0 30px rgba(244, 193, 14, 0.2);
+}
