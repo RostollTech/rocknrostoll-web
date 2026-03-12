@@ -98,62 +98,9 @@ export default function Home() {
               <Link to="/about" className="btn-primary">
                 Qui som?
               </Link>
-              <Link to="/shop" className="btn-outline">
-                Merxandatge
-              </Link>
               <Link to="/contact" className="btn-outline">
                 Segueix-nos
               </Link>
-            </div>
-          </div>
-        </section>
-
-        <section className="section" style={{ padding: '6rem 0', background: 'linear-gradient(135deg, #111 0%, #1a1a1a 100%)', borderTop: '1px solid #333', borderBottom: '1px solid #333' }}>
-          <div className="container">
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4rem', alignItems: 'center', justifyContent: 'center' }}>
-
-              <div style={{ flex: '1 1 400px', maxWidth: '600px' }}>
-                <span className="section-eyebrow" style={{ color: 'var(--color-primary)', marginBottom: '0.5rem', display: 'block' }}>Novetat 30a Edició</span>
-                <h2 className="section-title" style={{ fontSize: '2.5rem', marginBottom: '1.5rem', color: 'white' }}>Porta el Rock’n’Rostoll amb tu</h2>
-                <p className="section-description" style={{ fontSize: '1.15rem', color: '#ccc', lineHeight: '1.7', marginBottom: '2.5rem' }}>
-                  <strong>La venda online ha finalitzat. Moltes gràcies a tothom per la vostra col·laboració!</strong>
-                  <br />
-                  Pròximament rebreu informació sobre el mètode de distribució i recollida de les comandes.
-                </p>
-
-                <Link to="/shop" className="btn-outline" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
-                  Veure productes <span>→</span>
-                </Link>
-              </div>
-
-              <div style={{ flex: '1 1 350px', position: 'relative', height: '400px', display: "flex", alignItems: "center", justifyContent: "center" }}>
-                {/* Images with decorative positioning and white background */}
-                <div style={{ position: 'absolute', top: '20px', right: '10%', width: '55%', zIndex: 1, transition: 'transform 0.3s ease' }}>
-                  <div className="sold-out-container">
-                    <img
-                      src="/products/dessuadora.webp"
-                      alt="Dessuadora Rock'n'Rostoll"
-                      style={{ width: '100%', borderRadius: '12px', boxShadow: '0 20px 40px rgba(0,0,0,0.6)', transform: 'rotate(6deg)', background: 'white', padding: '10px' }}
-                    />
-                    <div className="sold-out-overlay" style={{ borderRadius: '12px', transform: 'rotate(6deg)' }}>
-                      <span className="sold-out-text">No disponible</span>
-                    </div>
-                  </div>
-                </div>
-                <div style={{ position: 'absolute', bottom: '20px', left: '10%', width: '50%', zIndex: 2, transition: 'transform 0.3s ease' }}>
-                  <div className="sold-out-container">
-                    <img
-                      src="/products/gorra.webp"
-                      alt="Gorra Rock'n'Rostoll"
-                      style={{ width: '100%', borderRadius: '12px', boxShadow: '0 20px 40px rgba(0,0,0,0.6)', transform: 'rotate(-6deg)', border: '4px solid #fff', background: 'white', padding: '10px' }}
-                    />
-                    <div className="sold-out-overlay" style={{ borderRadius: '12px', transform: 'rotate(-6deg)' }}>
-                      <span className="sold-out-text">No disponible</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
             </div>
           </div>
         </section>
@@ -232,7 +179,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-        </section> */}
+        </section>
 
         <section className="cta-banner" id="newsletter">
           <h3>Forma part de Rock’n’Rostoll!</h3>
@@ -248,7 +195,7 @@ export default function Home() {
               Segueix-nos a les xarxes
             </a>
           </div>
-        </section>
+        </section>*/}
       </main>
       <Footer />
     </>

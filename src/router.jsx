@@ -28,7 +28,7 @@ const router = createBrowserRouter(
     }
   ],
   {
-    basename: import.meta.env.BASE_URL,  // 👈 molt important per GitHub Pages
+    basename: import.meta.env.BASE_URL,
   }
 );
 

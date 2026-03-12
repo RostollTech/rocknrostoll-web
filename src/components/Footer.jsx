@@ -14,22 +14,22 @@ export default function Footer() {
           </p>
         </div>
 
-        {/* <div className="footer-column">
-          <h4>Enllaços ràpids</h4>
-          <div className="footer-links">
-            <Link to="/">Pròxim R'N'R </Link>
-            <Link to="/about">Sobre el festival</Link>
-            <a href="/#programa">Programa</a>
-            <Link to="/contact">Contacte</Link>
-          </div>
-        </div> */}
-
         <div className="footer-column">
           <h4>Xarxes socials</h4>
           <SocialLinks />
         </div>
 
         <div className="footer-column">
+          <h4>Enllaços ràpids</h4>
+          <div className="footer-links">
+            <Link to="/">Pròxim R'N'R </Link>
+            <Link to="/about">Sobre el festival</Link>
+            <a href="/shop">Botiga</a>
+            <Link to="/contact">Contacte</Link>
+          </div>
+        </div>
+
+        {/* <div className="footer-column">
           <h4>Butlletí</h4>
           <p className="section-description">
             Subscriu-te per seguir les novetats i històries que mantenen
@@ -48,7 +48,7 @@ export default function Footer() {
               Pròximament!
             </button>
           </form>
-        </div>
+        </div> */}
       </div>
 
       <p className="footer-note">
