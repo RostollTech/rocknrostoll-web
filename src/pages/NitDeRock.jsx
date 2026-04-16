@@ -3,6 +3,8 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Countdown from "../components/Countdown";
 import SEO from "../components/SEO";
+import ArtistCard from "../components/ArtistCard";
+import { bands } from "../data/bands";
 import "../styles/NitDeRock.css";
 
 export default function NitDeRock() {
@@ -78,8 +80,23 @@ export default function NitDeRock() {
           </div>
         </section>
 
+        {/* BANDS SECTION */}
+        <section className="section section-alt nit-bands-section">
+          <div className="container">
+            <h2 className="section-title">CONEIX LES BANDES</h2>
+            <p className="voting-desc" style={{ textAlign: "center", marginBottom: "30px" }}>
+              Aquests són els artistes seleccionats. Descobreix-los abans de votar!
+            </p>
+            <div className="artists-grid">
+              {bands.map(band => (
+                <ArtistCard key={band.id} artist={band} />
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* VOTING SECTION */}
-        <section className="section section-alt nit-voting-section">
+        <section className="section nit-voting-section">
           <div className="container">
             <h2 className="section-title">VOTA A LA SEMIFINAL</h2>
             <p className="voting-desc">
@@ -107,7 +124,7 @@ export default function NitDeRock() {
         </section>
 
         {/* INFO & PRIZES SECTION */}
-        <section className="section nit-info-section">
+        <section className="section section-alt nit-info-section">
           <div className="container">
             <div className="nit-info-grid">
               <div className="nit-info-card">
@@ -134,7 +151,7 @@ export default function NitDeRock() {
 
 
         {/* FINAL CTA */}
-        <section className="section section-alt nit-cta-section">
+        <section className="section nit-cta-section">
           <div className="container">
             <h2 className="nit-cta-title">SEGUEIX EL CONCURS</h2>
             <p className="nit-cta-desc">

@@ -1,0 +1,500 @@
+.artist-card {
+  background: linear-gradient(180deg, rgba(26, 26, 26, 0.9), rgba(18, 18, 18, 0.95));
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: 0 26px 44px rgba(0, 0, 0, 0.38);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+              box-shadow 0.4s ease, 
+              border-color 0.4s ease;
+  position: relative;
+  text-align: left;
+}
+
+.artist-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  border-color: var(--accent-primary);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 0 0 20px rgba(230, 38, 38, 0.1);
+}
+
+.artist-card-header {
+  height: 180px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  color: #fff;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.5);
+}
+
+.artist-card-header::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--noise-pattern);
+  background-size: 320px;
+  opacity: 0.2;
+  mix-blend-mode: screen;
+  z-index: 1;
+}
+
+.artist-card-rings {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.ring {
+  position: absolute;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+}
+
+.ring-1 {
+  width: 140%;
+  height: 140%;
+}
+
+.ring-2 {
+  width: 180%;
+  height: 180%;
+}
+
+.artist-initials {
+  font-size: 2.5rem;
+  font-weight: 400;
+  font-family: serif;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 3;
+  backdrop-filter: blur(4px);
+}
+
+.artist-header-info {
+  position: absolute;
+  bottom: 10px;
+  text-align: center;
+  width: 100%;
+  z-index: 2;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.artist-full-name {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  opacity: 0.95;
+  letter-spacing: 0.05em;
+  font-family: var(--font-body);
+}
+
+.artist-subtitle {
+  margin: 0;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  opacity: 0.8;
+  font-weight: 700;
+}
+
+.artist-heart-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 3;
+  transition: all 0.2s;
+  backdrop-filter: blur(4px);
+}
+
+.artist-heart-btn:hover {
+  background: var(--accent-primary);
+  border-color: var(--accent-primary-strong);
+  transform: scale(1.1);
+}
+
+.artist-heart-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.artist-card-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.artist-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 15px;
+}
+
+.artist-name {
+  margin: 0;
+  font-family: var(--font-heading);
+  letter-spacing: 0.08em;
+  font-size: 1.6rem;
+  color: var(--text-light);
+  line-height: 1.1;
+}
+
+.artist-badge-primary {
+  background-color: var(--accent-primary);
+  color: #0c0c0c;
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  box-shadow: 0 4px 10px rgba(230, 38, 38, 0.2);
+}
+
+.artist-genres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+.artist-badge-secondary {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: var(--text-muted);
+  font-size: 0.7rem;
+  padding: 4px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.artist-desc-short {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: 20px;
+  flex: 1;
+}
+
+.artist-meta {
+  display: flex;
+  gap: 15px;
+  font-size: 0.8rem;
+  color: var(--text-soft);
+  margin-bottom: 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.artist-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-veure-mes {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.7rem 1.4rem;
+  border-radius: 999px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  border: 2px solid var(--text-light);
+  background: transparent;
+  color: var(--text-light);
+  box-shadow: inset 0 0 0 0 var(--text-light);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.btn-veure-mes:hover {
+  border-color: var(--accent-yellow);
+  color: var(--accent-yellow);
+  background: rgba(244, 193, 14, 0.08);
+  transform: translateY(-2px);
+}
+
+.btn-spotify {
+  background-color: #1a1a1a;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  width: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.btn-spotify:hover {
+  background-color: #2a2a2a;
+  border-color: #1db954;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(29, 185, 84, 0.2);
+}
+
+.btn-spotify svg {
+  width: 22px;
+  height: 22px;
+  fill: #1db954;
+}
+
+/* Modal styles */
+.artist-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.artist-modal-content {
+  background: var(--bg-section);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-lg);
+  width: 100%;
+  max-width: 550px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 26px 60px rgba(0, 0, 0, 0.6);
+  animation: modalFadeIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+}
+
+.artist-modal-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.artist-modal-content::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+.artist-modal-content::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; transform: translateY(40px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.artist-modal-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  font-size: 1.5rem;
+  line-height: 1;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  backdrop-filter: blur(4px);
+}
+
+.artist-modal-close:hover {
+  background: var(--accent-primary);
+  border-color: var(--accent-primary-strong);
+  transform: scale(1.1) rotate(90deg);
+}
+
+.artist-modal-header {
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.4);
+  position: relative;
+}
+
+.artist-modal-header::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--noise-pattern);
+  background-size: 320px;
+  opacity: 0.2;
+  mix-blend-mode: screen;
+}
+
+.artist-initials-large {
+  font-size: 3.5rem;
+  font-family: serif;
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.artist-modal-body {
+  padding: 40px 30px;
+}
+
+.artist-modal-body h2 {
+  margin: 0 0 15px 0;
+  color: var(--text-light);
+  font-family: var(--font-heading);
+  font-size: 2.2rem;
+  letter-spacing: 0.08em;
+  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.artist-modal-long-desc {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 35px;
+}
+
+.artist-modal-links {
+  display: flex;
+  justify-content: center;
+}
+
+.btn-spotify-large {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #1ed760;
+  color: #000;
+  text-decoration: none;
+  padding: 14px 32px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: all 0.2s;
+  box-shadow: 0 8px 24px rgba(30, 215, 96, 0.3);
+}
+
+.btn-spotify-large:hover {
+  background-color: #1fdf64;
+  transform: scale(1.05) translateY(-2px);
+  box-shadow: 0 12px 30px rgba(30, 215, 96, 0.4);
+}
+
+.btn-spotify-large svg {
+  color: #000;
+}
+
+/* Grid layout for the section */
+.artists-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 columnes en mòbil base */
+  gap: var(--space-3); /* menys espai entre targetes a mòbil */
+  margin-top: var(--space-5);
+  margin-bottom: var(--space-5);
+}
+
+@media (min-width: 768px) {
+  .artists-grid {
+    gap: var(--space-6);
+  }
+}
+
+@media (min-width: 1024px) {
+  .artists-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Ajustaments per telèfons perquè 2 columnes hi càpiguen bé */
+@media (max-width: 500px) {
+  .artist-card-header {
+    height: 120px;
+  }
+  .artist-card-rings,
+  .artist-initials {
+    width: 60px;
+    height: 60px;
+  }
+  .artist-initials {
+    font-size: 1.5rem;
+  }
+  .artist-header-info {
+    bottom: 5px;
+  }
+  .artist-full-name {
+    font-size: 0.8rem;
+  }
+  .artist-card-body {
+    padding: 12px;
+  }
+  .artist-name {
+    font-size: 1.1rem;
+  }
+  .artist-badge-primary {
+    font-size: 0.55rem;
+    padding: 3px 6px;
+  }
+  .artist-badge-secondary {
+    font-size: 0.55rem;
+    padding: 2px 6px;
+  }
+  .artist-title-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+  .btn-veure-mes {
+    padding: 0.5rem 0.5rem;
+    font-size: 0.75rem;
+  }
+}

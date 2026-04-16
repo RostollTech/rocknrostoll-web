@@ -92,7 +92,6 @@
 
 /* Info Sections - Més contrast */
 .nit-info-section {
-  background: #0a0a0a;
   color: white;
   padding: 4rem 0;
 }
@@ -246,9 +245,9 @@
 
 /* CTA */
 .nit-cta-section {
-  background: #000;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
   text-align: center;
-  padding: 4rem 0;
+  padding: 6rem 0 8rem;
   position: relative;
 }
 

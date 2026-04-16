@@ -1,0 +1,80 @@
+export const bands = [
+  {
+    id: 1,
+    name: "Antònia Font",
+    initials: "AF",
+    color: "#215b77",
+    origin: "PALMA",
+    genres: ["Pop", "Rock", "Indie"],
+    description: "Grup de pop-rock mallorquí format a Palma el 1997. Pioners de la música en català amb un so únic que barreja pop, rock i lletres surrealistes.",
+    longDescription: "Antònia Font és un grup de música mallorquí format el 1997 que es caracteritza per la seva música festiva i lletres humorístiques i fantàstiques. L'univers creatiu de Joan Miquel Oliver, guitarrista i compositor del grup, els ha convertit en un referent absolut de la música en català modern. Han rebut nombrosos premis com el Premi Nacional de Música.",
+    founded: 1997,
+    albums: 11,
+    spotifyUrl: "https://open.spotify.com/artist/7LkZk1qQ43bQjNcl4R9rA0"
+  },
+  {
+    id: 2,
+    name: "Maria del Mar Bonet",
+    initials: "MD",
+    color: "#b0573f",
+    origin: "PALMA",
+    genres: ["Folk", "Cançó d'Autor", "Mediterrània"],
+    description: "Cantautora mallorquina, una de les veus més importants de la cançó en català. Ha recorregut el món amb la seva música arrelada al Mediterrani.",
+    longDescription: "Maria del Mar Bonet és una de les veus més rellevants i respectades de l'àmbit lingüístic català. Amb més de cinc dècades de trajectòria, ha explorat profundament les arrels de la música tradicional mediterrània, adaptant poemes i col·laborant amb músics d'arreu del món.",
+    founded: 1967,
+    albums: 38,
+    spotifyUrl: "https://open.spotify.com/artist/1eWq59hB2XzY8q2t5C1lT2"
+  },
+  {
+    id: 3,
+    name: "Anegats",
+    initials: "A",
+    color: "#6b8e5c",
+    origin: "RAIGUER",
+    genres: ["Rock", "Rock en Català"],
+    description: "Grup de rock en català de Mallorca, coneguts per les seves lletres reivindicatives i els seus directes intensos.",
+    longDescription: "Anegats va néixer a Son Servera l'any 1994, establint-se com una banda de rock referent a l'illa de Mallorca. Han actuat en innombrables festes de poble arreu de l'illa, connectant amb el públic a través de lletres properes que canten a la vida, la terra i l'amor, amb un so de rock clàssic i contundent.",
+    founded: 1994,
+    albums: 9,
+    spotifyUrl: "https://open.spotify.com/artist/4c3gY0vR5xYQW6T9p0R0D4"
+  },
+  {
+    id: 4,
+    name: "Donallop",
+    initials: "D",
+    color: "#a9452b",
+    origin: "RAIGUER",
+    genres: ["Folk", "Pop", "Indie"],
+    description: "Duo musical de Mallorca que combina folk i pop amb lletres intimistes en català. La seva música ens transporta a paisatges minimalistes i emocionals.",
+    longDescription: "Donallop recull l'herència del folk clàssic i el pop d'autor. El duet mallorquí destaca per les seves harmonies vocals i una instrumentació cuidada. Han presentat el seu projecte per escenaris de tota la geografia balear i catalana i internacionalment.",
+    founded: 2013,
+    albums: 3,
+    spotifyUrl: "https://open.spotify.com/artist/7LkZk1qQ43bQjNcl4R9rA0"
+  },
+  {
+    id: 5,
+    name: "Mans de Breç",
+    initials: "MB",
+    color: "#215b77",
+    origin: "PLA DE MALLORCA",
+    genres: ["Folk", "Tradicional", "World Music"],
+    description: "Grup de folk mallorquí amb instruments tradicionals. Recuperen la música popular de les Illes Balears amb un toc contemporani.",
+    longDescription: "Aquest grup es dedica a la recerca i la modernització del cançoner popular mallorquí. Incorporen instruments com la xeremia i el flabiol fusionats amb arranjaments corals i guitarres acústiques, apropant les arrels musicals a les noves generacions.",
+    founded: 2016,
+    albums: 2,
+    spotifyUrl: "https://open.spotify.com/artist/1eWq59hB2XzY8q2t5C1lT2"
+  },
+  {
+    id: 6,
+    name: "Al-Mayurqa",
+    initials: "A",
+    color: "#4e7041",
+    origin: "PALMA",
+    genres: ["Folk", "Tradicional"],
+    description: "Grup pioner de música folk i tradicional mallorquina. Des dels anys 90, han estat fonamentals en la recuperació del patrimoni musical.",
+    longDescription: "Al-Mayurqa és una formació clau en la història musical de les Illes Balears. Han preservat melodies antigues alhora que adaptades per a l'escenari, dotant la música tradicional d'eines per a la seva reivindicació actual.",
+    founded: 1994,
+    albums: 7,
+    spotifyUrl: "https://open.spotify.com/artist/4c3gY0vR5xYQW6T9p0R0D4"
+  }
+];
