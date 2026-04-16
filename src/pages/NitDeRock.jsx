@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Countdown from "../components/Countdown";
@@ -26,6 +26,30 @@ export default function NitDeRock() {
     }),
     []
   );
+
+  useEffect(() => {
+    // widgets.js actualitza el wrapper; nosaltres actualitzem l'iframe directament
+    const handleMessage = (e) => {
+      let data = e.data;
+      if (typeof data === "string") {
+        try { data = JSON.parse(data); } catch { return; }
+      }
+      if (!data || data.type !== "strawpoll_resize" || !data.id) return;
+      const iframe = document.getElementById("strawpoll_iframe_" + data.id);
+      if (iframe) iframe.style.height = data.value + "px";
+    };
+    window.addEventListener("message", handleMessage);
+
+    const script = document.createElement("script");
+    script.src = "https://cdn.strawpoll.com/dist/widgets.js";
+    script.async = true;
+    document.body.appendChild(script);
+
+    return () => {
+      window.removeEventListener("message", handleMessage);
+      if (script.parentNode) script.parentNode.removeChild(script);
+    };
+  }, []);
 
   return (
     <>
@@ -65,12 +89,14 @@ export default function NitDeRock() {
             <div className="voting-container">
               <div
                 className="strawpoll-embed"
-                id="strawpoll_XmZRQ0P9vgd"
+                id="strawpoll_wAg3QdmeGy8"
+                style={{ maxWidth: "640px", width: "100%", margin: "0 auto" }}
               >
                 <iframe
                   title="StrawPoll Embed"
-                  id="strawpoll_iframe_XmZRQ0P9vgd"
-                  src="https://strawpoll.com/embed/XmZRQ0P9vgd"
+                  id="strawpoll_iframe_wAg3QdmeGy8"
+                  src="https://strawpoll.com/embed/wAg3QdmeGy8"
+                  frameBorder="0"
                   allowFullScreen
                   allowTransparency
                 >
