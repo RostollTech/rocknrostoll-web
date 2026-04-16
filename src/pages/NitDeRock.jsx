@@ -98,7 +98,6 @@ export default function NitDeRock() {
                   src="https://strawpoll.com/embed/wAg3QdmeGy8"
                   frameBorder="0"
                   allowFullScreen
-                  allowTransparency
                 >
                   Loading...
                 </iframe>
