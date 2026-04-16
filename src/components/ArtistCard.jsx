@@ -55,15 +55,26 @@ export default function ArtistCard({ artist }) {
             <button className="artist-modal-close" onClick={toggleModal}>&times;</button>
             <div className="artist-modal-header" style={{ backgroundColor: artist.color || "#215b77" }}>
               <div className="artist-initials-large">{artist.initials}</div>
+              <h2 className="artist-modal-title">{artist.name}</h2>
             </div>
             <div className="artist-modal-body">
-              <h2>{artist.name}</h2>
               <div className="artist-genres">
                 {artist.genres?.map(genre => (
                   <span key={genre} className="artist-badge-secondary">{genre}</span>
                 ))}
               </div>
-              <p className="artist-modal-long-desc">{artist.longDescription || artist.description}</p>
+              
+              {artist.youtubeId && (
+                <div className="artist-modal-video">
+                  <iframe 
+                    src={`https://www.youtube-nocookie.com/embed/${artist.youtubeId}?rel=0`} 
+                    title="YouTube video player" 
+                    frameBorder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowFullScreen
+                  ></iframe>
+                </div>
+              )}
               
               {artist.spotifyUrl && (
                 <div className="artist-modal-links">

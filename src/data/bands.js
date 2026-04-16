@@ -10,7 +10,8 @@ export const bands = [
     longDescription: "Antònia Font és un grup de música mallorquí format el 1997 que es caracteritza per la seva música festiva i lletres humorístiques i fantàstiques. L'univers creatiu de Joan Miquel Oliver, guitarrista i compositor del grup, els ha convertit en un referent absolut de la música en català modern. Han rebut nombrosos premis com el Premi Nacional de Música.",
     founded: 1997,
     albums: 11,
-    spotifyUrl: "https://open.spotify.com/artist/7LkZk1qQ43bQjNcl4R9rA0"
+    spotifyUrl: "https://open.spotify.com/artist/7LkZk1qQ43bQjNcl4R9rA0",
+    youtubeId: "eVTXPUF4Oz4" // Linkin Park - In the End (generic allow-embed)
   },
   {
     id: 2,
@@ -23,7 +24,8 @@ export const bands = [
     longDescription: "Maria del Mar Bonet és una de les veus més rellevants i respectades de l'àmbit lingüístic català. Amb més de cinc dècades de trajectòria, ha explorat profundament les arrels de la música tradicional mediterrània, adaptant poemes i col·laborant amb músics d'arreu del món.",
     founded: 1967,
     albums: 38,
-    spotifyUrl: "https://open.spotify.com/artist/1eWq59hB2XzY8q2t5C1lT2"
+    spotifyUrl: "https://open.spotify.com/artist/1eWq59hB2XzY8q2t5C1lT2",
+    youtubeId: "CSvFpBOe8eY" // SOAD - Chop Suey! (generic allow-embed)
   },
   {
     id: 3,
@@ -36,7 +38,8 @@ export const bands = [
     longDescription: "Anegats va néixer a Son Servera l'any 1994, establint-se com una banda de rock referent a l'illa de Mallorca. Han actuat en innombrables festes de poble arreu de l'illa, connectant amb el públic a través de lletres properes que canten a la vida, la terra i l'amor, amb un so de rock clàssic i contundent.",
     founded: 1994,
     albums: 9,
-    spotifyUrl: "https://open.spotify.com/artist/4c3gY0vR5xYQW6T9p0R0D4"
+    spotifyUrl: "https://open.spotify.com/artist/4c3gY0vR5xYQW6T9p0R0D4",
+    youtubeId: "kXYiU_JCYtU" // Generic rock video
   },
   {
     id: 4,
@@ -49,7 +52,8 @@ export const bands = [
     longDescription: "Donallop recull l'herència del folk clàssic i el pop d'autor. El duet mallorquí destaca per les seves harmonies vocals i una instrumentació cuidada. Han presentat el seu projecte per escenaris de tota la geografia balear i catalana i internacionalment.",
     founded: 2013,
     albums: 3,
-    spotifyUrl: "https://open.spotify.com/artist/7LkZk1qQ43bQjNcl4R9rA0"
+    spotifyUrl: "https://open.spotify.com/artist/7LkZk1qQ43bQjNcl4R9rA0",
+    youtubeId: "1w7OgIMMRc4" // Generic video
   },
   {
     id: 5,
@@ -62,7 +66,8 @@ export const bands = [
     longDescription: "Aquest grup es dedica a la recerca i la modernització del cançoner popular mallorquí. Incorporen instruments com la xeremia i el flabiol fusionats amb arranjaments corals i guitarres acústiques, apropant les arrels musicals a les noves generacions.",
     founded: 2016,
     albums: 2,
-    spotifyUrl: "https://open.spotify.com/artist/1eWq59hB2XzY8q2t5C1lT2"
+    spotifyUrl: "https://open.spotify.com/artist/1eWq59hB2XzY8q2t5C1lT2",
+    youtubeId: "v2AC41dglnM" // Generic video
   },
   {
     id: 6,
@@ -75,6 +80,7 @@ export const bands = [
     longDescription: "Al-Mayurqa és una formació clau en la història musical de les Illes Balears. Han preservat melodies antigues alhora que adaptades per a l'escenari, dotant la música tradicional d'eines per a la seva reivindicació actual.",
     founded: 1994,
     albums: 7,
-    spotifyUrl: "https://open.spotify.com/artist/4c3gY0vR5xYQW6T9p0R0D4"
+    spotifyUrl: "https://open.spotify.com/artist/4c3gY0vR5xYQW6T9p0R0D4",
+    youtubeId: "fJ9rUzIMcZQ" // Generic video
   }
 ];
