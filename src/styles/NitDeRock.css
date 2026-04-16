@@ -10,10 +10,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: 
+  background:
     radial-gradient(circle at 50% 50%, rgba(244, 193, 14, 0.05), transparent 70%),
-    linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(5,5,5,1)), 
-    url("/img/home-hero.webp") center/cover;
+    linear-gradient(to bottom, rgba(0,0,0,0.05), rgba(5,5,5,0.4)),
+    url("/img/galeria17.webp") center/cover;
   position: relative;
   overflow: hidden;
 }
@@ -22,7 +22,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.4) 100%);
+  background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.1) 100%);
   pointer-events: none;
 }
 
@@ -88,12 +88,12 @@
 .nit-info-section {
   background: #0a0a0a;
   color: white;
-  padding: 10rem 0;
+  padding: 4rem 0;
 }
 
 .nit-info-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
   gap: 3rem;
 }
 
@@ -231,7 +231,7 @@
 .nit-cta-section {
   background: #000;
   text-align: center;
-  padding: 12rem 0;
+  padding: 4rem 0;
   position: relative;
 }
 
@@ -239,7 +239,7 @@
   font-size: clamp(3rem, 7vw, 5rem);
   font-family: var(--font-heading);
   color: white;
-  margin-bottom: 4rem;
+  margin-bottom: 1.5rem;
   letter-spacing: 0.1em;
 }
 
@@ -254,4 +254,196 @@
   padding: 2rem 5rem;
   font-size: 1.4rem;
   box-shadow: 0 0 30px rgba(244, 193, 14, 0.2);
+}
+
+/* Hero description */
+.nit-hero-desc {
+  color: white;
+  font-size: 1.2rem;
+  margin-top: 1rem;
+  max-width: 600px;
+  margin-inline: auto;
+}
+
+/* Prizes compact list */
+.nit-prizes-compact {
+  list-style: none;
+  padding: 0;
+  margin-top: 1rem;
+  color: white;
+  font-size: 1.1rem;
+}
+
+.nit-prizes-compact li {
+  margin-bottom: 1rem;
+}
+
+.nit-prizes-note {
+  opacity: 0.6;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+  color: white;
+}
+
+/* CTA description */
+.nit-cta-desc {
+  color: white;
+  font-size: 1.2rem;
+  max-width: 700px;
+  margin-inline: auto;
+  margin-bottom: 3rem;
+  opacity: 0.8;
+}
+
+/* Voting Section */
+.nit-voting-section {
+  padding: 3rem 0;
+}
+
+.nit-voting-section .section-title {
+  text-align: center;
+  color: white;
+}
+
+.nit-voting-section .voting-desc {
+  color: white;
+  font-size: 1.2rem;
+  max-width: 700px;
+  margin-inline: auto;
+  margin-bottom: 1.5rem;
+  opacity: 0.8;
+  text-align: center;
+}
+
+.voting-container {
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.voting-container iframe {
+  width: 100%;
+  height: 600px;
+  border: none;
+  display: block;
+}
+
+/* ── Responsive ───────────────────────────────── */
+
+@media (max-width: 768px) {
+  .nit-hero {
+    min-height: 80vh;
+    padding: 3rem 0;
+  }
+
+  .nit-hero-eyebrow {
+    font-size: 0.9rem;
+    letter-spacing: 0.4em;
+    margin-bottom: 1.5rem;
+  }
+
+  .nit-hero-title {
+    margin: 1rem 0;
+  }
+
+  .nit-hero-countdown {
+    margin-top: 2.5rem;
+    transform: scale(1);
+  }
+
+  .nit-info-section {
+    padding: 4rem 0;
+  }
+
+  .nit-info-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .nit-info-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .nit-info-title {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+
+  .nit-info-text {
+    font-size: 1.05rem;
+  }
+
+  .nit-cta-section {
+    padding: 4rem 0;
+  }
+
+  .nit-cta-title {
+    margin-bottom: 2rem;
+  }
+
+  .nit-cta-btns .btn-primary {
+    padding: 1.2rem 2.5rem;
+    font-size: 1.1rem;
+    width: 100%;
+    text-align: center;
+  }
+
+  .nit-voting-section .voting-desc {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .voting-container iframe {
+    height: 550px;
+  }
+
+  .nit-prizes-compact li {
+    font-size: 1rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .nit-hero {
+    min-height: 70vh;
+    padding: 2rem 0;
+  }
+
+  .nit-hero-eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    margin-bottom: 1rem;
+  }
+
+  .nit-hero-countdown {
+    margin-top: 2rem;
+  }
+
+  .nit-info-section {
+    padding: 3rem 0;
+  }
+
+  .nit-info-card {
+    padding: 1.5rem 1.2rem;
+  }
+
+  .nit-info-title {
+    font-size: 1.5rem;
+  }
+
+  .nit-info-text {
+    font-size: 1rem;
+  }
+
+  .nit-cta-section {
+    padding: 3rem 0;
+  }
+
+  .nit-cta-btns .btn-primary {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+  }
+
+  .voting-container iframe {
+    height: 500px;
+  }
 }

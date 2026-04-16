@@ -43,14 +43,10 @@ export default function NitDeRock() {
           <div className="container">
             <div className="nit-hero-inner">
               <p className="nit-hero-eyebrow">MARIA DE LA SALUT</p>
-              <h1 className="nit-hero-title">III NIT <br/> DE ROCK</h1>
-              <p className="hero-description" style={{ color: 'white', fontSize: '1.4rem', marginTop: '2rem', maxWidth: '800px', marginInline: 'auto' }}>
-                Tens una banda de música Rock i t'agradaria tocar al Rock'n'Rostoll 2026? <br/>
-                <strong>Participa en el concurs de bandes de la III Nit de Rock!!</strong>
+              <h1 className="nit-hero-title">III NIT DE ROCK</h1>
+              <p className="hero-description nit-hero-desc">
+                <strong>Vota la teva banda preferida per a la final del 30 de maig.</strong>
               </p>
-              <div className="nit-hero-date-wrapper">
-                <p className="nit-hero-date">DISSABTE 30 DE MAIG</p>
-              </div>
               <div className="nit-hero-countdown">
                 <Countdown targetDate="2026-05-30T19:00:00" />
               </div>
@@ -58,100 +54,69 @@ export default function NitDeRock() {
           </div>
         </section>
 
-        {/* INFO SECTION 1 */}
+        {/* VOTING SECTION */}
+        <section className="section section-alt nit-voting-section">
+          <div className="container">
+            <h2 className="section-title">VOTA A LA SEMIFINAL</h2>
+            <p className="voting-desc">
+              Tria la banda que vols veure a la final. Tens fins al dia de tancament de l'enquesta per participar!
+            </p>
+
+            <div className="voting-container">
+              <div
+                className="strawpoll-embed"
+                id="strawpoll_XmZRQ0P9vgd"
+              >
+                <iframe
+                  title="StrawPoll Embed"
+                  id="strawpoll_iframe_XmZRQ0P9vgd"
+                  src="https://strawpoll.com/embed/XmZRQ0P9vgd"
+                  allowFullScreen
+                  allowTransparency
+                >
+                  Loading...
+                </iframe>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* INFO & PRIZES SECTION */}
         <section className="section nit-info-section">
           <div className="container">
             <div className="nit-info-grid">
               <div className="nit-info-card">
-                <h2 className="nit-info-title">L'ESCENARI</h2>
+                <h2 className="nit-info-title">DETALLS DE LA FINAL</h2>
                 <p className="nit-info-text">
-                  El poliesportiu municipal es converteix en el temple del rock el <strong>30 de maig</strong>. 
-                  Un espai condicionat per gaudir d'una nit de música emergent amb <strong>entrada lliure</strong>.
+                  📅 <strong>30 de Maig</strong> a Maria de la Salut. <br />
+                  📍 <strong>Poliesportiu Municipal</strong> (Entrada lliure). <br /><br />
+                  Les 3 bandes més votades aquí baix seran les finalistes que tocaran en directe. La decisió final dependrà del jurat i del vot presencial.
                 </p>
               </div>
               <div className="nit-info-card">
-                <h2 className="nit-info-title">LA FINAL</h2>
-                <p className="nit-info-text">
-                  Les 3 bandes més votades a Instagram seran les finalistes que tocaran el dia de la Nit de Rock (30 minuts per banda).
-                  La decisió final serà a càrrec dels organitzadors + votació popular.
-                </p>
+                <h2 className="nit-info-title">PREMIS</h2>
+                <ul className="nit-prizes-compact">
+                  <li><strong>🥇 1r Premi:</strong> Actuació remunerada Rock'n'Rostoll + Gravació</li>
+                  <li><strong>🥈 2n Premi:</strong> Gravació de dos temes</li>
+                  <li><strong>🥉 3r Premi:</strong> Gravació d'un tema</li>
+                </ul>
+                <p className="nit-prizes-note">*Inclou gravació, edició i mescla.</p>
               </div>
             </div>
           </div>
         </section>
 
-        {/* STEPS SECTION */}
-        <section id="concurs" className="section nit-steps-section">
-          <div className="container">
-            <h2 className="section-title nit-steps-title">COM APUNTAR-SE?</h2>
-            <div className="nit-steps-grid">
-              <article className="nit-step-article">
-                <span className="nit-step-label">Requisit</span>
-                <h3 className="nit-step-title">Cançons Pròpies</h3>
-                <p className="nit-step-text">Bandes de música Rock amb repertori original. No s'accepten grups de versions.</p>
-              </article>
-              <article className="nit-step-article">
-                <span className="nit-step-label">Contacte</span>
-                <h3 className="nit-step-title">Enviament Vídeo</h3>
-                <p className="nit-step-text">
-                  Envia un vídeo promocional a <strong>rocknrostoll@gmail.com</strong> detallant la formació.
-                  <br /><br />
-                  <span style={{ color: 'var(--color-accent-yellow)', fontWeight: 'bold' }}>DATA LÍMIT: 15 D'ABRIL</span>
-                </p>
-              </article>
-              <article className="nit-step-article">
-                <span className="nit-step-label">Selecció</span>
-                <h3 className="nit-step-title">Votació Popular</h3>
-                <p className="nit-step-text">Entre els seleccionats es faran votacions a través de l'Instagram del <strong>@rocknrostoll</strong>.</p>
-              </article>
-            </div>
-          </div>
-        </section>
 
-        {/* PRIZES SECTION */}
-        <section className="section nit-prizes-section">
-          <div className="container nit-prizes-container">
-            <h2 className="section-title" style={{ textAlign: 'center', marginBottom: '5rem', color: 'white' }}>PREMIS</h2>
-            <div className="nit-prizes-list">
-              <div className="nit-prize-item">
-                <span className="nit-prize-rank gold">01</span>
-                <div>
-                  <h3 className="nit-prize-title">PRIMER PREMI</h3>
-                  <p className="nit-prize-desc">Actuació remunerada a la XXX Edició del Rock’n’Rostoll + Gravació d’un tema*</p>
-                </div>
-              </div>
-              <div className="nit-prize-item">
-                <span className="nit-prize-rank silver">02</span>
-                <div>
-                  <h3 className="nit-prize-title">SEGON PREMI</h3>
-                  <p className="nit-prize-desc">Gravació de dos temes*</p>
-                </div>
-              </div>
-              <div className="nit-prize-item">
-                <span className="nit-prize-rank bronze">03</span>
-                <div>
-                  <h3 className="nit-prize-title">TERCER PREMI</h3>
-                  <p className="nit-prize-desc">Gravació d'un tema*</p>
-                </div>
-              </div>
-            </div>
-            <p style={{ textAlign: 'center', marginTop: '3rem', opacity: 0.6, fontSize: '1rem', color: 'white' }}>
-              (*Inclou gravació, edició, mescla i masterització)
-            </p>
-          </div>
-        </section>
 
         {/* FINAL CTA */}
-        <section className="section nit-cta-section">
+        <section className="section section-alt nit-cta-section">
           <div className="container">
-            <h2 className="nit-cta-title">VOTACIÓ DE LA FINAL</h2>
-            <p style={{ color: 'white', fontSize: '1.2rem', maxWidth: '700px', marginInline: 'auto', marginBottom: '3rem', opacity: 0.8 }}>
-              El guanyador es decidirà per la combinació del jurat i la votació popular: 
-              <strong> un vot per consumició associada durant la nit del concert.</strong>
+            <h2 className="nit-cta-title">SEGUEIX EL CONCURS</h2>
+            <p className="nit-cta-desc">
+              No et perdis cap detall de la III Nit de Rock i la gran final del 30 de maig.
             </p>
             <div className="nit-cta-btns">
-              <a href="mailto:rocknrostoll@gmail.com" className="btn-primary">INSCRIU LA TEVA BANDA</a>
-              <a href="https://instagram.com/rocknrostoll" target="_blank" rel="noopener noreferrer" className="btn-outline">VEURE INSTAGRAM</a>
+              <a href="https://instagram.com/rocknrostoll" target="_blank" rel="noopener noreferrer" className="btn-primary">INSTAGRAM @ROCKNROSTOLL</a>
             </div>
           </div>
         </section>
