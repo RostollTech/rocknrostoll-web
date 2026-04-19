@@ -17,16 +17,31 @@ export default function ArtistCard({ artist }) {
   return (
     <>
       <article className="artist-card">
-        <div className="artist-card-header" style={{ backgroundColor: artist.color || "#215b77" }}>
-          <div className="artist-card-rings">
-            <div className="ring ring-1"></div>
-            <div className="ring ring-2"></div>
-            <div className="artist-initials">{artist.initials}</div>
-          </div>
-          <div className="artist-header-info">
-            <p className="artist-full-name">{artist.name}</p>
-            <p className="artist-subtitle">ARTISTA</p>
-          </div>
+        <div 
+          className={`artist-card-header ${artist.photo ? 'has-photo' : ''}`} 
+          style={{
+            backgroundColor: artist.photo ? "#111" : (artist.color || "#215b77"),
+            ...(artist.photo ? {
+              backgroundImage: `url(${artist.photo})`,
+              backgroundSize: 'contain',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat'
+            } : {})
+          }}
+        >
+          {!artist.photo && (
+            <>
+              <div className="artist-card-rings">
+                <div className="ring ring-1"></div>
+                <div className="ring ring-2"></div>
+                <div className="artist-initials">{artist.initials}</div>
+              </div>
+              <div className="artist-header-info">
+                <p className="artist-full-name">{artist.name}</p>
+                <p className="artist-subtitle">ARTISTA</p>
+              </div>
+            </>
+          )}
         </div>
 
         <div className="artist-card-body">
@@ -53,11 +68,29 @@ export default function ArtistCard({ artist }) {
         <div className="artist-modal-overlay" onClick={handleClickOutside}>
           <div className="artist-modal-content">
             <button className="artist-modal-close" onClick={toggleModal}>&times;</button>
-            <div className="artist-modal-header" style={{ backgroundColor: artist.color || "#215b77" }}>
-              <div className="artist-initials-large">{artist.initials}</div>
-              <h2 className="artist-modal-title">{artist.name}</h2>
+            <div 
+              className={`artist-modal-header ${artist.photo ? 'has-photo' : ''}`} 
+              style={{
+                backgroundColor: artist.photo ? "#111" : (artist.color || "#215b77"),
+                ...(artist.photo ? {
+                  backgroundImage: `url(${artist.photo})`,
+                  backgroundSize: 'contain',
+                  backgroundPosition: 'center',
+                  backgroundRepeat: 'no-repeat'
+                } : {})
+              }}
+            >
+              {!artist.photo && (
+                <>
+                  <div className="artist-initials-large">{artist.initials}</div>
+                  <h2 className="artist-modal-title">{artist.name}</h2>
+                </>
+              )}
             </div>
             <div className="artist-modal-body">
+              {artist.photo && (
+                <h2 className="artist-modal-title" style={{ marginTop: 0, marginBottom: '20px', textShadow: 'none' }}>{artist.name}</h2>
+              )}
               <div className="artist-genres">
                 {artist.genres?.map(genre => (
                   <span key={genre} className="artist-badge-secondary">{genre}</span>

@@ -20,7 +20,8 @@
 }
 
 .artist-card-header {
-  height: 180px;
+  aspect-ratio: 1 / 1;
+  width: 100%;
   position: relative;
   display: flex;
   align-items: center;
@@ -39,6 +40,10 @@
   opacity: 0.2;
   mix-blend-mode: screen;
   z-index: 1;
+}
+
+.artist-card-header.has-photo::after {
+  display: none;
 }
 
 .artist-card-rings {
@@ -372,6 +377,10 @@
   mix-blend-mode: screen;
 }
 
+.artist-modal-header.has-photo::after {
+  display: none;
+}
+
 .artist-initials-large {
   font-size: 3.5rem;
   font-family: serif;
@@ -479,9 +488,7 @@
 
 /* Ajustaments per telèfons perquè 2 columnes hi càpiguen bé */
 @media (max-width: 500px) {
-  .artist-card-header {
-    height: 120px;
-  }
+  /* let aspect ratio scale header naturally */
   .artist-card-rings,
   .artist-initials {
     width: 60px;

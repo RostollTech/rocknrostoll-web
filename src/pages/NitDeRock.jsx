@@ -83,7 +83,7 @@ export default function NitDeRock() {
         {/* BANDS SECTION */}
         <section className="section section-alt nit-bands-section">
           <div className="container">
-            <h2 className="section-title">CONEIX LES BANDES</h2>
+            <h2 className="section-title">CONEIX LES BANDES SEMIFINALISTES</h2>
             <p className="voting-desc" style={{ textAlign: "center", marginBottom: "30px" }}>
               Aquests són els artistes seleccionats. Descobreix-los abans de votar!
             </p>
