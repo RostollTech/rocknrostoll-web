@@ -69,28 +69,20 @@ export default function ArtistCard({ artist }) {
           <div className="artist-modal-content">
             <button className="artist-modal-close" onClick={toggleModal}>&times;</button>
             <div 
-              className={`artist-modal-header ${artist.photo ? 'has-photo' : ''}`} 
               style={{
-                backgroundColor: artist.photo ? "#111" : (artist.color || "#215b77"),
-                ...(artist.photo ? {
-                  backgroundImage: `url(${artist.photo})`,
-                  backgroundSize: 'contain',
-                  backgroundPosition: 'center',
-                  backgroundRepeat: 'no-repeat'
-                } : {})
+                backgroundColor: artist.color || "#215b77",
+                padding: "2rem",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                borderBottom: "2px solid rgba(0, 0, 0, 0.5)",
+                borderRadius: "var(--radius-md) var(--radius-md) 0 0"
               }}
             >
-              {!artist.photo && (
-                <>
-                  <div className="artist-initials-large">{artist.initials}</div>
-                  <h2 className="artist-modal-title">{artist.name}</h2>
-                </>
-              )}
+              <h3 style={{margin: "0 0 0.5rem 0", fontSize: "2.2rem", color: "#fff", textTransform: "uppercase", fontWeight: "900", letterSpacing: "1px"}}>{artist.name}</h3>
+              <p style={{margin: 0, color: "rgba(255, 255, 255, 0.9)", fontSize: "1.1rem", lineHeight: "1.4", fontStyle: "italic"}}>{artist.description}</p>
             </div>
             <div className="artist-modal-body">
-              {artist.photo && (
-                <h2 className="artist-modal-title" style={{ marginTop: 0, marginBottom: '20px', textShadow: 'none' }}>{artist.name}</h2>
-              )}
               <div className="artist-genres">
                 {artist.genres?.map(genre => (
                   <span key={genre} className="artist-badge-secondary">{genre}</span>
