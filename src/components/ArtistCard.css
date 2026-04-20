@@ -398,19 +398,52 @@
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
-.artist-modal-body {
-  padding: 40px 30px;
+.artist-modal-header-content {
+  position: relative;
+  z-index: 2;
 }
 
-.artist-modal-title {
-  margin: 0;
-  color: var(--text-light);
-  font-family: var(--font-heading);
+.artist-modal-name {
+  margin: 0 0 0.5rem 0;
   font-size: 2.2rem;
-  letter-spacing: 0.08em;
-  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-  z-index: 2;
-  position: relative;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 900;
+  letter-spacing: 1px;
+  line-height: 1.1;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.artist-modal-short-desc {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.1rem;
+  line-height: 1.4;
+  font-style: italic;
+}
+
+@media (max-width: 480px) {
+  .artist-modal-name {
+    font-size: 1.5rem;
+  }
+  
+  .artist-modal-short-desc {
+    font-size: 0.95rem;
+  }
+  
+  .artist-modal-body {
+    padding: 25px 20px;
+  }
+  
+  .artist-modal-content {
+    max-height: 95vh;
+    padding-bottom: 20px;
+  }
+
+  .artist-modal-video {
+    margin-bottom: 20px;
+  }
 }
 
               
@@ -436,22 +469,30 @@
 .artist-modal-links {
   display: flex;
   justify-content: center;
+  gap: 0.8rem;
+  flex-wrap: wrap;
 }
 
-.btn-spotify-large {
+.btn-spotify-large,
+.btn-apple-large,
+.btn-instagram-large {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background-color: #1ed760;
-  color: #000;
-  text-decoration: none;
-  padding: 14px 32px;
+  gap: 8px;
+  padding: 12px 24px;
   border-radius: 999px;
   font-weight: 700;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   transition: all 0.2s;
+  text-decoration: none;
+}
+
+.btn-spotify-large {
+  background-color: #1ed760;
+  color: #000;
   box-shadow: 0 8px 24px rgba(30, 215, 96, 0.3);
 }
 
@@ -461,8 +502,59 @@
   box-shadow: 0 12px 30px rgba(30, 215, 96, 0.4);
 }
 
-.btn-spotify-large svg {
-  color: #000;
+.btn-apple-large {
+  background-color: #fc3c44;
+  color: #fff;
+  box-shadow: 0 8px 24px rgba(252, 60, 68, 0.2);
+}
+
+.btn-apple-large:hover {
+  background-color: #fd5158;
+  transform: scale(1.05) translateY(-2px);
+  box-shadow: 0 12px 30px rgba(252, 60, 68, 0.3);
+}
+
+.btn-instagram-large {
+  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  color: #fff;
+  box-shadow: 0 8px 24px rgba(188, 24, 136, 0.2);
+}
+
+.btn-instagram-large:hover {
+  transform: scale(1.05) translateY(-2px);
+  box-shadow: 0 12px 30px rgba(188, 24, 136, 0.3);
+  filter: brightness(1.1);
+}
+
+@media (max-width: 480px) {
+  .artist-modal-links {
+    gap: 1rem;
+  }
+  
+  .btn-label {
+    display: none;
+  }
+  
+  .btn-spotify-large,
+  .btn-apple-large,
+  .btn-instagram-large {
+    padding: 12px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
+
+  .btn-spotify-large svg,
+  .btn-apple-large svg,
+  .btn-instagram-large svg {
+    margin: 0;
+  }
+}
+
+.btn-instagram-large:hover {
+  transform: scale(1.05) translateY(-2px);
+  box-shadow: 0 12px 30px rgba(188, 24, 136, 0.3);
+  filter: brightness(1.1);
 }
 
 /* Grid layout for the section */
