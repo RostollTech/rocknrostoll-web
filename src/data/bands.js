@@ -83,6 +83,6 @@ export const bands = [
         longDescription: "Grup participant al concurs de la Nit de Rock, portant la millor música a l'escenari.",
         spotifyUrl: "",
         youtubeId: "",
-        instagramUrl: "https://www.instagram.com/allourencrostons/"
+        instagramUrl: "https://www.instagram.com/alloure_rock/"
     }
 ];

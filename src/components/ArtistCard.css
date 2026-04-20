@@ -184,7 +184,8 @@
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-bottom: 15px;
+  margin-top: 12px;
+  margin-bottom: 20px;
 }
 
 .artist-badge-secondary {
@@ -471,6 +472,8 @@
   justify-content: center;
   gap: 0.8rem;
   flex-wrap: wrap;
+  margin-top: 24px;
+  margin-bottom: 8px;
 }
 
 .btn-spotify-large,
