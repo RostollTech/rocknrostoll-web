@@ -115,22 +115,17 @@ export default function NitDeRock() {
             </p>
 
             <div className="voting-container">
-              <div
-                className="google-form-embed"
-                style={{ maxWidth: "640px", width: "100%", margin: "0 auto" }}
-              >
                 <iframe
+                  className="voting-iframe"
                   title="Votació Semifinal"
                   src="https://docs.google.com/forms/d/e/1FAIpQLSerqOapn0DbzIdgVU3ABAVYqz6HTaObUtoWF0afufoCedtJ_w/viewform?embedded=true"
                   width="100%"
-                  height="950"
                   frameBorder="0"
                   marginHeight="0"
                   marginWidth="0"
                 >
                   S'està carregant…
                 </iframe>
-              </div>
             </div>
           </div>
         </section>

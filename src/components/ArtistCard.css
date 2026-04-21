@@ -154,9 +154,9 @@
 
 .artist-title-row {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: flex-start;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .artist-name {
@@ -166,6 +166,7 @@
   font-size: 1.6rem;
   color: var(--text-light);
   line-height: 1.1;
+  text-align: center;
 }
 
 .artist-badge-primary {
@@ -180,12 +181,19 @@
   box-shadow: 0 4px 10px rgba(230, 38, 38, 0.2);
 }
 
+.artist-origin {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 8px;
+  margin-bottom: 4px;
+}
+
 .artist-genres {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-top: 12px;
-  margin-bottom: 20px;
+  margin-bottom: 14px;
+  justify-content: flex-start;
 }
 
 .artist-badge-secondary {
@@ -298,8 +306,8 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: var(--radius-lg);
   width: 100%;
-  max-width: 550px;
-  max-height: 90vh;
+  max-width: 520px;
+  max-height: 85vh;
   overflow-y: auto;
   position: relative;
   box-shadow: 0 26px 60px rgba(0, 0, 0, 0.6);
@@ -354,11 +362,11 @@
 
 .artist-modal-header {
   height: auto;
-  min-height: 200px;
-  padding: 40px 20px 30px;
+  min-height: 80px;
+  padding: 18px 20px 14px;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 6px;
   align-items: center;
   justify-content: center;
   border-bottom: 2px solid rgba(0, 0, 0, 0.4);
@@ -405,8 +413,8 @@
 }
 
 .artist-modal-name {
-  margin: 0 0 0.5rem 0;
-  font-size: 2.2rem;
+  margin: 0 0 0.3rem 0;
+  font-size: 1.7rem;
   color: #fff;
   text-transform: uppercase;
   font-weight: 900;
@@ -418,10 +426,15 @@
 
 .artist-modal-short-desc {
   margin: 0;
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 1.1rem;
-  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.85rem;
+  line-height: 1.3;
   font-style: italic;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  max-width: 450px;
 }
 
 @media (max-width: 480px) {
@@ -447,12 +460,16 @@
   }
 }
 
-              
+/* Padding base del cos del modal */
+.artist-modal-body {
+  padding: 12px 20px;
+}
+
 .artist-modal-video {
   position: relative;
   width: 100%;
-  padding-bottom: 56.25%; /* Aspect Ratio 16:9 */
-  margin-bottom: 30px;
+  padding-bottom: 48%; /* lleugerament més baix que 16:9 */
+  margin-bottom: 12px;
   border-radius: var(--radius-sm);
   overflow: hidden;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
@@ -470,64 +487,82 @@
 .artist-modal-links {
   display: flex;
   justify-content: center;
-  gap: 0.8rem;
+  gap: 0.5rem;
   flex-wrap: wrap;
-  margin-top: 24px;
-  margin-bottom: 8px;
+  margin-top: 10px;
+  margin-bottom: 2px;
 }
 
 .btn-spotify-large,
 .btn-apple-large,
-.btn-instagram-large {
+.btn-instagram-large,
+.btn-bandcamp-large {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  padding: 12px 24px;
+  gap: 7px;
+  padding: 9px 18px;
   border-radius: 999px;
   font-weight: 700;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  transition: all 0.2s;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   text-decoration: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
+/* Individual Brand Styles */
 .btn-spotify-large {
   background-color: #1ed760;
   color: #000;
-  box-shadow: 0 8px 24px rgba(30, 215, 96, 0.3);
 }
 
 .btn-spotify-large:hover {
   background-color: #1fdf64;
-  transform: scale(1.05) translateY(-2px);
-  box-shadow: 0 12px 30px rgba(30, 215, 96, 0.4);
+  box-shadow: 0 8px 24px rgba(30, 215, 96, 0.4);
 }
 
 .btn-apple-large {
   background-color: #fc3c44;
   color: #fff;
-  box-shadow: 0 8px 24px rgba(252, 60, 68, 0.2);
 }
 
 .btn-apple-large:hover {
   background-color: #fd5158;
-  transform: scale(1.05) translateY(-2px);
-  box-shadow: 0 12px 30px rgba(252, 60, 68, 0.3);
+  box-shadow: 0 8px 24px rgba(252, 60, 68, 0.3);
 }
 
 .btn-instagram-large {
-  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  background-color: #E1306C; /* Solid Premium Pink */
   color: #fff;
-  box-shadow: 0 8px 24px rgba(188, 24, 136, 0.2);
 }
 
 .btn-instagram-large:hover {
+  background-color: #f03774;
+  box-shadow: 0 8px 24px rgba(225, 48, 108, 0.3);
+}
+
+.btn-bandcamp-large {
+  background-color: #629aa9;
+  color: #fff;
+}
+
+.btn-bandcamp-large:hover {
+  background-color: #72aab9;
+  box-shadow: 0 8px 24px rgba(98, 154, 169, 0.3);
+}
+
+/* Shared Hover Effect */
+.btn-spotify-large:hover,
+.btn-apple-large:hover,
+.btn-instagram-large:hover,
+.btn-bandcamp-large:hover {
   transform: scale(1.05) translateY(-2px);
-  box-shadow: 0 12px 30px rgba(188, 24, 136, 0.3);
   filter: brightness(1.1);
 }
+
+/* Removing redundant classes that are now unified at the top */
 
 @media (max-width: 480px) {
   .artist-modal-links {
@@ -540,7 +575,8 @@
   
   .btn-spotify-large,
   .btn-apple-large,
-  .btn-instagram-large {
+  .btn-instagram-large,
+  .btn-bandcamp-large {
     padding: 12px;
     width: 50px;
     height: 50px;
@@ -549,38 +585,216 @@
 
   .btn-spotify-large svg,
   .btn-apple-large svg,
-  .btn-instagram-large svg {
+  .btn-instagram-large svg,
+  .btn-bandcamp-large svg {
     margin: 0;
   }
 }
 
-.btn-instagram-large:hover {
-  transform: scale(1.05) translateY(-2px);
-  box-shadow: 0 12px 30px rgba(188, 24, 136, 0.3);
-  filter: brightness(1.1);
-}
+/* Final definitions removed here to avoid redundancy if any remained from previous messy edits */
 
 /* Grid layout for the section */
 .artists-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2 columnes en mòbil base */
-  gap: var(--space-3); /* menys espai entre targetes a mòbil */
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
   margin-top: var(--space-5);
   margin-bottom: var(--space-5);
+  max-width: 640px;
+  margin-inline: auto;
 }
 
 @media (min-width: 768px) {
   .artists-grid {
-    gap: var(--space-6);
+    gap: 2.5rem;
+  }
+}
+
+/* Tablet: 2 columnes ben espaiades */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .artists-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem;
+    max-width: 800px;
+  }
+
+  .artist-card-body {
+    padding: 18px;
+  }
+
+  .artist-name {
+    font-size: 1.4rem;
+  }
+
+  .artist-modal-overlay {
+    padding: 24px;
+  }
+
+  .artist-modal-content {
+    max-width: 580px;
+    max-height: 82vh;
+  }
+
+  .artist-modal-body {
+    padding: 14px 25px;
+  }
+
+  .artist-modal-header {
+    min-height: 100px;
+    padding: 20px 30px 14px;
+  }
+
+  .artist-modal-name {
+    font-size: 1.8rem;
+  }
+
+  .artist-modal-short-desc {
+    font-size: 0.88rem;
+    max-width: 480px;
+  }
+
+  .artist-modal-video {
+    padding-bottom: 48%;
+    margin-bottom: 14px;
+  }
+
+  .artist-modal-links {
+    gap: 0.8rem;
+    margin-top: 14px;
+  }
+
+  .btn-spotify-large,
+  .btn-apple-large,
+  .btn-instagram-large,
+  .btn-bandcamp-large {
+    padding: 9px 16px;
+    font-size: 0.8rem;
   }
 }
 
 @media (min-width: 1024px) {
   .artists-grid {
     grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+    max-width: 1000px;
+  }
+
+  .artist-card-body {
+    padding: 22px;
+  }
+
+  .artist-name {
+    font-size: 1.7rem;
+  }
+
+  .artist-modal-overlay {
+    padding: 30px;
+  }
+
+  .artist-modal-content {
+    max-width: 580px;
+    max-height: 84vh;
+  }
+
+  .artist-modal-body {
+    padding: 20px 26px;
+  }
+
+  .artist-modal-name {
+    font-size: 1.9rem;
+  }
+
+  .artist-modal-short-desc {
+    font-size: 0.9rem;
+    max-width: 520px;
+  }
+
+  .artist-modal-header {
+    min-height: 130px;
+    padding: 30px 30px 22px;
+  }
+
+  .artist-modal-close {
+    top: 12px;
+    right: 12px;
+    width: 36px;
+    height: 36px;
+    font-size: 1.4rem;
+  }
+
+  .artist-modal-video {
+    padding-bottom: 48%;
+    margin-bottom: 16px;
+    border-radius: 8px;
+  }
+
+  .artist-modal-links {
+    gap: 0.8rem;
+    margin-top: 14px;
+    margin-bottom: 4px;
+  }
+
+  .btn-spotify-large,
+  .btn-apple-large,
+  .btn-instagram-large,
+  .btn-bandcamp-large {
+    padding: 9px 18px;
+    font-size: 0.82rem;
+    gap: 8px;
   }
 }
 
+/* Desktop gran (≥1200px): la grid pot anar més ampla */
+@media (min-width: 1200px) {
+  .artists-grid {
+    gap: 4rem;
+    max-width: 1200px;
+  }
+
+  .artist-card-body {
+    padding: 24px;
+  }
+
+  .artist-name {
+    font-size: 1.8rem;
+  }
+
+  .artist-modal-content {
+    max-width: 620px;
+    max-height: 86vh;
+  }
+
+  .artist-modal-body {
+    padding: 22px 30px;
+  }
+
+  .artist-modal-name {
+    font-size: 2rem;
+  }
+
+  .artist-modal-short-desc {
+    font-size: 0.92rem;
+    max-width: 540px;
+  }
+
+  .artist-modal-header {
+    min-height: 130px;
+    padding: 30px 40px 22px;
+  }
+
+  .artist-modal-links {
+    gap: 1rem;
+    margin-top: 16px;
+  }
+
+  .btn-spotify-large,
+  .btn-apple-large,
+  .btn-instagram-large,
+  .btn-bandcamp-large {
+    padding: 10px 22px;
+    font-size: 0.85rem;
+  }
+}
 /* Ajustaments per telèfons perquè 2 columnes hi càpiguen bé */
 @media (max-width: 500px) {
   /* let aspect ratio scale header naturally */

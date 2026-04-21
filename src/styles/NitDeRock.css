@@ -316,7 +316,7 @@
   padding: 3rem 0;
 }
 
-.nit-voting-section .section-title {
+.section-title {
   text-align: center;
   color: white;
 }
@@ -337,15 +337,179 @@
   margin: 0 auto;
 }
 
-.voting-container iframe {
+.voting-iframe {
   width: 100%;
-  min-height: 700px;
-  height: 700px;
+  height: 900px;
   border: none;
   display: block;
+  border-radius: 8px;
 }
 
 /* ── Responsive ───────────────────────────────── */
+
+/* ── Portàtil / Desktop gran (≥1200px) ─────────── */
+@media (min-width: 1200px) {
+  .nit-hero-inner {
+    max-width: 1100px;
+  }
+
+  .nit-hero-eyebrow {
+    font-size: 1.6rem;
+    letter-spacing: 1em;
+  }
+
+  .nit-hero-date-wrapper {
+    padding: 3rem 0;
+    margin: 5rem 0;
+  }
+
+  .nit-hero-date {
+    font-size: 3rem;
+  }
+
+  .nit-steps-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4rem;
+  }
+
+  .nit-info-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3rem;
+  }
+
+  .nit-prize-item {
+    padding: 4rem 5rem;
+  }
+
+  .voting-container {
+    max-width: 750px;
+  }
+
+  .voting-container iframe {
+    height: 950px;
+  }
+}
+
+/* ── Portàtil (1024px – 1199px) ─────────────────── */
+@media (min-width: 1024px) and (max-width: 1199px) {
+  .nit-hero-inner {
+    max-width: 900px;
+  }
+
+  .nit-hero-eyebrow {
+    font-size: 1.3rem;
+    letter-spacing: 0.7em;
+  }
+
+  .nit-steps-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+  }
+
+  .nit-info-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem;
+  }
+
+  .nit-prize-item {
+    padding: 3rem 4rem;
+  }
+
+  .voting-container iframe {
+    height: 900px;
+  }
+}
+
+/* ── Tablet (768px – 1023px) ─────────────────────── */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .nit-hero {
+    min-height: 90vh;
+  }
+
+  .nit-hero-inner {
+    max-width: 720px;
+    padding: 0 2rem;
+  }
+
+  .nit-hero-eyebrow {
+    font-size: 1.1rem;
+    letter-spacing: 0.6em;
+    margin-bottom: 2rem;
+  }
+
+  .nit-hero-countdown {
+    margin-top: 3.5rem;
+    transform: scale(1.05);
+  }
+
+  .nit-info-section {
+    padding: 5rem 0;
+  }
+
+  .nit-info-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+
+  .nit-info-card {
+    padding: 2.5rem 2rem;
+  }
+
+  .nit-info-title {
+    font-size: 2.2rem;
+  }
+
+  .nit-info-text {
+    font-size: 1.15rem;
+  }
+
+  .nit-steps-section {
+    padding: 8rem 0;
+  }
+
+  .nit-steps-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3rem;
+  }
+
+  .nit-prizes-section {
+    padding: 7rem 0;
+  }
+
+  .nit-prize-item {
+    padding: 3rem;
+    gap: 3rem;
+  }
+
+  .nit-prize-rank {
+    font-size: 4rem;
+  }
+
+  .nit-prize-title {
+    font-size: 1.8rem;
+  }
+
+  .nit-cta-section {
+    padding: 5rem 0 7rem;
+  }
+
+  .nit-cta-btns .btn-primary {
+    padding: 1.6rem 3.5rem;
+    font-size: 1.2rem;
+  }
+
+  .voting-container {
+    max-width: 640px;
+  }
+
+  .voting-iframe {
+    height: 850px;
+  }
+
+  .nit-voting-section .voting-desc {
+    font-size: 1.1rem;
+  }
+}
 
 @media (max-width: 768px) {
   .nit-hero {
@@ -410,8 +574,8 @@
     margin-bottom: 2rem;
   }
 
-  .voting-container iframe {
-    height: 800px;
+  .voting-iframe {
+    height: 1100px;
   }
 
 
@@ -461,8 +625,8 @@
     font-size: 1rem;
   }
 
-  .voting-container iframe {
-    height: 650px;
+  .voting-iframe {
+    height: 1050px;
   }
 
 }

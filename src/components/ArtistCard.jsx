@@ -4,9 +4,7 @@ import "./ArtistCard.css";
 export default function ArtistCard({ artist }) {
   const [modalOpen, setModalOpen] = useState(false);
 
-  const toggleModal = () => {
-    setModalOpen(!modalOpen);
-  };
+  const toggleModal = () => setModalOpen(!modalOpen);
 
   const handleClickOutside = (e) => {
     if (e.target.className === "artist-modal-overlay") {
@@ -23,7 +21,7 @@ export default function ArtistCard({ artist }) {
             backgroundColor: artist.photo ? "#111" : (artist.color || "#215b77"),
             ...(artist.photo ? {
               backgroundImage: `url(${artist.photo})`,
-              backgroundSize: 'contain',
+              backgroundSize: 'cover',
               backgroundPosition: 'center',
               backgroundRepeat: 'no-repeat'
             } : {})
@@ -47,6 +45,9 @@ export default function ArtistCard({ artist }) {
         <div className="artist-card-body">
           <div className="artist-title-row">
             <h3 className="artist-name">{artist.name}</h3>
+          </div>
+
+          <div className="artist-origin">
             {artist.origin && <span className="artist-badge-primary">{artist.origin}</span>}
           </div>
 
@@ -85,6 +86,9 @@ export default function ArtistCard({ artist }) {
             </div>
             </div>
             <div className="artist-modal-body">
+              <div className="artist-origin">
+                {artist.origin && <span className="artist-badge-primary">{artist.origin}</span>}
+              </div>
               <div className="artist-genres">
                 {artist.genres?.map(genre => (
                   <span key={genre} className="artist-badge-secondary">{genre}</span>
@@ -118,6 +122,14 @@ export default function ArtistCard({ artist }) {
                       <path d="M18.89 12.01c-.04-1.93 1.57-2.86 1.64-2.91-1.34-1.96-3.41-2.22-4.14-2.25-1.75-.18-3.41 1.03-4.3 1.03-.89 0-2.25-1.01-3.71-.97-1.92.03-3.69 1.12-4.68 2.84C1.68 13.3 3.19 18.66 5.18 21.53c.97 1.4 2.12 2.97 3.64 2.91 1.46-.06 2.01-.94 3.77-.94 1.76 0 2.26.94 3.79.91 1.58-.03 2.58-1.41 3.55-2.81 1.11-1.62 1.57-3.19 1.59-3.27-.03-.02-3.07-1.18-3.11-4.69zM15.11 4.54c.78-.95 1.31-2.27 1.16-3.59-1.13.04-2.5 0-3.32 1.93-.72.84-1.34 2.18-1.17 3.48 1.25.1 2.54-.87 3.33-1.82z" />
                     </svg>
                     <span className="btn-label">Apple Music</span>
+                  </a>
+                )}
+                {artist.bandcampUrl && (
+                  <a href={artist.bandcampUrl} target="_blank" rel="noopener noreferrer" className="btn-bandcamp-large">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                      <path d="M0 18.75l7.437-13.5H24l-7.438 13.5H0z" />
+                    </svg>
+                    <span className="btn-label">Bandcamp</span>
                   </a>
                 )}
                 {artist.instagramUrl && (
