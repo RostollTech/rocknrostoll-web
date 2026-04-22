@@ -416,7 +416,7 @@
   }
 
   .voting-container iframe {
-    height: 900px;
+    height: 950px;
   }
 }
 
@@ -503,7 +503,7 @@
   }
 
   .voting-iframe {
-    height: 850px;
+    height: 900px;
   }
 
   .nit-voting-section .voting-desc {
@@ -511,6 +511,7 @@
   }
 }
 
+/* ── Mòbil gran (≤768px) ────────────────────────── */
 @media (max-width: 768px) {
   .nit-hero {
     min-height: 80vh;
@@ -575,7 +576,7 @@
   }
 
   .voting-iframe {
-    height: 750px;
+    height: 900px;
   }
 
 
@@ -584,6 +585,7 @@
   }
 }
 
+/* ── Mòbil petit (≤480px) ───────────────────────── */
 @media (max-width: 480px) {
   .nit-hero {
     min-height: 70vh;
@@ -626,7 +628,7 @@
   }
 
   .voting-iframe {
-    height: 700px;
+    height: 1000px;
   }
 
 }
