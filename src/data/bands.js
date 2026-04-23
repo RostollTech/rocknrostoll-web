@@ -80,12 +80,12 @@ export const bands = [
         initials: "AL",
         color: "#4e7041",
         photo: "/img/bandes/alloure.webp",
-        origin: "MALLORCA",
-        genres: ["Rock"],
-        description: "Grup participant al concurs de la Nit de Rock.",
-        longDescription: "Grup participant al concurs de la Nit de Rock, portant la millor música a l'escenari.",
+        origin: "MANACOR / MARIA DE LA SALUT",
+        genres: ["Rock Cru"],
+        description: "Quatre joves mallorquins de Manacor i un de Maria de la Salut que troben en la cultura rural l'impuls per crear un projecte de rock cru i directe, traslladant el pes de les seves arrels a l'escenari.",
+        longDescription: "Som A LLOURE, Quatre joves mallorquins de Manacor i un de Maria de la Salut que trobem en la nostra cultura rural l'impuls per crear un projecte de rock cru i directe.\n\nLa nostra sonoritat contundent surt de la necesitat de traslladar el pes de les nostres arrels a l'escenari.",
         spotifyUrl: "",
-        youtubeId: "",
+        youtubeId: "AknTd-3rjII",
         instagramUrl: "https://www.instagram.com/alloure_rock/"
     }
 ];
