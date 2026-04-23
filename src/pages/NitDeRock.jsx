@@ -53,6 +53,72 @@ export default function NitDeRock() {
     };
   }, []);
 
+  const IS_MAINTENANCE = true;
+
+  if (IS_MAINTENANCE) {
+    return (
+      <>
+        <SEO
+          title="Manteniment · III Nit de Rock · Rock’n’Rostoll"
+          description="Estem solucionant uns problemes tècnics. Torna aviat!"
+          canonicalPath="/nit-de-rock"
+        />
+        <Navbar />
+        <main className="nit-de-rock-page maintenance-page" style={{ 
+          minHeight: "80vh", 
+          display: "flex", 
+          flexDirection: "column",
+          justifyContent: "center", 
+          alignItems: "center",
+          padding: "2rem"
+        }}>
+          <div className="container" style={{ textAlign: "center", maxWidth: "800px" }}>
+            <div className="maintenance-card" style={{
+              background: "rgba(255, 255, 255, 0.03)",
+              border: "1px solid rgba(255, 255, 255, 0.1)",
+              borderRadius: "24px",
+              padding: "4rem 2rem",
+              backdropFilter: "blur(10px)",
+              boxShadow: "0 20px 40px rgba(0,0,0,0.4)"
+            }}>
+              <div className="maintenance-icon" style={{ fontSize: "5rem", marginBottom: "2rem" }}>🛠️</div>
+              <h1 className="nit-hero-title" style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)", marginBottom: "1.5rem" }}>
+                FALLO TÈCNIC
+              </h1>
+              <p className="hero-description" style={{ fontSize: "1.25rem", color: "rgba(255,255,255,0.9)", marginBottom: "2rem", lineHeight: "1.6" }}>
+                Estem tenint uns petits problemes tècnics amb la plataforma. <br />
+                <strong>Ja estem treballant per solucionar-ho!</strong>
+              </p>
+              <div className="maintenance-status" style={{ 
+                display: "inline-block",
+                padding: "0.5rem 1.5rem",
+                background: "rgba(255, 193, 7, 0.1)",
+                border: "1px solid #ffc107",
+                borderRadius: "50px",
+                color: "#ffc107",
+                fontWeight: "bold",
+                fontSize: "0.9rem",
+                textTransform: "uppercase",
+                letterSpacing: "1px"
+              }}>
+                Estat: Solucionant-ho
+              </div>
+              <p style={{ marginTop: "3rem", opacity: 0.6, fontSize: "0.9rem" }}>
+                Sentim les molèsties. Segueix-nos a Instagram per estar al dia de quan tornem a estar operatius.
+              </p>
+              <div style={{ marginTop: "2rem" }}>
+                <a href="https://instagram.com/rocknrostoll" target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ padding: "1rem 2.5rem" }}>
+                  INSTAGRAM @ROCKNROSTOLL
+                </a>
+              </div>
+            </div>
+          </div>
+        </main>
+        <Footer />
+      </>
+    );
+  }
+
   return (
     <>
       <SEO
