@@ -53,7 +53,7 @@ export default function NitDeRock() {
     };
   }, []);
 
-  const IS_MAINTENANCE = true;
+  const IS_MAINTENANCE = false;
 
   if (IS_MAINTENANCE) {
     return (
@@ -64,11 +64,11 @@ export default function NitDeRock() {
           canonicalPath="/nit-de-rock"
         />
         <Navbar />
-        <main className="nit-de-rock-page maintenance-page" style={{ 
-          minHeight: "80vh", 
-          display: "flex", 
+        <main className="nit-de-rock-page maintenance-page" style={{
+          minHeight: "80vh",
+          display: "flex",
           flexDirection: "column",
-          justifyContent: "center", 
+          justifyContent: "center",
           alignItems: "center",
           padding: "2rem"
         }}>
@@ -89,7 +89,7 @@ export default function NitDeRock() {
                 Estem tenint uns petits problemes tècnics amb la plataforma. <br />
                 <strong>Ja estem treballant per solucionar-ho!</strong>
               </p>
-              <div className="maintenance-status" style={{ 
+              <div className="maintenance-status" style={{
                 display: "inline-block",
                 padding: "0.5rem 1.5rem",
                 background: "rgba(255, 193, 7, 0.1)",
@@ -181,17 +181,17 @@ export default function NitDeRock() {
             </p>
 
             <div className="voting-container">
-                <iframe
-                  className="voting-iframe"
-                  title="Votació Semifinal"
-                  src="https://docs.google.com/forms/d/e/1FAIpQLSerqOapn0DbzIdgVU3ABAVYqz6HTaObUtoWF0afufoCedtJ_w/viewform?embedded=true"
-                  width="100%"
-                  frameBorder="0"
-                  marginHeight="0"
-                  marginWidth="0"
-                >
-                  S'està carregant…
-                </iframe>
+              <iframe
+                className="voting-iframe"
+                title="Votació Semifinal"
+                src="https://docs.google.com/forms/d/e/1FAIpQLSerqOapn0DbzIdgVU3ABAVYqz6HTaObUtoWF0afufoCedtJ_w/viewform?embedded=true"
+                width="100%"
+                frameBorder="0"
+                marginHeight="0"
+                marginWidth="0"
+              >
+                S'està carregant…
+              </iframe>
             </div>
           </div>
         </section>
