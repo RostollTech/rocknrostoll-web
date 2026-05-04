@@ -157,8 +157,29 @@ export default function NitDeRock() {
           </div>
         </section>
 
+        {/* VOTING SECTION */}
+        <section className="section section-alt nit-voting-section">
+          <div className="container">
+            <h2 className="section-title">VOTACIONS TANCADES</h2>
+            <p className="voting-desc">
+              Avui s'anunciaran les 3 bandes guanyadores que passaran a la final!
+            </p>
+
+            <iframe
+              width="560"
+              height="315"
+              style={{ display: 'block', margin: '2rem auto', maxWidth: '100%', borderRadius: '12px', boxShadow: '0 10px 30px rgba(0,0,0,0.5)' }}
+              src="https://www.youtube.com/embed/Y88dMLtRvzo"
+              title="Anunci Guanyadors Semifinal III Nit de Rock"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen>
+            </iframe>
+          </div>
+        </section>
+
         {/* BANDS SECTION */}
-        <section className="section section-alt nit-bands-section">
+        <section className="section nit-bands-section">
           <div className="container">
             <h2 className="section-title">CONEIX LES BANDES SEMIFINALISTES</h2>
             <p className="voting-desc" style={{ textAlign: "center", marginBottom: "30px" }}>
@@ -168,30 +189,6 @@ export default function NitDeRock() {
               {bands.map(band => (
                 <ArtistCard key={band.id} artist={band} />
               ))}
-            </div>
-          </div>
-        </section>
-
-        {/* VOTING SECTION */}
-        <section className="section nit-voting-section">
-          <div className="container">
-            <h2 className="section-title">VOTA A LA SEMIFINAL</h2>
-            <p className="voting-desc">
-              Tria la banda que vols veure a la final. Tens fins al dia de tancament de l'enquesta per participar!
-            </p>
-
-            <div className="voting-container">
-              <iframe
-                className="voting-iframe"
-                title="Votació Semifinal"
-                src="https://docs.google.com/forms/d/e/1FAIpQLSerqOapn0DbzIdgVU3ABAVYqz6HTaObUtoWF0afufoCedtJ_w/viewform?embedded=true"
-                width="100%"
-                frameBorder="0"
-                marginHeight="0"
-                marginWidth="0"
-              >
-                S'està carregant…
-              </iframe>
             </div>
           </div>
         </section>
