@@ -6,10 +6,10 @@ export default function Footer() {
     <footer className="footer">
       <div className="footer-inner">
         <div className="footer-brand">
-          <h3>Rock’n’Rostoll</h3>
+          <h3>Rock'n'Rostoll</h3>
           <p>
             Festival autogestionat de rock i electrònica nascut a Maria de la Salut el 1995, on
-            el darrer dissabte d’agost un camp de rostoll i un safareig es converteixen en una
+            el darrer dissabte d'agost un camp de rostoll i un safareig es converteixen en una
             nit de música, llibertat i germanor.
           </p>
         </div>
@@ -52,10 +52,28 @@ export default function Footer() {
       </div>
 
       <p className="footer-note">
-        © {new Date().getFullYear()} Rock’n’Rostoll. Tots els drets reservats · {" "}
+        © {new Date().getFullYear()} Rock'n'Rostoll. Tots els drets reservats · {" "}
         <Link to="/avis-legal">Avís legal</Link> · {" "}
         <a href="#politica-privacitat">Política de privacitat</a>
       </p>
+
+      <div className="subfooter">
+        <span className="subfooter__text">Pàgina feta per:</span>
+        <a
+          className="subfooter__brand"
+          href="mailto:solucionsuep@gmail.com"
+          title="Contacta amb UEP TI Solucions"
+        >
+          <img
+            src="/img/uepsolucions/uep-logo-neg.png"
+            alt="UEP TI Solucions"
+            className="subfooter__logo"
+          />
+          <span className="subfooter__name">UEP TI Solucions</span>
+          <span className="subfooter__text">- Serveis TI i Digitalització - </span>
+          <span className="subfooter__email">solucionsuep@gmail.com</span>
+        </a>
+      </div>
     </footer>
   );
 }

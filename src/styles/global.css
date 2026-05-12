@@ -1109,6 +1109,61 @@ main {
   z-index: 1;
 }
 
+/* Subfooter – crèdits desenvolupament */
+.subfooter {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  margin-top: var(--space-5);
+  padding-top: var(--space-5);
+  padding-bottom: var(--space-3);
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  position: relative;
+  z-index: 1;
+}
+
+.subfooter__text {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.65); /* Més viu, menys apagat */
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.subfooter__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.subfooter__brand:hover {
+  opacity: 0.85;
+}
+
+.subfooter__logo {
+  height: 3rem;
+  width: auto;
+  object-fit: contain;
+  mix-blend-mode: screen; /* Elimina perfectament qualsevol fons negre/fosc de la imatge */
+}
+
+.subfooter__name {
+  font-size: 0.95rem;
+  color: #ffffff; /* Blanc pur i net */
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.subfooter__email {
+  font-size: 0.85rem;
+  color: var(--color-accent-yellow); /* Color viu en lloc de gris apagat */
+  letter-spacing: 0.03em;
+}
+
 /* Responsive tweaks */
 @media (max-width: 992px) {
   .navbar-inner {
