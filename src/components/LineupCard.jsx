@@ -1,3 +1,4 @@
+import { SHOW_LINEUP_TIMES } from "../data/lineup";
 import "./LineupCard.css";
 
 export default function LineupCard({ artist }) {
@@ -36,12 +37,12 @@ export default function LineupCard({ artist }) {
 
       <div className="lineup-card-info">
         {isDesignedPoster && <h3 className="lineup-card-name">{artist.name}</h3>}
-        {artist.time && <p className="lineup-card-time">🕒 {artist.time}</p>}
+        {SHOW_LINEUP_TIMES && artist.time && <p className="lineup-card-time">🕒 {artist.time}</p>}
         <div className="lineup-card-genres">
           {artist.origin && <span className="artist-badge-primary">{artist.origin}</span>}
-          {artist.genres?.map((genre) => (
-            <span key={genre} className="artist-badge-secondary">{genre}</span>
-          ))}
+          {artist.genres?.[0] && (
+            <span className="artist-badge-secondary">{artist.genres[0]}</span>
+          )}
         </div>
         <p className="lineup-card-desc">{artist.description}</p>
         {artist.instagramLinks ? (

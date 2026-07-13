@@ -1,3 +1,6 @@
+// Horaris encara no publicats oficialment: posar a true quan es puguin mostrar.
+export const SHOW_LINEUP_TIMES = false;
+
 export const lineup = [
   // ESCENARI ROCK — ordre cronològic oficial
   {
@@ -11,7 +14,7 @@ export const lineup = [
     time: "22:00 - 23:00",
     description:
       "Quintet de luxe format per veterans del blues i el rock&roll illenc. Amb la veu potent de Fama Femenia, ens duen el millor rhythm and blues dels anys 50 i 60.",
-    photo: "/img/lineup2026/hyride.png",
+    photo: "/img/fotos2026/lineup2026/hyride.png",
     instagramUrl: "https://www.instagram.com/hayride_company/",
   },
   {
@@ -25,7 +28,7 @@ export const lineup = [
     time: "23:20 - 00:05",
     description:
       "Guanyadors del concurs de bandes. Combinen l'essència clàssica del heavy metal amb una actitud irreverent, humor negre i referències locals, apostant per un so contundent i un directe salvatge.",
-    photo: "/img/bandes/whoremageddon.webp",
+    photo: "/img/fotos2026/lineup2026/whore.png",
     instagramUrl: "https://www.instagram.com/whrmgdn/",
   },
   {
@@ -39,7 +42,7 @@ export const lineup = [
     time: "00:25 - 1:55",
     description:
       "Una de les bandes més importants del rock estatal, amb més de 30 anys de trajectòria i 15 discs a l'esquena. Duen un rock urbà carregat de poesia, emoció i autenticitat.",
-    photo: "/img/lineup2026/sinkope.png",
+    photo: "/img/fotos2026/lineup2026/sinkope.png",
     instagramUrl: "https://www.instagram.com/sinkope/",
   },
   {
@@ -53,7 +56,7 @@ export const lineup = [
     time: "2:15 - 3:00",
     description:
       "Quintet amb un so country-rock autèntic, amb essència analògica i influències dels grans mestres dels anys 60 i 70. Després d'una reeixida gira pel Regne Unit, arriben a es Rostoll.",
-    photo: "/img/lineup2026/ripples.png",
+    photo: "/img/fotos2026/lineup2026/ripples.png",
     instagramUrl: "https://www.instagram.com/los_ripples/",
   },
   {
@@ -67,7 +70,7 @@ export const lineup = [
     time: "3:20 - 4:50",
     description:
       "Banda referent del reggae a les Illes, amb lletres en català compromeses amb l'acció social. Després d'èxits com \"Contracorrent\" i \"Mala Herba Sempre Creix\", ens duen una nit plena de ritme i consciència.",
-    photo: "/img/lineup2026/rudy.png",
+    photo: "/img/fotos2026/lineup2026/rudy.png",
     instagramUrl: "https://www.instagram.com/rudymentari.oficial/",
   },
   {
@@ -81,7 +84,7 @@ export const lineup = [
     time: "5:10 - 6:00",
     description:
       "Banda emergent de groove metal amb una força explosiva que combina el heavy tradicional, el hardcore i el thrash. Malgrat la seva joventut, ja han fet gires per tota Europa.",
-    photo: "/img/lineup2026/whitedemon.png",
+    photo: "/img/fotos2026/lineup2026/whitedemon.png",
     instagramUrl: "https://www.instagram.com/whitedemonofc",
   },
   {
@@ -94,7 +97,7 @@ export const lineup = [
     stage: "rock",
     description:
       "La batucada de Maria de la Salut torna una vegada més al Rock'n'Rostoll per posar ritme i fer molt de renou pel recinte, animant les esperes entre artistes.",
-    photo: "/img/lineup2026/batukada.png",
+    photo: "/img/fotos2026/lineup2026/batukada.png",
     instagramUrl: "https://www.instagram.com/mariatukada/",
   },
 
@@ -110,7 +113,8 @@ export const lineup = [
     time: "22:00 - 23:30",
     description:
       "Jove DJ i productor mallorquí que ens du un viatge musical dinàmic on el House és el protagonista absolut, centrat en el groove, el ritme i l'energia.",
-    photo: "/img/lineup2026/reynes.png",
+    photo: "/img/fotos2026/lineup2026/reynes.png",
+    instagramUrl: "https://www.instagram.com/reynes.music/",
   },
   {
     id: 4,
@@ -118,11 +122,12 @@ export const lineup = [
     initials: "DC",
     color: "#4e2a84",
     origin: "MALLORCA",
-    genres: ["Electro", "Techno", "Indie Dance"],
+    genres: ["Electro", "Techno"],
     stage: "safareig",
     time: "23:30 - 1:00",
     description:
       "El projecte més personal de Joan Capó fusiona l'actitud del rock amb l'electro, el techno i l'indie dance més actual. Amb produccions per a bandes com Dorian i presència a les cabines de Barcelona i Mallorca, ens durà textures crues, grooves contundents i molta energia.",
+    photo: "/img/fotos2026/lineup2026/dscntrl.png",
     instagramUrl: "https://www.instagram.com/dscntrl_music/",
   },
   {
@@ -131,11 +136,12 @@ export const lineup = [
     initials: "JD",
     color: "#215b77",
     origin: "MALLORCA",
-    genres: ["Percussió en viu", "House", "Techno"],
+    genres: ["House", "Percussió en viu"],
     stage: "safareig",
     time: "1:00 - 1:30",
     description:
       "Amb el projecte Project Drums, porta al Safareig, per primera vegada amb música en viu, el seu espectacle inoblidable: percussió en viu fusionada amb els millors ritmes house, pop i techno.",
+    photo: "/img/fotos2026/lineup2026/project.png",
     instagramUrl: "https://www.instagram.com/project.drums",
   },
   {
@@ -149,7 +155,7 @@ export const lineup = [
     time: "1:30 - 3:00",
     description:
       "Dupla de DJs amb dècades d'experiència a les cabines de l'illa, que combinen la seva polivalència sonora fusionant breakbeats, electro-house i tech-house per garantir un viatge sonor immersiu.",
-    photo: "/img/lineup2026/jordameraki.png",
+    photo: "/img/fotos2026/lineup2026/jordameraki.png",
   },
   {
     id: 13,
@@ -162,7 +168,7 @@ export const lineup = [
     time: "3:00 - 5:00",
     description:
       "Pioner del techno a les Illes i figura clau de l'escena amb més de dues dècades de trajectòria, porta el seu so d'avantguarda a escenaris internacionals. Tanca les confirmacions d'artistes de la trentena edició amb la seva experiència, tècnica i identitat sonora.",
-    photo: "/img/lineup2026/angelcosta.png",
+    photo: "/img/fotos2026/lineup2026/angelcosta.png",
   },
   {
     id: 8,
@@ -175,7 +181,7 @@ export const lineup = [
     time: "5:00 - 6:30",
     description:
       "Dos talents de l'escena electrònica balear que s'uneixen per fer esclatar el safareig: Botet amb tota l'energia del techno i Selin Kaya amb un techno personal, sofisticat i contundent.",
-    photo: "/img/lineup2026/botet.png",
+    photo: "/img/fotos2026/lineup2026/botet.png",
     instagramLinks: [
       { label: "Botet", url: "https://www.instagram.com/botettoni/" },
       { label: "Selin Kaya", url: "https://www.instagram.com/selinkaya_________/" },
@@ -192,7 +198,7 @@ export const lineup = [
     time: "6:30 - 8:00",
     description:
       "Amb més de dues dècades de trajectòria, és un referent indiscutible del techno a Balears. La seva proposta, entre les influències de Detroit, Berlín i Birmingham, promet un viatge hipnòtic i industrial.",
-    photo: "/img/lineup2026/alexlosa.png",
+    photo: "/img/fotos2026/lineup2026/alexlosa.png",
     instagramUrl: "https://www.instagram.com/alexlosa_insound",
   },
 ];
