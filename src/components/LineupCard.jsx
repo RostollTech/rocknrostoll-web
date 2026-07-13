@@ -40,9 +40,6 @@ export default function LineupCard({ artist }) {
         {SHOW_LINEUP_TIMES && artist.time && <p className="lineup-card-time">🕒 {artist.time}</p>}
         <div className="lineup-card-genres">
           {artist.origin && <span className="artist-badge-primary">{artist.origin}</span>}
-          {artist.genres?.[0] && (
-            <span className="artist-badge-secondary">{artist.genres[0]}</span>
-          )}
         </div>
         <p className="lineup-card-desc">{artist.description}</p>
         {artist.instagramLinks ? (

@@ -254,7 +254,7 @@
 .btn-veure-mes:hover {
   border-color: var(--accent-yellow);
   color: var(--accent-yellow);
-  background: rgba(244, 193, 14, 0.08);
+  background: rgba(251, 168, 48, 0.08);
   transform: translateY(-2px);
 }
 
