@@ -331,6 +331,41 @@
   text-align: center;
 }
 
+.nit-podium-simple-grid {
+  margin-top: 2rem;
+}
+
+.nit-podium-simple-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.nit-podium-simple-meta {
+  min-height: 6.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.nit-podium-simple-rank {
+  margin: 0;
+  font-weight: 800;
+  font-size: 1.1rem;
+  letter-spacing: 0.03em;
+  color: #fff;
+  text-align: center;
+}
+
+.nit-podium-simple-prize {
+  margin: 0 0 0.75rem;
+  font-size: 0.95rem;
+  line-height: 1.35;
+  opacity: 0.78;
+  color: #fff;
+  text-align: center;
+}
+
 .voting-container {
   width: 100%;
   max-width: 700px;
@@ -573,6 +608,18 @@
   .nit-voting-section .voting-desc {
     font-size: 1rem;
     margin-bottom: 2rem;
+  }
+
+  .nit-podium-simple-rank {
+    font-size: 1rem;
+  }
+
+  .nit-podium-simple-prize {
+    font-size: 0.9rem;
+  }
+
+  .nit-podium-simple-meta {
+    min-height: 5.8rem;
   }
 
   .voting-iframe {

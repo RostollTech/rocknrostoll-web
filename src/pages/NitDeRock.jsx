@@ -1,7 +1,6 @@
 import { useMemo, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import Countdown from "../components/Countdown";
 import SEO from "../components/SEO";
 import ArtistCard from "../components/ArtistCard";
 import { bands } from "../data/bands";
@@ -27,6 +26,54 @@ export default function NitDeRock() {
       },
     }),
     []
+  );
+
+  const podiumResults = useMemo(() => {
+    const normalize = (value) =>
+      value
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9]/g, "");
+
+    const findBand = (name) => bands.find((band) => normalize(band.name) === normalize(name));
+
+    return [
+      {
+        rank: 1,
+        placeLabel: "1r",
+        medal: "🥇",
+        bandName: "Whoremageddon",
+        prize: "Actuacio remunerada Rock'n'Rostoll + gravacio professional",
+      },
+      {
+        rank: 2,
+        placeLabel: "2n",
+        medal: "🥈",
+        bandName: "Alloure",
+        prize: "Gravacio de dos temes",
+      },
+      {
+        rank: 3,
+        placeLabel: "3r",
+        medal: "🥉",
+        bandName: "Badak",
+        prize: "Gravacio d'un tema",
+      },
+    ].map((result) => ({
+      ...result,
+      band: findBand(result.bandName),
+    }));
+  }, []);
+
+  const podiumBandIds = useMemo(
+    () => new Set(podiumResults.map((result) => result.band?.id).filter(Boolean)),
+    [podiumResults]
+  );
+
+  const remainingBands = useMemo(
+    () => bands.filter((band) => !podiumBandIds.has(band.id)),
+    [podiumBandIds]
   );
 
   useEffect(() => {
@@ -122,8 +169,8 @@ export default function NitDeRock() {
   return (
     <>
       <SEO
-        title="III Nit de Rock · Concurs de Bandes · Rock’n’Rostoll"
-        description="Participa al concurs de bandes de la III Nit de Rock. Tota la informació sobre premis, inscripcions i la final el 30 de maig."
+        title="Whoremagedon, guanyadors de la III Nit de Rock · Rock'n'Rostoll"
+        description="Whoremagedon han guanyat la III Nit de Rock a Maria de la Salut. Gràcies a totes les bandes i a tot el públic!"
         canonicalPath="/nit-de-rock"
         image="https://rocknrostoll.cat/img/about-actualitat.jpg"
         structuredData={structuredData}
@@ -137,7 +184,7 @@ export default function NitDeRock() {
               <p className="nit-hero-eyebrow">MARIA DE LA SALUT</p>
               <h1 className="nit-hero-title">III NIT DE ROCK</h1>
               <p className="hero-description nit-hero-desc">
-                <strong>Vota la teva banda preferida per a la final del 30 de maig.</strong>
+                <strong>Gràcies a tothom per fer-ho possible!</strong>
               </p>
               <p className="nit-association-info" style={{
                 fontSize: "0.95rem",
@@ -150,43 +197,69 @@ export default function NitDeRock() {
                 Esdeveniment 100% gratuït organitzat per l'associació sense ànim de lucre <br />
                 <strong>Associació Juvenil Rock'n'Rostoll</strong>
               </p>
-              <div className="nit-hero-countdown">
-                <Countdown targetDate="2026-05-30T19:00:00" />
+            </div>
+          </div>
+        </section>
+
+        {/* RESULTS SECTION */}
+        <section className="section section-alt nit-voting-section">
+          <div className="container">
+            <h2 className="section-title">🏆 GUANYADORS</h2>
+            <p className="voting-desc" style={{ fontSize: "1.4rem", fontWeight: "bold", marginBottom: "0.5rem" }}>
+              Felicitats a <strong>WHOREMAGEDON</strong>!
+            </p>
+            <p className="voting-desc">
+              Guanyadors de la III Nit de Rock a Maria de la Salut.
+            </p>
+            <h3 className="nit-info-title" style={{ textAlign: "center", marginTop: "2rem" }}>CLASSIFICACIÓ FINAL</h3>
+            <div className="artists-grid nit-podium-simple-grid">
+              {podiumResults.map((result) => (
+                <div key={result.placeLabel} className="nit-podium-simple-item">
+                  <div className="nit-podium-simple-meta">
+                    <p className="nit-podium-simple-rank">{result.medal} {result.placeLabel} - {result.bandName}</p>
+                    <p className="nit-podium-simple-prize">Premi: {result.prize}</p>
+                  </div>
+                  {result.band && <ArtistCard artist={result.band} />}
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* INFO & PRIZES SECTION */}
+        <section className="section nit-info-section">
+          <div className="container">
+            <div className="nit-info-grid">
+              <div className="nit-info-card">
+                <h2 className="nit-info-title">LA FINAL</h2>
+                <p className="nit-info-text">
+                  📅 <strong>30 de Maig de 2026</strong> a Maria de la Salut. <br />
+                  📍 <strong>Poliesportiu Municipal</strong> (Entrada lliure). <br /><br />
+                  Gràcies a totes les bandes participants i a tot el públic que va fer possible una nit inoblidable!
+                </p>
+              </div>
+              <div className="nit-info-card">
+                <h2 className="nit-info-title">PREMIS</h2>
+                <ul className="nit-prizes-compact">
+                  <li><strong>🥇 1r Premi:</strong> Actuació remunerada Rock'n'Rostoll + Gravació</li>
+                  <li><strong>🥈 2n Premi:</strong> Gravació de dos temes</li>
+                  <li><strong>🥉 3r Premi:</strong> Gravació d'un tema</li>
+                </ul>
+                <p className="nit-prizes-note">*Inclou gravació, edició i mescla.</p>
               </div>
             </div>
           </div>
         </section>
 
-        {/* VOTING SECTION */}
-        <section className="section section-alt nit-voting-section">
-          <div className="container">
-            <h2 className="section-title">VOTACIONS TANCADES</h2>
-            <p className="voting-desc">
-              Avui s'anunciaran les 3 bandes guanyadores que passaran a la final!
-            </p>
-
-            <iframe
-              width="560"
-              height="315"
-              style={{ display: 'block', margin: '2rem auto', maxWidth: '100%', borderRadius: '12px', boxShadow: '0 10px 30px rgba(0,0,0,0.5)' }}
-              src="https://www.youtube.com/embed/Y88dMLtRvzo"
-              title="Anunci Guanyadors Semifinal III Nit de Rock"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen>
-            </iframe>
-          </div>
-        </section>
-
         {/* BANDS SECTION */}
-        <section className="section nit-bands-section">
+        <section className="section section-alt nit-bands-section">
           <div className="container">
-            <h2 className="section-title">CONEIX LES BANDES SEMIFINALISTES</h2>
+            <h2 className="section-title">LA RESTA DE BANDES</h2>
             <p className="voting-desc" style={{ textAlign: "center", marginBottom: "30px" }}>
-              Aquests són els artistes seleccionats. Descobreix-los abans de votar!
+              Aquests són la resta de bandes participants que no han entrat al podi final.
             </p>
             <div className="artists-grid">
-              {bands.map(band => (
+              {remainingBands.map((band) => (
                 <ArtistCard key={band.id} artist={band} />
               ))}
             </div>
@@ -194,7 +267,7 @@ export default function NitDeRock() {
         </section>
 
         {/* PLAYLISTS SECTION */}
-        <section className="section section-alt nit-playlists-section">
+        <section className="section nit-playlists-section">
           <div className="container">
             <h2 className="section-title" style={{ textAlign: "center" }}>LLISTES DE REPRODUCCIÓ</h2>
             <p className="voting-desc" style={{ textAlign: "center", marginBottom: "30px" }}>
@@ -204,6 +277,7 @@ export default function NitDeRock() {
               {/* Spotify Playlist */}
               <div className="playlist-embed" style={{ width: "100%" }}>
                 <iframe
+                  title="Playlist oficial Spotify III Nit de Rock"
                   style={{ borderRadius: "12px" }}
                   src="https://open.spotify.com/embed/playlist/16gdI3GO3K3AjAGKwImb6A?utm_source=generator&theme=0"
                   width="100%"
@@ -303,39 +377,32 @@ export default function NitDeRock() {
           </div>
         </section>
 
-        {/* INFO & PRIZES SECTION */}
-        <section className="section nit-info-section">
+        {/* FINALISTS ANNOUNCEMENT VIDEO */}
+        <section className="section section-alt nit-voting-section">
           <div className="container">
-            <div className="nit-info-grid">
-              <div className="nit-info-card">
-                <h2 className="nit-info-title">DETALLS DE LA FINAL</h2>
-                <p className="nit-info-text">
-                  📅 <strong>30 de Maig</strong> a Maria de la Salut. <br />
-                  📍 <strong>Poliesportiu Municipal</strong> (Entrada lliure). <br /><br />
-                  Les 3 bandes més votades aquí baix seran les finalistes que tocaran en directe. La decisió final dependrà del jurat i del vot presencial.
-                </p>
-              </div>
-              <div className="nit-info-card">
-                <h2 className="nit-info-title">PREMIS</h2>
-                <ul className="nit-prizes-compact">
-                  <li><strong>🥇 1r Premi:</strong> Actuació remunerada Rock'n'Rostoll + Gravació</li>
-                  <li><strong>🥈 2n Premi:</strong> Gravació de dos temes</li>
-                  <li><strong>🥉 3r Premi:</strong> Gravació d'un tema</li>
-                </ul>
-                <p className="nit-prizes-note">*Inclou gravació, edició i mescla.</p>
-              </div>
-            </div>
+            <h2 className="section-title">VÍDEO: ANUNCI DE FINALISTES</h2>
+            <p className="voting-desc" style={{ textAlign: "center" }}>
+              Aquest és el vídeo original de l'anunci de les bandes finalistes.
+            </p>
+            <iframe
+              width="560"
+              height="315"
+              style={{ display: 'block', margin: '2rem auto', maxWidth: '100%', borderRadius: '12px', boxShadow: '0 10px 30px rgba(0,0,0,0.5)' }}
+              src="https://www.youtube.com/embed/Y88dMLtRvzo"
+              title="Anunci finalistes III Nit de Rock"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen>
+            </iframe>
           </div>
         </section>
 
-
-
         {/* FINAL CTA */}
-        <section className="section section-alt nit-cta-section">
+        <section className="section nit-cta-section">
           <div className="container">
-            <h2 className="nit-cta-title">SEGUEIX EL CONCURS</h2>
+            <h2 className="nit-cta-title">FINS A LA PRÒXIMA!</h2>
             <p className="nit-cta-desc">
-              No et perdis cap detall de la III Nit de Rock i la gran final del 30 de maig.
+              Segueix-nos a Instagram per no perdre't les novetats del Rock'n'Rostoll.
             </p>
             <div className="nit-cta-btns">
               <a href="https://instagram.com/rocknrostoll" target="_blank" rel="noopener noreferrer" className="btn-primary">INSTAGRAM @ROCKNROSTOLL</a>
