@@ -9,6 +9,7 @@
 
 .home-warm-section {
   position: relative;
+  background: linear-gradient(180deg, rgba(46, 32, 16, 0.12) 0%, rgba(20, 16, 10, 0.3) 100%);
 }
 
 .home-warm-section .info-card:hover,
@@ -23,6 +24,12 @@
 
 .home-warm-section .info-label {
   color: var(--color-accent-yellow);
+}
+
+.home-warm-section.section-alt {
+  background: linear-gradient(180deg, rgba(46, 32, 16, 0.4) 0%, rgba(20, 16, 10, 0.85) 100%);
+  border-top: 1px solid rgba(251, 168, 48, 0.15);
+  border-bottom: 1px solid rgba(251, 168, 48, 0.1);
 }
 
 .lineup-stage-rock {

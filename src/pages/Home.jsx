@@ -6,12 +6,17 @@ import InstagramEmbed from "../components/InstagramEmbed";
 import FacebookEmbed from "../components/FacebookEmbed";
 import Countdown from "../components/Countdown";
 import SEO from "../components/SEO";
+import LineupCard from "../components/LineupCard";
 import galleryImages from "../data/gallery";
+import { lineup } from "../data/lineup";
+import "../styles/Lineup.css";
 
 // SEO: Recomanat exportar les imatges de la galeria a formats .webp o .avif per reduir el pes
 
 export default function Home() {
   const gallery = useMemo(() => galleryImages, []);
+  const rockStageLineup = useMemo(() => lineup.filter((artist) => artist.stage === "rock"), []);
+  const safareigStageLineup = useMemo(() => lineup.filter((artist) => artist.stage === "safareig"), []);
   const structuredData = useMemo(
     () => ({
       "@context": "https://schema.org",
@@ -29,7 +34,7 @@ export default function Home() {
         "rock",
         "Maria de la Salut",
       ],
-      startDate: "2026-08-29T19:00:00+02:00",
+      startDate: "2026-08-29T21:00:00+02:00",
       endDate: "2026-08-30T06:00:00+02:00",
       eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
       eventStatus: "https://schema.org/EventScheduled",
@@ -84,7 +89,9 @@ export default function Home() {
         <section className="hero home-hero">
           <div className="hero-content">
             <p className="hero-eyebrow">30a edició</p>
-            <h1 className="hero-title">30 edicions de música, amistat i rostoll</h1>
+            <h1 className="hero-title">
+              <img className="hero-logo" src="/img/fotos2026/logo20262.png" alt="30 edicions de música, amistat i rostoll" />
+            </h1>
             <p className="hero-meta">29 d’agost de 2026 · Festival autogestionat a Son Perot (Maria de la Salut)</p>
             <p className="hero-description">
               Rock’n’Rostoll és el festival autogestionat de referència al Pla de Mallorca. Un punt de trobada entre
@@ -92,15 +99,15 @@ export default function Home() {
               dissabte d’agost. Celebrem 30 edicions d’història, germanor i molta festa!
             </p>
 
-            <Countdown targetDate="2026-08-29T19:00:00" />
+            <Countdown targetDate="2026-08-29T21:00:00" />
 
             <div className="button-group">
               <Link to="/about" className="btn-primary">
                 Qui som?
               </Link>
-              <Link to="/nit-de-rock" className="btn-outline">
-                Nit de Rock
-              </Link>
+              <a href="#lineup" className="btn-outline">
+                Line-up
+              </a>
               <Link to="/contact" className="btn-outline">
                 Segueix-nos
               </Link>
@@ -108,7 +115,46 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="section section-alt" id="programa">
+        <section className="lineup-section" id="lineup">
+          <div className="container">
+            <div className="section-header">
+              <p className="section-eyebrow">XXX Rock'n'Rostoll</p>
+              <h2 className="section-title">Line-up 2026</h2>
+              <p className="section-description">
+                Més d'una dotzena d'artistes per una nit inoblidable, repartits entre l'Escenari Rock i el Safareig. Segueix-nos a
+                Instagram per no perdre't les properes novetats.
+              </p>
+            </div>
+          </div>
+
+          <div className="lineup-stage lineup-stage-rock">
+            <div className="container">
+              <div className="lineup-stage-header">
+                <h3 className="lineup-stage-title">Escenari Rock</h3>
+              </div>
+              <div className="lineup-grid">
+                {rockStageLineup.map((artist) => (
+                  <LineupCard key={artist.id} artist={artist} />
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="lineup-stage lineup-stage-safareig">
+            <div className="container">
+              <div className="lineup-stage-header">
+                <h3 className="lineup-stage-title">Safareig</h3>
+              </div>
+              <div className="lineup-grid">
+                {safareigStageLineup.map((artist) => (
+                  <LineupCard key={artist.id} artist={artist} />
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="section home-warm-section" id="programa">
           <div className="container">
             <div className="section-header">
               <p className="section-eyebrow">Organitza la teva arribada</p>
@@ -149,7 +195,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="section">
+        <section className="section section-alt home-warm-section">
           <div className="container">
             <div className="section-header">
               <p className="section-eyebrow">Galeria</p>

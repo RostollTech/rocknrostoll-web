@@ -14,7 +14,6 @@ export default function Navbar() {
       <div className="navbar-inner">
         <Link to="/" className="navbar-logo" onClick={closeMenu}>
           <picture>
-            <source srcSet="/icon/icon-page.avif" type="image/avif" />
             <source srcSet="/icon/icon-page.webp" type="image/webp" />
             {/* SEO: Logotip amb càrrega mandrosa per optimitzar */}
             <img src="/icon/icon-page.png" alt="Logotip" loading="lazy" />

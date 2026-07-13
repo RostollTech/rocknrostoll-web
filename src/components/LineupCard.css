@@ -176,6 +176,11 @@
   flex-shrink: 0;
 }
 
+.lineup-card-genres .artist-badge-primary {
+  background-color: var(--accent-secondary);
+  box-shadow: 0 4px 10px rgba(251, 168, 48, 0.2);
+}
+
 .lineup-card-desc {
   margin: 0;
   font-size: 0.78rem;
