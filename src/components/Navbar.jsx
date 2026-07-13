@@ -19,7 +19,11 @@ export default function Navbar() {
             {/* SEO: Logotip amb càrrega mandrosa per optimitzar */}
             <img src="/icon/icon-page.png" alt="Logotip" loading="lazy" />
           </picture>
-          Rock'N'Rostoll
+          <img
+            className="navbar-logo-wordmark"
+            src="/img/fotos2026/logo20262.png"
+            alt="Rock'n'Rostoll"
+          />
         </Link>
 
         <button className="nav-toggle" type="button" onClick={toggleMenu} aria-expanded={isOpen}>
