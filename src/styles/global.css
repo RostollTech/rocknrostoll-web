@@ -12,10 +12,10 @@
   --text-soft: #9c9c9c;
   --accent-primary: #e62626;
   --accent-primary-strong: #ff3c3c;
-  --accent-secondary: #f4c10e;
+  --accent-secondary: #fba830;
   --border-soft: #2a2a2a;
   --border-strong: rgba(255, 255, 255, 0.2);
-  --focus-ring: rgba(244, 193, 14, 0.55);
+  --focus-ring: rgba(251, 168, 48, 0.55);
   --nav-height: 4.5rem;
   --noise-pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.2' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.12'/%3E%3C/svg%3E");
 
@@ -77,7 +77,7 @@ body {
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   background-image: radial-gradient(circle at 0% 0%, rgba(230, 38, 38, 0.06), transparent 40%),
-    radial-gradient(circle at 100% 0%, rgba(244, 193, 14, 0.05), transparent 42%),
+    radial-gradient(circle at 100% 0%, rgba(251, 168, 48, 0.05), transparent 42%),
     radial-gradient(circle at 50% 100%, rgba(230, 38, 38, 0.04), transparent 45%);
   background-repeat: no-repeat;
   background-size: 120% 120%;
@@ -182,6 +182,8 @@ main {
   font-size: 0.75rem;
   color: var(--color-accent-yellow);
   margin-bottom: var(--space-3);
+  /* compensa el letter-spacing perquè el text quedi ben centrat visualment */
+  padding-right: 0.35em;
 }
 
 .section-title,
@@ -251,7 +253,7 @@ main {
 .btn-outline:focus-visible {
   border-color: var(--color-accent-yellow);
   color: var(--color-accent-yellow);
-  box-shadow: inset 0 0 0 999px rgba(244, 193, 14, 0.08);
+  box-shadow: inset 0 0 0 999px rgba(251, 168, 48, 0.08);
 }
 
 .btn-primary:focus-visible,
@@ -312,6 +314,14 @@ main {
 .navbar-logo picture img {
   width: 100%;
   height: 100%;
+  object-fit: contain;
+  border-radius: 0;
+  background: transparent;
+}
+
+.navbar-logo-wordmark {
+  height: 2.1rem;
+  width: auto;
   object-fit: contain;
   border-radius: 0;
   background: transparent;
@@ -419,7 +429,10 @@ main {
 }
 
 .hero.home-hero {
-  background: linear-gradient(160deg, rgba(12, 12, 12, 0.4), rgba(12, 12, 12, 0.7)), url("/img/home-hero.webp") center/cover;
+  background:
+    linear-gradient(to bottom, transparent 65%, var(--bg-dark) 100%),
+    linear-gradient(160deg, rgba(12, 12, 12, 0.4), rgba(12, 12, 12, 0.7)),
+    url("/img/fotos2026/hero20262.png") center/cover;
 }
 
 .hero-content {
@@ -437,8 +450,9 @@ main {
   letter-spacing: 0.32em;
   font-weight: 600;
   font-size: 0.8rem;
-  color: var(--color-accent-yellow);
+  color: var(--color-text-primary);
   margin: 0;
+  padding-right: 0.32em;
 }
 
 .hero-title {
@@ -450,6 +464,15 @@ main {
   text-shadow: 0 12px 32px rgba(0, 0, 0, 0.65);
 }
 
+.hero-logo {
+  display: block;
+  margin-inline: auto;
+  width: min(90%, 32rem);
+  height: auto;
+  background: transparent;
+  filter: drop-shadow(0 12px 32px rgba(0, 0, 0, 0.75));
+}
+
 .hero-meta {
   font-size: 0.9rem;
   letter-spacing: 0.16em;
@@ -457,6 +480,8 @@ main {
   color: var(--color-text-soft);
   margin-bottom: var(--space-3);
   font-weight: 600;
+  max-width: 30rem;
+  margin-inline: auto;
 }
 
 .hero-description {
@@ -682,7 +707,7 @@ main {
 .cta-banner {
   text-align: center;
   padding: clamp(var(--space-7), 9vw, var(--space-9));
-  background: radial-gradient(circle at top, rgba(244, 193, 14, 0.18), transparent 55%),
+  background: radial-gradient(circle at top, rgba(251, 168, 48, 0.18), transparent 55%),
     radial-gradient(circle at bottom, rgba(230, 38, 38, 0.2), transparent 60%),
     linear-gradient(160deg, rgba(17, 17, 17, 0.95), rgba(12, 12, 12, 0.92));
   border-radius: var(--radius-lg);
