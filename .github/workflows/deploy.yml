@@ -8,22 +8,10 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout de codi
-        uses: actions/checkout@v4
-
       - name: Connecta a Tailscale
         uses: tailscale/github-action@v2
         with:
           authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
-
-      - name: Copia fitxers al servidor
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.SERVER_IP }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "."
-          target: "~/rocknrostoll-web"
 
       - name: Desplega via SSH
         uses: appleboy/ssh-action@v1
@@ -33,4 +21,5 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd ~/rocknrostoll-web
+            git pull
             docker compose up -d --build
