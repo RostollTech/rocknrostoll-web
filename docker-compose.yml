@@ -1,0 +1,9 @@
+services:
+  rocknrostoll:
+    build: .
+    container_name: rocknrostoll-web
+    restart: unless-stopped
+    environment:
+      - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}
+    ports:
+      - "8890:8890"
