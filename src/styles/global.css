@@ -1312,6 +1312,21 @@ main {
     text-align: center;
   }
 
+  .subfooter {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+
+  .subfooter__brand {
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .subfooter__logo {
+    height: 2.25rem;
+  }
+
   .button-group {
     justify-content: flex-start;
   }
