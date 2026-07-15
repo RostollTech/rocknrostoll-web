@@ -109,7 +109,7 @@ export default function Home() {
                 Line-up
               </a>
               <Link to="/contact" className="btn-outline">
-                Segueix-nos
+                Segueix-nos!!!
               </Link>
             </div>
           </div>
