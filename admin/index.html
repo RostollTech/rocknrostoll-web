@@ -70,7 +70,7 @@
   <h2>Comandes</h2>
   <div class="table-scroll">
     <table id="orders-table">
-      <thead><tr><th>Data</th><th>Canal</th><th>Client</th><th>Productes</th><th>Donatiu</th><th>Total</th></tr></thead>
+      <thead><tr><th>Data</th><th>Canal</th><th>Client</th><th>Productes</th><th>Donatiu</th><th>Total</th><th></th></tr></thead>
       <tbody></tbody>
     </table>
   </div>
@@ -81,12 +81,9 @@
 // pàgina, així no cal escriure la ruta secreta de l'admin enlloc del codi.
 const API_BASE = location.pathname.replace(/\/+$/, '');
 
-// Talles vàlides per producte (ha de coincidir amb src/data/products.json).
-const PRODUCTS = [
-  { name: 'Camiseta', sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'] },
-  { name: 'Camiseta Infant', sizes: ['4 anys', '6 anys', '8 anys', '10 anys', '12 anys'] },
-  { name: 'Camiseta Màniga Llarga', sizes: ['S', 'M', 'L', 'XL', 'XXL'] },
-];
+// Productes i talles: es carreguen de /api/products (src/data/products.json),
+// no es dupliquen aquí — si canvia el catàleg, l'admin es queda al dia sol.
+let PRODUCTS = [];
 
 function fillSellSizes() {
   const productName = document.getElementById('sell-product').value;
@@ -154,11 +151,12 @@ async function loadData() {
   const ordersBody = document.querySelector('#orders-table tbody');
   ordersBody.innerHTML = '';
   if (orders.length === 0) {
-    ordersBody.innerHTML = '<tr><td colspan="6" class="muted">Encara no hi ha cap comanda.</td></tr>';
+    ordersBody.innerHTML = '<tr><td colspan="7" class="muted">Encara no hi ha cap comanda.</td></tr>';
   }
   orders.forEach(order => {
     const itemsText = order.items.map(i => `${i.quantity} x ${i.name}${i.size ? ' (' + i.size + ')' : ''}`).join(', ');
-    const channelBadge = order.channel === 'physical'
+    const isPhysical = order.channel === 'physical';
+    const channelBadge = isPhysical
       ? '<span class="badge badge--physical">Física</span>'
       : '<span class="badge badge--online">Online</span>';
     const tr = document.createElement('tr');
@@ -169,14 +167,36 @@ async function loadData() {
       <td class="items-list">${itemsText || '-'}</td>
       <td>${(order.donation_cents / 100).toFixed(2)}€</td>
       <td>${(order.total_cents / 100).toFixed(2)}€</td>
+      <td>${isPhysical ? '<button class="delete-btn">Elimina</button>' : ''}</td>
     `;
+    if (isPhysical) {
+      tr.querySelector('.delete-btn').addEventListener('click', async () => {
+        if (!confirm(`Eliminar aquesta venda física (${itemsText})? Es tornarà l'estoc.`)) return;
+        const r = await fetch(`${API_BASE}/api/sell/${order.id}`, { method: 'DELETE' });
+        if (r.ok) {
+          loadData();
+        } else {
+          alert('Error eliminant la venda');
+        }
+      });
+    }
     ordersBody.appendChild(tr);
   });
 }
 
-document.getElementById('sell-product').innerHTML = PRODUCTS.map(p => `<option value="${p.name}">${p.name}</option>`).join('');
-document.getElementById('sell-product').addEventListener('change', fillSellSizes);
-fillSellSizes();
+async function loadProducts() {
+  const res = await fetch(`${API_BASE}/api/products`);
+  const catalog = res.ok ? await res.json() : [];
+  PRODUCTS = catalog.filter(p => p.name !== 'Donatiu' && p.sizes);
+}
+
+async function init() {
+  await loadProducts();
+  document.getElementById('sell-product').innerHTML = PRODUCTS.map(p => `<option value="${p.name}">${p.name}</option>`).join('');
+  document.getElementById('sell-product').addEventListener('change', fillSellSizes);
+  fillSellSizes();
+  loadData();
+}
 
 document.getElementById('sell-btn').addEventListener('click', async () => {
   const name = document.getElementById('sell-product').value;
@@ -209,7 +229,7 @@ document.getElementById('sell-btn').addEventListener('click', async () => {
   }
 });
 
-loadData();
+init();
 </script>
 </body>
 </html>

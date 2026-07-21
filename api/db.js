@@ -171,4 +171,19 @@ export function sellPhysical(items, note) {
     });
 }
 
+// Undoes a physical sale: restores the stock it had decremented and deletes the
+// order. Only works on channel === 'physical' — online orders are tied to a
+// real Stripe payment and must never be silently deleted from here. Returns
+// true if something was actually deleted.
+export function deletePhysicalSale(orderId) {
+    const tx = db.transaction(id => {
+        const row = db.prepare("SELECT items FROM orders WHERE id = ? AND channel = 'physical'").get(id);
+        if (!row) return false;
+        restoreStock(JSON.parse(row.items));
+        db.prepare('DELETE FROM orders WHERE id = ?').run(id);
+        return true;
+    });
+    return tx(orderId);
+}
+
 export default db;

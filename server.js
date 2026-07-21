@@ -1,15 +1,18 @@
 // Un sol procés: serveix la SPA (dist/), l'API de Stripe i el panell d'admin, tot en un contenidor.
 import path from 'node:path';
 import crypto from 'node:crypto';
+import fs from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import express from 'express';
 import checkout from './api/checkout.js';
 import webhook from './api/webhook.js';
-import { getAllStock, setStock, listOrders, sellPhysical } from './api/db.js';
+import { getAllStock, setStock, listOrders, sellPhysical, deletePhysicalSale } from './api/db.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const distDir = path.join(__dirname, 'dist');
 const adminDir = path.join(__dirname, 'admin');
+
+const catalog = JSON.parse(fs.readFileSync(path.join(__dirname, 'src/data/products.json'), 'utf-8'));
 
 const app = express();
 
@@ -26,6 +29,12 @@ app.all('/api/checkout', (req, res) => checkout(req, res));
 // per mostrar unitats restants i avisar quan en queden poques.
 app.get('/api/stock', (_req, res) => {
     res.json(getAllStock());
+});
+
+// Públic: el catàleg de productes/talles, perquè l'admin no hagi de tenir-lo
+// duplicat a mà — products.json és l'única font de veritat.
+app.get('/api/products', (_req, res) => {
+    res.json(catalog);
 });
 
 function timingSafeStringEqual(a, b) {
@@ -88,6 +97,14 @@ app.post(`${adminPath}/api/sell`, (req, res) => {
     } catch (err) {
         res.status(409).json({ error: err.message });
     }
+});
+
+app.delete(`${adminPath}/api/sell/:id`, (req, res) => {
+    const ok = deletePhysicalSale(Number(req.params.id));
+    if (!ok) {
+        return res.status(404).json({ error: 'No trobada (o no és una venda física)' });
+    }
+    res.json({ ok: true });
 });
 
 app.use(adminPath, express.static(adminDir));
