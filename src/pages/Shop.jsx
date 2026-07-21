@@ -96,22 +96,17 @@ export default function Shop() {
                 {
                   title: "Camiseta",
                   rows: [
-                    { t: "XXS", w: "46 cm", l: "60 cm" },
                     { t: "XS", w: "48 cm", l: "64 cm" },
                     { t: "S", w: "50 cm", l: "70 cm" },
                     { t: "M", w: "53 cm", l: "72 cm" },
                     { t: "L", w: "56 cm", l: "74 cm" },
                     { t: "XL", w: "59 cm", l: "76 cm" },
                     { t: "XXL", w: "62 cm", l: "78 cm" },
-                    { t: "3XL", w: "65 cm", l: "80 cm" },
-                    { t: "4XL", w: "68 cm", l: "82 cm" },
-                    { t: "5XL", w: "71 cm", l: "84 cm" },
                   ],
                 },
                 {
                   title: "Camiseta Infant",
                   rows: [
-                    { t: "2 anys", w: "29 cm", l: "40 cm" },
                     { t: "4 anys", w: "32 cm", l: "43 cm" },
                     { t: "6 anys", w: "35 cm", l: "46 cm" },
                     { t: "8 anys", w: "38 cm", l: "49 cm" },
@@ -127,9 +122,6 @@ export default function Shop() {
                     { t: "L", w: "56 cm", l: "73 cm" },
                     { t: "XL", w: "59 cm", l: "75 cm" },
                     { t: "XXL", w: "62 cm", l: "77 cm" },
-                    { t: "3XL", w: "65 cm", l: "79 cm" },
-                    { t: "4XL", w: "68 cm", l: "79 cm" },
-                    { t: "5XL", w: "71 cm", l: "79 cm" },
                   ],
                 },
               ].map(guide => (

@@ -10,20 +10,20 @@
     "price": "8 €",
     "image": "/products/disseny.webp",
     "url": "/comanda",
-    "sizes": ["XXS", "XS", "S", "M", "L", "XL", "XXL", "3XL", "4XL", "5XL"]
+    "sizes": ["XS", "S", "M", "L", "XL", "XXL"]
   },
   {
     "name": "Camiseta Infant",
     "price": "6 €",
     "image": "/products/disseny.webp",
     "url": "/comanda",
-    "sizes": ["2 anys", "4 anys", "6 anys", "8 anys", "10 anys", "12 anys"]
+    "sizes": ["4 anys", "6 anys", "8 anys", "10 anys", "12 anys"]
   },
   {
     "name": "Camiseta Màniga Llarga",
     "price": "10 €",
     "image": "/products/disseny.webp",
     "url": "/comanda",
-    "sizes": ["S", "M", "L", "XL", "XXL", "3XL", "4XL", "5XL"]
+    "sizes": ["S", "M", "L", "XL", "XXL"]
   }
 ]
