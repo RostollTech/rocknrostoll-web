@@ -80,7 +80,7 @@
   <input type="text" id="orders-search" class="search-input" placeholder="Cerca per nom, email o producte..." />
   <div class="table-scroll">
     <table id="orders-table">
-      <thead><tr><th>Data</th><th>Canal</th><th>Client</th><th>Productes</th><th>Donatiu</th><th>Total</th><th></th></tr></thead>
+      <thead><tr><th>Data</th><th>Canal</th><th>Client</th><th>Productes</th><th>Donatiu</th><th>Total</th><th>Recollit</th><th></th></tr></thead>
       <tbody></tbody>
     </table>
   </div>
@@ -171,7 +171,7 @@ function renderOrders(filterText) {
   const ordersBody = document.querySelector('#orders-table tbody');
   ordersBody.innerHTML = '';
   if (filtered.length === 0) {
-    ordersBody.innerHTML = `<tr><td colspan="7" class="muted">${allOrders.length === 0 ? 'Encara no hi ha cap comanda.' : 'Cap resultat per a la cerca.'}</td></tr>`;
+    ordersBody.innerHTML = `<tr><td colspan="8" class="muted">${allOrders.length === 0 ? 'Encara no hi ha cap comanda.' : 'Cap resultat per a la cerca.'}</td></tr>`;
   }
   filtered.forEach(order => {
     const itemsText = order.items.map(i => `${i.quantity} x ${i.name}${i.size ? ' (' + i.size + ')' : ''}`).join(', ');
@@ -179,6 +179,9 @@ function renderOrders(filterText) {
     const channelBadge = isPhysical
       ? '<span class="badge badge--physical">Física</span>'
       : '<span class="badge badge--online">Online</span>';
+    const pickupCell = isPhysical
+      ? '<span class="muted">—</span>'
+      : `<input type="checkbox" class="pickup-check" ${order.picked_up ? 'checked' : ''} />`;
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td>${new Date(order.created_at.replace(' ', 'T') + 'Z').toLocaleString('ca-ES')}</td>
@@ -187,8 +190,25 @@ function renderOrders(filterText) {
       <td class="items-list">${itemsText || '-'}</td>
       <td>${(order.donation_cents / 100).toFixed(2)}€</td>
       <td>${(order.total_cents / 100).toFixed(2)}€</td>
+      <td>${pickupCell}</td>
       <td>${isPhysical ? '<button class="delete-btn">Elimina</button>' : ''}</td>
     `;
+    if (!isPhysical) {
+      tr.querySelector('.pickup-check').addEventListener('change', async (e) => {
+        const pickedUp = e.target.checked;
+        order.picked_up = pickedUp;
+        const r = await fetch(`${API_BASE}/api/orders/${order.id}/pickup`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ pickedUp }),
+        });
+        if (!r.ok) {
+          e.target.checked = !pickedUp;
+          order.picked_up = !pickedUp;
+          alert('Error desant');
+        }
+      });
+    }
     if (isPhysical) {
       tr.querySelector('.delete-btn').addEventListener('click', async () => {
         if (!confirm(`Eliminar aquesta venda física (${itemsText})? Es tornarà l'estoc.`)) return;

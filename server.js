@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 import express from 'express';
 import checkout from './api/checkout.js';
 import webhook from './api/webhook.js';
-import { getAllStock, setStock, listOrders, sellPhysical, deletePhysicalSale } from './api/db.js';
+import { getAllStock, setStock, listOrders, sellPhysical, deletePhysicalSale, setPickedUp } from './api/db.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const distDir = path.join(__dirname, 'dist');
@@ -91,8 +91,13 @@ app.post(`${adminPath}/api/sell`, (req, res) => {
     if (!name || !Number.isInteger(quantity) || quantity < 1) {
         return res.status(400).json({ error: 'Dades no vàlides' });
     }
+    // El preu es calcula al servidor a partir del catàleg (no es confia en cap
+    // preu enviat pel client), igual que fa /api/checkout amb Stripe.
+    const product = catalog.find(p => p.name === name);
+    const unitPrice = product ? parseFloat(String(product.price).replace(',', '.')) : NaN;
+    const totalCents = Number.isFinite(unitPrice) ? Math.round(unitPrice * quantity * 100) : 0;
     try {
-        sellPhysical([{ name, size: size || '', quantity }], note);
+        sellPhysical([{ name, size: size || '', quantity }], note, totalCents);
         res.json({ ok: true });
     } catch (err) {
         res.status(409).json({ error: err.message });
@@ -104,6 +109,12 @@ app.delete(`${adminPath}/api/sell/:id`, (req, res) => {
     if (!ok) {
         return res.status(404).json({ error: 'No trobada (o no és una venda física)' });
     }
+    res.json({ ok: true });
+});
+
+app.post(`${adminPath}/api/orders/:id/pickup`, (req, res) => {
+    const { pickedUp } = req.body || {};
+    setPickedUp(Number(req.params.id), !!pickedUp);
     res.json({ ok: true });
 });
 

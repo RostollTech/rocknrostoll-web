@@ -37,6 +37,13 @@ db.exec(`
   );
 `);
 
+// Migració senzilla per a bases de dades creades abans d'aquesta columna.
+try {
+    db.exec('ALTER TABLE orders ADD COLUMN picked_up INTEGER NOT NULL DEFAULT 0');
+} catch {
+    // ja existeix
+}
+
 const normSize = size => size || '';
 
 export function getStock(name, size) {
@@ -150,7 +157,11 @@ export function recordOrder({ stripeSessionId, channel, customerName, customerEm
 
 export function listOrders() {
     return db.prepare('SELECT * FROM orders ORDER BY created_at DESC').all()
-        .map(o => ({ ...o, items: JSON.parse(o.items) }));
+        .map(o => ({ ...o, items: JSON.parse(o.items), picked_up: !!o.picked_up }));
+}
+
+export function setPickedUp(orderId, pickedUp) {
+    db.prepare('UPDATE orders SET picked_up = ? WHERE id = ?').run(pickedUp ? 1 : 0, orderId);
 }
 
 // Registers an in-person (physical) sale: atomically checks & decrements stock
@@ -158,7 +169,7 @@ export function listOrders() {
 // online orders so both channels draw from, and are visible against, one shared
 // stock count.
 // items: [{ name, size, quantity }]
-export function sellPhysical(items, note) {
+export function sellPhysical(items, note, totalCents) {
     reserveOrThrow(items);
     recordOrder({
         stripeSessionId: `physical_${Date.now()}_${crypto.randomBytes(4).toString('hex')}`,
@@ -167,7 +178,7 @@ export function sellPhysical(items, note) {
         customerEmail: '',
         items,
         donationCents: 0,
-        totalCents: 0,
+        totalCents: totalCents || 0,
     });
 }
 
