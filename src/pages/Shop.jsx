@@ -5,9 +5,24 @@ import ProductCard from "../components/ProductCard";
 import products from "../data/products.json";
 import { Link } from "react-router-dom";
 import SEO from "../components/SEO";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 export default function Shop() {
+  const [stockByProduct, setStockByProduct] = useState(null);
+
+  useEffect(() => {
+    fetch("/api/stock")
+      .then(res => res.ok ? res.json() : Promise.reject())
+      .then(rows => {
+        const totals = {};
+        rows.forEach(row => {
+          totals[row.product_name] = (totals[row.product_name] || 0) + row.quantity;
+        });
+        setStockByProduct(totals);
+      })
+      .catch(() => setStockByProduct({}));
+  }, []);
+
   const structuredData = useMemo(() => ({
     "@context": "https://schema.org",
     "@type": "CollectionPage",
@@ -65,7 +80,11 @@ export default function Shop() {
               {products
                 .filter(product => product.name !== "Donatiu")
                 .map((product, index) => (
-                  <ProductCard key={`${product.name}-${index}`} {...product} />
+                  <ProductCard
+                    key={`${product.name}-${index}`}
+                    {...product}
+                    remaining={stockByProduct ? (stockByProduct[product.name] ?? 0) : null}
+                  />
                 ))}
             </div>
           </div>

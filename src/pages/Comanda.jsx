@@ -25,6 +25,19 @@ export default function Comanda() {
   // Object: { "ProductName": ["M", "L", ""], ... }
   const [productSelections, setProductSelections] = useState({});
 
+  // Estoc restant per "Producte::Talla", per avisar quan en queden poques.
+  const [stockBySize, setStockBySize] = useState({});
+  useEffect(() => {
+    fetch("/api/stock")
+      .then(res => res.ok ? res.json() : Promise.reject())
+      .then(rows => {
+        const map = {};
+        rows.forEach(row => { map[`${row.product_name}::${row.size}`] = row.quantity; });
+        setStockBySize(map);
+      })
+      .catch(() => setStockBySize({}));
+  }, []);
+
   // Sync productSelections to global cart
   useEffect(() => {
     setCart(prevCart => {
@@ -337,7 +350,16 @@ export default function Comanda() {
                                           required
                                         >
                                           <option value="" disabled>Triar Talla...</option>
-                                          {sizeOptions.map(s => <option key={s} value={s}>{s}</option>)}
+                                          {sizeOptions.map(s => {
+                                            const remaining = stockBySize[`${product.name}::${s}`] ?? 0;
+                                            const soldOut = remaining <= 0;
+                                            const label = soldOut
+                                              ? `${s} — Exhaurit`
+                                              : remaining < 5
+                                                ? `${s} — Últimes ${remaining}!`
+                                                : s;
+                                            return <option key={s} value={s} disabled={soldOut}>{label}</option>;
+                                          })}
                                         </select>
                                       </div>
                                     ))}

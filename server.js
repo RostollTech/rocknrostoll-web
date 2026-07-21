@@ -22,6 +22,12 @@ app.use(express.json());
 
 app.all('/api/checkout', (req, res) => checkout(req, res));
 
+// Públic: només recomptes d'estoc, cap dada sensible — la botiga ho fa servir
+// per mostrar unitats restants i avisar quan en queden poques.
+app.get('/api/stock', (_req, res) => {
+    res.json(getAllStock());
+});
+
 function timingSafeStringEqual(a, b) {
     const bufA = Buffer.from(a);
     const bufB = Buffer.from(b);
