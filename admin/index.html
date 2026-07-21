@@ -59,8 +59,12 @@
 </div>
 
 <script>
+// Deriva la base de l'API de la mateixa URL des d'on s'ha carregat aquesta
+// pàgina, així no cal escriure la ruta secreta de l'admin enlloc del codi.
+const API_BASE = location.pathname.replace(/\/+$/, '');
+
 async function loadData() {
-  const res = await fetch('/admin/api/data');
+  const res = await fetch(`${API_BASE}/api/data`);
   if (!res.ok) {
     document.body.innerHTML = '<p style="padding:2rem">Error carregant les dades (' + res.status + ')</p>';
     return;
@@ -84,7 +88,7 @@ async function loadData() {
       const name = btn.dataset.name;
       const input = stockBody.querySelector(`input[data-name="${CSS.escape(name)}"]`);
       const quantity = parseInt(input.value, 10);
-      const r = await fetch('/admin/api/stock', {
+      const r = await fetch(`${API_BASE}/api/stock`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, quantity }),

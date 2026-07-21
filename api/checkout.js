@@ -27,9 +27,9 @@ export default async function handler(req, res) {
         if (items && Array.isArray(items) && items.length > 0) {
 
             const PRODUCTS_CATALOG = {
-                "Camiseta": 0,
-                "Camiseta Infant": 0,
-                "Camiseta Màniga Llarga": 0
+                "Camiseta": 8,
+                "Camiseta Infant": 6,
+                "Camiseta Màniga Llarga": 10
             };
 
             line_items = items.map(item => {

@@ -7,19 +7,19 @@
   },
   {
     "name": "Camiseta",
-    "price": "0 €",
+    "price": "8 €",
     "image": "/products/disseny.webp",
     "url": "/comanda"
   },
   {
     "name": "Camiseta Infant",
-    "price": "0 €",
+    "price": "6 €",
     "image": "/products/disseny.webp",
     "url": "/comanda"
   },
   {
     "name": "Camiseta Màniga Llarga",
-    "price": "0 €",
+    "price": "10 €",
     "image": "/products/disseny.webp",
     "url": "/comanda"
   }

@@ -111,12 +111,13 @@ automàticament. Per això calen dos esdeveniments al webhook:
 
 ## 8. Panell d'administració
 
-A `https://rocknrostoll.cat/admin` (usuari/contrasenya = `ADMIN_USER` /
-`ADMIN_PASSWORD` de l'`.env`) pots veure i editar l'estoc de cada producte,
-i consultar el llistat de comandes pagades. **Important**: quan reactivis
-la botiga, entra-hi primer per posar l'estoc real de cada producte — per
-defecte tots comencen a 0 i el checkout rebutjarà qualsevol compra fins que
-hi hagi unitats disponibles.
+A `https://rocknrostoll.cat/<ADMIN_PATH>` (la ruta que hagis posat a
+`ADMIN_PATH` al `.env` — **no** `/admin`, per això és secreta; usuari/
+contrasenya = `ADMIN_USER`/`ADMIN_PASSWORD`) pots veure i editar l'estoc
+de cada producte, i consultar el llistat de comandes pagades. **Important**:
+quan reactivis la botiga, entra-hi primer per posar l'estoc real de cada
+producte — per defecte tots comencen a 0 i el checkout rebutjarà qualsevol
+compra fins que hi hagi unitats disponibles.
 
 ## Actualitzar en el futur
 

@@ -87,8 +87,9 @@ Obre `https://test.rocknrostoll.cat` — funciona igual que la web real
   producció (`rocknrostoll-web` no es toca per res),
 - els pagaments són en **mode Test** de Stripe (targeta `4242 4242 4242
   4242`, no cobra res real),
-- `https://test.rocknrostoll.cat/admin` té el seu propi estoc/comandes,
-  independent del de `rocknrostoll.cat/admin`.
+- `https://test.rocknrostoll.cat/<ADMIN_PATH>` té el seu propi estoc/comandes,
+  independent del de producció (recorda que `ADMIN_PATH` és configurable al
+  `.env` — no és literalment `/admin`).
 
 ## Actualitzar l'staging
 

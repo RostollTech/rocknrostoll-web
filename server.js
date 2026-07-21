@@ -57,13 +57,17 @@ function adminAuth(req, res, next) {
     return res.status(401).send('Autenticació requerida');
 }
 
-app.use('/admin', adminAuth);
+// La ruta de l'admin és configurable (ADMIN_PATH) perquè no quedi fixada
+// al codi/repo — posa-hi una cadena aleatòria al .env, no "admin".
+const adminPath = '/' + (process.env.ADMIN_PATH || 'admin').replace(/^\/+/, '');
 
-app.get('/admin/api/data', (_req, res) => {
+app.use(adminPath, adminAuth);
+
+app.get(`${adminPath}/api/data`, (_req, res) => {
     res.json({ stock: getAllStock(), orders: listOrders() });
 });
 
-app.post('/admin/api/stock', (req, res) => {
+app.post(`${adminPath}/api/stock`, (req, res) => {
     const { name, quantity } = req.body || {};
     if (!name || !Number.isInteger(quantity) || quantity < 0) {
         return res.status(400).json({ error: 'Dades no vàlides' });
@@ -72,7 +76,7 @@ app.post('/admin/api/stock', (req, res) => {
     res.json({ ok: true });
 });
 
-app.use('/admin', express.static(adminDir));
+app.use(adminPath, express.static(adminDir));
 
 app.use(express.static(distDir));
 
