@@ -17,12 +17,17 @@
   }
   h1 { font-size: 1.4rem; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 1.75rem; }
   h2 { font-size: 1.05rem; text-transform: uppercase; letter-spacing: 0.06em; color: #fba830; margin: 2.5rem 0 1rem; }
+  h3 { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.04em; color: #ccc; margin: 1.25rem 0 0.5rem; }
   table { width: 100%; border-collapse: collapse; background: #141414; border-radius: 8px; overflow: hidden; }
-  th, td { text-align: left; padding: 0.65rem 0.9rem; border-bottom: 1px solid #262626; font-size: 0.92rem; }
+  th, td { text-align: left; padding: 0.6rem 0.9rem; border-bottom: 1px solid #262626; font-size: 0.92rem; }
   th { color: #999; font-weight: 600; text-transform: uppercase; font-size: 0.72rem; letter-spacing: 0.05em; }
   tr:last-child td { border-bottom: none; }
   input[type="number"] {
-    width: 5.5rem; padding: 0.35rem 0.5rem; background: #1e1e1e; border: 1px solid #333;
+    width: 5rem; padding: 0.35rem 0.5rem; background: #1e1e1e; border: 1px solid #333;
+    border-radius: 4px; color: #f0f0f0; font-size: 0.9rem;
+  }
+  input[type="text"], select {
+    padding: 0.35rem 0.5rem; background: #1e1e1e; border: 1px solid #333;
     border-radius: 4px; color: #f0f0f0; font-size: 0.9rem;
   }
   button {
@@ -30,29 +35,42 @@
     padding: 0.4rem 0.9rem; border-radius: 4px; cursor: pointer; font-size: 0.85rem;
   }
   button:hover { opacity: 0.85; }
+  button:disabled { opacity: 0.5; cursor: not-allowed; }
   .items-list { font-size: 0.85rem; color: #ccc; }
   .muted { color: #888; }
   .save-msg { font-size: 0.8rem; margin-left: 0.6rem; color: #6fcf6f; }
+  .err-msg { font-size: 0.8rem; margin-left: 0.6rem; color: #ff6b6b; }
   .wrap { max-width: 1000px; margin: 0 auto; }
   .table-scroll { overflow-x: auto; }
+  .sell-form { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; background: #141414; padding: 1rem; border-radius: 8px; }
+  .sell-form input[type="text"] { flex: 1; min-width: 10rem; }
+  .badge { display: inline-block; padding: 0.15rem 0.5rem; border-radius: 999px; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; }
+  .badge--online { background: rgba(111, 207, 111, 0.15); color: #6fcf6f; }
+  .badge--physical { background: rgba(251, 168, 48, 0.18); color: #fba830; }
 </style>
 </head>
 <body>
 <div class="wrap">
   <h1>Panell d'administració · Rock'n'Rostoll</h1>
 
-  <h2>Estoc</h2>
-  <div class="table-scroll">
-    <table id="stock-table">
-      <thead><tr><th>Producte</th><th>Quantitat</th><th></th></tr></thead>
-      <tbody></tbody>
-    </table>
+  <h2>Estoc per talla</h2>
+  <div id="stock-groups"></div>
+
+  <h2>Registrar venda física</h2>
+  <p class="muted" style="margin-top:-0.5rem">Descompta del mateix estoc que la botiga online, perquè entre les dues vies no se superi el que hi ha disponible.</p>
+  <div class="sell-form">
+    <select id="sell-product"></select>
+    <select id="sell-size"></select>
+    <input type="number" id="sell-qty" min="1" value="1" style="width:4.5rem" />
+    <input type="text" id="sell-note" placeholder="Nota (opcional, ex: nom del comprador)" />
+    <button id="sell-btn">Registra venda</button>
+    <span id="sell-msg"></span>
   </div>
 
-  <h2>Comandes pagades</h2>
+  <h2>Comandes</h2>
   <div class="table-scroll">
     <table id="orders-table">
-      <thead><tr><th>Data</th><th>Client</th><th>Productes</th><th>Donatiu</th><th>Total</th></tr></thead>
+      <thead><tr><th>Data</th><th>Canal</th><th>Client</th><th>Productes</th><th>Donatiu</th><th>Total</th></tr></thead>
       <tbody></tbody>
     </table>
   </div>
@@ -63,6 +81,20 @@
 // pàgina, així no cal escriure la ruta secreta de l'admin enlloc del codi.
 const API_BASE = location.pathname.replace(/\/+$/, '');
 
+// Talles vàlides per producte (ha de coincidir amb el que s'ofereix a /comanda).
+const PRODUCTS = [
+  { name: 'Camiseta', sizes: ['S', 'M', 'L', 'XL', 'XXL'] },
+  { name: 'Camiseta Infant', sizes: ['5-6', '7-8', '9-11', '12-13', '14-15'] },
+  { name: 'Camiseta Màniga Llarga', sizes: ['S', 'M', 'L', 'XL', 'XXL'] },
+];
+
+function fillSellSizes() {
+  const productName = document.getElementById('sell-product').value;
+  const product = PRODUCTS.find(p => p.name === productName);
+  const sizeSelect = document.getElementById('sell-size');
+  sizeSelect.innerHTML = (product ? product.sizes : []).map(s => `<option value="${s}">${s}</option>`).join('');
+}
+
 async function loadData() {
   const res = await fetch(`${API_BASE}/api/data`);
   if (!res.ok) {
@@ -71,48 +103,68 @@ async function loadData() {
   }
   const { stock, orders } = await res.json();
 
-  const stockBody = document.querySelector('#stock-table tbody');
-  stockBody.innerHTML = '';
-  stock.forEach(row => {
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td>${row.product_name}</td>
-      <td><input type="number" min="0" value="${row.quantity}" data-name="${row.product_name}" /></td>
-      <td><button data-name="${row.product_name}">Desa</button><span class="save-msg" hidden>Desat!</span></td>
-    `;
-    stockBody.appendChild(tr);
-  });
+  // Estoc actual indexat per "producte::talla"
+  const stockMap = new Map(stock.map(row => [`${row.product_name}::${row.size}`, row.quantity]));
 
-  stockBody.querySelectorAll('button').forEach(btn => {
-    btn.addEventListener('click', async () => {
-      const name = btn.dataset.name;
-      const input = stockBody.querySelector(`input[data-name="${CSS.escape(name)}"]`);
-      const quantity = parseInt(input.value, 10);
-      const r = await fetch(`${API_BASE}/api/stock`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, quantity }),
+  const groupsEl = document.getElementById('stock-groups');
+  groupsEl.innerHTML = '';
+  PRODUCTS.forEach(product => {
+    const h3 = document.createElement('h3');
+    h3.textContent = product.name;
+    groupsEl.appendChild(h3);
+
+    const table = document.createElement('table');
+    table.innerHTML = `<thead><tr><th>Talla</th><th>Quantitat</th><th></th></tr></thead><tbody></tbody>`;
+    const tbody = table.querySelector('tbody');
+
+    product.sizes.forEach(size => {
+      const qty = stockMap.get(`${product.name}::${size}`) || 0;
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${size}</td>
+        <td><input type="number" min="0" value="${qty}" /></td>
+        <td><button>Desa</button><span class="save-msg" hidden>Desat!</span></td>
+      `;
+      const input = tr.querySelector('input');
+      const btn = tr.querySelector('button');
+      btn.addEventListener('click', async () => {
+        const quantity = parseInt(input.value, 10);
+        const r = await fetch(`${API_BASE}/api/stock`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name: product.name, size, quantity }),
+        });
+        const msg = btn.nextElementSibling;
+        if (r.ok) {
+          msg.hidden = false;
+          setTimeout(() => { msg.hidden = true; }, 1500);
+        } else {
+          alert('Error desant');
+        }
       });
-      const msg = btn.nextElementSibling;
-      if (r.ok) {
-        msg.hidden = false;
-        setTimeout(() => { msg.hidden = true; }, 1500);
-      } else {
-        alert('Error desant');
-      }
+      tbody.appendChild(tr);
     });
+
+    const wrap = document.createElement('div');
+    wrap.className = 'table-scroll';
+    wrap.appendChild(table);
+    groupsEl.appendChild(wrap);
   });
 
   const ordersBody = document.querySelector('#orders-table tbody');
   ordersBody.innerHTML = '';
   if (orders.length === 0) {
-    ordersBody.innerHTML = '<tr><td colspan="5" class="muted">Encara no hi ha cap comanda pagada.</td></tr>';
+    ordersBody.innerHTML = '<tr><td colspan="6" class="muted">Encara no hi ha cap comanda.</td></tr>';
   }
   orders.forEach(order => {
     const itemsText = order.items.map(i => `${i.quantity} x ${i.name}${i.size ? ' (' + i.size + ')' : ''}`).join(', ');
+    const channelBadge = order.channel === 'physical'
+      ? '<span class="badge badge--physical">Física</span>'
+      : '<span class="badge badge--online">Online</span>';
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td>${new Date(order.created_at.replace(' ', 'T') + 'Z').toLocaleString('ca-ES')}</td>
+      <td>${channelBadge}</td>
       <td>${order.customer_name || '-'}<br><span class="muted">${order.customer_email || ''}</span></td>
       <td class="items-list">${itemsText || '-'}</td>
       <td>${(order.donation_cents / 100).toFixed(2)}€</td>
@@ -121,6 +173,41 @@ async function loadData() {
     ordersBody.appendChild(tr);
   });
 }
+
+document.getElementById('sell-product').innerHTML = PRODUCTS.map(p => `<option value="${p.name}">${p.name}</option>`).join('');
+document.getElementById('sell-product').addEventListener('change', fillSellSizes);
+fillSellSizes();
+
+document.getElementById('sell-btn').addEventListener('click', async () => {
+  const name = document.getElementById('sell-product').value;
+  const size = document.getElementById('sell-size').value;
+  const quantity = parseInt(document.getElementById('sell-qty').value, 10);
+  const note = document.getElementById('sell-note').value;
+  const msg = document.getElementById('sell-msg');
+  const btn = document.getElementById('sell-btn');
+
+  btn.disabled = true;
+  msg.className = '';
+  msg.textContent = '';
+
+  const r = await fetch(`${API_BASE}/api/sell`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name, size, quantity, note }),
+  });
+  const data = await r.json();
+  btn.disabled = false;
+
+  if (r.ok) {
+    msg.className = 'save-msg';
+    msg.textContent = `Venuda! ${quantity} x ${name} (${size})`;
+    document.getElementById('sell-note').value = '';
+    loadData();
+  } else {
+    msg.className = 'err-msg';
+    msg.textContent = data.error || 'Error registrant la venda';
+  }
+});
 
 loadData();
 </script>

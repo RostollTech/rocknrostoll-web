@@ -35,6 +35,7 @@ export default async function handler(req, res) {
         // Idempotent: Stripe reintenta webhooks; només la primera entrega actua.
         const isNew = recordOrder({
             stripeSessionId: session.id,
+            channel: 'online',
             customerName: session.metadata?.customer_name || '',
             customerEmail: session.customer_details?.email || session.customer_email || '',
             items,
@@ -48,7 +49,7 @@ export default async function handler(req, res) {
             // seguretat per a sessions creades abans del sistema de reserves.
             const hadReservation = completeReservation(session.id);
             if (!hadReservation) {
-                items.forEach(item => decrementStock(item.name, item.quantity));
+                items.forEach(item => decrementStock(item.name, item.size, item.quantity));
             }
         }
     }

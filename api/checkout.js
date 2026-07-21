@@ -157,15 +157,22 @@ export default async function handler(req, res) {
             itemsChunks[`items_${i}`] = itemsJson.substring(i * 500, (i + 1) * 500);
         }
 
-        // Reserva l'estoc ABANS de crear la sessió (agregat per producte, totes les
-        // talles sumades). Si no n'hi ha prou, llança error i no es crea res.
-        // El webhook 'checkout.session.expired' retorna la reserva si el comprador
-        // abandona el pagament (la sessió caduca als 30 minuts).
-        const totalPerProduct = {};
+        // Reserva l'estoc ABANS de crear la sessió (agregat per producte+talla,
+        // per si el carret repetís la mateixa línia). Si no n'hi ha prou, llança
+        // error i no es crea res. El webhook 'checkout.session.expired' retorna
+        // la reserva si el comprador abandona el pagament (caduca als 30 minuts).
+        const totalsByLine = new Map();
         orderItems.forEach(item => {
-            totalPerProduct[item.name] = (totalPerProduct[item.name] || 0) + item.quantity;
+            const key = `${item.name}::${item.size || ''}`;
+            const existing = totalsByLine.get(key);
+            if (existing) {
+                existing.quantity += item.quantity;
+            } else {
+                totalsByLine.set(key, { name: item.name, size: item.size, quantity: item.quantity });
+            }
         });
-        reserveStock(totalPerProduct);
+        const reservationItems = Array.from(totalsByLine.values());
+        reserveStock(reservationItems);
 
         let session;
         try {
@@ -195,7 +202,7 @@ export default async function handler(req, res) {
             });
         } catch (err) {
             // Stripe ha fallat: desfés la reserva perquè l'estoc no quedi bloquejat.
-            restoreStock(totalPerProduct);
+            restoreStock(reservationItems);
             throw err;
         }
 

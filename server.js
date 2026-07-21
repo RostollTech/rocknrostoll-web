@@ -2,19 +2,14 @@
 import path from 'node:path';
 import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
-import fs from 'node:fs';
 import express from 'express';
 import checkout from './api/checkout.js';
 import webhook from './api/webhook.js';
-import { getAllStock, setStock, ensureProduct, listOrders } from './api/db.js';
+import { getAllStock, setStock, listOrders, sellPhysical } from './api/db.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const distDir = path.join(__dirname, 'dist');
 const adminDir = path.join(__dirname, 'admin');
-
-// Assegura que cada producte del catàleg té una fila d'estoc (per defecte 0).
-const catalog = JSON.parse(fs.readFileSync(path.join(__dirname, 'src/data/products.json'), 'utf-8'));
-catalog.filter(p => p.name !== 'Donatiu').forEach(p => ensureProduct(p.name));
 
 const app = express();
 
@@ -68,12 +63,25 @@ app.get(`${adminPath}/api/data`, (_req, res) => {
 });
 
 app.post(`${adminPath}/api/stock`, (req, res) => {
-    const { name, quantity } = req.body || {};
+    const { name, size, quantity } = req.body || {};
     if (!name || !Number.isInteger(quantity) || quantity < 0) {
         return res.status(400).json({ error: 'Dades no vàlides' });
     }
-    setStock(name, quantity);
+    setStock(name, size || '', quantity);
     res.json({ ok: true });
+});
+
+app.post(`${adminPath}/api/sell`, (req, res) => {
+    const { name, size, quantity, note } = req.body || {};
+    if (!name || !Number.isInteger(quantity) || quantity < 1) {
+        return res.status(400).json({ error: 'Dades no vàlides' });
+    }
+    try {
+        sellPhysical([{ name, size: size || '', quantity }], note);
+        res.json({ ok: true });
+    } catch (err) {
+        res.status(409).json({ error: err.message });
+    }
 });
 
 app.use(adminPath, express.static(adminDir));
