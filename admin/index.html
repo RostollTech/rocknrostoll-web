@@ -217,18 +217,24 @@ async function loadData() {
 }
 
 async function loadProducts() {
-  const res = await fetch(`${API_BASE}/api/products`);
+  // /api/products és una ruta pública arrel (no viu sota la ruta secreta de l'admin).
+  const res = await fetch('/api/products');
   const catalog = res.ok ? await res.json() : [];
   PRODUCTS = catalog.filter(p => p.name !== 'Donatiu' && p.sizes);
 }
 
 async function init() {
-  await loadProducts();
-  document.getElementById('sell-product').innerHTML = PRODUCTS.map(p => `<option value="${p.name}">${p.name}</option>`).join('');
-  document.getElementById('sell-product').addEventListener('change', fillSellSizes);
-  fillSellSizes();
-  document.getElementById('orders-search').addEventListener('input', e => renderOrders(e.target.value));
-  loadData();
+  try {
+    await loadProducts();
+    document.getElementById('sell-product').innerHTML = PRODUCTS.map(p => `<option value="${p.name}">${p.name}</option>`).join('');
+    document.getElementById('sell-product').addEventListener('change', fillSellSizes);
+    fillSellSizes();
+    document.getElementById('orders-search').addEventListener('input', e => renderOrders(e.target.value));
+    await loadData();
+  } catch (err) {
+    console.error(err);
+    document.body.innerHTML = '<p style="padding:2rem">Error inicialitzant la pàgina: ' + err.message + '</p>';
+  }
 }
 
 document.getElementById('sell-btn').addEventListener('click', async () => {
