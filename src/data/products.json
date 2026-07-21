@@ -6,27 +6,21 @@
     "url": "/comanda"
   },
   {
-    "name": "Pack - Dessuadora + Gorra + Bossa - versió limitada",
-    "price": "40 €",
+    "name": "Camiseta",
+    "price": "0 €",
     "image": "/products/disseny.webp",
     "url": "/comanda"
   },
   {
-    "name": "Dessuadora 30 edició - versió limitada",
-    "price": "28 €",
-    "image": "/products/dessuadora.webp",
+    "name": "Camiseta Infant",
+    "price": "0 €",
+    "image": "/products/disseny.webp",
     "url": "/comanda"
   },
   {
-    "name": "Gorra 30 edició - versió limitada",
-    "price": "10 €",
-    "image": "/products/gorra.webp",
-    "url": "/comanda"
-  },
-  {
-    "name": "Bossa 30 edició - versió limitada",
-    "price": "8 €",
-    "image": "/products/bossa.webp",
+    "name": "Camiseta Màniga Llarga",
+    "price": "0 €",
+    "image": "/products/disseny.webp",
     "url": "/comanda"
   }
 ]

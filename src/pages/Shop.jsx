@@ -85,7 +85,7 @@ export default function Shop() {
                 fontSize: "1.2rem",
                 lineHeight: "1.6"
               }}>
-                "Volem expressar un agraïment sincer a <strong>Maria Antònia Roig</strong> pels dissenys gràfics aportats de manera totalment altruista, una contribució clau per fer possible aquesta edició especial."
+                "Volem donar les gràcies a tota la gent que, any rere any, ha entès com de difícil és tirar endavant aquest festival de manera gratuïta i ens dona suport. Vivim del que guanyem a la barra i d'aquest merxandatge, i és gràcies al vostre suport que ho podem continuar fent possible."
               </blockquote>
             </div>
 

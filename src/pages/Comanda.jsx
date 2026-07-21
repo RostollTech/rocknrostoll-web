@@ -188,7 +188,8 @@ export default function Comanda() {
         body: JSON.stringify({
           items: items,
           donation: donationAmount,
-          customerEmail: formData.email
+          customerEmail: formData.email,
+          customerName: formData.name
         })
       });
 
@@ -246,10 +247,37 @@ export default function Comanda() {
                     <div className="form-section">
                       <h3 className="form-title">1. Selecciona els Productes</h3>
                       <div className="products-list">
+                        {/* Donatiu Section */}
+                        <div className="order-item donation-item">
+                          <div className="order-item-details" style={{ width: '100%' }}>
+                            <span className="donation-badge">Entitat sense ànim de lucre</span>
+                            <h4 className="order-item-title">Ajuda'ns a mantenir viu el Rostoll</h4>
+                            <p className="description-text">
+                              Som una entitat sense ànim de lucre i any rere any costa més fer front a
+                              les despeses del festival. Si pots, afegeix un donatiu a la teva comanda:
+                              cada euro compta i ens ajuda a seguir fent-lo possible.
+                            </p>
+                            <div className="donation-input-group">
+                              <span className="currency-symbol">€</span>
+                              <input
+                                type="number"
+                                min="0"
+                                step="1"
+                                value={donationAmount}
+                                onChange={(e) => setDonationAmount(e.target.value)}
+                                className="form-input donation-input"
+                                placeholder="0"
+                              />
+                            </div>
+                          </div>
+                        </div>
+
                         {productsData.map((product, index) => {
                           if (product.name === "Donatiu") return null;
 
-                          const needsSize = product.name.toLowerCase().includes('dessu') || product.name.toLowerCase().includes('pack');
+                          const needsSize = product.name.toLowerCase().includes('dessu') || product.name.toLowerCase().includes('pack') || product.name.toLowerCase().includes('camiseta');
+                          const isKidsProduct = product.name.toLowerCase().includes('infant');
+                          const sizeOptions = isKidsProduct ? SIZES_KIDS : SIZES_ADULTS;
 
                           // Non-hoodie item (Simple)
                           if (!needsSize) {
@@ -314,12 +342,7 @@ export default function Comanda() {
                                           required
                                         >
                                           <option value="" disabled>Triar Talla...</option>
-                                          <optgroup label="Infantil">
-                                            {SIZES_KIDS.map(s => <option key={s} value={s}>{s}</option>)}
-                                          </optgroup>
-                                          <optgroup label="Adult">
-                                            {SIZES_ADULTS.map(s => <option key={s} value={s}>{s}</option>)}
-                                          </optgroup>
+                                          {sizeOptions.map(s => <option key={s} value={s}>{s}</option>)}
                                         </select>
                                       </div>
                                     ))}
@@ -329,26 +352,6 @@ export default function Comanda() {
                             </div>
                           );
                         })}
-
-                        {/* Donatiu Section */}
-                        <div className="order-item donation-item">
-                          <div className="order-item-details" style={{ width: '100%' }}>
-                            <h4 className="order-item-title">Vols fer un Donatiu extra?</h4>
-                            <p className="description-text">Ajuda'ns a seguir fent renou.</p>
-                            <div className="donation-input-group">
-                              <span className="currency-symbol">€</span>
-                              <input
-                                type="number"
-                                min="0"
-                                step="1"
-                                value={donationAmount}
-                                onChange={(e) => setDonationAmount(e.target.value)}
-                                className="form-input donation-input"
-                                placeholder="0"
-                              />
-                            </div>
-                          </div>
-                        </div>
                       </div>
                     </div>
 
