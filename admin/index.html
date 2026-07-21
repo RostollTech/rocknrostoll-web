@@ -47,6 +47,15 @@
   .badge { display: inline-block; padding: 0.15rem 0.5rem; border-radius: 999px; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; }
   .badge--online { background: rgba(111, 207, 111, 0.15); color: #6fcf6f; }
   .badge--physical { background: rgba(251, 168, 48, 0.18); color: #fba830; }
+  .stock-group { margin-bottom: 0.75rem; }
+  .stock-group summary {
+    cursor: pointer; padding: 0.6rem 0.9rem; background: #141414; border-radius: 8px;
+    font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.04em; color: #ccc;
+  }
+  .stock-group summary:hover { color: #fba830; }
+  .stock-group[open] summary { border-radius: 8px 8px 0 0; margin-bottom: 0; }
+  .stock-group table { border-radius: 0 0 8px 8px; }
+  .search-input { width: 100%; max-width: 24rem; margin-bottom: 0.75rem; }
 </style>
 </head>
 <body>
@@ -68,6 +77,7 @@
   </div>
 
   <h2>Comandes</h2>
+  <input type="text" id="orders-search" class="search-input" placeholder="Cerca per nom, email o producte..." />
   <div class="table-scroll">
     <table id="orders-table">
       <thead><tr><th>Data</th><th>Canal</th><th>Client</th><th>Productes</th><th>Donatiu</th><th>Total</th><th></th></tr></thead>
@@ -92,23 +102,22 @@ function fillSellSizes() {
   sizeSelect.innerHTML = (product ? product.sizes : []).map(s => `<option value="${s}">${s}</option>`).join('');
 }
 
-async function loadData() {
-  const res = await fetch(`${API_BASE}/api/data`);
-  if (!res.ok) {
-    document.body.innerHTML = '<p style="padding:2rem">Error carregant les dades (' + res.status + ')</p>';
-    return;
-  }
-  const { stock, orders } = await res.json();
+let allOrders = [];
 
+function renderStockGroups(stock) {
   // Estoc actual indexat per "producte::talla"
   const stockMap = new Map(stock.map(row => [`${row.product_name}::${row.size}`, row.quantity]));
 
   const groupsEl = document.getElementById('stock-groups');
   groupsEl.innerHTML = '';
-  PRODUCTS.forEach(product => {
-    const h3 = document.createElement('h3');
-    h3.textContent = product.name;
-    groupsEl.appendChild(h3);
+  PRODUCTS.forEach((product, i) => {
+    const details = document.createElement('details');
+    details.className = 'stock-group';
+    details.open = i === 0; // el primer obert per defecte, la resta plegats
+
+    const summary = document.createElement('summary');
+    summary.textContent = product.name;
+    details.appendChild(summary);
 
     const table = document.createElement('table');
     table.innerHTML = `<thead><tr><th>Talla</th><th>Quantitat</th><th></th></tr></thead><tbody></tbody>`;
@@ -145,15 +154,26 @@ async function loadData() {
     const wrap = document.createElement('div');
     wrap.className = 'table-scroll';
     wrap.appendChild(table);
-    groupsEl.appendChild(wrap);
+    details.appendChild(wrap);
+    groupsEl.appendChild(details);
+  });
+}
+
+function renderOrders(filterText) {
+  const term = (filterText || '').trim().toLowerCase();
+  const filtered = !term ? allOrders : allOrders.filter(order => {
+    const itemsText = order.items.map(i => `${i.name} ${i.size || ''}`).join(' ').toLowerCase();
+    return (order.customer_name || '').toLowerCase().includes(term)
+      || (order.customer_email || '').toLowerCase().includes(term)
+      || itemsText.includes(term);
   });
 
   const ordersBody = document.querySelector('#orders-table tbody');
   ordersBody.innerHTML = '';
-  if (orders.length === 0) {
-    ordersBody.innerHTML = '<tr><td colspan="7" class="muted">Encara no hi ha cap comanda.</td></tr>';
+  if (filtered.length === 0) {
+    ordersBody.innerHTML = `<tr><td colspan="7" class="muted">${allOrders.length === 0 ? 'Encara no hi ha cap comanda.' : 'Cap resultat per a la cerca.'}</td></tr>`;
   }
-  orders.forEach(order => {
+  filtered.forEach(order => {
     const itemsText = order.items.map(i => `${i.quantity} x ${i.name}${i.size ? ' (' + i.size + ')' : ''}`).join(', ');
     const isPhysical = order.channel === 'physical';
     const channelBadge = isPhysical
@@ -184,6 +204,18 @@ async function loadData() {
   });
 }
 
+async function loadData() {
+  const res = await fetch(`${API_BASE}/api/data`);
+  if (!res.ok) {
+    document.body.innerHTML = '<p style="padding:2rem">Error carregant les dades (' + res.status + ')</p>';
+    return;
+  }
+  const { stock, orders } = await res.json();
+  allOrders = orders;
+  renderStockGroups(stock);
+  renderOrders(document.getElementById('orders-search').value);
+}
+
 async function loadProducts() {
   const res = await fetch(`${API_BASE}/api/products`);
   const catalog = res.ok ? await res.json() : [];
@@ -195,6 +227,7 @@ async function init() {
   document.getElementById('sell-product').innerHTML = PRODUCTS.map(p => `<option value="${p.name}">${p.name}</option>`).join('');
   document.getElementById('sell-product').addEventListener('change', fillSellSizes);
   fillSellSizes();
+  document.getElementById('orders-search').addEventListener('input', e => renderOrders(e.target.value));
   loadData();
 }
 
