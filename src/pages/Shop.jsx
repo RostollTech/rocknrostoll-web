@@ -89,74 +89,76 @@ export default function Shop() {
               </blockquote>
             </div>
 
-            {/* Size Guides: Side by Side */}
-            <div className="size-guides-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(350px, 1fr))", gap: "3rem", alignItems: "start" }}>
+            {/* Size Guides: one table per producte, mesures reals SOL'S (A/B en cm) */}
+            <div className="size-guides-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "3rem", alignItems: "start" }}>
 
-              {/* Box 1: Unisex */}
-              <div className="size-guide-container">
-                <h4 style={{ fontSize: "1.2rem", marginBottom: "1rem", color: "var(--color-text-muted)", textTransform: "uppercase", letterSpacing: "0.05em", borderBottom: "1px solid #333", paddingBottom: "0.5rem" }}>
-                  Guia de Talles (Unisex)
-                </h4>
-                <div style={{ overflowX: "auto" }}>
-                  <table className="size-table" style={{ borderCollapse: "collapse", width: "100%", fontSize: "0.95rem", textAlign: "left", color: "#ccc" }}>
-                    <thead>
-                      <tr style={{ borderBottom: "1px solid var(--color-primary)" }}>
-                        <th style={{ padding: "0.5rem" }}>Talla</th>
-                        <th style={{ padding: "0.5rem" }}>Ample (A)</th>
-                        <th style={{ padding: "0.5rem" }}>Llarg (B)</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {[
-                        { t: "S", w: "51 cm", l: "67 cm" },
-                        { t: "M", w: "56 cm", l: "70 cm" },
-                        { t: "L", w: "61 cm", l: "73 cm" },
-                        { t: "XL", w: "63.5 cm", l: "76 cm" },
-                        { t: "2XL", w: "68.5 cm", l: "79 cm" }
-                      ].map((row, i) => (
-                        <tr key={row.t} style={{ borderBottom: "1px solid rgba(255,255,255,0.05)", background: i % 2 ? "rgba(255,255,255,0.02)" : "transparent" }}>
-                          <td style={{ padding: "0.5rem", fontWeight: "bold", color: "var(--color-accent-yellow)" }}>{row.t}</td>
-                          <td style={{ padding: "0.5rem" }}>{row.w}</td>
-                          <td style={{ padding: "0.5rem" }}>{row.l}</td>
+              {[
+                {
+                  title: "Camiseta",
+                  rows: [
+                    { t: "XXS", w: "46 cm", l: "60 cm" },
+                    { t: "XS", w: "48 cm", l: "64 cm" },
+                    { t: "S", w: "50 cm", l: "70 cm" },
+                    { t: "M", w: "53 cm", l: "72 cm" },
+                    { t: "L", w: "56 cm", l: "74 cm" },
+                    { t: "XL", w: "59 cm", l: "76 cm" },
+                    { t: "XXL", w: "62 cm", l: "78 cm" },
+                    { t: "3XL", w: "65 cm", l: "80 cm" },
+                    { t: "4XL", w: "68 cm", l: "82 cm" },
+                    { t: "5XL", w: "71 cm", l: "84 cm" },
+                  ],
+                },
+                {
+                  title: "Camiseta Infant",
+                  rows: [
+                    { t: "2 anys", w: "29 cm", l: "40 cm" },
+                    { t: "4 anys", w: "32 cm", l: "43 cm" },
+                    { t: "6 anys", w: "35 cm", l: "46 cm" },
+                    { t: "8 anys", w: "38 cm", l: "49 cm" },
+                    { t: "10 anys", w: "41 cm", l: "52 cm" },
+                    { t: "12 anys", w: "44 cm", l: "55 cm" },
+                  ],
+                },
+                {
+                  title: "Camiseta Màniga Llarga",
+                  rows: [
+                    { t: "S", w: "50 cm", l: "69 cm" },
+                    { t: "M", w: "53 cm", l: "71 cm" },
+                    { t: "L", w: "56 cm", l: "73 cm" },
+                    { t: "XL", w: "59 cm", l: "75 cm" },
+                    { t: "XXL", w: "62 cm", l: "77 cm" },
+                    { t: "3XL", w: "65 cm", l: "79 cm" },
+                    { t: "4XL", w: "68 cm", l: "79 cm" },
+                    { t: "5XL", w: "71 cm", l: "79 cm" },
+                  ],
+                },
+              ].map(guide => (
+                <div className="size-guide-container" key={guide.title}>
+                  <h4 style={{ fontSize: "1.2rem", marginBottom: "1rem", color: "var(--color-text-muted)", textTransform: "uppercase", letterSpacing: "0.05em", borderBottom: "1px solid #333", paddingBottom: "0.5rem" }}>
+                    Guia de Talles — {guide.title}
+                  </h4>
+                  <div style={{ overflowX: "auto" }}>
+                    <table className="size-table" style={{ borderCollapse: "collapse", width: "100%", fontSize: "0.95rem", textAlign: "left", color: "#ccc" }}>
+                      <thead>
+                        <tr style={{ borderBottom: "1px solid var(--color-primary)" }}>
+                          <th style={{ padding: "0.5rem" }}>Talla</th>
+                          <th style={{ padding: "0.5rem" }}>Ample (A)</th>
+                          <th style={{ padding: "0.5rem" }}>Llarg (B)</th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                      </thead>
+                      <tbody>
+                        {guide.rows.map((row, i) => (
+                          <tr key={row.t} style={{ borderBottom: "1px solid rgba(255,255,255,0.05)", background: i % 2 ? "rgba(255,255,255,0.02)" : "transparent" }}>
+                            <td style={{ padding: "0.5rem", fontWeight: "bold", color: "var(--color-accent-yellow)" }}>{row.t}</td>
+                            <td style={{ padding: "0.5rem" }}>{row.w}</td>
+                            <td style={{ padding: "0.5rem" }}>{row.l}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
-              </div>
-
-              {/* Box 2: Infantil */}
-              <div className="size-guide-container">
-                <h4 style={{ fontSize: "1.2rem", marginBottom: "1rem", color: "var(--color-text-muted)", textTransform: "uppercase", letterSpacing: "0.05em", borderBottom: "1px solid #333", paddingBottom: "0.5rem" }}>
-                  Guia de Talles (Infantil)
-                </h4>
-                <div style={{ overflowX: "auto" }}>
-                  <table className="size-table" style={{ borderCollapse: "collapse", width: "100%", fontSize: "0.95rem", textAlign: "left", color: "#ccc" }}>
-                    <thead>
-                      <tr style={{ borderBottom: "1px solid var(--color-primary)" }}>
-                        <th style={{ padding: "0.5rem" }}>Talla</th>
-                        <th style={{ padding: "0.5rem" }}>Ample (A)</th>
-                        <th style={{ padding: "0.5rem" }}>Llarg (B)</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {[
-                        { t: "5-6", w: "41 cm", l: "50 cm" },
-                        { t: "7-8", w: "43.5 cm", l: "55 cm" },
-                        { t: "9-11", w: "46 cm", l: "60 cm" },
-                        { t: "12-13", w: "51 cm", l: "65 cm" },
-                        { t: "14-15", w: "56 cm", l: "71 cm" }
-                      ].map((row, i) => (
-                        <tr key={row.t} style={{ borderBottom: "1px solid rgba(255,255,255,0.05)", background: i % 2 ? "rgba(255,255,255,0.02)" : "transparent" }}>
-                          <td style={{ padding: "0.5rem", fontWeight: "bold", color: "var(--color-accent-yellow)" }}>{row.t}</td>
-                          <td style={{ padding: "0.5rem" }}>{row.w}</td>
-                          <td style={{ padding: "0.5rem" }}>{row.l}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
+              ))}
 
             </div>
 

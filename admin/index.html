@@ -81,11 +81,11 @@
 // pàgina, així no cal escriure la ruta secreta de l'admin enlloc del codi.
 const API_BASE = location.pathname.replace(/\/+$/, '');
 
-// Talles vàlides per producte (ha de coincidir amb el que s'ofereix a /comanda).
+// Talles vàlides per producte (ha de coincidir amb src/data/products.json).
 const PRODUCTS = [
-  { name: 'Camiseta', sizes: ['S', 'M', 'L', 'XL', 'XXL'] },
-  { name: 'Camiseta Infant', sizes: ['5-6', '7-8', '9-11', '12-13', '14-15'] },
-  { name: 'Camiseta Màniga Llarga', sizes: ['S', 'M', 'L', 'XL', 'XXL'] },
+  { name: 'Camiseta', sizes: ['XXS', 'XS', 'S', 'M', 'L', 'XL', 'XXL', '3XL', '4XL', '5XL'] },
+  { name: 'Camiseta Infant', sizes: ['2 anys', '4 anys', '6 anys', '8 anys', '10 anys', '12 anys'] },
+  { name: 'Camiseta Màniga Llarga', sizes: ['S', 'M', 'L', 'XL', 'XXL', '3XL', '4XL', '5XL'] },
 ];
 
 function fillSellSizes() {

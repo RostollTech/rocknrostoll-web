@@ -21,10 +21,6 @@ export default function Comanda() {
   const [cart, setCart] = useState({});
   const [donationAmount, setDonationAmount] = useState(0);
 
-  // Cart initialized as empty. Keys will be "Name_Size" => Quantity.
-  const SIZES_KIDS = ["5-6", "7-8", "9-11", "12-13", "14-15"];
-  const SIZES_ADULTS = ["S", "M", "L", "XL", "XXL"];
-
   // New State for Products with Sizes (Hoodies, Packs, etc.)
   // Object: { "ProductName": ["M", "L", ""], ... }
   const [productSelections, setProductSelections] = useState({});
@@ -276,8 +272,7 @@ export default function Comanda() {
                           if (product.name === "Donatiu") return null;
 
                           const needsSize = product.name.toLowerCase().includes('dessu') || product.name.toLowerCase().includes('pack') || product.name.toLowerCase().includes('camiseta');
-                          const isKidsProduct = product.name.toLowerCase().includes('infant');
-                          const sizeOptions = isKidsProduct ? SIZES_KIDS : SIZES_ADULTS;
+                          const sizeOptions = product.sizes || [];
 
                           // Non-hoodie item (Simple)
                           if (!needsSize) {
