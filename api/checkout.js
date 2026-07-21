@@ -1,5 +1,6 @@
 import Stripe from 'stripe';
 import { IS_SHOP_OPEN } from '../src/utils/shopConfig.js';
+import { reserveStock, restoreStock, createReservation } from './db.js';
 
 export default async function handler(req, res) {
     if (!IS_SHOP_OPEN) {
@@ -18,7 +19,7 @@ export default async function handler(req, res) {
         const origin = req.headers.origin || req.headers.referer || 'http://localhost:5173';
 
         // 2. Parse body (if sent by frontend)
-        const { items, customerEmail, donation } = req.body || {};
+        const { items, customerEmail, customerName, donation } = req.body || {};
 
         let line_items = [];
 
@@ -26,10 +27,9 @@ export default async function handler(req, res) {
         if (items && Array.isArray(items) && items.length > 0) {
 
             const PRODUCTS_CATALOG = {
-                "Pack - Dessuadora + Gorra + Bossa - versió limitada": 40,
-                "Dessuadora 30 edició - versió limitada": 28,
-                "Gorra 30 edició - versió limitada": 10,
-                "Bossa 30 edició - versió limitada": 8
+                "Camiseta": 0,
+                "Camiseta Infant": 0,
+                "Camiseta Màniga Llarga": 0
             };
 
             line_items = items.map(item => {
@@ -143,22 +143,64 @@ export default async function handler(req, res) {
             paymentIntentData.metadata['resum_talles'] = allSizes.substring(0, 500);
         }
 
-        const session = await stripe.checkout.sessions.create({
-            payment_method_types: ['card'],
-            phone_number_collection: {
-                enabled: true,
-            },
-            line_items: line_items,
-            mode: 'payment',
-            payment_intent_data: Object.keys(paymentIntentData.metadata).length > 0 || paymentIntentData.description ? paymentIntentData : undefined,
-            success_url: `${origin}/success`,
-            cancel_url: `${origin}/cancel`,
-            customer_email: customerEmail, // Pre-fill email if user provided it
-            locale: 'es',
-            shipping_address_collection: {
-                allowed_countries: ['ES', 'FR', 'PT', 'AD', 'IT', 'DE', 'AT', 'BE', 'BG', 'CY', 'CZ', 'DK', 'EE', 'FI', 'GR', 'HR', 'HU', 'IE', 'LT', 'LU', 'LV', 'MT', 'NL', 'PL', 'RO', 'SE', 'SI', 'SK'],
-            },
+        // Compact summary so the webhook can record the order without extra API calls.
+        // Stripe caps each metadata value at 500 chars, so the JSON is split into
+        // numbered chunks (items_0, items_1, ...) that the webhook reassembles.
+        const orderItems = (items || []).map(item => ({
+            name: item.name,
+            size: item.size || null,
+            quantity: item.quantity,
+        }));
+        const itemsJson = JSON.stringify(orderItems);
+        const itemsChunks = {};
+        for (let i = 0; i * 500 < itemsJson.length; i++) {
+            itemsChunks[`items_${i}`] = itemsJson.substring(i * 500, (i + 1) * 500);
+        }
+
+        // Reserva l'estoc ABANS de crear la sessió (agregat per producte, totes les
+        // talles sumades). Si no n'hi ha prou, llança error i no es crea res.
+        // El webhook 'checkout.session.expired' retorna la reserva si el comprador
+        // abandona el pagament (la sessió caduca als 30 minuts).
+        const totalPerProduct = {};
+        orderItems.forEach(item => {
+            totalPerProduct[item.name] = (totalPerProduct[item.name] || 0) + item.quantity;
         });
+        reserveStock(totalPerProduct);
+
+        let session;
+        try {
+            session = await stripe.checkout.sessions.create({
+                payment_method_types: ['card'],
+                phone_number_collection: {
+                    enabled: true,
+                },
+                line_items: line_items,
+                mode: 'payment',
+                // La sessió caduca als 30 min (mínim de Stripe): si el comprador
+                // abandona, l'estoc reservat es retorna via webhook 'expired'.
+                expires_at: Math.floor(Date.now() / 1000) + 30 * 60,
+                payment_intent_data: Object.keys(paymentIntentData.metadata).length > 0 || paymentIntentData.description ? paymentIntentData : undefined,
+                metadata: {
+                    ...itemsChunks,
+                    donation: String(donation || ''),
+                    customer_name: String(customerName || '').substring(0, 500),
+                },
+                success_url: `${origin}/success`,
+                cancel_url: `${origin}/cancel`,
+                customer_email: customerEmail, // Pre-fill email if user provided it
+                locale: 'es',
+                shipping_address_collection: {
+                    allowed_countries: ['ES', 'FR', 'PT', 'AD', 'IT', 'DE', 'AT', 'BE', 'BG', 'CY', 'CZ', 'DK', 'EE', 'FI', 'GR', 'HR', 'HU', 'IE', 'LT', 'LU', 'LV', 'MT', 'NL', 'PL', 'RO', 'SE', 'SI', 'SK'],
+                },
+            });
+        } catch (err) {
+            // Stripe ha fallat: desfés la reserva perquè l'estoc no quedi bloquejat.
+            restoreStock(totalPerProduct);
+            throw err;
+        }
+
+        // Vincula la reserva a la sessió perquè el webhook la pugui completar o alliberar.
+        createReservation(session.id, orderItems);
 
         // 4. Return URL
         res.status(200).json({ url: session.url });

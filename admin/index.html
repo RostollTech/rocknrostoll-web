@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="ca">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Admin · Rock'n'Rostoll</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    background: #0a0a0a;
+    color: #f0f0f0;
+    padding: 2rem 1.25rem 4rem;
+  }
+  h1 { font-size: 1.4rem; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 1.75rem; }
+  h2 { font-size: 1.05rem; text-transform: uppercase; letter-spacing: 0.06em; color: #fba830; margin: 2.5rem 0 1rem; }
+  table { width: 100%; border-collapse: collapse; background: #141414; border-radius: 8px; overflow: hidden; }
+  th, td { text-align: left; padding: 0.65rem 0.9rem; border-bottom: 1px solid #262626; font-size: 0.92rem; }
+  th { color: #999; font-weight: 600; text-transform: uppercase; font-size: 0.72rem; letter-spacing: 0.05em; }
+  tr:last-child td { border-bottom: none; }
+  input[type="number"] {
+    width: 5.5rem; padding: 0.35rem 0.5rem; background: #1e1e1e; border: 1px solid #333;
+    border-radius: 4px; color: #f0f0f0; font-size: 0.9rem;
+  }
+  button {
+    background: #fba830; border: none; color: #1a1a1a; font-weight: 700;
+    padding: 0.4rem 0.9rem; border-radius: 4px; cursor: pointer; font-size: 0.85rem;
+  }
+  button:hover { opacity: 0.85; }
+  .items-list { font-size: 0.85rem; color: #ccc; }
+  .muted { color: #888; }
+  .save-msg { font-size: 0.8rem; margin-left: 0.6rem; color: #6fcf6f; }
+  .wrap { max-width: 1000px; margin: 0 auto; }
+  .table-scroll { overflow-x: auto; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Panell d'administració · Rock'n'Rostoll</h1>
+
+  <h2>Estoc</h2>
+  <div class="table-scroll">
+    <table id="stock-table">
+      <thead><tr><th>Producte</th><th>Quantitat</th><th></th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <h2>Comandes pagades</h2>
+  <div class="table-scroll">
+    <table id="orders-table">
+      <thead><tr><th>Data</th><th>Client</th><th>Productes</th><th>Donatiu</th><th>Total</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+async function loadData() {
+  const res = await fetch('/admin/api/data');
+  if (!res.ok) {
+    document.body.innerHTML = '<p style="padding:2rem">Error carregant les dades (' + res.status + ')</p>';
+    return;
+  }
+  const { stock, orders } = await res.json();
+
+  const stockBody = document.querySelector('#stock-table tbody');
+  stockBody.innerHTML = '';
+  stock.forEach(row => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${row.product_name}</td>
+      <td><input type="number" min="0" value="${row.quantity}" data-name="${row.product_name}" /></td>
+      <td><button data-name="${row.product_name}">Desa</button><span class="save-msg" hidden>Desat!</span></td>
+    `;
+    stockBody.appendChild(tr);
+  });
+
+  stockBody.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const name = btn.dataset.name;
+      const input = stockBody.querySelector(`input[data-name="${CSS.escape(name)}"]`);
+      const quantity = parseInt(input.value, 10);
+      const r = await fetch('/admin/api/stock', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, quantity }),
+      });
+      const msg = btn.nextElementSibling;
+      if (r.ok) {
+        msg.hidden = false;
+        setTimeout(() => { msg.hidden = true; }, 1500);
+      } else {
+        alert('Error desant');
+      }
+    });
+  });
+
+  const ordersBody = document.querySelector('#orders-table tbody');
+  ordersBody.innerHTML = '';
+  if (orders.length === 0) {
+    ordersBody.innerHTML = '<tr><td colspan="5" class="muted">Encara no hi ha cap comanda pagada.</td></tr>';
+  }
+  orders.forEach(order => {
+    const itemsText = order.items.map(i => `${i.quantity} x ${i.name}${i.size ? ' (' + i.size + ')' : ''}`).join(', ');
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${new Date(order.created_at.replace(' ', 'T') + 'Z').toLocaleString('ca-ES')}</td>
+      <td>${order.customer_name || '-'}<br><span class="muted">${order.customer_email || ''}</span></td>
+      <td class="items-list">${itemsText || '-'}</td>
+      <td>${(order.donation_cents / 100).toFixed(2)}€</td>
+      <td>${(order.total_cents / 100).toFixed(2)}€</td>
+    `;
+    ordersBody.appendChild(tr);
+  });
+}
+
+loadData();
+</script>
+</body>
+</html>
