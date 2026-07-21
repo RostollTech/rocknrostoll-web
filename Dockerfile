@@ -1,24 +1,21 @@
 # Stage 1: build de React (Vite)
-FROM node:20-alpine AS frontend
+# Node 22: better-sqlite3 >=13 requereix Node >=22 (amb Node 20 compila
+# "bé" però peta amb un segfault en temps d'execució per ABI incompatible).
+FROM node:22-alpine AS frontend
 WORKDIR /app
 COPY package*.json ./
-RUN npm ci
+RUN apk add --no-cache python3 make g++ && npm ci
 COPY . .
 RUN npm run build
 
 # Stage 2: runtime — un sol procés Node serveix la SPA, l'API (Stripe) i l'admin
-# Debian (glibc) en lloc d'Alpine (musl): better-sqlite3 (mòdul natiu) peta en
-# temps d'execució sota musl en alguns sistemes; Debian és el target més provat.
-FROM node:20-bookworm-slim
+FROM node:22-alpine
 WORKDIR /app
 ENV NODE_ENV=production
 COPY package*.json ./
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends python3 make g++ \
+RUN apk add --no-cache python3 make g++ \
     && npm ci --omit=dev \
-    && apt-get purge -y python3 make g++ \
-    && apt-get autoremove -y \
-    && rm -rf /var/lib/apt/lists/*
+    && apk del python3 make g++
 COPY server.js ./
 COPY api ./api
 COPY admin ./admin
