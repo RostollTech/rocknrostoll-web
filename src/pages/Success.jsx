@@ -51,45 +51,45 @@ export default function Success() {
                 <PageHero
                     title="Pagament Realitzat!"
                     description="Gràcies per col·laborar amb el Rock'n'Rostoll."
-                />
+                >
+                    {status === "loading" && (
+                        <p className="section-description">Preparant el teu codi de recollida...</p>
+                    )}
+
+                    {status === "ready" && order?.pickupCode && (
+                        <div style={{
+                            margin: '1.5rem auto 0',
+                            maxWidth: '24rem',
+                            padding: '1.5rem',
+                            borderRadius: '1rem',
+                            border: '2px solid var(--color-accent-yellow)',
+                            background: 'rgba(251, 168, 48, 0.08)',
+                        }}>
+                            <p style={{ margin: 0, textTransform: 'uppercase', letterSpacing: '0.08em', fontSize: '0.85rem', color: 'var(--color-text-soft)' }}>
+                                El teu codi de recollida
+                            </p>
+                            <p style={{ margin: '0.5rem 0', fontSize: '2.5rem', fontWeight: 700, letterSpacing: '0.15em', color: 'var(--color-accent-yellow)' }}>
+                                {order.pickupCode}
+                            </p>
+                            <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--color-text-soft)' }}>
+                                Fes-ne una captura o apunta'l — l'hauràs de presentar per recollir la comanda en persona.
+                                El lloc i l'horari de recollida s'anunciaran properament per xarxes socials.
+                            </p>
+                        </div>
+                    )}
+
+                    {status === "timeout" && (
+                        <p className="section-description">
+                            No hem pogut carregar el codi de recollida ara mateix, però la teva comanda ja està confirmada.
+                            El podràs consultar més tard, o presentar el rebut de pagament al recollir-la.
+                        </p>
+                    )}
+                </PageHero>
                 <section className="page-section section-alt" style={{ textAlign: 'center', minHeight: '40vh' }}>
                     <div className="page-content">
                         <h2 style={{ marginBottom: '1.5rem' }}>🎉 Comanda Confirmada</h2>
 
-                        {status === "loading" && (
-                            <p className="section-description">Preparant el teu codi de recollida...</p>
-                        )}
-
-                        {status === "ready" && order?.pickupCode && (
-                            <div style={{
-                                margin: '0 auto',
-                                maxWidth: '24rem',
-                                padding: '1.5rem',
-                                borderRadius: '1rem',
-                                border: '2px solid var(--color-accent-yellow)',
-                                background: 'rgba(251, 168, 48, 0.08)',
-                            }}>
-                                <p style={{ margin: 0, textTransform: 'uppercase', letterSpacing: '0.08em', fontSize: '0.85rem', color: 'var(--color-text-soft)' }}>
-                                    El teu codi de recollida
-                                </p>
-                                <p style={{ margin: '0.5rem 0', fontSize: '2.5rem', fontWeight: 700, letterSpacing: '0.15em', color: 'var(--color-accent-yellow)' }}>
-                                    {order.pickupCode}
-                                </p>
-                                <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--color-text-soft)' }}>
-                                    Fes-ne una captura o apunta'l — l'hauràs de presentar per recollir la comanda en persona.
-                                    El lloc i l'horari de recollida s'anunciaran properament per xarxes socials.
-                                </p>
-                            </div>
-                        )}
-
-                        {status === "timeout" && (
-                            <p className="section-description">
-                                No hem pogut carregar el codi de recollida ara mateix, però la teva comanda ja està confirmada.
-                                El podràs consultar més tard, o presentar el rebut de pagament al recollir-la.
-                            </p>
-                        )}
-
-                        <p style={{ marginTop: '1.5rem' }}>Hem rebut el teu pagament correctament. Rebràs un correu de confirmació aviat.</p>
+                        <p>Hem rebut el teu pagament correctament. Rebràs un correu de confirmació aviat.</p>
 
                         <button
                             onClick={() => navigate('/')}
