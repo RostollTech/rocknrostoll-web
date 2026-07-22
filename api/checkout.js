@@ -201,9 +201,12 @@ export default async function handler(req, res) {
                 custom_text: {
                     // Text fix, no editable: apareix a la pantalla de pagament abans
                     // de confirmar, i es torna a mostrar a la pantalla de confirmació
-                    // de Stripe just abans de redirigir a /success.
-                    submit: { message: `El teu codi de recollida serà: ${pickupCode}` },
-                    after_submit: { message: `El teu codi de recollida és: ${pickupCode}. Guarda'l, l'hauràs de presentar per recollir la comanda.` },
+                    // de Stripe just abans de redirigir a /success. Stripe no permet
+                    // controlar la mida de font (renderitza el text amb el seu propi
+                    // estil fix); només accepta un subconjunt de Markdown (negreta i
+                    // enllaços), així que remarquem el codi en negreta.
+                    submit: { message: `El teu codi de recollida serà: **${pickupCode}**` },
+                    after_submit: { message: `El teu codi de recollida és **${pickupCode}**. Guarda'l, l'hauràs de presentar per recollir la comanda.` },
                 },
                 line_items: line_items,
                 mode: 'payment',

@@ -54,9 +54,7 @@ export default function Success() {
                 />
                 <section className="page-section section-alt" style={{ textAlign: 'center', minHeight: '40vh' }}>
                     <div className="page-content">
-                        <div style={{ fontSize: '4rem', marginBottom: '1rem' }}>🎉</div>
-                        <h2>Comanda Confirmada</h2>
-                        <p>Hem rebut el teu pagament correctament. Rebràs un correu de confirmació aviat.</p>
+                        <h2 style={{ marginBottom: '1.5rem' }}>🎉 Comanda Confirmada</h2>
 
                         {status === "loading" && (
                             <p className="section-description">Preparant el teu codi de recollida...</p>
@@ -64,7 +62,7 @@ export default function Success() {
 
                         {status === "ready" && order?.pickupCode && (
                             <div style={{
-                                margin: '2rem auto 0',
+                                margin: '0 auto',
                                 maxWidth: '24rem',
                                 padding: '1.5rem',
                                 borderRadius: '1rem',
@@ -90,6 +88,8 @@ export default function Success() {
                                 El podràs consultar més tard, o presentar el rebut de pagament al recollir-la.
                             </p>
                         )}
+
+                        <p style={{ marginTop: '1.5rem' }}>Hem rebut el teu pagament correctament. Rebràs un correu de confirmació aviat.</p>
 
                         <button
                             onClick={() => navigate('/')}
