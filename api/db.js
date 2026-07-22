@@ -37,11 +37,27 @@ db.exec(`
   );
 `);
 
-// Migració senzilla per a bases de dades creades abans d'aquesta columna.
+// Migració senzilla per a bases de dades creades abans d'aquestes columnes.
 try {
     db.exec('ALTER TABLE orders ADD COLUMN picked_up INTEGER NOT NULL DEFAULT 0');
 } catch {
     // ja existeix
+}
+try {
+    db.exec('ALTER TABLE orders ADD COLUMN pickup_code TEXT');
+    db.exec('CREATE UNIQUE INDEX IF NOT EXISTS idx_orders_pickup_code ON orders(pickup_code) WHERE pickup_code IS NOT NULL');
+} catch {
+    // ja existeix
+}
+
+// Sense caràcters ambigus (0/O, 1/I/L).
+const CODE_CHARS = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
+function generatePickupCode() {
+    let code = '';
+    for (let i = 0; i < 6; i++) {
+        code += CODE_CHARS[crypto.randomInt(CODE_CHARS.length)];
+    }
+    return code;
 }
 
 const normSize = size => size || '';
@@ -148,10 +164,21 @@ export function releaseReservation(sessionId) {
 // Returns true if the order was newly inserted, false if it already existed
 // (Stripe retries webhook deliveries, so this must be idempotent).
 export function recordOrder({ stripeSessionId, channel, customerName, customerEmail, items, donationCents, totalCents }) {
+    // Codi de recollida només per a comandes online (les físiques ja s'entreguen
+    // en el mateix moment de vendre-les). Reintenta si mai col·lidís el codi.
+    let pickupCode = null;
+    if ((channel || 'online') === 'online') {
+        for (let attempt = 0; attempt < 5 && !pickupCode; attempt++) {
+            const candidate = generatePickupCode();
+            const exists = db.prepare('SELECT 1 FROM orders WHERE pickup_code = ?').get(candidate);
+            if (!exists) pickupCode = candidate;
+        }
+    }
+
     const result = db.prepare(`
-        INSERT OR IGNORE INTO orders (stripe_session_id, channel, customer_name, customer_email, items, donation_cents, total_cents)
-        VALUES (?, ?, ?, ?, ?, ?, ?)
-    `).run(stripeSessionId, channel || 'online', customerName || '', customerEmail || '', JSON.stringify(items), donationCents, totalCents);
+        INSERT OR IGNORE INTO orders (stripe_session_id, channel, customer_name, customer_email, items, donation_cents, total_cents, pickup_code)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    `).run(stripeSessionId, channel || 'online', customerName || '', customerEmail || '', JSON.stringify(items), donationCents, totalCents, pickupCode);
     return result.changes > 0;
 }
 
@@ -162,6 +189,22 @@ export function listOrders() {
 
 export function setPickedUp(orderId, pickedUp) {
     db.prepare('UPDATE orders SET picked_up = ? WHERE id = ?').run(pickedUp ? 1 : 0, orderId);
+}
+
+// Per a la pàgina d'èxit del pagament: consulta l'estat d'una comanda pel
+// stripe_session_id (el paràmetre que Stripe posa a la URL de redirecció).
+export function getOrderBySessionId(sessionId) {
+    const row = db.prepare('SELECT * FROM orders WHERE stripe_session_id = ?').get(sessionId);
+    return row ? { ...row, items: JSON.parse(row.items), picked_up: !!row.picked_up } : null;
+}
+
+// Per a l'admin: marca com a recollida la comanda que tingui aquest codi.
+// Retorna la comanda actualitzada, o null si el codi no existeix.
+export function markPickedUpByCode(code) {
+    const row = db.prepare('SELECT * FROM orders WHERE pickup_code = ?').get((code || '').trim().toUpperCase());
+    if (!row) return null;
+    db.prepare('UPDATE orders SET picked_up = 1 WHERE id = ?').run(row.id);
+    return { ...row, items: JSON.parse(row.items), picked_up: true };
 }
 
 // Registers an in-person (physical) sale: atomically checks & decrements stock

@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 import express from 'express';
 import checkout from './api/checkout.js';
 import webhook from './api/webhook.js';
-import { getAllStock, setStock, listOrders, sellPhysical, deletePhysicalSale, setPickedUp } from './api/db.js';
+import { getAllStock, setStock, listOrders, sellPhysical, deletePhysicalSale, setPickedUp, getOrderBySessionId, markPickedUpByCode } from './api/db.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const distDir = path.join(__dirname, 'dist');
@@ -35,6 +35,22 @@ app.get('/api/stock', (_req, res) => {
 // duplicat a mà — products.json és l'única font de veritat.
 app.get('/api/products', (_req, res) => {
     res.json(catalog);
+});
+
+// Públic: la pàgina d'èxit el fa servir per mostrar el codi de recollida.
+// Segur perquè cal conèixer el session_id (llarg i aleatori, el posa Stripe
+// a la URL de redirecció) — no es pot endevinar ni llistar.
+app.get('/api/order-status', (req, res) => {
+    const order = getOrderBySessionId(req.query.session_id || '');
+    if (!order) {
+        return res.status(404).json({ found: false });
+    }
+    res.json({
+        found: true,
+        pickupCode: order.pickup_code,
+        items: order.items,
+        totalCents: order.total_cents,
+    });
 });
 
 function timingSafeStringEqual(a, b) {
@@ -88,8 +104,8 @@ app.post(`${adminPath}/api/stock`, (req, res) => {
 
 app.post(`${adminPath}/api/sell`, (req, res) => {
     const { name, size, quantity, note } = req.body || {};
-    if (!name || !Number.isInteger(quantity) || quantity < 1) {
-        return res.status(400).json({ error: 'Dades no vàlides' });
+    if (!name || !Number.isInteger(quantity) || quantity < 1 || !note || !note.trim()) {
+        return res.status(400).json({ error: 'Dades no vàlides (cal el nom i cognoms del comprador)' });
     }
     // El preu es calcula al servidor a partir del catàleg (no es confia en cap
     // preu enviat pel client), igual que fa /api/checkout amb Stripe.
@@ -116,6 +132,14 @@ app.post(`${adminPath}/api/orders/:id/pickup`, (req, res) => {
     const { pickedUp } = req.body || {};
     setPickedUp(Number(req.params.id), !!pickedUp);
     res.json({ ok: true });
+});
+
+app.post(`${adminPath}/api/pickup-by-code`, (req, res) => {
+    const order = markPickedUpByCode(req.body?.code);
+    if (!order) {
+        return res.status(404).json({ error: 'Codi no trobat' });
+    }
+    res.json({ ok: true, order });
 });
 
 app.use(adminPath, express.static(adminDir));

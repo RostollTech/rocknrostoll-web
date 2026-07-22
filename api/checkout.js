@@ -192,7 +192,7 @@ export default async function handler(req, res) {
                     donation: String(donation || ''),
                     customer_name: String(customerName || '').substring(0, 500),
                 },
-                success_url: `${origin}/success`,
+                success_url: `${origin}/success?session_id={CHECKOUT_SESSION_ID}`,
                 cancel_url: `${origin}/cancel`,
                 customer_email: customerEmail, // Pre-fill email if user provided it
                 locale: 'es',

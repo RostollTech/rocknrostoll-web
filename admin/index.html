@@ -68,12 +68,20 @@
   <h2>Registrar venda física</h2>
   <p class="muted" style="margin-top:-0.5rem">Descompta del mateix estoc que la botiga online, perquè entre les dues vies no se superi el que hi ha disponible.</p>
   <div class="sell-form">
+    <input type="text" id="sell-note" placeholder="Nom i cognoms" required />
     <select id="sell-product"></select>
     <select id="sell-size"></select>
     <input type="number" id="sell-qty" min="1" value="1" style="width:4.5rem" />
-    <input type="text" id="sell-note" placeholder="Nota (opcional, ex: nom del comprador)" />
     <button id="sell-btn">Registra venda</button>
     <span id="sell-msg"></span>
+  </div>
+
+  <h2>Recollida per codi</h2>
+  <p class="muted" style="margin-top:-0.5rem">Introdueix el codi que et mostra el client (el va rebre en pagar online) per marcar-lo com a recollit.</p>
+  <div class="sell-form">
+    <input type="text" id="pickup-code-input" placeholder="Codi (ex: A7K3P9)" maxlength="6" style="text-transform:uppercase; letter-spacing:0.1em; font-weight:700;" />
+    <button id="pickup-code-btn">Marca com a recollit</button>
+    <span id="pickup-code-msg"></span>
   </div>
 
   <h2>Comandes</h2>
@@ -186,7 +194,7 @@ function renderOrders(filterText) {
     tr.innerHTML = `
       <td>${new Date(order.created_at.replace(' ', 'T') + 'Z').toLocaleString('ca-ES')}</td>
       <td>${channelBadge}</td>
-      <td>${order.customer_name || '-'}<br><span class="muted">${order.customer_email || ''}</span></td>
+      <td>${order.customer_name || '-'}<br><span class="muted">${order.customer_email || ''}</span>${!isPhysical && order.pickup_code ? `<br><span class="muted">Codi: <strong>${order.pickup_code}</strong></span>` : ''}</td>
       <td class="items-list">${itemsText || '-'}</td>
       <td>${(order.donation_cents / 100).toFixed(2)}€</td>
       <td>${(order.total_cents / 100).toFixed(2)}€</td>
@@ -250,6 +258,34 @@ async function init() {
     document.getElementById('sell-product').addEventListener('change', fillSellSizes);
     fillSellSizes();
     document.getElementById('orders-search').addEventListener('input', e => renderOrders(e.target.value));
+
+    const pickupBtn = document.getElementById('pickup-code-btn');
+    const pickupInput = document.getElementById('pickup-code-input');
+    const pickupMsg = document.getElementById('pickup-code-msg');
+    const submitPickupCode = async () => {
+      const code = pickupInput.value.trim().toUpperCase();
+      if (!code) return;
+      pickupBtn.disabled = true;
+      const r = await fetch(`${API_BASE}/api/pickup-by-code`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code }),
+      });
+      const data = await r.json();
+      pickupBtn.disabled = false;
+      if (r.ok) {
+        pickupMsg.className = 'save-msg';
+        pickupMsg.textContent = `Recollida marcada: ${data.order.customer_name || 'comanda ' + data.order.id}`;
+        pickupInput.value = '';
+        loadData();
+      } else {
+        pickupMsg.className = 'err-msg';
+        pickupMsg.textContent = data.error || 'Codi no trobat';
+      }
+    };
+    pickupBtn.addEventListener('click', submitPickupCode);
+    pickupInput.addEventListener('keydown', e => { if (e.key === 'Enter') submitPickupCode(); });
+
     await loadData();
   } catch (err) {
     console.error(err);
@@ -261,9 +297,16 @@ document.getElementById('sell-btn').addEventListener('click', async () => {
   const name = document.getElementById('sell-product').value;
   const size = document.getElementById('sell-size').value;
   const quantity = parseInt(document.getElementById('sell-qty').value, 10);
-  const note = document.getElementById('sell-note').value;
+  const note = document.getElementById('sell-note').value.trim();
   const msg = document.getElementById('sell-msg');
   const btn = document.getElementById('sell-btn');
+
+  if (!note) {
+    msg.className = 'err-msg';
+    msg.textContent = 'Cal el nom i cognoms del comprador';
+    document.getElementById('sell-note').focus();
+    return;
+  }
 
   btn.disabled = true;
   msg.className = '';
