@@ -250,7 +250,7 @@ summary.sizes-summary:hover {
 /* SIDEBAR SUMMARY */
 .comanda-summary-sidebar {
     position: sticky;
-    top: 100px;
+    top: calc(var(--nav-height) + 1rem);
 }
 
 .summary-card {

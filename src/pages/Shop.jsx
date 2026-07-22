@@ -119,7 +119,7 @@ export default function Shop() {
             </div>
 
             {/* Size Guides: one table per producte, mesures reals SOL'S (A/B en cm) */}
-            <div className="size-guides-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "3rem", alignItems: "start" }}>
+            <div className="size-guides-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(320px, 100%), 1fr))", gap: "3rem", alignItems: "start" }}>
 
               {[
                 {
