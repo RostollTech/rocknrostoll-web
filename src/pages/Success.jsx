@@ -78,7 +78,8 @@ export default function Success() {
                                     {order.pickupCode}
                                 </p>
                                 <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--color-text-soft)' }}>
-                                    Fes-ne una captura o apunta'l — l'hauràs de presentar per recollir la comanda al festival.
+                                    Fes-ne una captura o apunta'l — l'hauràs de presentar per recollir la comanda en persona.
+                                    El lloc i l'horari de recollida s'anunciaran properament per xarxes socials.
                                 </p>
                             </div>
                         )}

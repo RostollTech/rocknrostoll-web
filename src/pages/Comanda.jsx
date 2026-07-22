@@ -14,6 +14,7 @@ export default function Comanda() {
     name: "",
     email: ""
   });
+  const [acceptsPrivacy, setAcceptsPrivacy] = useState(false);
 
   // State for cart/quantities. 
   // We initialize based on productsData, excluding "Donatiu" which is special case, 
@@ -137,6 +138,11 @@ export default function Comanda() {
     // Validation
     if (!formData.name || !formData.email) {
       alert("Si us plau, omple tots els camps obligatoris (Nom i Email) per continuar.");
+      return;
+    }
+
+    if (!acceptsPrivacy) {
+      alert("Cal acceptar la política de privacitat per continuar.");
       return;
     }
 
@@ -276,6 +282,23 @@ export default function Comanda() {
                         </div>
 
                       </div>
+
+                      <label style={{ display: 'flex', alignItems: 'flex-start', gap: '0.6rem', marginTop: '1rem', fontSize: '0.9rem', color: 'var(--color-text-soft)', cursor: 'pointer' }}>
+                        <input
+                          type="checkbox"
+                          required
+                          checked={acceptsPrivacy}
+                          onChange={(e) => setAcceptsPrivacy(e.target.checked)}
+                          style={{ marginTop: '0.2rem' }}
+                        />
+                        <span>
+                          Accepto la{" "}
+                          <Link to="/avis-legal#privadesa" target="_blank" style={{ color: 'var(--color-accent-yellow)', textDecoration: 'underline' }}>
+                            política de privacitat
+                          </Link>
+                          {" "}i el tractament de les meves dades per gestionar aquesta comanda. *
+                        </span>
+                      </label>
                     </div>
 
                     {/* 2. SELECCIÓ DE PRODUCTES */}
@@ -396,6 +419,17 @@ export default function Comanda() {
                           );
                         })}
                       </div>
+                    </div>
+
+                    <div style={{
+                      margin: "0 0 1.5rem", padding: "1rem 1.25rem", borderRadius: "0.75rem",
+                      border: "1px solid var(--color-accent-yellow)", background: "rgba(251, 168, 48, 0.08)",
+                    }}>
+                      <p style={{ margin: 0, fontSize: "0.9rem" }}>
+                        📦 <strong>Recollida presencial:</strong> els productes no s'envien. Un cop pagat rebràs un
+                        <strong> codi de recollida</strong> que hauràs de presentar per recollir-los en persona. Lloc i
+                        horari s'anunciaran properament per xarxes socials.
+                      </p>
                     </div>
 
                     {/* SUBMIT BUTTON MOBILE */}
