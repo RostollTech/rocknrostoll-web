@@ -252,9 +252,35 @@ export default function Comanda() {
                 <div className="comanda-form-container">
                   <form id="comanda-form" onSubmit={handleSubmit} className="order-form">
 
-                    {/* 1. SELECCIÓ DE PRODUCTES */}
+                    {/* 1. DADES DEL CLIENT */}
                     <div className="form-section">
-                      <h3 className="form-title">1. Selecciona els Productes</h3>
+                      <h3 className="form-title">1. Les teves Dades</h3>
+                      <div className="fields-grid">
+                        <div className="form-group">
+                          <label htmlFor="name">Nom i Cognoms *</label>
+                          <input
+                            type="text" id="name" name="name"
+                            required
+                            value={formData.name} onChange={handleUserChange}
+                            className="form-input"
+                          />
+                        </div>
+                        <div className="form-group">
+                          <label htmlFor="email">Email *</label>
+                          <input
+                            type="email" id="email" name="email"
+                            required
+                            value={formData.email} onChange={handleUserChange}
+                            className="form-input"
+                          />
+                        </div>
+
+                      </div>
+                    </div>
+
+                    {/* 2. SELECCIÓ DE PRODUCTES */}
+                    <div className="form-section">
+                      <h3 className="form-title">2. Selecciona els Productes</h3>
                       <div className="products-list">
                         {/* Donatiu Section */}
                         <div className="order-item donation-item">
@@ -369,32 +395,6 @@ export default function Comanda() {
                             </div>
                           );
                         })}
-                      </div>
-                    </div>
-
-                    {/* 2. DADES DEL CLIENT */}
-                    <div className="form-section">
-                      <h3 className="form-title">2. Les teves Dades</h3>
-                      <div className="fields-grid">
-                        <div className="form-group">
-                          <label htmlFor="name">Nom i Cognoms *</label>
-                          <input
-                            type="text" id="name" name="name"
-                            required
-                            value={formData.name} onChange={handleUserChange}
-                            className="form-input"
-                          />
-                        </div>
-                        <div className="form-group">
-                          <label htmlFor="email">Email *</label>
-                          <input
-                            type="email" id="email" name="email"
-                            required
-                            value={formData.email} onChange={handleUserChange}
-                            className="form-input"
-                          />
-                        </div>
-
                       </div>
                     </div>
 
