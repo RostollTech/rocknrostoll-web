@@ -54,7 +54,7 @@ export default function Footer() {
       <p className="footer-note">
         © {new Date().getFullYear()} Rock'n'Rostoll. Tots els drets reservats · {" "}
         <Link to="/avis-legal">Avís legal</Link> · {" "}
-        <a href="#politica-privacitat">Política de privacitat</a>
+        <Link to="/avis-legal#privadesa">Política de privacitat</Link>
       </p>
 
       <div className="subfooter">
