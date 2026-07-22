@@ -32,11 +32,16 @@ export default async function handler(req, res) {
 
         const donationCents = Math.round((parseFloat(session.metadata?.donation) || 0) * 100);
 
+        // El nom el demana Stripe mateix (custom_fields), més fiable que el del
+        // nostre formulari perquè és obligatori a la pantalla de pagament.
+        const nomField = session.custom_fields?.find(f => f.key === 'nom_complet');
+        const customerName = nomField?.text?.value || session.metadata?.customer_name || '';
+
         // Idempotent: Stripe reintenta webhooks; només la primera entrega actua.
         const isNew = recordOrder({
             stripeSessionId: session.id,
             channel: 'online',
-            customerName: session.metadata?.customer_name || '',
+            customerName,
             customerEmail: session.customer_details?.email || session.customer_email || '',
             items,
             donationCents,

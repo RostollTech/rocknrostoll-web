@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 import express from 'express';
 import checkout from './api/checkout.js';
 import webhook from './api/webhook.js';
-import { getAllStock, setStock, listOrders, sellPhysical, deletePhysicalSale, setPickedUp, getOrderBySessionId, markPickedUpByCode } from './api/db.js';
+import { getAllStock, setStock, listOrders, sellPhysical, deletePhysicalSale, setPickedUp, getOrderBySessionId, getOrderByPickupCode, markPickedUpByCode } from './api/db.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const distDir = path.join(__dirname, 'dist');
@@ -132,6 +132,14 @@ app.post(`${adminPath}/api/orders/:id/pickup`, (req, res) => {
     const { pickedUp } = req.body || {};
     setPickedUp(Number(req.params.id), !!pickedUp);
     res.json({ ok: true });
+});
+
+app.post(`${adminPath}/api/pickup-lookup`, (req, res) => {
+    const order = getOrderByPickupCode(req.body?.code);
+    if (!order) {
+        return res.status(404).json({ error: 'Codi no trobat' });
+    }
+    res.json({ ok: true, order });
 });
 
 app.post(`${adminPath}/api/pickup-by-code`, (req, res) => {

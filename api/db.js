@@ -198,6 +198,13 @@ export function getOrderBySessionId(sessionId) {
     return row ? { ...row, items: JSON.parse(row.items), picked_up: !!row.picked_up } : null;
 }
 
+// Per a l'admin: consulta (sense marcar res) quina comanda té aquest codi,
+// perquè el staff vegi què ha de donar abans de confirmar la recollida.
+export function getOrderByPickupCode(code) {
+    const row = db.prepare('SELECT * FROM orders WHERE pickup_code = ?').get((code || '').trim().toUpperCase());
+    return row ? { ...row, items: JSON.parse(row.items), picked_up: !!row.picked_up } : null;
+}
+
 // Per a l'admin: marca com a recollida la comanda que tingui aquest codi.
 // Retorna la comanda actualitzada, o null si el codi no existeix.
 export function markPickedUpByCode(code) {

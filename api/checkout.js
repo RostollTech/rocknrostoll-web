@@ -181,6 +181,14 @@ export default async function handler(req, res) {
                 phone_number_collection: {
                     enabled: true,
                 },
+                custom_fields: [
+                    {
+                        key: 'nom_complet',
+                        label: { type: 'custom', custom: 'Nom i cognoms' },
+                        type: 'text',
+                        optional: false,
+                    },
+                ],
                 line_items: line_items,
                 mode: 'payment',
                 // La sessió caduca als 30 min (mínim de Stripe): si el comprador
@@ -196,9 +204,6 @@ export default async function handler(req, res) {
                 cancel_url: `${origin}/cancel`,
                 customer_email: customerEmail, // Pre-fill email if user provided it
                 locale: 'es',
-                shipping_address_collection: {
-                    allowed_countries: ['ES', 'FR', 'PT', 'AD', 'IT', 'DE', 'AT', 'BE', 'BG', 'CY', 'CZ', 'DK', 'EE', 'FI', 'GR', 'HR', 'HU', 'IE', 'LT', 'LU', 'LV', 'MT', 'NL', 'PL', 'RO', 'SE', 'SI', 'SK'],
-                },
             });
         } catch (err) {
             // Stripe ha fallat: desfés la reserva perquè l'estoc no quedi bloquejat.
