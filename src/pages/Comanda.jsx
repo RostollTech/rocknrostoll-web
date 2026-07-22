@@ -426,7 +426,7 @@ export default function Comanda() {
                       border: "1px solid var(--color-accent-yellow)", background: "rgba(251, 168, 48, 0.08)",
                     }}>
                       <p style={{ margin: 0, fontSize: "0.9rem" }}>
-                        📦 <strong>Recollida presencial:</strong> els productes no s'envien. Un cop pagat rebràs un
+                        📦 <strong>Recollida presencial:</strong> els productes no s'envien. Un cop pagat se't mostrarà un
                         <strong> codi de recollida</strong> que hauràs de presentar per recollir-los en persona. Lloc i
                         horari s'anunciaran properament per xarxes socials.
                       </p>

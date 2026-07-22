@@ -46,6 +46,9 @@ export default async function handler(req, res) {
             items,
             donationCents,
             totalCents: session.amount_total || 0,
+            // Ja reservat en crear la sessió, perquè es pogués mostrar a Stripe
+            // (custom_text) abans que existís aquesta comanda.
+            pickupCode: session.metadata?.pickup_code || null,
         });
 
         if (isNew) {

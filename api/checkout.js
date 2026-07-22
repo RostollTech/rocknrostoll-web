@@ -1,6 +1,6 @@
 import Stripe from 'stripe';
 import { IS_SHOP_OPEN } from '../src/utils/shopConfig.js';
-import { reserveStock, restoreStock, createReservation } from './db.js';
+import { reserveStock, restoreStock, createReservation, reserveNewPickupCode } from './db.js';
 
 export default async function handler(req, res) {
     if (!IS_SHOP_OPEN) {
@@ -174,6 +174,11 @@ export default async function handler(req, res) {
         const reservationItems = Array.from(totalsByLine.values());
         reserveStock(reservationItems);
 
+        // Reserva el codi de recollida ABANS de crear la sessió perquè es pugui
+        // mostrar (només com a text fix, no editable) a la pròpia pantalla de
+        // Stripe via custom_text. El webhook reutilitza aquest mateix codi.
+        const pickupCode = reserveNewPickupCode();
+
         let session;
         try {
             session = await stripe.checkout.sessions.create({
@@ -187,8 +192,19 @@ export default async function handler(req, res) {
                         label: { type: 'custom', custom: 'Nom i cognoms' },
                         type: 'text',
                         optional: false,
+                        // Prefill amb el nom que ja ha escrit al formulari de la web,
+                        // així no l'ha de tornar a escriure a Stripe (Stripe no permet
+                        // amagar el camp del tot, però sí deixar-lo ja emplenat).
+                        text: customerName ? { default_value: String(customerName).substring(0, 140) } : undefined,
                     },
                 ],
+                custom_text: {
+                    // Text fix, no editable: apareix a la pantalla de pagament abans
+                    // de confirmar, i es torna a mostrar a la pantalla de confirmació
+                    // de Stripe just abans de redirigir a /success.
+                    submit: { message: `El teu codi de recollida serà: ${pickupCode}` },
+                    after_submit: { message: `El teu codi de recollida és: ${pickupCode}. Guarda'l, l'hauràs de presentar per recollir la comanda.` },
+                },
                 line_items: line_items,
                 mode: 'payment',
                 // La sessió caduca als 30 min (mínim de Stripe): si el comprador
@@ -199,6 +215,7 @@ export default async function handler(req, res) {
                     ...itemsChunks,
                     donation: String(donation || ''),
                     customer_name: String(customerName || '').substring(0, 500),
+                    pickup_code: pickupCode,
                 },
                 success_url: `${origin}/success?session_id={CHECKOUT_SESSION_ID}`,
                 cancel_url: `${origin}/cancel`,

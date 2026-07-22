@@ -58,7 +58,7 @@ export default function Shop() {
           className="shop-hero"
           eyebrow="Botiga"
           title="Merchandising Oficial"
-          description="Després de les dessuadres commemoratives, enguany portem les camisetes de cada any: samarreta de màniga curta, samarreta infantil i de màniga llarga. Des de la web les pots comprar per després passar a recollir-les el dia del Rostoll."
+          description="Després de les dessuadres commemoratives, enguany portem les camisetes de cada any: samarreta de màniga curta, samarreta infantil i de màniga llarga. Des de la web les pots comprar per després passar a recollir-les el dies indicats per xarxes o el dia del Rostoll."
         />
 
         <section className="page-section">
@@ -92,7 +92,7 @@ export default function Shop() {
               border: "1px solid var(--color-accent-yellow)", background: "rgba(251, 168, 48, 0.08)", textAlign: "center",
             }}>
               <p style={{ margin: 0, fontSize: "0.95rem" }}>
-                📦 <strong>Recollida presencial:</strong> els productes no s'envien. Un cop feta la comanda rebràs un
+                📦 <strong>Recollida presencial:</strong> els productes no s'envien. Un cop feta la comanda se't mostrarà un
                 <strong> codi de recollida</strong> que hauràs de presentar per recollir-los en persona. El lloc i l'horari
                 de recollida s'anunciaran properament per xarxes socials.
               </p>

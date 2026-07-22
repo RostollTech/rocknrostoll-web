@@ -60,6 +60,18 @@ function generatePickupCode() {
     return code;
 }
 
+// Genera un codi de recollida únic abans de crear la sessió de Stripe, perquè
+// es pugui mostrar ja a la pantalla de pagament (custom_text) i no només a
+// /success. recordOrder el reutilitza en lloc de generar-ne un altre.
+export function reserveNewPickupCode() {
+    for (let attempt = 0; attempt < 5; attempt++) {
+        const candidate = generatePickupCode();
+        const exists = db.prepare('SELECT 1 FROM orders WHERE pickup_code = ?').get(candidate);
+        if (!exists) return candidate;
+    }
+    throw new Error('No s\'ha pogut generar un codi de recollida únic');
+}
+
 const normSize = size => size || '';
 
 export function getStock(name, size) {
@@ -163,11 +175,12 @@ export function releaseReservation(sessionId) {
 
 // Returns true if the order was newly inserted, false if it already existed
 // (Stripe retries webhook deliveries, so this must be idempotent).
-export function recordOrder({ stripeSessionId, channel, customerName, customerEmail, items, donationCents, totalCents }) {
+export function recordOrder({ stripeSessionId, channel, customerName, customerEmail, items, donationCents, totalCents, pickupCode: preassignedPickupCode }) {
     // Codi de recollida només per a comandes online (les físiques ja s'entreguen
-    // en el mateix moment de vendre-les). Reintenta si mai col·lidís el codi.
-    let pickupCode = null;
-    if ((channel || 'online') === 'online') {
+    // en el mateix moment de vendre-les). Si ja es va reservar en crear la
+    // sessió de Stripe (per poder-lo mostrar allà mateix) es reutilitza aquí.
+    let pickupCode = preassignedPickupCode || null;
+    if (!pickupCode && (channel || 'online') === 'online') {
         for (let attempt = 0; attempt < 5 && !pickupCode; attempt++) {
             const candidate = generatePickupCode();
             const exists = db.prepare('SELECT 1 FROM orders WHERE pickup_code = ?').get(candidate);
