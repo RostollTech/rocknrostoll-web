@@ -115,6 +115,21 @@ export default function Home() {
           </div>
         </section>
 
+        <section className="merch-promo">
+          <div className="merch-promo-inner">
+            <p className="merch-promo-eyebrow">Novetat</p>
+            <h2 className="merch-promo-title">El marxandatge ja està disponible!</h2>
+            <p className="merch-promo-text">
+              Camisetes de la 30a edició i el pack "Lo de Sempre". Compra online i recull-lo el dia del festival.
+            </p>
+            <div className="button-group">
+              <Link to="/shop" className="btn-primary">
+                Anar a la botiga
+              </Link>
+            </div>
+          </div>
+        </section>
+
         <section className="lineup-section" id="lineup">
           <div className="container">
             <div className="section-header">

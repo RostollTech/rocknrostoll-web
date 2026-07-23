@@ -732,6 +732,58 @@ main {
   margin-bottom: var(--space-5);
 }
 
+/* Merch promo (home) */
+.merch-promo {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  width: min(100% - var(--space-6), var(--layout-max-width));
+  margin: 0 auto var(--space-9);
+  min-height: 20rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background-image: linear-gradient(160deg, rgba(7, 7, 7, 0.35), rgba(7, 7, 7, 0.82)), url("/img/fotos2026/merchan/hero.jpeg");
+  background-size: cover;
+  background-position: center;
+}
+
+.merch-promo-inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-6);
+  max-width: 36rem;
+}
+
+.merch-promo-eyebrow {
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.85rem;
+  color: var(--color-accent-yellow);
+}
+
+.merch-promo-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  letter-spacing: 0.06em;
+  text-shadow: 0 12px 28px rgba(0, 0, 0, 0.65);
+}
+
+.merch-promo-text {
+  color: var(--color-text-muted);
+}
+
+.merch-promo-inner .button-group {
+  justify-content: center;
+  margin-top: var(--space-2);
+}
+
 /* Page hero */
 .page-hero {
   position: relative;
@@ -782,7 +834,7 @@ main {
 }
 
 .shop-hero .page-hero__image {
-  background-image: url("/img/galeria2.webp");
+  background-image: url("/img/fotos2026/merchan/hero.jpeg");
   background-position: center bottom;
 }
 
