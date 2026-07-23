@@ -253,8 +253,8 @@ export default function Comanda() {
     <>
       <SEO
         title="Fes la teva Comanda · Rock’n’Rostoll"
-        description="Compra les nostres dessuadores, gorres i bosses oficials o fes un donatiu."
-        keywords={["botiga", "comanda", "dessuadora", "gorra", "pagament"]}
+        description="Compra les nostres samarretes oficials 2026 o fes un donatiu."
+        keywords={["botiga", "comanda", "samarreta", "camiseta", "pagament"]}
         canonicalPath="/comanda"
       />
       <Navbar />

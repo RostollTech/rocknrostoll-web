@@ -56,9 +56,9 @@ export default function Shop() {
   return (
     <>
       <SEO
-        title="Botiga Oficial Rock’n’Rostoll · Merchandising 30a Edició"
-        description="Aconsegueix els productes exclusius de la 30a edició del Rock’n’Rostoll: dessuadores, gorres, bosses i packs limitats. Fes la teva comanda online!"
-        keywords={["Mallorca", "Rock", "Rock'n'Rostoll", "Botiga Rock'n'Rostoll", "Merchandising", "Dessuadora", "Gorra", "Bossa", "Comprar", "Festival Mallorca"]}
+        title="Botiga Oficial Rock’n’Rostoll · Merchandising 2026"
+        description="Aconsegueix el merchandising oficial 2026 del Rock’n’Rostoll: samarretes de màniga curta, infantil i de màniga llarga. Compra online i recull-ho en persona."
+        keywords={["Mallorca", "Rock", "Rock'n'Rostoll", "Botiga Rock'n'Rostoll", "Merchandising", "Samarreta", "Camiseta", "Comprar", "Festival Mallorca"]}
         canonicalPath="/shop"
         structuredData={structuredData}
       />
