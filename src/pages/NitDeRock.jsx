@@ -387,7 +387,7 @@ export default function NitDeRock() {
             <iframe
               width="560"
               height="315"
-              style={{ display: 'block', margin: '2rem auto', maxWidth: '100%', borderRadius: '12px', boxShadow: '0 10px 30px rgba(0,0,0,0.5)' }}
+              style={{ display: 'block', margin: '2rem auto', width: '100%', maxWidth: '560px', aspectRatio: '16 / 9', height: 'auto', borderRadius: '12px', boxShadow: '0 10px 30px rgba(0,0,0,0.5)' }}
               src="https://www.youtube.com/embed/Y88dMLtRvzo"
               title="Anunci finalistes III Nit de Rock"
               frameBorder="0"

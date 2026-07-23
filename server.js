@@ -1,18 +1,156 @@
-// Un sol procés: serveix la SPA (dist/) i l'API de Stripe, tot en un contenidor.
+// Un sol procés: serveix la SPA (dist/), l'API de Stripe i el panell d'admin, tot en un contenidor.
 import path from 'node:path';
+import crypto from 'node:crypto';
+import fs from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import express from 'express';
 import checkout from './api/checkout.js';
+import webhook from './api/webhook.js';
+import { getAllStock, setStock, listOrders, sellPhysical, deletePhysicalSale, setPickedUp, getOrderBySessionId, getOrderByPickupCode, markPickedUpByCode } from './api/db.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const distDir = path.join(__dirname, 'dist');
+const adminDir = path.join(__dirname, 'admin');
+
+const catalog = JSON.parse(fs.readFileSync(path.join(__dirname, 'src/data/products.json'), 'utf-8'));
 
 const app = express();
-app.use(express.json());
 
 app.get('/health', (_req, res) => res.json({ ok: true }));
 
+// Ha d'anar abans d'express.json(): Stripe necessita el body en cru per verificar la signatura.
+app.post('/api/webhook', express.raw({ type: 'application/json' }), (req, res) => webhook(req, res));
+
+app.use(express.json());
+
 app.all('/api/checkout', (req, res) => checkout(req, res));
+
+// Públic: només recomptes d'estoc, cap dada sensible — la botiga ho fa servir
+// per mostrar unitats restants i avisar quan en queden poques.
+app.get('/api/stock', (_req, res) => {
+    res.json(getAllStock());
+});
+
+// Públic: el catàleg de productes/talles, perquè l'admin no hagi de tenir-lo
+// duplicat a mà — products.json és l'única font de veritat.
+app.get('/api/products', (_req, res) => {
+    res.json(catalog);
+});
+
+// Públic: la pàgina d'èxit el fa servir per mostrar el codi de recollida.
+// Segur perquè cal conèixer el session_id (llarg i aleatori, el posa Stripe
+// a la URL de redirecció) — no es pot endevinar ni llistar.
+app.get('/api/order-status', (req, res) => {
+    const order = getOrderBySessionId(req.query.session_id || '');
+    if (!order) {
+        return res.status(404).json({ found: false });
+    }
+    res.json({
+        found: true,
+        pickupCode: order.pickup_code,
+        items: order.items,
+        totalCents: order.total_cents,
+    });
+});
+
+function timingSafeStringEqual(a, b) {
+    const bufA = Buffer.from(a);
+    const bufB = Buffer.from(b);
+    if (bufA.length !== bufB.length) return false;
+    return crypto.timingSafeEqual(bufA, bufB);
+}
+
+function adminAuth(req, res, next) {
+    const user = process.env.ADMIN_USER;
+    const pass = process.env.ADMIN_PASSWORD;
+    if (!user || !pass) {
+        return res.status(503).send('Panell d\'admin no configurat (falten ADMIN_USER/ADMIN_PASSWORD)');
+    }
+
+    const header = req.headers.authorization || '';
+    const [scheme, encoded] = header.split(' ');
+    if (scheme === 'Basic' && encoded) {
+        const decoded = Buffer.from(encoded, 'base64').toString();
+        const sepIndex = decoded.indexOf(':');
+        const reqUser = decoded.substring(0, sepIndex);
+        const reqPass = decoded.substring(sepIndex + 1);
+        if (timingSafeStringEqual(reqUser, user) && timingSafeStringEqual(reqPass, pass)) {
+            return next();
+        }
+    }
+
+    res.set('WWW-Authenticate', 'Basic realm="Admin"');
+    return res.status(401).send('Autenticació requerida');
+}
+
+// La ruta de l'admin és configurable (ADMIN_PATH) perquè no quedi fixada
+// al codi/repo — posa-hi una cadena aleatòria al .env, no "admin".
+const adminPath = '/' + (process.env.ADMIN_PATH || 'admin').replace(/^\/+/, '');
+
+app.use(adminPath, adminAuth);
+
+app.get(`${adminPath}/api/data`, (_req, res) => {
+    res.json({ stock: getAllStock(), orders: listOrders() });
+});
+
+app.post(`${adminPath}/api/stock`, (req, res) => {
+    const { name, size, quantity } = req.body || {};
+    if (!name || !Number.isInteger(quantity) || quantity < 0) {
+        return res.status(400).json({ error: 'Dades no vàlides' });
+    }
+    setStock(name, size || '', quantity);
+    res.json({ ok: true });
+});
+
+app.post(`${adminPath}/api/sell`, (req, res) => {
+    const { name, size, quantity, note } = req.body || {};
+    if (!name || !Number.isInteger(quantity) || quantity < 1 || !note || !note.trim()) {
+        return res.status(400).json({ error: 'Dades no vàlides (cal el nom i cognoms del comprador)' });
+    }
+    // El preu es calcula al servidor a partir del catàleg (no es confia en cap
+    // preu enviat pel client), igual que fa /api/checkout amb Stripe.
+    const product = catalog.find(p => p.name === name);
+    const unitPrice = product ? parseFloat(String(product.price).replace(',', '.')) : NaN;
+    const totalCents = Number.isFinite(unitPrice) ? Math.round(unitPrice * quantity * 100) : 0;
+    try {
+        sellPhysical([{ name, size: size || '', quantity }], note, totalCents);
+        res.json({ ok: true });
+    } catch (err) {
+        res.status(409).json({ error: err.message });
+    }
+});
+
+app.delete(`${adminPath}/api/sell/:id`, (req, res) => {
+    const ok = deletePhysicalSale(Number(req.params.id));
+    if (!ok) {
+        return res.status(404).json({ error: 'No trobada (o no és una venda física)' });
+    }
+    res.json({ ok: true });
+});
+
+app.post(`${adminPath}/api/orders/:id/pickup`, (req, res) => {
+    const { pickedUp } = req.body || {};
+    setPickedUp(Number(req.params.id), !!pickedUp);
+    res.json({ ok: true });
+});
+
+app.post(`${adminPath}/api/pickup-lookup`, (req, res) => {
+    const order = getOrderByPickupCode(req.body?.code);
+    if (!order) {
+        return res.status(404).json({ error: 'Codi no trobat' });
+    }
+    res.json({ ok: true, order });
+});
+
+app.post(`${adminPath}/api/pickup-by-code`, (req, res) => {
+    const order = markPickedUpByCode(req.body?.code);
+    if (!order) {
+        return res.status(404).json({ error: 'Codi no trobat' });
+    }
+    res.json({ ok: true, order });
+});
+
+app.use(adminPath, express.static(adminDir));
 
 app.use(express.static(distDir));
 

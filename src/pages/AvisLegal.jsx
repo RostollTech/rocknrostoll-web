@@ -71,17 +71,32 @@ export default function AvisLegal() {
               </li>
             </ul>
 
-            <h2>6. Privadesa i protecció de dades</h2>
+            <h2 id="privadesa">6. Privadesa i protecció de dades</h2>
             <p>
-              Aquest lloc web no recull dades personals de manera automatitzada. Només es recopilen les dades que l’usuari
-              decideix facilitar voluntàriament mitjançant correu electrònic o formulari de contacte. Aquestes dades s’utilitzen
-              exclusivament per atendre la sol·licitud de l’usuari i no es comparteixen amb tercers.
+              Recopilem les dades que l’usuari decideix facilitar voluntàriament mitjançant correu electrònic, formulari de
+              contacte, o en fer una comanda a la botiga en línia (nom i cognoms, adreça electrònica i, si escau, adreça
+              d’enviament). Aquestes dades s’utilitzen exclusivament per gestionar la sol·licitud, comanda o enviament
+              corresponent, i no es cedeixen a tercers més enllà del necessari per processar el pagament (vegeu el punt
+              següent).
+            </p>
+            <p>
+              Els pagaments de la botiga es processen a través de <b>Stripe</b>, un proveïdor extern de serveis de pagament.
+              Stripe rep les dades necessàries per tramitar el cobrament (com el nom, l’adreça electrònica i les dades de la
+              targeta) directament de l’usuari, sota la seva pròpia política de privacitat, disponible a{" "}
+              <a href="https://stripe.com/es/privacy" target="_blank" rel="noreferrer">stripe.com/es/privacy</a>.
+              L’Associació Juvenil Rock’n’Rostoll no emmagatzema ni té accés a les dades de la targeta de pagament.
+            </p>
+            <p>
+              L’usuari pot exercir els seus drets d’accés, rectificació, supressió i oposició sobre les seves dades
+              personals contactant a {" "}
+              <a href="mailto:rocknrostoll@gmail.com">rocknrostoll@gmail.com</a>.
             </p>
 
             <h2>7. Cookies</h2>
             <p>
-              Aquest lloc web no utilitza cookies pròpies ni de tercers amb finalitats comercials o analítiques. En cas
-              d’afegir-ne en el futur, es mostrarà un avís i es sol·licitarà el consentiment de l’usuari.
+              Aquest lloc web no utilitza cookies pròpies amb finalitats comercials o analítiques. El procés de pagament a
+              través de Stripe pot establir les seves pròpies cookies tècniques, necessàries per completar la transacció de
+              forma segura, gestionades sota la política de privacitat de Stripe esmentada al punt anterior.
             </p>
 
             <h2>8. Responsabilitat</h2>

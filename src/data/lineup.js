@@ -146,15 +146,15 @@ export const lineup = [
   },
   {
     id: 12,
-    name: "Jordà & Meraki",
-    initials: "JM",
+    name: "Merak & Barolec",
+    initials: "MB",
     color: "#4e2a84",
     origin: "MALLORCA",
     genres: ["Techno"],
     stage: "safareig",
     time: "1:30 - 3:00",
     description:
-      "Dupla de DJs amb dècades d'experiència a les cabines de l'illa, que combinen la seva polivalència sonora fusionant breakbeats, electro-house i tech-house per garantir un viatge sonor immersiu.",
+      "Dupla de DJs amb dècades d'experiència a les cabines de l'illa, que combinen la seva polivalència sonora per garantir un viatge sonor immersiu.",
     photo: "/img/fotos2026/lineup2026/jordameraki.png",
   },
   {

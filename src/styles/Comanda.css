@@ -167,11 +167,24 @@ summary.sizes-summary:hover {
 
 /* DONATION */
 .donation-item {
-    background: #fdfdfd;
-    padding: 1rem;
+    background: linear-gradient(135deg, rgba(251, 168, 48, 0.12), #fdfdfd);
+    padding: 1.25rem;
     border-radius: 8px;
-    border: 2px dashed #e0e0e0;
+    border: 2px solid var(--color-accent-yellow, #fba830);
     color: #1a1a1a;
+}
+
+.donation-badge {
+    display: inline-block;
+    margin-bottom: 0.5rem;
+    padding: 0.25rem 0.7rem;
+    border-radius: 999px;
+    background: var(--color-accent-yellow, #fba830);
+    color: #1a1a1a;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
 }
 
 .donation-input-group {
@@ -237,7 +250,7 @@ summary.sizes-summary:hover {
 /* SIDEBAR SUMMARY */
 .comanda-summary-sidebar {
     position: sticky;
-    top: 100px;
+    top: calc(var(--nav-height) + 1rem);
 }
 
 .summary-card {

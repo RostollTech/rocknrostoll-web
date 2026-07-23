@@ -6,27 +6,34 @@
     "url": "/comanda"
   },
   {
-    "name": "Pack - Dessuadora + Gorra + Bossa - versió limitada",
-    "price": "40 €",
-    "image": "/products/disseny.webp",
-    "url": "/comanda"
+    "name": "Camiseta Màniga Curta",
+    "price": "12 €",
+    "image": "/img/fotos2026/merchan/camiseta.jpeg",
+    "url": "/comanda",
+    "sizes": ["XS", "S", "M", "L", "XL", "XXL"]
   },
   {
-    "name": "Dessuadora 30 edició - versió limitada",
-    "price": "28 €",
-    "image": "/products/dessuadora.webp",
-    "url": "/comanda"
-  },
-  {
-    "name": "Gorra 30 edició - versió limitada",
+    "name": "Camiseta Nin",
     "price": "10 €",
-    "image": "/products/gorra.webp",
-    "url": "/comanda"
+    "image": "/img/fotos2026/merchan/nin.jpeg",
+    "url": "/comanda",
+    "sizes": ["4 anys", "6 anys", "8 anys", "10 anys", "12 anys"]
   },
   {
-    "name": "Bossa 30 edició - versió limitada",
-    "price": "8 €",
-    "image": "/products/bossa.webp",
-    "url": "/comanda"
+    "name": "Camiseta Màniga Llarga",
+    "price": "14 €",
+    "image": "/img/fotos2026/merchan/manigallarga.jpeg",
+    "url": "/comanda",
+    "sizes": ["S", "M", "L", "XL", "XXL"]
+  },
+  {
+    "name": "Pack Lo de Sempre",
+    "price": "22 €",
+    "image": "/img/fotos2026/merchan/pack_lodesempre.jpeg",
+    "url": "/comanda",
+    "bundleOf": [
+      { "product": "Camiseta Màniga Curta", "label": "Màniga Curta", "sizes": ["XS", "S", "M", "L", "XL", "XXL"] },
+      { "product": "Camiseta Màniga Llarga", "label": "Màniga Llarga", "sizes": ["S", "M", "L", "XL", "XXL"] }
+    ]
   }
 ]

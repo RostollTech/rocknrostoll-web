@@ -14,6 +14,7 @@ export default function Comanda() {
     name: "",
     email: ""
   });
+  const [acceptsPrivacy, setAcceptsPrivacy] = useState(false);
 
   // State for cart/quantities. 
   // We initialize based on productsData, excluding "Donatiu" which is special case, 
@@ -21,13 +22,22 @@ export default function Comanda() {
   const [cart, setCart] = useState({});
   const [donationAmount, setDonationAmount] = useState(0);
 
-  // Cart initialized as empty. Keys will be "Name_Size" => Quantity.
-  const SIZES_KIDS = ["5-6", "7-8", "9-11", "12-13", "14-15"];
-  const SIZES_ADULTS = ["S", "M", "L", "XL", "XXL"];
-
   // New State for Products with Sizes (Hoodies, Packs, etc.)
   // Object: { "ProductName": ["M", "L", ""], ... }
   const [productSelections, setProductSelections] = useState({});
+
+  // Estoc restant per "Producte::Talla", per avisar quan en queden poques.
+  const [stockBySize, setStockBySize] = useState({});
+  useEffect(() => {
+    fetch("/api/stock")
+      .then(res => res.ok ? res.json() : Promise.reject())
+      .then(rows => {
+        const map = {};
+        rows.forEach(row => { map[`${row.product_name}::${row.size}`] = row.quantity; });
+        setStockBySize(map);
+      })
+      .catch(() => setStockBySize({}));
+  }, []);
 
   // Sync productSelections to global cart
   useEffect(() => {
@@ -46,7 +56,12 @@ export default function Comanda() {
 
         // Re-populate based on selections
         selections.forEach(size => {
-          const sizeKey = size || "PENDING";
+          // Producte "pack": `size` és un array (una talla per peça). Es
+          // codifica com "M+L" al carret; només es dona per completa quan
+          // totes les peces tenen talla triada.
+          const sizeKey = Array.isArray(size)
+            ? (size.every(Boolean) ? size.join('+') : "PENDING")
+            : (size || "PENDING");
           // If size is 'Única', we could just use that, but for consistency in complex products we use the selected size
           const key = `${name}_${sizeKey}`;
           newCart[key] = (newCart[key] || 0) + 1;
@@ -61,7 +76,12 @@ export default function Comanda() {
     setProductSelections(prev => {
       const currentList = prev[name] || [];
       if (delta > 0) {
-        return { ...prev, [name]: [...currentList, ""] }; // Add empty selection
+        // Un producte "pack" (bundleOf) necessita una talla per cada peça que
+        // el forma, així que la selecció buida és un array (una entrada buida
+        // per peça) en lloc d'una simple cadena buida.
+        const product = productsData.find(p => p.name === name);
+        const emptySelection = product?.bundleOf ? product.bundleOf.map(() => "") : "";
+        return { ...prev, [name]: [...currentList, emptySelection] }; // Add empty selection
       } else {
         // Remove last item (LIFO)
         if (currentList.length === 0) return prev;
@@ -76,6 +96,18 @@ export default function Comanda() {
     setProductSelections(prev => {
       const currentList = [...(prev[name] || [])];
       currentList[index] = newSize;
+      return { ...prev, [name]: currentList };
+    });
+  };
+
+  // Com updateProductSize, però per a un producte "pack": actualitza la talla
+  // d'una sola peça (componentIndex) dins la selecció de la unitat `index`.
+  const updateBundleSize = (name, index, componentIndex, newSize) => {
+    setProductSelections(prev => {
+      const currentList = [...(prev[name] || [])];
+      const currentSelection = [...(currentList[index] || [])];
+      currentSelection[componentIndex] = newSize;
+      currentList[index] = currentSelection;
       return { ...prev, [name]: currentList };
     });
   };
@@ -131,6 +163,11 @@ export default function Comanda() {
       return;
     }
 
+    if (!acceptsPrivacy) {
+      alert("Cal acceptar la política de privacitat per continuar.");
+      return;
+    }
+
     const total = calculateTotal();
     if (parseFloat(total) <= 0) {
       alert("La cistella és buida. Afegeix algun producte o un donatiu per continuar.");
@@ -143,8 +180,9 @@ export default function Comanda() {
       return;
     }
 
-    // Check for unselected sizes in any product
-    const unselectedParams = Object.values(productSelections).flat().some(s => !s);
+    // Check for unselected sizes in any product. flat(Infinity) perquè els
+    // productes "pack" guarden un array de talles (una per peça) per unitat.
+    const unselectedParams = Object.values(productSelections).flat(Infinity).some(s => !s);
     if (unselectedParams) {
       alert("Si us plau, selecciona la talla per a tots els productes.");
       return;
@@ -188,7 +226,8 @@ export default function Comanda() {
         body: JSON.stringify({
           items: items,
           donation: donationAmount,
-          customerEmail: formData.email
+          customerEmail: formData.email,
+          customerName: formData.name
         })
       });
 
@@ -242,14 +281,83 @@ export default function Comanda() {
                 <div className="comanda-form-container">
                   <form id="comanda-form" onSubmit={handleSubmit} className="order-form">
 
-                    {/* 1. SELECCIÓ DE PRODUCTES */}
+                    {/* 1. DADES DEL CLIENT */}
                     <div className="form-section">
-                      <h3 className="form-title">1. Selecciona els Productes</h3>
+                      <h3 className="form-title">1. Les teves Dades</h3>
+                      <div className="fields-grid">
+                        <div className="form-group">
+                          <label htmlFor="name">Nom i Cognoms *</label>
+                          <input
+                            type="text" id="name" name="name"
+                            required
+                            value={formData.name} onChange={handleUserChange}
+                            className="form-input"
+                          />
+                        </div>
+                        <div className="form-group">
+                          <label htmlFor="email">Email *</label>
+                          <input
+                            type="email" id="email" name="email"
+                            required
+                            value={formData.email} onChange={handleUserChange}
+                            className="form-input"
+                          />
+                        </div>
+
+                      </div>
+
+                      <label style={{ display: 'flex', alignItems: 'flex-start', gap: '0.6rem', marginTop: '1rem', fontSize: '0.9rem', color: 'var(--color-text-soft)', cursor: 'pointer' }}>
+                        <input
+                          type="checkbox"
+                          required
+                          checked={acceptsPrivacy}
+                          onChange={(e) => setAcceptsPrivacy(e.target.checked)}
+                          style={{ marginTop: '0.2rem' }}
+                        />
+                        <span>
+                          Accepto la{" "}
+                          <Link to="/avis-legal#privadesa" target="_blank" style={{ color: 'var(--color-accent-yellow)', textDecoration: 'underline' }}>
+                            política de privacitat
+                          </Link>
+                          {" "}i el tractament de les meves dades per gestionar aquesta comanda. *
+                        </span>
+                      </label>
+                    </div>
+
+                    {/* 2. SELECCIÓ DE PRODUCTES */}
+                    <div className="form-section">
+                      <h3 className="form-title">2. Selecciona els Productes</h3>
                       <div className="products-list">
+                        {/* Donatiu Section */}
+                        <div className="order-item donation-item">
+                          <div className="order-item-details" style={{ width: '100%' }}>
+                            <span className="donation-badge">Entitat sense ànim de lucre</span>
+                            <h4 className="order-item-title">Ajuda'ns a mantenir viu el Rostoll</h4>
+                            <p className="description-text">
+                              Som una entitat sense ànim de lucre i any rere any costa més fer front a
+                              les despeses del festival. Si pots, afegeix un donatiu a la teva comanda:
+                              cada euro compta i ens ajuda a seguir fent-lo possible.
+                            </p>
+                            <div className="donation-input-group">
+                              <span className="currency-symbol">€</span>
+                              <input
+                                type="number"
+                                min="0"
+                                step="1"
+                                value={donationAmount}
+                                onChange={(e) => setDonationAmount(e.target.value)}
+                                className="form-input donation-input"
+                                placeholder="0"
+                              />
+                            </div>
+                          </div>
+                        </div>
+
                         {productsData.map((product, index) => {
                           if (product.name === "Donatiu") return null;
 
-                          const needsSize = product.name.toLowerCase().includes('dessu') || product.name.toLowerCase().includes('pack');
+                          const needsSize = product.name.toLowerCase().includes('dessu') || product.name.toLowerCase().includes('pack') || product.name.toLowerCase().includes('camiseta');
+                          const sizeOptions = product.sizes || [];
 
                           // Non-hoodie item (Simple)
                           if (!needsSize) {
@@ -275,6 +383,7 @@ export default function Comanda() {
 
                           // Complex item (Multiple Sizes)
                           // Logic: Show Total Quantity -> "Triar Talles" button -> List of Selects
+                          const isBundle = !!product.bundleOf;
                           const currentSelections = productSelections[product.name] || [];
                           const totalVariantQty = currentSelections.length;
 
@@ -303,24 +412,56 @@ export default function Comanda() {
                                 {/* List of Select Boxes */}
                                 {totalVariantQty > 0 && (
                                   <div className="hoodie-sizes-list">
-                                    <p style={{ marginBottom: '0.5rem', fontWeight: '600', fontSize: '0.9rem' }}>Selecciona les talles:</p>
+                                    <p style={{ marginBottom: '0.5rem', fontWeight: '600', fontSize: '0.9rem' }}>
+                                      {isBundle ? "Selecciona la talla de cada peça:" : "Selecciona les talles:"}
+                                    </p>
                                     {currentSelections.map((currentSize, i) => (
                                       <div key={i} className="size-select-row">
                                         <span className="size-label">#{i + 1}</span>
-                                        <select
-                                          className="form-input size-select"
-                                          value={currentSize}
-                                          onChange={(e) => updateProductSize(product.name, i, e.target.value)}
-                                          required
-                                        >
-                                          <option value="" disabled>Triar Talla...</option>
-                                          <optgroup label="Infantil">
-                                            {SIZES_KIDS.map(s => <option key={s} value={s}>{s}</option>)}
-                                          </optgroup>
-                                          <optgroup label="Adult">
-                                            {SIZES_ADULTS.map(s => <option key={s} value={s}>{s}</option>)}
-                                          </optgroup>
-                                        </select>
+                                        {isBundle ? (
+                                          <div style={{ display: 'flex', gap: '0.5rem', flex: 1, flexWrap: 'wrap' }}>
+                                            {product.bundleOf.map((component, ci) => (
+                                              <select
+                                                key={component.product}
+                                                className="form-input size-select"
+                                                value={currentSize[ci] || ""}
+                                                onChange={(e) => updateBundleSize(product.name, i, ci, e.target.value)}
+                                                required
+                                              >
+                                                <option value="" disabled>{component.label}...</option>
+                                                {component.sizes.map(s => {
+                                                  const remaining = stockBySize[`${component.product}::${s}`] ?? 0;
+                                                  const soldOut = remaining <= 0;
+                                                  const label = soldOut
+                                                    ? `${component.label} ${s} — Exhaurit`
+                                                    : remaining < 5
+                                                      ? `${component.label} ${s} — Últimes ${remaining}!`
+                                                      : `${component.label} ${s}`;
+                                                  return <option key={s} value={s} disabled={soldOut}>{label}</option>;
+                                                })}
+                                              </select>
+                                            ))}
+                                          </div>
+                                        ) : (
+                                          <select
+                                            className="form-input size-select"
+                                            value={currentSize}
+                                            onChange={(e) => updateProductSize(product.name, i, e.target.value)}
+                                            required
+                                          >
+                                            <option value="" disabled>Triar Talla...</option>
+                                            {sizeOptions.map(s => {
+                                              const remaining = stockBySize[`${product.name}::${s}`] ?? 0;
+                                              const soldOut = remaining <= 0;
+                                              const label = soldOut
+                                                ? `${s} — Exhaurit`
+                                                : remaining < 5
+                                                  ? `${s} — Últimes ${remaining}!`
+                                                  : s;
+                                              return <option key={s} value={s} disabled={soldOut}>{label}</option>;
+                                            })}
+                                          </select>
+                                        )}
                                       </div>
                                     ))}
                                   </div>
@@ -329,53 +470,18 @@ export default function Comanda() {
                             </div>
                           );
                         })}
-
-                        {/* Donatiu Section */}
-                        <div className="order-item donation-item">
-                          <div className="order-item-details" style={{ width: '100%' }}>
-                            <h4 className="order-item-title">Vols fer un Donatiu extra?</h4>
-                            <p className="description-text">Ajuda'ns a seguir fent renou.</p>
-                            <div className="donation-input-group">
-                              <span className="currency-symbol">€</span>
-                              <input
-                                type="number"
-                                min="0"
-                                step="1"
-                                value={donationAmount}
-                                onChange={(e) => setDonationAmount(e.target.value)}
-                                className="form-input donation-input"
-                                placeholder="0"
-                              />
-                            </div>
-                          </div>
-                        </div>
                       </div>
                     </div>
 
-                    {/* 2. DADES DEL CLIENT */}
-                    <div className="form-section">
-                      <h3 className="form-title">2. Les teves Dades</h3>
-                      <div className="fields-grid">
-                        <div className="form-group">
-                          <label htmlFor="name">Nom i Cognoms *</label>
-                          <input
-                            type="text" id="name" name="name"
-                            required
-                            value={formData.name} onChange={handleUserChange}
-                            className="form-input"
-                          />
-                        </div>
-                        <div className="form-group">
-                          <label htmlFor="email">Email *</label>
-                          <input
-                            type="email" id="email" name="email"
-                            required
-                            value={formData.email} onChange={handleUserChange}
-                            className="form-input"
-                          />
-                        </div>
-
-                      </div>
+                    <div style={{
+                      margin: "0 0 1.5rem", padding: "1rem 1.25rem", borderRadius: "0.75rem",
+                      border: "1px solid var(--color-accent-yellow)", background: "rgba(251, 168, 48, 0.08)",
+                    }}>
+                      <p style={{ margin: 0, fontSize: "0.9rem" }}>
+                        📦 <strong>Recollida presencial:</strong> els productes no s'envien. Un cop pagat se't mostrarà un
+                        <strong> codi de recollida</strong> que hauràs de presentar per recollir-los en persona. Lloc i
+                        horari s'anunciaran properament per xarxes socials.
+                      </p>
                     </div>
 
                     {/* SUBMIT BUTTON MOBILE */}
@@ -401,6 +507,11 @@ export default function Comanda() {
                         const price = cleanPrice(product.price);
                         const totalItem = (qty * price).toFixed(2);
                         const isUnique = size === "Única";
+                        // Un pack mostra la talla de cada peça per separat ("Màniga Curta M / Màniga Llarga L")
+                        // en lloc de la clau interna "M+L".
+                        const sizeDisplay = product?.bundleOf
+                          ? product.bundleOf.map((c, i) => `${c.label} ${size.split('+')[i] || '?'}`).join(' / ')
+                          : size;
 
                         return (
                           <li key={key} className="summary-item">
@@ -408,7 +519,7 @@ export default function Comanda() {
                               <span>{qty} x {name}</span>
                               <span>{totalItem}€</span>
                             </div>
-                            {!isUnique && <div className="summary-item-meta">Talla: {size}</div>}
+                            {!isUnique && <div className="summary-item-meta">Talla: {sizeDisplay}</div>}
                           </li>
                         );
                       })}

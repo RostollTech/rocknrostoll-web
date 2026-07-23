@@ -344,6 +344,9 @@ main {
 .nav-links {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  row-gap: var(--space-2);
   gap: var(--space-4);
   margin: 0;
   padding: 0;
@@ -789,7 +792,7 @@ main {
 
 /* Page layout */
 .page-content {
-  width: min(75% - var(--space-6), var(--layout-max-width));
+  width: min(100% - var(--space-6), var(--layout-max-width));
   margin: 0 auto;
   display: grid;
   gap: var(--space-6);
@@ -931,14 +934,6 @@ main {
   box-shadow: var(--shadow-md);
 }
 
-.contact-img img {
-  width: 50%;
-}
-
-.contact-img {
-  width: 1 rem;
-}
-
 .map-frame iframe {
   width: 100%;
   min-height: 20rem;
@@ -1019,6 +1014,17 @@ main {
   font-weight: 600;
   color: var(--color-accent-yellow);
   margin: 0;
+}
+
+.stock-note {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--color-text-soft);
+}
+
+.stock-note--low {
+  color: var(--color-accent-red);
+  font-weight: 600;
 }
 
 .merch-actions {
