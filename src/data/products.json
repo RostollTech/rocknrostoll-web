@@ -6,24 +6,34 @@
     "url": "/comanda"
   },
   {
-    "name": "Camiseta",
-    "price": "8 €",
-    "image": "/products/disseny.webp",
+    "name": "Camiseta Màniga Curta",
+    "price": "12 €",
+    "image": "/img/fotos2026/merchan/camiseta.jpeg",
     "url": "/comanda",
     "sizes": ["XS", "S", "M", "L", "XL", "XXL"]
   },
   {
-    "name": "Camiseta Infant",
-    "price": "6 €",
-    "image": "/products/disseny.webp",
+    "name": "Camiseta Nin",
+    "price": "10 €",
+    "image": "/img/fotos2026/merchan/nin.jpeg",
     "url": "/comanda",
     "sizes": ["4 anys", "6 anys", "8 anys", "10 anys", "12 anys"]
   },
   {
     "name": "Camiseta Màniga Llarga",
-    "price": "10 €",
-    "image": "/products/disseny.webp",
+    "price": "14 €",
+    "image": "/img/fotos2026/merchan/manigallarga.jpeg",
     "url": "/comanda",
     "sizes": ["S", "M", "L", "XL", "XXL"]
+  },
+  {
+    "name": "Pack Lo de Sempre",
+    "price": "22 €",
+    "image": "/img/fotos2026/merchan/pack_lodesempre.jpeg",
+    "url": "/comanda",
+    "bundleOf": [
+      { "product": "Camiseta Màniga Curta", "label": "Màniga Curta", "sizes": ["XS", "S", "M", "L", "XL", "XXL"] },
+      { "product": "Camiseta Màniga Llarga", "label": "Màniga Llarga", "sizes": ["S", "M", "L", "XL", "XXL"] }
+    ]
   }
 ]

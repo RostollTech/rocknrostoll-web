@@ -1,6 +1,42 @@
+import path from 'node:path';
+import fs from 'node:fs';
+import { fileURLToPath } from 'node:url';
 import Stripe from 'stripe';
 import { IS_SHOP_OPEN } from '../src/utils/shopConfig.js';
 import { reserveStock, restoreStock, createReservation, reserveNewPickupCode } from './db.js';
+
+// Catàleg de productes: font única de veritat (products.json), la mateixa que
+// fa servir server.js per a les vendes físiques i l'admin. Així els preus del
+// checkout no es poden desincronitzar d'un canvi fet només en un altre lloc.
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const CATALOG = JSON.parse(fs.readFileSync(path.join(__dirname, '../src/data/products.json'), 'utf-8'));
+const CATALOG_BY_NAME = new Map(CATALOG.map(p => [p.name, p]));
+
+// Productes com "Pack Lo de Sempre" no tenen estoc propi: són la unió d'altres
+// productes reals (bundleOf). La talla que arriba del carret és les talles de
+// cada peça unides amb "+" (mateix ordre que bundleOf a products.json), p.ex.
+// "M+L". Aquesta funció "desplega" una línia de comanda en les línies d'estoc
+// reals que cal reservar/descomptar.
+function expandToStockLines(item) {
+    const product = CATALOG_BY_NAME.get(item.name);
+    if (!product?.bundleOf) {
+        return [{ name: item.name, size: item.size, quantity: item.quantity }];
+    }
+    const sizes = String(item.size || '').split('+');
+    return product.bundleOf.map((component, i) => ({
+        name: component.product,
+        size: sizes[i] || '',
+        quantity: item.quantity,
+    }));
+}
+
+// Text llegible per a Stripe/rebuts quan la talla és composta (pack).
+function describeSize(item) {
+    const product = CATALOG_BY_NAME.get(item.name);
+    if (!product?.bundleOf || !item.size) return item.size;
+    const sizes = String(item.size).split('+');
+    return product.bundleOf.map((component, i) => `${component.label} ${sizes[i] || '?'}`).join(' / ');
+}
 
 export default async function handler(req, res) {
     if (!IS_SHOP_OPEN) {
@@ -26,11 +62,14 @@ export default async function handler(req, res) {
         // If dynamic items are provided, build stripe line items
         if (items && Array.isArray(items) && items.length > 0) {
 
-            const PRODUCTS_CATALOG = {
-                "Camiseta": 8,
-                "Camiseta Infant": 6,
-                "Camiseta Màniga Llarga": 10
-            };
+            // Preus derivats de products.json (mai del client): evita que el
+            // catàleg de preus del checkout es desincronitzi del real.
+            const PRODUCTS_CATALOG = Object.fromEntries(
+                CATALOG
+                    .filter(p => p.name !== 'Donatiu')
+                    .map(p => [p.name, parseFloat(String(p.price).replace(',', '.'))])
+                    .filter(([, price]) => Number.isFinite(price))
+            );
 
             line_items = items.map(item => {
                 // Security Check: Quantity must be a positive integer
@@ -56,9 +95,10 @@ export default async function handler(req, res) {
                     metadata: {}
                 };
 
-                if (item.size) {
-                    productData.description = `Talla: ${item.size}`;
-                    productData.metadata.talla = item.size;
+                const sizeLabel = describeSize(item);
+                if (sizeLabel) {
+                    productData.description = `Talla: ${sizeLabel}`;
+                    productData.metadata.talla = sizeLabel;
                 }
 
                 return {
@@ -161,8 +201,12 @@ export default async function handler(req, res) {
         // per si el carret repetís la mateixa línia). Si no n'hi ha prou, llança
         // error i no es crea res. El webhook 'checkout.session.expired' retorna
         // la reserva si el comprador abandona el pagament (caduca als 30 minuts).
+        // Els productes "pack" (bundleOf) no tenen estoc propi: es desploguen
+        // aquí en les línies reals (les peces que realment els formen) abans
+        // de tocar l'estoc.
+        const stockLines = orderItems.flatMap(expandToStockLines);
         const totalsByLine = new Map();
-        orderItems.forEach(item => {
+        stockLines.forEach(item => {
             const key = `${item.name}::${item.size || ''}`;
             const existing = totalsByLine.get(key);
             if (existing) {
@@ -231,8 +275,10 @@ export default async function handler(req, res) {
             throw err;
         }
 
-        // Vincula la reserva a la sessió perquè el webhook la pugui completar o alliberar.
-        createReservation(session.id, orderItems);
+        // Vincula la reserva a la sessió perquè el webhook la pugui completar o
+        // alliberar — amb les línies reals (reservationItems), no les de pack,
+        // perquè la restauració en cas d'expiració toqui l'estoc correcte.
+        createReservation(session.id, reservationItems);
 
         // 4. Return URL
         res.status(200).json({ url: session.url });

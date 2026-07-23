@@ -56,7 +56,12 @@ export default function Comanda() {
 
         // Re-populate based on selections
         selections.forEach(size => {
-          const sizeKey = size || "PENDING";
+          // Producte "pack": `size` és un array (una talla per peça). Es
+          // codifica com "M+L" al carret; només es dona per completa quan
+          // totes les peces tenen talla triada.
+          const sizeKey = Array.isArray(size)
+            ? (size.every(Boolean) ? size.join('+') : "PENDING")
+            : (size || "PENDING");
           // If size is 'Única', we could just use that, but for consistency in complex products we use the selected size
           const key = `${name}_${sizeKey}`;
           newCart[key] = (newCart[key] || 0) + 1;
@@ -71,7 +76,12 @@ export default function Comanda() {
     setProductSelections(prev => {
       const currentList = prev[name] || [];
       if (delta > 0) {
-        return { ...prev, [name]: [...currentList, ""] }; // Add empty selection
+        // Un producte "pack" (bundleOf) necessita una talla per cada peça que
+        // el forma, així que la selecció buida és un array (una entrada buida
+        // per peça) en lloc d'una simple cadena buida.
+        const product = productsData.find(p => p.name === name);
+        const emptySelection = product?.bundleOf ? product.bundleOf.map(() => "") : "";
+        return { ...prev, [name]: [...currentList, emptySelection] }; // Add empty selection
       } else {
         // Remove last item (LIFO)
         if (currentList.length === 0) return prev;
@@ -86,6 +96,18 @@ export default function Comanda() {
     setProductSelections(prev => {
       const currentList = [...(prev[name] || [])];
       currentList[index] = newSize;
+      return { ...prev, [name]: currentList };
+    });
+  };
+
+  // Com updateProductSize, però per a un producte "pack": actualitza la talla
+  // d'una sola peça (componentIndex) dins la selecció de la unitat `index`.
+  const updateBundleSize = (name, index, componentIndex, newSize) => {
+    setProductSelections(prev => {
+      const currentList = [...(prev[name] || [])];
+      const currentSelection = [...(currentList[index] || [])];
+      currentSelection[componentIndex] = newSize;
+      currentList[index] = currentSelection;
       return { ...prev, [name]: currentList };
     });
   };
@@ -158,8 +180,9 @@ export default function Comanda() {
       return;
     }
 
-    // Check for unselected sizes in any product
-    const unselectedParams = Object.values(productSelections).flat().some(s => !s);
+    // Check for unselected sizes in any product. flat(Infinity) perquè els
+    // productes "pack" guarden un array de talles (una per peça) per unitat.
+    const unselectedParams = Object.values(productSelections).flat(Infinity).some(s => !s);
     if (unselectedParams) {
       alert("Si us plau, selecciona la talla per a tots els productes.");
       return;
@@ -360,6 +383,7 @@ export default function Comanda() {
 
                           // Complex item (Multiple Sizes)
                           // Logic: Show Total Quantity -> "Triar Talles" button -> List of Selects
+                          const isBundle = !!product.bundleOf;
                           const currentSelections = productSelections[product.name] || [];
                           const totalVariantQty = currentSelections.length;
 
@@ -388,28 +412,56 @@ export default function Comanda() {
                                 {/* List of Select Boxes */}
                                 {totalVariantQty > 0 && (
                                   <div className="hoodie-sizes-list">
-                                    <p style={{ marginBottom: '0.5rem', fontWeight: '600', fontSize: '0.9rem' }}>Selecciona les talles:</p>
+                                    <p style={{ marginBottom: '0.5rem', fontWeight: '600', fontSize: '0.9rem' }}>
+                                      {isBundle ? "Selecciona la talla de cada peça:" : "Selecciona les talles:"}
+                                    </p>
                                     {currentSelections.map((currentSize, i) => (
                                       <div key={i} className="size-select-row">
                                         <span className="size-label">#{i + 1}</span>
-                                        <select
-                                          className="form-input size-select"
-                                          value={currentSize}
-                                          onChange={(e) => updateProductSize(product.name, i, e.target.value)}
-                                          required
-                                        >
-                                          <option value="" disabled>Triar Talla...</option>
-                                          {sizeOptions.map(s => {
-                                            const remaining = stockBySize[`${product.name}::${s}`] ?? 0;
-                                            const soldOut = remaining <= 0;
-                                            const label = soldOut
-                                              ? `${s} — Exhaurit`
-                                              : remaining < 5
-                                                ? `${s} — Últimes ${remaining}!`
-                                                : s;
-                                            return <option key={s} value={s} disabled={soldOut}>{label}</option>;
-                                          })}
-                                        </select>
+                                        {isBundle ? (
+                                          <div style={{ display: 'flex', gap: '0.5rem', flex: 1, flexWrap: 'wrap' }}>
+                                            {product.bundleOf.map((component, ci) => (
+                                              <select
+                                                key={component.product}
+                                                className="form-input size-select"
+                                                value={currentSize[ci] || ""}
+                                                onChange={(e) => updateBundleSize(product.name, i, ci, e.target.value)}
+                                                required
+                                              >
+                                                <option value="" disabled>{component.label}...</option>
+                                                {component.sizes.map(s => {
+                                                  const remaining = stockBySize[`${component.product}::${s}`] ?? 0;
+                                                  const soldOut = remaining <= 0;
+                                                  const label = soldOut
+                                                    ? `${component.label} ${s} — Exhaurit`
+                                                    : remaining < 5
+                                                      ? `${component.label} ${s} — Últimes ${remaining}!`
+                                                      : `${component.label} ${s}`;
+                                                  return <option key={s} value={s} disabled={soldOut}>{label}</option>;
+                                                })}
+                                              </select>
+                                            ))}
+                                          </div>
+                                        ) : (
+                                          <select
+                                            className="form-input size-select"
+                                            value={currentSize}
+                                            onChange={(e) => updateProductSize(product.name, i, e.target.value)}
+                                            required
+                                          >
+                                            <option value="" disabled>Triar Talla...</option>
+                                            {sizeOptions.map(s => {
+                                              const remaining = stockBySize[`${product.name}::${s}`] ?? 0;
+                                              const soldOut = remaining <= 0;
+                                              const label = soldOut
+                                                ? `${s} — Exhaurit`
+                                                : remaining < 5
+                                                  ? `${s} — Últimes ${remaining}!`
+                                                  : s;
+                                              return <option key={s} value={s} disabled={soldOut}>{label}</option>;
+                                            })}
+                                          </select>
+                                        )}
                                       </div>
                                     ))}
                                   </div>
@@ -455,6 +507,11 @@ export default function Comanda() {
                         const price = cleanPrice(product.price);
                         const totalItem = (qty * price).toFixed(2);
                         const isUnique = size === "Única";
+                        // Un pack mostra la talla de cada peça per separat ("Màniga Curta M / Màniga Llarga L")
+                        // en lloc de la clau interna "M+L".
+                        const sizeDisplay = product?.bundleOf
+                          ? product.bundleOf.map((c, i) => `${c.label} ${size.split('+')[i] || '?'}`).join(' / ')
+                          : size;
 
                         return (
                           <li key={key} className="summary-item">
@@ -462,7 +519,7 @@ export default function Comanda() {
                               <span>{qty} x {name}</span>
                               <span>{totalItem}€</span>
                             </div>
-                            {!isUnique && <div className="summary-item-meta">Talla: {size}</div>}
+                            {!isUnique && <div className="summary-item-meta">Talla: {sizeDisplay}</div>}
                           </li>
                         );
                       })}

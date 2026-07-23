@@ -7,6 +7,16 @@ import { Link } from "react-router-dom";
 import SEO from "../components/SEO";
 import { useEffect, useMemo, useState } from "react";
 
+// Un producte "pack" (bundleOf) no té estoc propi: les unitats disponibles
+// són les que permeti la peça amb menys estoc de les que el formen.
+function getRemaining(product, stockByProduct) {
+  if (!stockByProduct) return null;
+  if (product.bundleOf) {
+    return Math.min(...product.bundleOf.map(c => stockByProduct[c.product] ?? 0));
+  }
+  return stockByProduct[product.name] ?? 0;
+}
+
 export default function Shop() {
   const [stockByProduct, setStockByProduct] = useState(null);
 
@@ -65,7 +75,7 @@ export default function Shop() {
           <div className="page-content">
             <div className="shop-intro">
               <p className="section-description">
-                Aquí tens els tres productes especials que oferim en aquest any per la 30è edició del Rock'N'Rostoll. Per fer una comanda, fes clic als enllaços de cada producte o utilitza el formulari general.
+                Aquí tens els productes especials que oferim en aquest any per la 30è edició del Rock'N'Rostoll. Per fer una comanda, fes clic als enllaços de cada producte o utilitza el formulari general.
               </p>
               <div style={{ marginTop: "2rem", textAlign: "center" }}>
                 <Link
@@ -83,7 +93,7 @@ export default function Shop() {
                   <ProductCard
                     key={`${product.name}-${index}`}
                     {...product}
-                    remaining={stockByProduct ? (stockByProduct[product.name] ?? 0) : null}
+                    remaining={getRemaining(product, stockByProduct)}
                   />
                 ))}
             </div>
@@ -123,7 +133,7 @@ export default function Shop() {
 
               {[
                 {
-                  title: "Camiseta",
+                  title: "Camiseta Màniga Curta",
                   rows: [
                     { t: "XS", w: "48 cm", l: "64 cm" },
                     { t: "S", w: "50 cm", l: "70 cm" },
@@ -134,7 +144,7 @@ export default function Shop() {
                   ],
                 },
                 {
-                  title: "Camiseta Infant",
+                  title: "Camiseta Nin",
                   rows: [
                     { t: "4 anys", w: "32 cm", l: "43 cm" },
                     { t: "6 anys", w: "35 cm", l: "46 cm" },

@@ -106,7 +106,23 @@ const API_BASE = location.pathname.replace(/\/+$/, '');
 
 // Productes i talles: es carreguen de /api/products (src/data/products.json),
 // no es dupliquen aquí — si canvia el catàleg, l'admin es queda al dia sol.
+// CATALOG és el catàleg complet (inclou packs sense estoc propi, per poder
+// mostrar les seves talles); PRODUCTS només els productes amb estoc propi
+// (els que es poden gestionar/vendre individualment des d'aquí).
+let CATALOG = [];
 let PRODUCTS = [];
+
+// Un pack (bundleOf) guarda la talla de cada peça unida amb "+" (p.ex. "M+L").
+// Aquí es tradueix a text llegible per al personal: "Màniga Curta M / Màniga Llarga L".
+function formatItemSize(item) {
+  if (!item.size) return '';
+  const product = CATALOG.find(p => p.name === item.name);
+  if (product && product.bundleOf) {
+    const sizes = String(item.size).split('+');
+    return product.bundleOf.map((c, i) => `${c.label} ${sizes[i] || '?'}`).join(' / ');
+  }
+  return item.size;
+}
 
 function fillSellSizes() {
   const productName = document.getElementById('sell-product').value;
@@ -187,7 +203,7 @@ function renderOrders(filterText) {
     ordersBody.innerHTML = `<tr><td colspan="8" class="muted">${allOrders.length === 0 ? 'Encara no hi ha cap comanda.' : 'Cap resultat per a la cerca.'}</td></tr>`;
   }
   filtered.forEach(order => {
-    const itemsText = order.items.map(i => `${i.quantity} x ${i.name}${i.size ? ' (' + i.size + ')' : ''}`).join(', ');
+    const itemsText = order.items.map(i => `${i.quantity} x ${i.name}${i.size ? ' (' + formatItemSize(i) + ')' : ''}`).join(', ');
     const isPhysical = order.channel === 'physical';
     const channelBadge = isPhysical
       ? '<span class="badge badge--physical">Física</span>'
@@ -252,8 +268,8 @@ async function loadData() {
 async function loadProducts() {
   // /api/products és una ruta pública arrel (no viu sota la ruta secreta de l'admin).
   const res = await fetch('/api/products');
-  const catalog = res.ok ? await res.json() : [];
-  PRODUCTS = catalog.filter(p => p.name !== 'Donatiu' && p.sizes);
+  CATALOG = res.ok ? await res.json() : [];
+  PRODUCTS = CATALOG.filter(p => p.name !== 'Donatiu' && p.sizes);
 }
 
 async function init() {
@@ -300,7 +316,7 @@ async function init() {
         }
         pendingCode = code;
         pickupPreviewName.textContent = data.order.customer_name || `comanda ${data.order.id}`;
-        pickupPreviewItems.textContent = data.order.items.map(i => `${i.quantity} x ${i.name}${i.size ? ' (' + i.size + ')' : ''}`).join(', ');
+        pickupPreviewItems.textContent = data.order.items.map(i => `${i.quantity} x ${i.name}${i.size ? ' (' + formatItemSize(i) + ')' : ''}`).join(', ');
         pickupPreview.hidden = false;
       } else {
         pickupMsg.className = 'err-msg';
