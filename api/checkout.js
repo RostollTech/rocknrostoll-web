@@ -1,42 +1,7 @@
-import path from 'node:path';
-import fs from 'node:fs';
-import { fileURLToPath } from 'node:url';
 import Stripe from 'stripe';
 import { IS_SHOP_OPEN } from '../src/utils/shopConfig.js';
 import { reserveStock, restoreStock, createReservation, reserveNewPickupCode } from './db.js';
-
-// Catàleg de productes: font única de veritat (products.json), la mateixa que
-// fa servir server.js per a les vendes físiques i l'admin. Així els preus del
-// checkout no es poden desincronitzar d'un canvi fet només en un altre lloc.
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const CATALOG = JSON.parse(fs.readFileSync(path.join(__dirname, '../src/data/products.json'), 'utf-8'));
-const CATALOG_BY_NAME = new Map(CATALOG.map(p => [p.name, p]));
-
-// Productes com "Pack Lo de Sempre" no tenen estoc propi: són la unió d'altres
-// productes reals (bundleOf). La talla que arriba del carret és les talles de
-// cada peça unides amb "+" (mateix ordre que bundleOf a products.json), p.ex.
-// "M+L". Aquesta funció "desplega" una línia de comanda en les línies d'estoc
-// reals que cal reservar/descomptar.
-function expandToStockLines(item) {
-    const product = CATALOG_BY_NAME.get(item.name);
-    if (!product?.bundleOf) {
-        return [{ name: item.name, size: item.size, quantity: item.quantity }];
-    }
-    const sizes = String(item.size || '').split('+');
-    return product.bundleOf.map((component, i) => ({
-        name: component.product,
-        size: sizes[i] || '',
-        quantity: item.quantity,
-    }));
-}
-
-// Text llegible per a Stripe/rebuts quan la talla és composta (pack).
-function describeSize(item) {
-    const product = CATALOG_BY_NAME.get(item.name);
-    if (!product?.bundleOf || !item.size) return item.size;
-    const sizes = String(item.size).split('+');
-    return product.bundleOf.map((component, i) => `${component.label} ${sizes[i] || '?'}`).join(' / ');
-}
+import { CATALOG, expandToStockLines, describeSize } from './catalog.js';
 
 export default async function handler(req, res) {
     if (!IS_SHOP_OPEN) {

@@ -56,22 +56,36 @@
   .stock-group[open] summary { border-radius: 8px 8px 0 0; margin-bottom: 0; }
   .stock-group table { border-radius: 0 0 8px 8px; }
   .search-input { width: 100%; max-width: 24rem; margin-bottom: 0.75rem; }
+  .cart-list { list-style: none; margin: 0.75rem 0 0; padding: 0; display: grid; gap: 0.4rem; }
+  .cart-list li {
+    display: flex; align-items: center; justify-content: space-between; gap: 0.6rem;
+    background: #1e1e1e; border-radius: 6px; padding: 0.5rem 0.75rem; font-size: 0.9rem;
+  }
+  .cart-list button { background: transparent; color: #ff6b6b; font-weight: 700; padding: 0.1rem 0.5rem; }
+  .cart-total { margin-top: 0.6rem; font-weight: 700; }
+  .add-item-row { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; }
 </style>
 </head>
 <body>
 <div class="wrap">
   <h1>Panell d'administració · Rock'n'Rostoll</h1>
 
-  <h2>Estoc per talla</h2>
-  <div id="stock-groups"></div>
-
   <h2>Registrar venda física</h2>
-  <p class="muted" style="margin-top:-0.5rem">Descompta del mateix estoc que la botiga online, perquè entre les dues vies no se superi el que hi ha disponible.</p>
+  <p class="muted" style="margin-top:-0.5rem">Descompta del mateix estoc que la botiga online, perquè entre les dues vies no se superi el que hi ha disponible. Pots afegir-hi diversos productes abans de confirmar.</p>
   <div class="sell-form">
     <input type="text" id="sell-note" placeholder="Nom i cognoms" required />
-    <select id="sell-product"></select>
-    <select id="sell-size"></select>
-    <input type="number" id="sell-qty" min="1" value="1" style="width:4.5rem" />
+  </div>
+  <div class="sell-form" style="margin-top:0.6rem">
+    <div class="add-item-row">
+      <select id="sell-product"></select>
+      <span id="sell-size-container" class="add-item-row"></span>
+      <input type="number" id="sell-qty" min="1" value="1" style="width:4.5rem" />
+      <button id="add-item-btn" type="button">+ Afegeix</button>
+    </div>
+  </div>
+  <ul id="sell-cart" class="cart-list"></ul>
+  <p id="sell-cart-total" class="cart-total" hidden></p>
+  <div class="sell-form" style="margin-top:0.6rem">
     <button id="sell-btn">Registra venda</button>
     <span id="sell-msg"></span>
   </div>
@@ -97,6 +111,9 @@
       <tbody></tbody>
     </table>
   </div>
+
+  <h2>Estoc per talla</h2>
+  <div id="stock-groups"></div>
 </div>
 
 <script>
@@ -106,11 +123,12 @@ const API_BASE = location.pathname.replace(/\/+$/, '');
 
 // Productes i talles: es carreguen de /api/products (src/data/products.json),
 // no es dupliquen aquí — si canvia el catàleg, l'admin es queda al dia sol.
-// CATALOG és el catàleg complet (inclou packs sense estoc propi, per poder
-// mostrar les seves talles); PRODUCTS només els productes amb estoc propi
-// (els que es poden gestionar/vendre individualment des d'aquí).
+// CATALOG és el catàleg complet (inclou packs sense estoc propi); SELLABLE
+// són tots els productes que es poden vendre (talla pròpia o pack).
 let CATALOG = [];
-let PRODUCTS = [];
+let SELLABLE = [];
+// Productes amb estoc propi (talla pròpia), per a la taula d'estoc.
+let STOCKED = [];
 
 // Un pack (bundleOf) guarda la talla de cada peça unida amb "+" (p.ex. "M+L").
 // Aquí es tradueix a text llegible per al personal: "Màniga Curta M / Màniga Llarga L".
@@ -124,11 +142,65 @@ function formatItemSize(item) {
   return item.size;
 }
 
-function fillSellSizes() {
+function getUnitPrice(name) {
+  const product = CATALOG.find(p => p.name === name);
+  const price = product ? parseFloat(String(product.price).replace(',', '.')) : NaN;
+  return Number.isFinite(price) ? price : 0;
+}
+
+// --- Venda física: carret amb diversos productes ---
+let sellCart = [];
+
+function renderAddItemSizes() {
   const productName = document.getElementById('sell-product').value;
-  const product = PRODUCTS.find(p => p.name === productName);
-  const sizeSelect = document.getElementById('sell-size');
-  sizeSelect.innerHTML = (product ? product.sizes : []).map(s => `<option value="${s}">${s}</option>`).join('');
+  const product = SELLABLE.find(p => p.name === productName);
+  const container = document.getElementById('sell-size-container');
+  container.innerHTML = '';
+  if (!product) return;
+
+  if (product.bundleOf) {
+    product.bundleOf.forEach(component => {
+      const select = document.createElement('select');
+      select.className = 'bundle-size-select';
+      select.dataset.component = component.product;
+      select.dataset.label = component.label;
+      select.innerHTML = `<option value="" disabled selected>${component.label}...</option>` +
+        component.sizes.map(s => `<option value="${s}">${component.label} ${s}</option>`).join('');
+      container.appendChild(select);
+    });
+  } else {
+    const select = document.createElement('select');
+    select.id = 'sell-size';
+    select.innerHTML = (product.sizes || []).map(s => `<option value="${s}">${s}</option>`).join('');
+    container.appendChild(select);
+  }
+}
+
+function renderSellCart() {
+  const list = document.getElementById('sell-cart');
+  const totalEl = document.getElementById('sell-cart-total');
+  list.innerHTML = '';
+  sellCart.forEach((item, i) => {
+    const li = document.createElement('li');
+    const sizeLabel = item.size ? ` (${formatItemSize(item)})` : '';
+    li.innerHTML = `<span>${item.quantity} x ${item.name}${sizeLabel}</span>`;
+    const removeBtn = document.createElement('button');
+    removeBtn.type = 'button';
+    removeBtn.textContent = '✕';
+    removeBtn.addEventListener('click', () => {
+      sellCart.splice(i, 1);
+      renderSellCart();
+    });
+    li.appendChild(removeBtn);
+    list.appendChild(li);
+  });
+  const total = sellCart.reduce((sum, item) => sum + getUnitPrice(item.name) * item.quantity, 0);
+  totalEl.hidden = sellCart.length === 0;
+  totalEl.textContent = `Total: ${total.toFixed(2)}€`;
+}
+
+function fillSellSizes() {
+  renderAddItemSizes();
 }
 
 let allOrders = [];
@@ -139,7 +211,7 @@ function renderStockGroups(stock) {
 
   const groupsEl = document.getElementById('stock-groups');
   groupsEl.innerHTML = '';
-  PRODUCTS.forEach((product, i) => {
+  STOCKED.forEach((product, i) => {
     const details = document.createElement('details');
     details.className = 'stock-group';
     details.open = i === 0; // el primer obert per defecte, la resta plegats
@@ -269,16 +341,46 @@ async function loadProducts() {
   // /api/products és una ruta pública arrel (no viu sota la ruta secreta de l'admin).
   const res = await fetch('/api/products');
   CATALOG = res.ok ? await res.json() : [];
-  PRODUCTS = CATALOG.filter(p => p.name !== 'Donatiu' && p.sizes);
+  SELLABLE = CATALOG.filter(p => p.name !== 'Donatiu' && (p.sizes || p.bundleOf));
+  STOCKED = CATALOG.filter(p => p.name !== 'Donatiu' && p.sizes);
 }
 
 async function init() {
   try {
     await loadProducts();
-    document.getElementById('sell-product').innerHTML = PRODUCTS.map(p => `<option value="${p.name}">${p.name}</option>`).join('');
+    document.getElementById('sell-product').innerHTML = SELLABLE.map(p => `<option value="${p.name}">${p.name}</option>`).join('');
     document.getElementById('sell-product').addEventListener('change', fillSellSizes);
     fillSellSizes();
     document.getElementById('orders-search').addEventListener('input', e => renderOrders(e.target.value));
+
+    document.getElementById('add-item-btn').addEventListener('click', () => {
+      const name = document.getElementById('sell-product').value;
+      const quantity = parseInt(document.getElementById('sell-qty').value, 10);
+      const msg = document.getElementById('sell-msg');
+      msg.className = '';
+      msg.textContent = '';
+
+      if (!name || !Number.isInteger(quantity) || quantity < 1) return;
+
+      const product = SELLABLE.find(p => p.name === name);
+      let size = '';
+      if (product?.bundleOf) {
+        const selects = Array.from(document.querySelectorAll('#sell-size-container .bundle-size-select'));
+        const values = selects.map(s => s.value);
+        if (values.some(v => !v)) {
+          msg.className = 'err-msg';
+          msg.textContent = 'Selecciona la talla de totes les peces del pack';
+          return;
+        }
+        size = values.join('+');
+      } else {
+        const select = document.getElementById('sell-size');
+        size = select ? select.value : '';
+      }
+
+      sellCart.push({ name, size, quantity });
+      renderSellCart();
+    });
 
     const pickupBtn = document.getElementById('pickup-code-btn');
     const pickupInput = document.getElementById('pickup-code-input');
@@ -356,9 +458,6 @@ async function init() {
 }
 
 document.getElementById('sell-btn').addEventListener('click', async () => {
-  const name = document.getElementById('sell-product').value;
-  const size = document.getElementById('sell-size').value;
-  const quantity = parseInt(document.getElementById('sell-qty').value, 10);
   const note = document.getElementById('sell-note').value.trim();
   const msg = document.getElementById('sell-msg');
   const btn = document.getElementById('sell-btn');
@@ -369,6 +468,11 @@ document.getElementById('sell-btn').addEventListener('click', async () => {
     document.getElementById('sell-note').focus();
     return;
   }
+  if (sellCart.length === 0) {
+    msg.className = 'err-msg';
+    msg.textContent = 'Afegeix almenys un producte a la venda';
+    return;
+  }
 
   btn.disabled = true;
   msg.className = '';
@@ -377,15 +481,17 @@ document.getElementById('sell-btn').addEventListener('click', async () => {
   const r = await fetch(`${API_BASE}/api/sell`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ name, size, quantity, note }),
+    body: JSON.stringify({ items: sellCart, note }),
   });
   const data = await r.json();
   btn.disabled = false;
 
   if (r.ok) {
     msg.className = 'save-msg';
-    msg.textContent = `Venuda! ${quantity} x ${name} (${size})`;
+    msg.textContent = `Venda registrada per a ${note}!`;
     document.getElementById('sell-note').value = '';
+    sellCart = [];
+    renderSellCart();
     loadData();
   } else {
     msg.className = 'err-msg';

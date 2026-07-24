@@ -1,5 +1,6 @@
 import Stripe from 'stripe';
 import { decrementStock, recordOrder, completeReservation, releaseReservation } from './db.js';
+import { expandToStockLines } from './catalog.js';
 
 export default async function handler(req, res) {
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
@@ -57,7 +58,7 @@ export default async function handler(req, res) {
             // seguretat per a sessions creades abans del sistema de reserves.
             const hadReservation = completeReservation(session.id);
             if (!hadReservation) {
-                items.forEach(item => decrementStock(item.name, item.size, item.quantity));
+                items.flatMap(expandToStockLines).forEach(line => decrementStock(line.name, line.size, line.quantity));
             }
         }
     }

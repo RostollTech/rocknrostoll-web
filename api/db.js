@@ -2,6 +2,7 @@ import path from 'node:path';
 import fs from 'node:fs';
 import crypto from 'node:crypto';
 import Database from 'better-sqlite3';
+import { expandToStockLines } from './catalog.js';
 
 const dataDir = process.env.DATA_DIR || '.';
 fs.mkdirSync(dataDir, { recursive: true });
@@ -230,10 +231,12 @@ export function markPickedUpByCode(code) {
 // Registers an in-person (physical) sale: atomically checks & decrements stock
 // (throws — and sells nothing — if there isn't enough) and logs it alongside the
 // online orders so both channels draw from, and are visible against, one shared
-// stock count.
-// items: [{ name, size, quantity }]
+// stock count. Can hold several product lines (multi-item sale) in one go.
+// items: [{ name, size, quantity }] — what was actually sold (shown in the
+//   admin as-is, e.g. a pack keeps its own name and composite "M+L" size).
 export function sellPhysical(items, note, totalCents) {
-    reserveOrThrow(items);
+    const stockLines = items.flatMap(expandToStockLines);
+    reserveOrThrow(stockLines);
     recordOrder({
         stripeSessionId: `physical_${Date.now()}_${crypto.randomBytes(4).toString('hex')}`,
         channel: 'physical',
@@ -253,7 +256,7 @@ export function deletePhysicalSale(orderId) {
     const tx = db.transaction(id => {
         const row = db.prepare("SELECT items FROM orders WHERE id = ? AND channel = 'physical'").get(id);
         if (!row) return false;
-        restoreStock(JSON.parse(row.items));
+        restoreStock(JSON.parse(row.items).flatMap(expandToStockLines));
         db.prepare('DELETE FROM orders WHERE id = ?').run(id);
         return true;
     });

@@ -1,18 +1,16 @@
 // Un sol procés: serveix la SPA (dist/), l'API de Stripe i el panell d'admin, tot en un contenidor.
 import path from 'node:path';
 import crypto from 'node:crypto';
-import fs from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import express from 'express';
 import checkout from './api/checkout.js';
 import webhook from './api/webhook.js';
 import { getAllStock, setStock, listOrders, sellPhysical, deletePhysicalSale, setPickedUp, getOrderBySessionId, getOrderByPickupCode, markPickedUpByCode } from './api/db.js';
+import { CATALOG, getUnitPrice } from './api/catalog.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const distDir = path.join(__dirname, 'dist');
 const adminDir = path.join(__dirname, 'admin');
-
-const catalog = JSON.parse(fs.readFileSync(path.join(__dirname, 'src/data/products.json'), 'utf-8'));
 
 const app = express();
 
@@ -34,7 +32,7 @@ app.get('/api/stock', (_req, res) => {
 // Públic: el catàleg de productes/talles, perquè l'admin no hagi de tenir-lo
 // duplicat a mà — products.json és l'única font de veritat.
 app.get('/api/products', (_req, res) => {
-    res.json(catalog);
+    res.json(CATALOG);
 });
 
 // Públic: la pàgina d'èxit el fa servir per mostrar el codi de recollida.
@@ -103,17 +101,33 @@ app.post(`${adminPath}/api/stock`, (req, res) => {
 });
 
 app.post(`${adminPath}/api/sell`, (req, res) => {
-    const { name, size, quantity, note } = req.body || {};
-    if (!name || !Number.isInteger(quantity) || quantity < 1 || !note || !note.trim()) {
-        return res.status(400).json({ error: 'Dades no vàlides (cal el nom i cognoms del comprador)' });
+    const { items, note } = req.body || {};
+    if (!note || !note.trim()) {
+        return res.status(400).json({ error: 'Cal el nom i cognoms del comprador' });
     }
+    if (!Array.isArray(items) || items.length === 0) {
+        return res.status(400).json({ error: 'Afegeix almenys un producte a la venda' });
+    }
+    for (const item of items) {
+        if (!item.name || !Number.isInteger(item.quantity) || item.quantity < 1) {
+            return res.status(400).json({ error: `Dades no vàlides per a "${item.name || '?'}"` });
+        }
+    }
+
     // El preu es calcula al servidor a partir del catàleg (no es confia en cap
     // preu enviat pel client), igual que fa /api/checkout amb Stripe.
-    const product = catalog.find(p => p.name === name);
-    const unitPrice = product ? parseFloat(String(product.price).replace(',', '.')) : NaN;
-    const totalCents = Number.isFinite(unitPrice) ? Math.round(unitPrice * quantity * 100) : 0;
+    let totalCents = 0;
+    for (const item of items) {
+        const unitPrice = getUnitPrice(item.name);
+        if (unitPrice === null) {
+            return res.status(400).json({ error: `Producte no vàlid: ${item.name}` });
+        }
+        totalCents += Math.round(unitPrice * item.quantity * 100);
+    }
+
+    const cleanItems = items.map(item => ({ name: item.name, size: item.size || '', quantity: item.quantity }));
     try {
-        sellPhysical([{ name, size: size || '', quantity }], note, totalCents);
+        sellPhysical(cleanItems, note, totalCents);
         res.json({ ok: true });
     } catch (err) {
         res.status(409).json({ error: err.message });
