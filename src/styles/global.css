@@ -435,7 +435,7 @@ main {
   background:
     linear-gradient(to bottom, transparent 65%, var(--bg-dark) 100%),
     linear-gradient(160deg, rgba(12, 12, 12, 0.4), rgba(12, 12, 12, 0.7)),
-    url("/img/fotos2026/hero20262.png") center/cover;
+    url("/img/fotos2026/hero20262.webp") center/cover;
 }
 
 .hero-content {
