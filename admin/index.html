@@ -64,6 +64,12 @@
   .cart-list button { background: transparent; color: #ff6b6b; font-weight: 700; padding: 0.1rem 0.5rem; }
   .cart-total { margin-top: 0.6rem; font-weight: 700; }
   .add-item-row { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; }
+  .totals-row { display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 0.75rem 0; }
+  .totals-box { background: #141414; border-radius: 8px; padding: 0.6rem 1.1rem; min-width: 8rem; }
+  .totals-box .totals-label { display: block; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; color: #999; }
+  .totals-box .totals-value { font-size: 1.15rem; font-weight: 700; }
+  .totals-box--total { border: 1px solid #fba830; }
+  .totals-box--total .totals-value { color: #fba830; }
 </style>
 </head>
 <body>
@@ -104,6 +110,7 @@
   </div>
 
   <h2>Comandes</h2>
+  <div id="orders-totals" class="totals-row"></div>
   <input type="text" id="orders-search" class="search-input" placeholder="Cerca per nom, email o producte..." />
   <div class="table-scroll">
     <table id="orders-table">
@@ -260,6 +267,19 @@ function renderStockGroups(stock) {
   });
 }
 
+// Suma els totals (en cèntims) dels pedidos que es veuen ara mateix a la
+// taula (respecta la cerca), separats per canal físic/online i el conjunt.
+function renderOrderTotals(orders) {
+  const physicalCents = orders.filter(o => o.channel === 'physical').reduce((sum, o) => sum + o.total_cents, 0);
+  const onlineCents = orders.filter(o => o.channel !== 'physical').reduce((sum, o) => sum + o.total_cents, 0);
+  const eur = cents => (cents / 100).toFixed(2) + '€';
+  document.getElementById('orders-totals').innerHTML = `
+    <div class="totals-box"><span class="totals-label">Física</span><span class="totals-value">${eur(physicalCents)}</span></div>
+    <div class="totals-box"><span class="totals-label">Online</span><span class="totals-value">${eur(onlineCents)}</span></div>
+    <div class="totals-box totals-box--total"><span class="totals-label">Total</span><span class="totals-value">${eur(physicalCents + onlineCents)}</span></div>
+  `;
+}
+
 function renderOrders(filterText) {
   const term = (filterText || '').trim().toLowerCase();
   const filtered = !term ? allOrders : allOrders.filter(order => {
@@ -268,6 +288,8 @@ function renderOrders(filterText) {
       || (order.customer_email || '').toLowerCase().includes(term)
       || itemsText.includes(term);
   });
+
+  renderOrderTotals(filtered);
 
   const ordersBody = document.querySelector('#orders-table tbody');
   ordersBody.innerHTML = '';
