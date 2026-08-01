@@ -70,6 +70,11 @@
   .totals-box .totals-value { font-size: 1.15rem; font-weight: 700; }
   .totals-box--total { border: 1px solid #fba830; }
   .totals-box--total .totals-value { color: #fba830; }
+  .pickup-items-list { display: grid; gap: 0.5rem; margin: 0 0 0.75rem; }
+  .pickup-item-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; font-size: 0.95rem; }
+  .pickup-item-name { flex: 1; min-width: 10rem; }
+  .pickup-item-size-edit { display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; }
+  .pickup-size-msg { font-size: 0.78rem; }
 </style>
 </head>
 <body>
@@ -105,7 +110,7 @@
   </div>
   <div id="pickup-preview" hidden style="margin-top:0.75rem; padding:1rem; background:#141414; border-radius:8px; border:1px solid #333;">
     <p style="margin:0 0 0.4rem" class="muted">Donar a <strong id="pickup-preview-name"></strong>:</p>
-    <p id="pickup-preview-items" style="margin:0 0 0.75rem; font-size:1rem;"></p>
+    <div id="pickup-preview-items" class="pickup-items-list"></div>
     <button id="pickup-confirm-btn">Confirma recollida</button>
   </div>
 
@@ -412,11 +417,90 @@ async function init() {
     const pickupPreviewItems = document.getElementById('pickup-preview-items');
     const pickupConfirmBtn = document.getElementById('pickup-confirm-btn');
     let pendingCode = null;
+    let pendingOrder = null;
 
     const hidePreview = () => {
       pickupPreview.hidden = true;
       pendingCode = null;
+      pendingOrder = null;
     };
+
+    // Una fila per línia de la comanda, amb selector(s) de talla i un botó
+    // "Canvia talla" si el client vol una talla diferent de la que va triar
+    // online. Ajusta l'estoc al moment (retorna la vella, descompta la nova).
+    function renderPickupPreviewItems(order) {
+      pickupPreviewItems.innerHTML = '';
+      order.items.forEach((item, index) => {
+        const row = document.createElement('div');
+        row.className = 'pickup-item-row';
+
+        const nameSpan = document.createElement('span');
+        nameSpan.className = 'pickup-item-name';
+        nameSpan.textContent = `${item.quantity} x ${item.name}${item.size ? ' (' + formatItemSize(item) + ')' : ''}`;
+        row.appendChild(nameSpan);
+
+        const product = item.size ? CATALOG.find(p => p.name === item.name) : null;
+        if (product) {
+          const editWrap = document.createElement('div');
+          editWrap.className = 'pickup-item-size-edit';
+          let getNewSize;
+
+          if (product.bundleOf) {
+            const currentParts = item.size.split('+');
+            const selects = product.bundleOf.map((component, ci) => {
+              const sel = document.createElement('select');
+              sel.innerHTML = component.sizes
+                .map(s => `<option value="${s}" ${s === currentParts[ci] ? 'selected' : ''}>${component.label} ${s}</option>`)
+                .join('');
+              editWrap.appendChild(sel);
+              return sel;
+            });
+            getNewSize = () => selects.map(s => s.value).join('+');
+          } else {
+            const sel = document.createElement('select');
+            sel.innerHTML = product.sizes
+              .map(s => `<option value="${s}" ${s === item.size ? 'selected' : ''}>${s}</option>`)
+              .join('');
+            editWrap.appendChild(sel);
+            getNewSize = () => sel.value;
+          }
+
+          const changeBtn = document.createElement('button');
+          changeBtn.type = 'button';
+          changeBtn.textContent = 'Canvia talla';
+          const msg = document.createElement('span');
+          msg.className = 'pickup-size-msg';
+
+          changeBtn.addEventListener('click', async () => {
+            const newSize = getNewSize();
+            if (newSize === item.size) return;
+            changeBtn.disabled = true;
+            msg.className = 'pickup-size-msg';
+            msg.textContent = '';
+            const r = await fetch(`${API_BASE}/api/orders/${order.id}/change-size`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ itemIndex: index, newSize }),
+            });
+            const data = await r.json();
+            changeBtn.disabled = false;
+            if (r.ok) {
+              order.items = data.items;
+              renderPickupPreviewItems(order);
+            } else {
+              msg.className = 'pickup-size-msg err-msg';
+              msg.textContent = data.error || 'Error canviant la talla';
+            }
+          });
+
+          editWrap.appendChild(changeBtn);
+          editWrap.appendChild(msg);
+          row.appendChild(editWrap);
+        }
+
+        pickupPreviewItems.appendChild(row);
+      });
+    }
 
     const lookupPickupCode = async () => {
       const code = pickupInput.value.trim().toUpperCase();
@@ -439,8 +523,9 @@ async function init() {
           return;
         }
         pendingCode = code;
+        pendingOrder = data.order;
         pickupPreviewName.textContent = data.order.customer_name || `comanda ${data.order.id}`;
-        pickupPreviewItems.textContent = data.order.items.map(i => `${i.quantity} x ${i.name}${i.size ? ' (' + formatItemSize(i) + ')' : ''}`).join(', ');
+        renderPickupPreviewItems(pendingOrder);
         pickupPreview.hidden = false;
       } else {
         pickupMsg.className = 'err-msg';

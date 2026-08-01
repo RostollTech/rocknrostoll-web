@@ -2,7 +2,7 @@ import path from 'node:path';
 import fs from 'node:fs';
 import crypto from 'node:crypto';
 import Database from 'better-sqlite3';
-import { expandToStockLines } from './catalog.js';
+import { expandToStockLines, CATALOG_BY_NAME } from './catalog.js';
 
 const dataDir = process.env.DATA_DIR || '.';
 fs.mkdirSync(dataDir, { recursive: true });
@@ -226,6 +226,52 @@ export function markPickedUpByCode(code) {
     if (!row) return null;
     db.prepare('UPDATE orders SET picked_up = 1 WHERE id = ?').run(row.id);
     return { ...row, items: JSON.parse(row.items), picked_up: true };
+}
+
+function isValidSize(item, size) {
+    const product = CATALOG_BY_NAME.get(item.name);
+    if (!product) return false;
+    if (product.bundleOf) {
+        const parts = String(size || '').split('+');
+        return parts.length === product.bundleOf.length
+            && product.bundleOf.every((component, i) => component.sizes.includes(parts[i]));
+    }
+    return Array.isArray(product.sizes) && product.sizes.includes(size);
+}
+
+// Canvia la talla d'una línia d'una comanda (recollida presencial: el client
+// ve a buscar-ho i vol una talla diferent de la que va triar online).
+// Dins la mateixa transacció: retorna l'estoc de la talla vella i en
+// descompta la nova — si no n'hi ha prou de la nova, no es canvia res.
+// Fer-ho en aquest ordre (retornar abans de reservar) fa que funcioni bé fins
+// i tot quan un pack canvia només una peça i l'altra es queda igual (la
+// mateixa línia d'estoc es retorna i es torna a reservar sense quedar curta
+// pel mig). itemIndex és la posició dins l'array items de la comanda.
+export function changeOrderItemSize(orderId, itemIndex, newSize) {
+    const tx = db.transaction((id) => {
+        const row = db.prepare('SELECT items, picked_up FROM orders WHERE id = ?').get(id);
+        if (!row) throw new Error('Comanda no trobada');
+        if (row.picked_up) throw new Error('Aquesta comanda ja s\'ha recollit');
+
+        const items = JSON.parse(row.items);
+        const item = items[itemIndex];
+        if (!item) throw new Error('Producte no trobat a la comanda');
+        if (!item.size) throw new Error('Aquest producte no té talla per canviar');
+        if (item.size === newSize) return items;
+        if (!isValidSize(item, newSize)) throw new Error(`Talla no vàlida per a "${item.name}"`);
+
+        const oldLines = expandToStockLines(item);
+        const newItem = { ...item, size: newSize };
+        const newLines = expandToStockLines(newItem);
+
+        restoreStock(oldLines);
+        reserveOrThrow(newLines);
+
+        items[itemIndex] = newItem;
+        db.prepare('UPDATE orders SET items = ? WHERE id = ?').run(JSON.stringify(items), id);
+        return items;
+    });
+    return tx(orderId);
 }
 
 // Registers an in-person (physical) sale: atomically checks & decrements stock

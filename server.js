@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 import express from 'express';
 import checkout from './api/checkout.js';
 import webhook from './api/webhook.js';
-import { getAllStock, setStock, listOrders, sellPhysical, deletePhysicalSale, setPickedUp, getOrderBySessionId, getOrderByPickupCode, markPickedUpByCode } from './api/db.js';
+import { getAllStock, setStock, listOrders, sellPhysical, deletePhysicalSale, setPickedUp, getOrderBySessionId, getOrderByPickupCode, markPickedUpByCode, changeOrderItemSize } from './api/db.js';
 import { CATALOG, getUnitPrice } from './api/catalog.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -146,6 +146,22 @@ app.post(`${adminPath}/api/orders/:id/pickup`, (req, res) => {
     const { pickedUp } = req.body || {};
     setPickedUp(Number(req.params.id), !!pickedUp);
     res.json({ ok: true });
+});
+
+// Canvia la talla d'una línia d'una comanda pendent de recollir (el client ve
+// a buscar-la i vol una talla diferent de la que va triar online). Ajusta
+// l'estoc automàticament (retorna la talla vella, descompta la nova).
+app.post(`${adminPath}/api/orders/:id/change-size`, (req, res) => {
+    const { itemIndex, newSize } = req.body || {};
+    if (!Number.isInteger(itemIndex) || !newSize) {
+        return res.status(400).json({ error: 'Dades no vàlides' });
+    }
+    try {
+        const items = changeOrderItemSize(Number(req.params.id), itemIndex, newSize);
+        res.json({ ok: true, items });
+    } catch (err) {
+        res.status(409).json({ error: err.message });
+    }
 });
 
 app.post(`${adminPath}/api/pickup-lookup`, (req, res) => {
