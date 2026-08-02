@@ -50,6 +50,13 @@ try {
 } catch {
     // ja existeix
 }
+// Per als registres de canvi de talla (channel 'size_change'): apunta a la
+// comanda original que s'ha modificat, per deixar-ne constància.
+try {
+    db.exec('ALTER TABLE orders ADD COLUMN related_order_id INTEGER');
+} catch {
+    // ja existeix
+}
 
 // Sense caràcters ambigus (0/O, 1/I/L).
 const CODE_CHARS = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
@@ -249,7 +256,7 @@ function isValidSize(item, size) {
 // pel mig). itemIndex és la posició dins l'array items de la comanda.
 export function changeOrderItemSize(orderId, itemIndex, newSize) {
     const tx = db.transaction((id) => {
-        const row = db.prepare('SELECT items, picked_up FROM orders WHERE id = ?').get(id);
+        const row = db.prepare('SELECT items, picked_up, customer_name, customer_email FROM orders WHERE id = ?').get(id);
         if (!row) throw new Error('Comanda no trobada');
         if (row.picked_up) throw new Error('Aquesta comanda ja s\'ha recollit');
 
@@ -260,6 +267,7 @@ export function changeOrderItemSize(orderId, itemIndex, newSize) {
         if (item.size === newSize) return items;
         if (!isValidSize(item, newSize)) throw new Error(`Talla no vàlida per a "${item.name}"`);
 
+        const oldSize = item.size;
         const oldLines = expandToStockLines(item);
         const newItem = { ...item, size: newSize };
         const newLines = expandToStockLines(newItem);
@@ -269,6 +277,21 @@ export function changeOrderItemSize(orderId, itemIndex, newSize) {
 
         items[itemIndex] = newItem;
         db.prepare('UPDATE orders SET items = ? WHERE id = ?').run(JSON.stringify(items), id);
+
+        // Registre d'auditoria (channel 'size_change'), relacionat amb la
+        // comanda original, perquè quedi constància de qui ha canviat de
+        // talla i què tenia abans — no toca l'estoc (ja ajustat a dalt).
+        db.prepare(`
+            INSERT INTO orders (stripe_session_id, channel, customer_name, customer_email, items, donation_cents, total_cents, related_order_id)
+            VALUES (?, 'size_change', ?, ?, ?, 0, 0, ?)
+        `).run(
+            `sizechange_${Date.now()}_${crypto.randomBytes(4).toString('hex')}`,
+            row.customer_name || '',
+            row.customer_email || '',
+            JSON.stringify([{ name: item.name, size: `${oldSize} → ${newSize}`, quantity: item.quantity }]),
+            id,
+        );
+
         return items;
     });
     return tx(orderId);
