@@ -5,9 +5,6 @@ import Contact from "./pages/Contact";
 import AvisLegal from "./pages/AvisLegal";
 import NitDeRock from "./pages/NitDeRock";
 import Shop from "./pages/Shop";
-import Comanda from "./pages/Comanda";
-import Success from "./pages/Success";
-import Cancel from "./pages/Cancel";
 import NotFound from "./pages/NotFound";
 import Layout from "./components/Layout";
 
@@ -22,9 +19,6 @@ const router = createBrowserRouter(
         { path: "/contact", element: <Contact /> },
         { path: "/avis-legal", element: <AvisLegal /> },
         { path: "/shop", element: <Shop /> },
-        { path: "/comanda", element: <Comanda /> },
-        { path: "/success", element: <Success /> },
-        { path: "/cancel", element: <Cancel /> },
         { path: "*", element: <NotFound /> }
       ]
     }

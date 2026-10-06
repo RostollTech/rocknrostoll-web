@@ -3,36 +3,11 @@ import Footer from "../components/Footer";
 import PageHero from "../components/PageHero";
 import ProductCard from "../components/ProductCard";
 import products from "../data/products.json";
-import { Link } from "react-router-dom";
 import SEO from "../components/SEO";
-import { useEffect, useMemo, useState } from "react";
-
-// Un producte "pack" (bundleOf) no té estoc propi: les unitats disponibles
-// són les que permeti la peça amb menys estoc de les que el formen.
-function getRemaining(product, stockByProduct) {
-  if (!stockByProduct) return null;
-  if (product.bundleOf) {
-    return Math.min(...product.bundleOf.map(c => stockByProduct[c.product] ?? 0));
-  }
-  return stockByProduct[product.name] ?? 0;
-}
+import { useMemo } from "react";
+import { SHOP_CLOSED_MESSAGE } from "../utils/shopConfig";
 
 export default function Shop() {
-  const [stockByProduct, setStockByProduct] = useState(null);
-
-  useEffect(() => {
-    fetch("/api/stock")
-      .then(res => res.ok ? res.json() : Promise.reject())
-      .then(rows => {
-        const totals = {};
-        rows.forEach(row => {
-          totals[row.product_name] = (totals[row.product_name] || 0) + row.quantity;
-        });
-        setStockByProduct(totals);
-      })
-      .catch(() => setStockByProduct({}));
-  }, []);
-
   const structuredData = useMemo(() => ({
     "@context": "https://schema.org",
     "@type": "CollectionPage",
@@ -46,7 +21,7 @@ export default function Shop() {
         .map((product, index) => ({
           "@type": "ListItem",
           position: index + 1,
-          url: "https://rocknrostoll.cat/comanda", // Totes porten al formulari
+          url: "https://rocknrostoll.cat/shop",
           name: product.name,
           image: `https://rocknrostoll.cat${product.image}`
         }))
@@ -56,9 +31,9 @@ export default function Shop() {
   return (
     <>
       <SEO
-        title="Botiga Oficial Rock’n’Rostoll · Merchandising 2026"
-        description="Aconsegueix el merchandising oficial 2026 del Rock’n’Rostoll: samarretes de màniga curta, infantil i de màniga llarga. Compra online i recull-ho en persona."
-        keywords={["Mallorca", "Rock", "Rock'n'Rostoll", "Botiga Rock'n'Rostoll", "Merchandising", "Samarreta", "Camiseta", "Comprar", "Festival Mallorca"]}
+        title="Merchandising Oficial Rock’n’Rostoll"
+        description="El merchandising oficial del Rock’n’Rostoll: samarretes de màniga curta, infantil i de màniga llarga, amb la guia de talles. La venda online de la 30a edició ja ha finalitzat."
+        keywords={["Mallorca", "Rock", "Rock'n'Rostoll", "Merchandising Rock'n'Rostoll", "Samarreta", "Camiseta", "Guia de talles", "Festival Mallorca"]}
         canonicalPath="/shop"
         structuredData={structuredData}
       />
@@ -68,7 +43,7 @@ export default function Shop() {
           className="shop-hero"
           eyebrow="Botiga"
           title="Merchandising Oficial"
-          description="Després de les dessuadres commemoratives, enguany portem les camisetes de cada any: samarreta de màniga curta, samarreta infantil i de màniga llarga. Des de la web les pots comprar per després passar a recollir-les el dies indicats per xarxes o el dia del Rostoll."
+          description="Després de les dessuadres commemoratives, per a la 30a edició vam portar les camisetes de cada any: samarreta de màniga curta, samarreta infantil i de màniga llarga. Aquí les teniu amb la guia de talles."
         />
 
         <section className="page-section">
@@ -93,7 +68,6 @@ export default function Shop() {
                   <ProductCard
                     key={`${product.name}-${index}`}
                     {...product}
-                    remaining={getRemaining(product, stockByProduct)}
                   />
                 ))}
             </div>
