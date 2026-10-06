@@ -50,16 +50,8 @@ export default function Shop() {
           <div className="page-content">
             <div className="shop-intro">
               <p className="section-description">
-                Aquí tens els productes especials que oferim en aquest any per la 30è edició del Rock'N'Rostoll. Per fer una comanda, fes clic als enllaços de cada producte o utilitza el formulari general.
+                Aquests són els productes especials que vam treure per la 30a edició del Rock'N'Rostoll. Més avall hi trobaràs la guia de talles de cada peça.
               </p>
-              <div style={{ marginTop: "2rem", textAlign: "center" }}>
-                <Link
-                  to="/comanda"
-                  className="btn-primary"
-                >
-                  Formulari de Comanda General
-                </Link>
-              </div>
             </div>
             <div className="merch-grid">
               {products
@@ -76,9 +68,8 @@ export default function Shop() {
               border: "1px solid var(--color-accent-yellow)", background: "rgba(251, 168, 48, 0.08)", textAlign: "center",
             }}>
               <p style={{ margin: 0, fontSize: "0.95rem" }}>
-                📦 <strong>Recollida presencial:</strong> els productes no s'envien. Un cop feta la comanda se't mostrarà un
-                <strong> codi de recollida</strong> que hauràs de presentar per recollir-los en persona. El lloc i l'horari
-                de recollida s'anunciaran properament per xarxes socials.
+                🛒 <strong>Venda online tancada:</strong> {SHOP_CLOSED_MESSAGE} Estigueu atents a les xarxes socials
+                per al merchandising de la 31a edició.
               </p>
             </div>
           </div>

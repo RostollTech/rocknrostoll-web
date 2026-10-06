@@ -6,25 +6,21 @@ import InstagramEmbed from "../components/InstagramEmbed";
 import FacebookEmbed from "../components/FacebookEmbed";
 import Countdown from "../components/Countdown";
 import SEO from "../components/SEO";
-import LineupCard from "../components/LineupCard";
 import galleryImages from "../data/gallery";
-import { lineup } from "../data/lineup";
 import "../styles/Lineup.css";
 
 // SEO: Recomanat exportar les imatges de la galeria a formats .webp o .avif per reduir el pes
 
 export default function Home() {
   const gallery = useMemo(() => galleryImages, []);
-  const rockStageLineup = useMemo(() => lineup.filter((artist) => artist.stage === "rock"), []);
-  const safareigStageLineup = useMemo(() => lineup.filter((artist) => artist.stage === "safareig"), []);
   const structuredData = useMemo(
     () => ({
       "@context": "https://schema.org",
       "@type": "MusicEvent",
-      name: "Rock’n’Rostoll 2026",
-      alternateName: "Rock and Rostoll 2026",
+      name: "Rock’n’Rostoll 2027",
+      alternateName: "Rock and Rostoll 2027",
       description:
-        "Festival autogestionat de rock i electrònica que se celebra a Son Perot (Maria de la Salut).",
+        "31a edició del festival autogestionat de rock i electrònica que se celebra a Son Perot (Maria de la Salut), el darrer dissabte d'agost.",
       keywords: [
         "Rock’n’Rostoll",
         "Rock and Rostoll",
@@ -34,8 +30,8 @@ export default function Home() {
         "rock",
         "Maria de la Salut",
       ],
-      startDate: "2026-08-29T21:00:00+02:00",
-      endDate: "2026-08-30T06:00:00+02:00",
+      startDate: "2027-08-28T21:00:00+02:00",
+      endDate: "2027-08-29T06:00:00+02:00",
       eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
       eventStatus: "https://schema.org/EventScheduled",
       image: [
@@ -59,9 +55,13 @@ export default function Home() {
         name: "Associació Cultural Rock’n’Rostoll",
         url: "https://rocknrostoll.cat",
       },
-      performer: {
-        "@type": "MusicGroup",
-        name: "Line-up Rock’n’Rostoll",
+      isAccessibleForFree: true,
+      offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "EUR",
+        availability: "https://schema.org/InStock",
+        url: "https://rocknrostoll.cat/",
       },
     }),
     [],
@@ -70,13 +70,16 @@ export default function Home() {
   return (
     <>
       <SEO
-        title="Rock’n’Rostoll · Festival autogestionat de rock i electrònica a Mallorca"
-        description="Rock’n’Rostoll és el festival autogestionat de referència a Maria de la Salut. Consulta informació pràctica, descobreix la història del festival i prepara la teva visita a Son Perot."
+        title="Rock’n’Rostoll 2027 · 31a edició · Festival de rock i electrònica a Mallorca"
+        description="La 31a edició del Rock’n’Rostoll se celebra el dissabte 28 d’agost de 2027 a Son Perot (Maria de la Salut). Festival autogestionat i d’entrada gratuïta: consulta la data, com arribar-hi i tota la informació pràctica."
         keywords={[
           "Rock’n’Rostoll",
           "Rock and Rostoll",
+          "Rock’n’Rostoll 2027",
+          "31a edició",
           "festival Mallorca",
           "festival rock Mallorca",
+          "festival gratuït Mallorca",
           "Maria de la Salut",
           "música electrònica Mallorca",
         ]}
@@ -88,25 +91,25 @@ export default function Home() {
       <main>
         <section className="hero home-hero">
           <div className="hero-content">
-            <p className="hero-eyebrow">30a edició</p>
+            <p className="hero-eyebrow">31a edició</p>
             <h1 className="hero-title">
-              <img className="hero-logo" src="/img/fotos2026/logo20262.png" alt="30 edicions de música, amistat i rostoll" />
+              <img className="hero-logo" src="/img/fotos2026/logo20262.png" alt="Rock’n’Rostoll · música, amistat i rostoll" />
             </h1>
-            <p className="hero-meta">29 d’agost de 2026 · Festival autogestionat a Son Perot (Maria de la Salut)</p>
+            <p className="hero-meta">Dissabte 28 d’agost de 2027 · Festival autogestionat a Son Perot (Maria de la Salut)</p>
             <p className="hero-description">
               Rock’n’Rostoll és el festival autogestionat de referència al Pla de Mallorca. Un punt de trobada entre
               generacions, música i llibertat, on el rock i l’electrònica omplen el rostoll de Maria de la Salut cada darrer
-              dissabte d’agost. Celebrem 30 edicions d’història, germanor i molta festa!
+              dissabte d’agost. Després de 30 edicions d’història i germanor, tornem el 28 d’agost de 2027!
             </p>
 
-            <Countdown targetDate="2026-08-29T21:00:00" />
+            <Countdown targetDate="2027-08-28T21:00:00" />
 
             <div className="button-group">
               <Link to="/about" className="btn-primary">
                 Qui som?
               </Link>
               <a href="#lineup" className="btn-outline">
-                Line-up
+                Cartell
               </a>
               <Link to="/contact" className="btn-outline">
                 Segueix-nos!!!
@@ -117,14 +120,15 @@ export default function Home() {
 
         <section className="merch-promo">
           <div className="merch-promo-inner">
-            <p className="merch-promo-eyebrow">Novetat</p>
-            <h2 className="merch-promo-title">El marxandatge ja està disponible!</h2>
+            <p className="merch-promo-eyebrow">Marxandatge</p>
+            <h2 className="merch-promo-title">El marxandatge oficial</h2>
             <p className="merch-promo-text">
-              Camisetes de la 30a edició i el pack "Lo de Sempre". Compra online i recull-lo el dia del festival.
+              Les camisetes de la 30a edició i el pack "Lo de Sempre", amb la guia de talles. La venda online ja ha
+              finalitzat: el marxandatge de la 31a edició l’anunciarem per xarxes.
             </p>
             <div className="button-group">
               <Link to="/shop" className="btn-primary">
-                Anar a la botiga
+                Veure el marxandatge
               </Link>
             </div>
           </div>
@@ -133,37 +137,16 @@ export default function Home() {
         <section className="lineup-section" id="lineup">
           <div className="container">
             <div className="section-header">
-              <p className="section-eyebrow">XXX Rock'n'Rostoll</p>
-              <h2 className="section-title">Line-up 2026</h2>
+              <p className="section-eyebrow">XXXI Rock'n'Rostoll</p>
+              <h2 className="section-title">Cartell per anunciar</h2>
               <p className="section-description">
-                Més d'una dotzena d'artistes per una nit inoblidable, repartits entre l'Escenari Rock i el Safareig. Segueix-nos a
-                Instagram per no perdre't les properes novetats.
+                Ja estem treballant en el cartell de la 31a edició. Segueix-nos a les xarxes per ser dels primers a
+                saber qui pujarà a l’Escenari Rock i al Safareig el 28 d’agost de 2027.
               </p>
-            </div>
-          </div>
-
-          <div className="lineup-stage lineup-stage-rock">
-            <div className="container">
-              <div className="lineup-stage-header">
-                <h3 className="lineup-stage-title">Escenari Rock</h3>
-              </div>
-              <div className="lineup-grid">
-                {rockStageLineup.map((artist) => (
-                  <LineupCard key={artist.id} artist={artist} />
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div className="lineup-stage lineup-stage-safareig">
-            <div className="container">
-              <div className="lineup-stage-header">
-                <h3 className="lineup-stage-title">Safareig</h3>
-              </div>
-              <div className="lineup-grid">
-                {safareigStageLineup.map((artist) => (
-                  <LineupCard key={artist.id} artist={artist} />
-                ))}
+              <div className="button-group">
+                <Link to="/contact" className="btn-outline">
+                  Segueix-nos a les xarxes
+                </Link>
               </div>
             </div>
           </div>
@@ -184,7 +167,7 @@ export default function Home() {
               <article className="info-card">
                 <span className="info-label">Quan i on</span>
                 <h3 className="info-title">Com sempre, el darrer Dissabte d'Agost</h3>
-                <p className="info-text">Dissabte  d’agost · Son Perot, carretera Maria de la Salut &gt; Muro.</p>
+                <p className="info-text">Dissabte 28 d’agost de 2027 · Son Perot, carretera Maria de la Salut &gt; Muro.</p>
               </article>
               <article className="info-card">
                 <span className="info-label">Entrada i aparcament</span>
