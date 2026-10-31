@@ -16,7 +16,7 @@ export default function AvisLegal() {
           "política Rock’n’Rostoll",
         ]}
         canonicalPath="/avis-legal"
-        image="https://rocknrostoll.cat/img/about-actualitat.jpg"
+        image="https://rocknrostoll.cat/img/og-rocknrostoll.jpg"
       />
       <Navbar />
       <main>

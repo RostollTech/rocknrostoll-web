@@ -17,6 +17,7 @@ export default function Home() {
     () => ({
       "@context": "https://schema.org",
       "@type": "MusicEvent",
+      "@id": "https://rocknrostoll.cat/#edicio-2027",
       name: "Rock’n’Rostoll 2027",
       alternateName: "Rock and Rostoll 2027",
       description:
@@ -34,10 +35,7 @@ export default function Home() {
       endDate: "2027-08-29T06:00:00+02:00",
       eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
       eventStatus: "https://schema.org/EventScheduled",
-      image: [
-        "https://rocknrostoll.cat/img/about-actualitat.jpg",
-        "https://rocknrostoll.cat/img/about-voluntariat.jpg",
-      ],
+      image: ["https://rocknrostoll.cat/img/og-rocknrostoll.jpg"],
       location: {
         "@type": "Place",
         name: "Son Perot",
@@ -84,7 +82,7 @@ export default function Home() {
           "música electrònica Mallorca",
         ]}
         canonicalPath="/"
-        image="https://rocknrostoll.cat/img/about-actualitat.jpg"
+        image="https://rocknrostoll.cat/img/og-rocknrostoll.jpg"
         structuredData={structuredData}
       />
       <Navbar />

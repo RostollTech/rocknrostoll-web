@@ -1,7 +1,7 @@
 import { useEffect, useState, useMemo } from "react";
 
-// Data per defecte: El darrer dissabte d'agost de 2026
-const DEFAULT_DATE = "2026-08-29T19:00:00";
+// Data per defecte: El darrer dissabte d'agost de 2027
+const DEFAULT_DATE = "2027-08-28T21:00:00";
 
 function getTimeLeft(target) {
     if (!target || isNaN(target.getTime())) {

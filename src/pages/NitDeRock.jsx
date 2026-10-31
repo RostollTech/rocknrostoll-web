@@ -108,7 +108,15 @@ export default function NitDeRock() {
         <SEO
           title="Manteniment · III Nit de Rock · Rock’n’Rostoll"
           description="Estem solucionant uns problemes tècnics. Torna aviat!"
-          canonicalPath="/nit-de-rock"
+          keywords={[
+          "Nit de Rock",
+          "III Nit de Rock",
+          "concurs de bandes Mallorca",
+          "Whoremageddon",
+          "Maria de la Salut",
+          "Rock’n’Rostoll",
+        ]}
+        canonicalPath="/nit-de-rock"
         />
         <Navbar />
         <main className="nit-de-rock-page maintenance-page" style={{
@@ -172,7 +180,7 @@ export default function NitDeRock() {
         title="Whoremagedon, guanyadors de la III Nit de Rock · Rock'n'Rostoll"
         description="Whoremagedon han guanyat la III Nit de Rock a Maria de la Salut. Gràcies a totes les bandes i a tot el públic!"
         canonicalPath="/nit-de-rock"
-        image="https://rocknrostoll.cat/img/about-actualitat.jpg"
+        image="https://rocknrostoll.cat/img/og-rocknrostoll.jpg"
         structuredData={structuredData}
       />
       <Navbar />

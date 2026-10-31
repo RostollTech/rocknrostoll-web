@@ -56,24 +56,6 @@ export default function Footer() {
         <Link to="/avis-legal">Avís legal</Link> · {" "}
         <Link to="/avis-legal#privadesa">Política de privacitat</Link>
       </p>
-
-      <div className="subfooter">
-        <span className="subfooter__text">Pàgina feta per:</span>
-        <a
-          className="subfooter__brand"
-          href="mailto:solucionsuep@gmail.com"
-          title="Contacta amb UEP TI Solucions"
-        >
-          <img
-            src="/img/uepsolucions/uep-logo-neg.png"
-            alt="UEP TI Solucions"
-            className="subfooter__logo"
-          />
-          <span className="subfooter__name">UEP TI Solucions</span>
-          <span className="subfooter__text">- Serveis TI i Digitalització - </span>
-          <span className="subfooter__email">solucionsuep@gmail.com</span>
-        </a>
-      </div>
     </footer>
   );
 }

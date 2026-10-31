@@ -17,7 +17,7 @@ export default function About() {
           "música rock Illes Balears",
         ]}
         canonicalPath="/about"
-        image="https://rocknrostoll.cat/img/about-actualitat.jpg"
+        image="https://rocknrostoll.cat/img/og-rocknrostoll.jpg"
       />
       <Navbar />
       <main>

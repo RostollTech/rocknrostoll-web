@@ -68,9 +68,10 @@ export default function SEO({
   description,
   keywords = [],
   canonicalPath,
-  image = "https://rocknrostoll.cat/img/about-actualitat.jpg",
+  image = "https://rocknrostoll.cat/img/og-rocknrostoll.jpg",
   type = "website",
-  robots = "index, follow",
+  noIndex = false,
+  robots,
   twitterCard = "summary_large_image",
   structuredData,
 }) {
@@ -97,7 +98,7 @@ export default function SEO({
       setMetaName("keywords", keywords.join(", "));
     }
 
-    setMetaName("robots", robots);
+    setMetaName("robots", robots ?? (noIndex ? "noindex, follow" : "index, follow"));
     setCanonical(canonicalUrl);
     setMetaProperty("og:type", type);
     setMetaProperty("og:url", canonicalUrl);
@@ -124,6 +125,7 @@ export default function SEO({
     pathname,
     image,
     type,
+    noIndex,
     robots,
     twitterCard,
     structuredData,

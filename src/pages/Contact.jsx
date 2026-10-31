@@ -17,7 +17,7 @@ export default function Contact() {
           "voluntariat Rock’n’Rostoll",
         ]}
         canonicalPath="/contact"
-        image="https://rocknrostoll.cat/img/contact-map.webp"
+        image="https://rocknrostoll.cat/img/og-rocknrostoll.jpg"
       />
       <Navbar />
       <main>
